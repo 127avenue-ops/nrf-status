@@ -292,7 +292,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">관문 검사기를 만드는 것 <span class="small">(계산 없이 대조만 하는 단계)</span></span>
+    <span class="status-v">검사기는 <strong>완성</strong> — 관문 A를 실제로 돌리는 승인 <span class="small">(이 단계도 계산 0건)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -521,8 +521,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <table>
       <thead><tr><th class="n">#</th><th>무엇</th><th class="n">계산</th><th>상태</th></tr></thead>
       <tbody>
-        <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">승인 · 진행</span></td></tr>
-        <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag wait">1 이후</span></td></tr>
+        <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
+        <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag wait">승인 요청 중</span></td></tr>
         <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">2 통과 후</span></td></tr>
         <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
       </tbody>
@@ -531,14 +531,39 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
   <p class="small" style="margin-top:14px">
     한 단계를 승인받아도 다음이 자동으로 열리지 않습니다.
-    <strong>현재 ①만 승인됐고 ②~④는 미승인, 계산은 여전히 0건입니다.</strong>
+    <strong>①은 끝났고 ②~④는 여전히 미승인, 계산은 0건입니다.</strong>
   </p>
 
   <div class="pull" style="margin-top:18px">
-    <b>①의 결과물은 코드만이 아닙니다.</b> 검사기를 만들면서
-    <b>“설계 문서와 실제 코드가 어긋난 지점”을 전부 기록</b>해 함께 냅니다.
+    <b>①의 결과물은 코드만이 아니었습니다.</b> 검사기를 만들면서
+    <b>“설계 문서와 실제 코드가 어긋난 지점”을 전부 기록</b>해 함께 냈습니다.
     글로 쓴 설계는 틀린 곳을 숨기지만 코드는 숨기지 못하기 때문입니다 —
-    <b>①이 곧 다음 검증</b>이고, 그 기록으로 설계를 한 번 더 고친 뒤에야 ②로 넘어갑니다.
+    <b>①이 곧 다음 검증</b>이었고, 실제로 <b>어긋난 곳 8군데</b>가 나왔습니다.
+    그중 하나는 <b>설계대로 만들었다면 관문이 첫 건에서 멈췄을</b> 종류입니다.
+    이 기록으로 설계를 한 번 더 고친 뒤에야 ②로 넘어갑니다.
+  </div>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>①에서 무엇이 나왔나<span class="sum-tail">2026-08-11</span></summary>
+      <div class="reveal">
+        <p>검사기를 짜 보니 설계 문서와 실제 코드가 <strong>여덟 군데</strong> 어긋나 있었습니다.
+          계산이나 숫자가 틀린 건 <strong>한 건도 없었고</strong>, 전부 “확인하지 않고 쓴 문장” 쪽이었습니다.</p>
+        <ul>
+          <li><strong>치명 1건</strong> — 설계가 “이 기능은 부르지 마라”고 지정한 함수를 프로그램이
+            <strong>무조건 먼저 부르고</strong> 있었습니다. 설계대로 차단 장치를 달았다면 관문이
+            첫 건에서 멈춥니다. 순서를 바꿔 해결했습니다.</li>
+          <li><strong>판정 규칙이 비어 있던 것 3건</strong> — 그중 하나는 설계가 “확인하라”고 한
+            변환표가 <strong>애초에 존재하지 않았던</strong> 경우입니다. 새로 만들었습니다.</li>
+          <li><strong>문서에 빠져 있던 사실 4건</strong>.</li>
+        </ul>
+        <p>반대로 설계가 맞다고 적어둔 것 <strong>12건은 코드와 정확히 일치</strong>했습니다.</p>
+        <p><strong>가장 중요한 확인:</strong> 새 계산기가 <strong>번호만 가지고</strong> 만들어낸 문제지가
+          1편이 만든 문제지와 <strong>글자 하나까지 같았습니다</strong>(세 유형 × 옛 번호·새 번호 전부).
+          일부러 옛 방식으로 만들어 보면 <strong>어긋납니다</strong> — 대조가 헛돌지 않는다는 뜻입니다.
+          다만 이것은 관문 A의 <em>전제</em>까지이고, 지문 대조 자체는 ②에서 합니다.</p>
+      </div>
+    </details>
   </div>
 
   <div style="margin-top:20px">
