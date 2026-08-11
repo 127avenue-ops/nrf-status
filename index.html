@@ -288,11 +288,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">2편 재현 관문 — <em>실행 승인 대기</em>. 현재 계산 0건</span>
+    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문(지문 대조) 통과</span>. 뒷관문은 <em>승인 대기</em>, 계산 0건</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">검사기는 <strong>완성</strong> — 관문 A를 실제로 돌리는 승인 <span class="small">(이 단계도 계산 0건)</span></span>
+    <span class="status-v">설계 문서를 한 번 더 고친 뒤 <strong>뒷관문(실제로 풀기) 승인</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -522,8 +522,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <thead><tr><th class="n">#</th><th>무엇</th><th class="n">계산</th><th>상태</th></tr></thead>
       <tbody>
         <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
-        <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag wait">승인 요청 중</span></td></tr>
-        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">2 통과 후</span></td></tr>
+        <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag done">통과 2026-08-11</span></td></tr>
+        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">설계 재개정 후</span></td></tr>
         <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
       </tbody>
     </table>
@@ -531,8 +531,53 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
   <p class="small" style="margin-top:14px">
     한 단계를 승인받아도 다음이 자동으로 열리지 않습니다.
-    <strong>①은 끝났고 ②~④는 여전히 미승인, 계산은 0건입니다.</strong>
+    <strong>①②는 끝났고 ③④는 여전히 미승인, 계산은 아직 0건입니다.</strong>
   </p>
+
+  <div class="pull" style="margin-top:18px;border-color:var(--done)">
+    <b>관문 A 통과 (2026-08-11).</b> 1편이 봉인해 둔 문제지 <b>4,050장의 지문이
+    새 계산기가 만든 것과 한 장도 빠짐없이 같았습니다.</b> 새 계산기는 문제 번호만 받아
+    문제지를 처음부터 다시 만들었고, 결과가 봉인된 지문과 전부 일치했습니다.
+    <b>문제를 푼 건 여전히 0건</b>입니다 — 지문만 대조했습니다.
+  </div>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>관문 A는 정확히 무엇을 확인했나<span class="sum-tail">2026-08-11 · 계산 0건</span></summary>
+      <div class="reveal">
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>항목</th><th class="n">값</th></tr></thead>
+            <tbody>
+              <tr><td>봉인 문제지 지문 일치</td><td class="n"><b>4,050 / 4,050</b></td></tr>
+              <tr><td>새 문제지 지문 일치</td><td class="n"><b>4,050 / 4,050</b></td></tr>
+              <tr><td>만든 문제지</td><td class="n">8,100</td></tr>
+              <tr><td>실제로 푼 문제</td><td class="n"><b>0</b></td></tr>
+              <tr><td>검사 항목</td><td class="n">18 / 18 전부 평가</td></tr>
+              <tr><td>소요</td><td class="n">87분</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>증거의 무게가 두 쪽에서 다릅니다.</strong> 봉인된 4,050장은 <strong>비교 기준이
+          우리가 만든 것이 아니라 이미 잠긴 기록</strong>이라 증거력이 강합니다. 새로 만든
+          4,050장은 기준과 결과를 <strong>둘 다 우리가</strong> 만들었으므로, 두 코드가 서로
+          맞는다는 것까지입니다. 두 쪽을 합쳐야 의미가 있고, 새 쪽만 들어 "재현했다"고 쓰지
+          않습니다.</p>
+        <p><strong>이번에도 실행해야만 나오는 문제가 3건 나왔습니다.</strong> 그중 둘은
+          <strong>모르고 돌리면 정상인데도 전부 실패로 나오는</strong> 종류였습니다 —
+          하나는 파이썬의 내부 설정 하나가 봉인 당시와 달라서, 다른 하나는 설정 이름 하나가
+          <strong>서로 다른 두 가지를 가리키고 있어서</strong>였습니다. 실제로 첫 시험 실행에서
+          6건 전부 불일치가 났고, 원인을 찾아 고친 뒤 전건 일치로 바뀌었습니다.</p>
+        <p class="pull" style="border-color:var(--stop)">
+          <b>가장 위험했던 건 따로 있었습니다.</b> 검사 프로그램이 <b>18개 항목 중 5개를
+          아예 검사하지 않으면서도 “통과”를 낼 수 있는</b> 구조였습니다. 검사하지 않은 항목이
+          통과로 집계되고 있었죠. 이건 돌려봐도 드러나지 않습니다 — 항목별로 코드를 하나씩
+          대조해서 찾았고, 빠진 5개를 채운 뒤 <b>18/18 전부 평가</b>로 다시 돌렸습니다.
+          앞으로 검사 결과에는 <b>“어느 항목을 어디서 검사했는지” 대조표</b>를 반드시 함께 냅니다.
+        </p>
+      </div>
+    </details>
+  </div>
 
   <div class="pull" style="margin-top:18px">
     <b>①의 결과물은 코드만이 아니었습니다.</b> 검사기를 만들면서
