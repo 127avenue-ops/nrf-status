@@ -298,8 +298,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <span class="kicker">간호인력 편성가능성 연구 · 진행 현황</span>
   <h1>어디까지 왔나</h1>
   <p class="headline">
-    <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 마지막 전면 점검을 마쳤습니다.</b><br>
-    <b>2편은 재현 관문이 판정 미달로 끝났고, 재시도 없이 그 결과를 그대로 씁니다.</b>
+    <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
+    <b>이번에 <u>규칙을 공개 명세로 떼어내고</u> 기록에 판본 관리를 붙였습니다 — 남이 쓸 수 있게 만드는 작업입니다.</b>
   </p>
 </header>
 
@@ -308,7 +308,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">9</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">10</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -356,7 +356,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">2편 <strong>결과 보고서 완료 → 원고 작성</strong> · 1편은 <strong>투고 전 사람이 정할 항목</strong>이 남았습니다 <span class="small">(숫자는 허용 범위 안이었지만 사전에 정한 부가 조건 하나를 못 채워 미달입니다)</span></span>
+    <span class="status-v"><strong>컴퓨터가 할 수 있는 일은 여기서 끝났습니다.</strong> 남은 것은 <strong>사람이 정할 항목</strong>뿐입니다 — 이해관계 고지 문안, 참고문헌, 투고 승인, 그리고 <strong>무엇을 공개할지</strong> <span class="small">(숫자는 허용 범위 안이었지만 사전에 정한 부가 조건 하나를 못 채워 미달이었습니다)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -885,6 +885,32 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-08-12</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">규칙을 공개 명세로 떼어내고, 기록에 판본 관리를 붙였습니다</span>
+          <span class="flag done">이행 완료</span>
+        </div>
+        <p><strong>지금까지는 남이 이 연구를 처음부터 다시 해 볼 수 없었습니다.</strong> 계산에 쓴
+          근무표 프로그램은 남에게 줄 수 없고, 공개할 수 있는 것은 &ldquo;우리가 낸 표를 우리
+          스크립트로 다시 계산&rdquo;까지였기 때문입니다. 그래서 <strong>규칙 20가지와 문제를 만드는
+          방법 전부를 프로그램과 분리한 공개 명세로</strong> 새로 썼습니다. 이것만 보면 다른 연구자가
+          자기 프로그램으로 같은 문제를 세울 수 있습니다.</p>
+        <p>명세의 숫자는 <strong>사람이 옮겨 적지 않았습니다.</strong> 프로그램이 코드에서 직접 뽑아
+          쓰고, 문서와 코드가 어긋나면 검사가 실패하도록 만들었습니다 &mdash; 이 연구에서 지금까지
+          나온 결함이 전부 계산이 아니라 &ldquo;확인하지 않고 쓴 문장&rdquo;이었기 때문입니다.</p>
+        <p>함께 <strong>기록에 판본 관리(git)를 붙였습니다.</strong> 지난 점검에서 &ldquo;계산에 쓴
+          파일이 봉인 당시와 다른데 무엇이 달라졌는지 볼 수 없다&rdquo;는 문제가 나왔는데, 이제
+          <strong>어느 파일이 달라졌는지는 이름까지 나옵니다</strong>(다섯 개였습니다).
+          다만 <strong>지난 일은 되살릴 수 없습니다</strong> &mdash; 오늘부터의 판본만 남습니다.</p>
+        <p class="small">그 밖에: 2편 그림 2점 제작 · 2편 원고 v0.2(금지 표현 전수 점검에서 세 가지를
+          찾아 고침) · 검정력 수치를 코드에서 다시 만들어 내는 스크립트 신설(기존 등록값과 <b>차이
+          0건</b>) · 1편 국문 원고에서 <b>단계별 숫자 하나가 봉인 값과 다른 것</b>을 찾아 되돌림.
+          <b>봉인된 결과는 하나도 바뀌지 않았습니다.</b></p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-08-12</div>
