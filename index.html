@@ -292,7 +292,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">설계 개정·사전점검 <span class="ok">완료</span> → <strong>뒷관문(실제로 풀기) 승인</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다)</span></span>
+    <span class="status-v">뒷관문 <span class="ok">승인·준비 완료</span> → <strong>사전등록 마치고 실행</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다 · 약 5~10분)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -523,7 +523,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <tbody>
         <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
         <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag done">통과 2026-08-11</span></td></tr>
-        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">승인 대기 · 사전점검 완료</span></td></tr>
+        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag done">승인 2026-08-11</span> <span class="flag wait">실행 대기</span></td></tr>
         <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
       </tbody>
     </table>
@@ -577,6 +577,15 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         </p>
       </div>
     </details>
+  </div>
+
+  <div class="pull" style="margin-top:18px;border-color:var(--accent-2)">
+    <b>뒷관문 승인 · 준비 완료 (2026-08-11).</b> 계산 프로그램과 검사 장치를 다 만들었고,
+    <b>지금 남은 건 두 가지</b>입니다 — ① 판정 기준을 외부 사이트에 <b>사전등록</b>하고
+    ② 지정한 컴퓨터에서 실행. 계산은 <b>5~10분</b>이면 끝납니다.
+    <br><b>프로그램이 스스로 거부하도록 만들어 뒀습니다</b> — 사전등록 번호가 비어 있으면
+    실행이 시작되지 않고, 지정된 컴퓨터가 아니어도 멈춥니다. 문제 하나하나도
+    <b>풀기 직전에 “앞관문에서 등록한 그 문제가 맞는지” 대조</b>한 뒤에만 풉니다.
   </div>
 
   <div class="pull" style="margin-top:18px;border-color:var(--done)">
