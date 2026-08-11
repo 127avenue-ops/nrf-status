@@ -292,7 +292,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">설계 문서를 한 번 더 고친 뒤 <strong>뒷관문(실제로 풀기) 승인</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다)</span></span>
+    <span class="status-v">설계 개정 <span class="ok">완료</span> → <strong>뒷관문(실제로 풀기) 승인</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다 · 남은 건 결정 3가지)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -523,7 +523,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <tbody>
         <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
         <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag done">통과 2026-08-11</span></td></tr>
-        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">설계 재개정 후</span></td></tr>
+        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">승인 대기 · 준비 3가지</span></td></tr>
         <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
       </tbody>
     </table>
@@ -575,6 +575,41 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
           대조해서 찾았고, 빠진 5개를 채운 뒤 <b>18/18 전부 평가</b>로 다시 돌렸습니다.
           앞으로 검사 결과에는 <b>“어느 항목을 어디서 검사했는지” 대조표</b>를 반드시 함께 냅니다.
         </p>
+      </div>
+    </details>
+  </div>
+
+  <div class="pull" style="margin-top:18px;border-color:var(--stop)">
+    <b>설계를 v5로 고쳤습니다 (2026-08-11).</b> 이번엔 <b>다음 단계에서 쓸 실행 절차를 미리 읽어봤고,
+    거기서 가장 큰 문제가 나왔습니다</b> — 뒷관문을 <b>지금 있는 실행 프로그램으로 돌리면</b>,
+    1차 시도를 실패시켰던 <b>세 가지 어긋남이 그대로 되돌아옵니다.</b> 앞관문에서 4,050장을 대조해
+    증명한 것이 <b>통째로 무효가 될 뻔했습니다.</b> 원인은 단순합니다 —
+    <b>설계 문서에 "뒷관문을 어떻게 돌리는가"가 아예 없었습니다.</b> 사람은 적혀 있지 않으면
+    있는 도구를 쓰고, 있는 도구는 1차 시도의 것이었습니다.
+  </div>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>v5에서 무엇을 고쳤나<span class="sum-tail">2026-08-11 · 계산 0건</span></summary>
+      <div class="reveal">
+        <p>앞관문을 돌리면서 나온 문제 5가지를 전부 반영하고, 이번 회차에서 새로 찾은 것을 더했습니다.</p>
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>무엇이 문제였나</th><th>어떻게 고쳤나</th></tr></thead>
+            <tbody>
+              <tr><td>파이썬 내부 설정 하나가 봉인 당시와 다르면 <b>정상인데도 전부 불일치</b></td><td>재현 조건을 계약으로 못박고, 조건이 안 맞으면 프로그램이 <b>시작 자체를 거부</b></td></tr>
+              <tr><td>설정 이름 하나가 <b>서로 다른 두 가지</b>를 가리켜 조용히 틀린 값이 나옴</td><td>어느 쪽이 봉인된 것인지 문서에 명시하고, 네 단계 전부의 기준값을 미리 등록</td></tr>
+              <tr><td>기준값을 <b>저장된 파일에서 다시 만들면</b> 순서가 망가져 비교가 틀어짐</td><td>기준은 <b>언제나 봉인된 기록</b>이라고 규정</td></tr>
+              <tr><td>검사 항목표를 <b>사람이 손으로</b> 적어 둬서, 프로그램이 바뀌면 조용히 뒤처짐</td><td>표를 <b>코드에서 자동으로 뽑도록</b> 바꿈 — 못 뽑으면 빈 결과가 아니라 정지</td></tr>
+              <tr><td>검사하지 않은 항목이 <b>통과로 집계</b>될 수 있었음</td><td>"어느 항목을 어디서 검사했는지" 대조표를 <b>의무</b>로, 미검사는 실패와 동일</td></tr>
+              <tr><td><b>뒷관문 실행 절차가 문서에 없었음</b></td><td>절을 새로 만들어, 푸는 직전에 <b>등록된 지문과 대조해야만</b> 풀도록 규정</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>고친 것은 "검사를 더 엄격하게"이지 "기준을 느슨하게"가 아닙니다.</strong>
+          합격선·표본 수·통계 판정식은 <b>한 글자도 바뀌지 않았습니다.</b> 지운 항목도 없습니다
+          (개정할 때마다 <b>이전 판 요구사항이 어디로 갔는지</b> 표로 확인합니다).</p>
+        <p class="small">이번 회차도 계산은 <b>0건</b>입니다. 검사 프로그램 자체 시험은 164개 전부 통과했습니다.</p>
       </div>
     </details>
   </div>
