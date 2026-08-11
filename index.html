@@ -245,7 +245,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 쓰는 중.</b><br>
-    <b>2편은 계산 직전 관문에서 대기 중</b>입니다.
+    <b>2편은 재현 관문 결과가 나왔고, 그 결과를 그대로 씁니다.</b>
   </p>
 </header>
 
@@ -276,10 +276,10 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <div class="track" style="grid-template-columns:repeat(6,1fr)" role="list" aria-label="2편 진행 단계">
       <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">구상·설계</span></div>
       <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">계산기 제작</span></div>
-      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">재현 관문</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">본 계산</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">원고</span></div>
+      <div class="step stop" role="listitem"><span class="bar"></span><span class="lbl">재현 관문</span></div>
+      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">결과 보고·원고</span></div>
       <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">투고</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">심사</span></div>
     </div>
   </div>
 
@@ -288,11 +288,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문(지문 대조) 통과</span>. 뒷관문은 <em>승인 대기</em>, 계산 0건</span>
+    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문 통과</span> · 뒷관문 <em>판정 미달로 종료</em>. 재시도는 하지 않습니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">뒷관문 <span class="ok">승인·준비 완료</span> → <strong>사전등록 마치고 실행</strong> <span class="small">(여기서 처음으로 계산이 들어갑니다 · 약 5~10분)</span></span>
+    <span class="status-v">뒷관문 <strong>실행 완료 · 판정 미달</strong> <span class="small">(숫자는 허용 범위 안이었지만 사전에 정한 부가 조건 하나를 못 채웠습니다)</span></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -523,8 +523,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <tbody>
         <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
         <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag done">통과 2026-08-11</span></td></tr>
-        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag done">승인 2026-08-11</span> <span class="flag wait">실행 대기</span></td></tr>
-        <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
+        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag done">실행 완료</span> <span class="flag stop">판정 미달</span></td></tr>
+        <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag stop">중단</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -577,6 +577,17 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         </p>
       </div>
     </details>
+  </div>
+
+  <div class="pull" style="margin-top:18px;border-color:var(--stop)">
+    <b>뒷관문 결과 — 판정 미달 (2026-08-11).</b> 4,050건을 14분 만에 다 풀었고 사고는 0건이었습니다.
+    <b>세 조건 모두 숫자는 허용 범위 안</b>이었습니다(차이 −0.6%p / +0.4%p / +1.0%p, 허용 ±4%p).
+    <br>그런데 <b>미리 정해둔 조건이 하나 더 있었습니다</b> — "시간 안에 판정되지 않은 문제가
+    <b>0건</b>이어야 한다". 4,050건 중 <b>2건</b>이 끝까지 판정되지 않았고, 그래서 규칙대로
+    <b>미달</b>입니다.
+    <br><b>규칙을 고치면 통과였습니다. 고치지 않았습니다.</b> 결과를 보고 기준을 바꾸는 것이
+    이 연구가 가장 피하려던 일이기 때문입니다. 재시도는 하지 않고 여기서 종료하며,
+    <b>"숫자는 범위 안이었으나 사전 조건을 못 채워 미달"</b>을 그대로 논문에 씁니다.
   </div>
 
   <div class="pull" style="margin-top:18px;border-color:var(--accent-2)">
