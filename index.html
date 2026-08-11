@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>간호인력 연구 — 어디까지 왔나</title>
+<style>
+/* ── 단일 테마: 밝은 종이 ──────────────────────────────────────
+   의도적으로 라이트 한 벌만 쓴다. 보는 사람의 기기가 다크 모드여도
+   이 페이지는 항상 종이색으로 뜬다. 그래서 모든 색을 명시적으로 칠한다.
+   (다크 대응 media query·data-theme 블록을 두지 않는다 — 누락이 아니라 선택.) */
+:root{
+  --ground:#f5f1e7;
+  --paper:#fdfbf6;
+  --sunk:#efeade;
+  --rule:#ded7c6;
+  --rule-soft:#eae4d6;
+  --ink:#201d16;
+  --ink-2:#4c463b;
+  --muted:#7c7466;
+  --accent:#1d5b52;
+  --accent-2:#2b7c70;
+  --done:#2f6b48;
+  --stop:#a5492e;
+  --idle:#a79e8c;
+  --track-empty:#e3dcca;
+  --grain:.05;
+
+  --sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,"D2Coding",monospace;
+
+  color-scheme:light;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:16.5px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+/* 종이 결 — 아주 옅은 그레인 한 겹 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+.page{max-width:800px;margin:0 auto;padding:clamp(26px,5vw,60px) clamp(18px,5vw,28px) 100px;position:relative;z-index:1}
+
+h1,h2{margin:0;line-height:1.22;text-wrap:balance;letter-spacing:-0.022em}
+h1{font-size:clamp(27px,5.2vw,42px);font-weight:800}
+h2{font-size:clamp(18px,2.6vw,21px);font-weight:750;letter-spacing:-0.015em}
+p{margin:0}
+.kicker{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+.small{font-size:13.5px;color:var(--muted);line-height:1.65}
+
+/* ── 헤드라인 ─────────────────────────────── */
+header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,50px)}
+.headline{
+  font-size:clamp(17px,2.7vw,21px);line-height:1.55;font-weight:500;color:var(--ink-2);
+  max-width:34ch;
+}
+.headline b{color:var(--ink);font-weight:750}
+
+/* ── 진행 트랙 (주인공) ────────────────────── */
+.tracks{display:flex;flex-direction:column;gap:30px}
+.paper-block{display:flex;flex-direction:column;gap:11px}
+.paper-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.paper-name{font-size:17px;font-weight:750;letter-spacing:-0.01em}
+.paper-where{
+  font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;
+  letter-spacing:.04em;margin-left:auto;
+}
+.track{display:grid;gap:4px}
+.step{display:flex;flex-direction:column;gap:7px;min-width:0}
+.bar{height:7px;border-radius:2px;background:var(--track-empty);display:block}
+.step.done .bar{background:var(--done)}
+.step.now .bar{
+  background:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);
+}
+.step.stop .bar{background:var(--stop)}
+.lbl{
+  font-size:11.5px;line-height:1.35;color:var(--muted);text-wrap:balance;
+  letter-spacing:-0.01em;
+}
+.step.done .lbl{color:var(--ink-2)}
+.step.now .lbl{color:var(--ink);font-weight:700}
+.here{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--accent);
+  font-weight:700;display:block;margin-bottom:-3px;
+}
+
+/* ── 지금 상태 요약줄 ──────────────────────── */
+.status{
+  margin-top:26px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:18px 0;display:flex;flex-direction:column;gap:8px;
+}
+.status-row{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.status-k{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);min-width:74px;
+}
+.status-v{font-size:15px;font-weight:600;flex:1;min-width:200px}
+.status-v em{font-style:normal;color:var(--stop);font-weight:750}
+.status-v .ok{color:var(--done);font-weight:750}
+
+/* ── 섹션 ──────────────────────────────────── */
+section{margin-top:clamp(38px,6vw,58px)}
+.sec-title{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.body-copy{font-size:15.5px;line-height:1.75;color:var(--ink-2);max-width:60ch}
+.body-copy strong{color:var(--ink);font-weight:700}
+
+/* ── 펼침 (progressive disclosure) ─────────── */
+details{border-top:1px solid var(--rule-soft)}
+details:last-of-type{border-bottom:1px solid var(--rule-soft)}
+summary{
+  cursor:pointer;list-style:none;padding:13px 2px;display:flex;gap:12px;align-items:center;
+  font-size:15px;font-weight:600;color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--accent)}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.tw{
+  flex:none;width:17px;height:17px;border:1px solid var(--rule);border-radius:50%;
+  display:grid;place-items:center;color:var(--muted);font-family:var(--mono);
+  font-size:11px;font-weight:700;line-height:1;transition:transform .18s ease,color .18s,border-color .18s;
+}
+summary:hover .tw{color:var(--accent);border-color:var(--accent)}
+details[open] .tw{transform:rotate(45deg);color:var(--accent);border-color:var(--accent)}
+.sum-tail{margin-left:auto;font-size:12.5px;color:var(--muted);font-weight:500;text-align:right}
+.reveal{padding:2px 0 22px;display:flex;flex-direction:column;gap:14px;animation:slip .22s ease both}
+@keyframes slip{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .reveal{animation:none}.tw{transition:none}
+}
+.reveal p,.reveal li{font-size:14.5px;line-height:1.72;color:var(--ink-2)}
+.reveal strong{color:var(--ink)}
+.reveal ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+.reveal ul li::marker{color:var(--idle)}
+
+/* ── 표 ────────────────────────────────────── */
+.tw-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:440px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--rule-soft)}
+thead th{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;background:var(--sunk);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{font-weight:700;color:var(--ink)}
+
+/* ── 강조 인용 ─────────────────────────────── */
+.pull{
+  border-left:2px solid var(--accent);padding:2px 0 2px 16px;
+  font-size:14.5px;line-height:1.7;color:var(--ink-2);
+}
+.pull b{color:var(--ink)}
+
+.flag{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.09em;
+  padding:2px 7px;border-radius:3px;white-space:nowrap;
+}
+.flag.done{color:var(--done);background:color-mix(in srgb,var(--done) 12%,transparent)}
+.flag.wait{color:var(--muted);background:color-mix(in srgb,var(--idle) 16%,transparent)}
+.flag.stop{color:var(--stop);background:color-mix(in srgb,var(--stop) 12%,transparent)}
+
+footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:5px}
+code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
+
+/* ── 열람 코드 ─────────────────────────────── */
+#gate{
+  position:fixed;inset:0;z-index:50;background:var(--ground);
+  display:grid;place-items:center;padding:24px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+.gate-inner{
+  width:100%;max-width:330px;display:flex;flex-direction:column;gap:22px;
+  animation:rise .3s ease both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.gate-head{display:flex;flex-direction:column;gap:9px}
+.gate-title{font-size:20px;font-weight:750;letter-spacing:-0.018em;line-height:1.3}
+.gate-sub{font-size:13.5px;color:var(--muted);line-height:1.6}
+.gate-form{display:flex;flex-direction:column;gap:11px}
+.pin-row{display:flex;gap:9px}
+#pin{
+  flex:1;min-width:0;font-family:var(--mono);font-size:21px;font-weight:600;
+  letter-spacing:.42em;text-align:center;padding:13px 10px 13px 18px;
+  background:var(--paper);color:var(--ink);
+  border:1px solid var(--rule);border-radius:5px;outline:none;
+  transition:border-color .16s,box-shadow .16s;
+}
+#pin::placeholder{color:var(--idle);letter-spacing:.42em}
+#pin:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+#enter{
+  flex:none;padding:0 20px;border-radius:5px;border:1px solid var(--accent);
+  background:var(--accent);color:var(--ground);
+  font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;
+  transition:opacity .16s;
+}
+#enter:hover{opacity:.86}
+#enter:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#gate-msg{font-size:12.5px;color:var(--stop);min-height:1.2em;font-weight:600}
+.gate-foot{font-size:11.5px;color:var(--idle);line-height:1.6;border-top:1px solid var(--rule-soft);padding-top:14px}
+.shake{animation:shk .3s}
+@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){
+  .gate-inner,.shake{animation:none}
+}
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="gate-inner">
+    <div class="gate-head">
+      <span class="kicker">간호인력 편성가능성 연구</span>
+      <span class="gate-title">진행 현황 페이지</span>
+      <span class="gate-sub">열람 코드를 입력하면 볼 수 있습니다.</span>
+    </div>
+    <form class="gate-form" id="gate-form">
+      <div class="pin-row">
+        <input id="pin" type="password" inputmode="numeric" autocomplete="off"
+               maxlength="8" placeholder="••••" aria-label="열람 코드" autofocus>
+        <button id="enter" type="submit">열기</button>
+      </div>
+      <span id="gate-msg" role="status" aria-live="polite"></span>
+    </form>
+    <p class="gate-foot">
+      이 코드는 우연한 열람을 막는 <strong>가림막</strong>이지 보안 장치가 아닙니다.
+      공유받은 분끼리만 봐주세요.
+    </p>
+  </div>
+</div>
+
+<div class="page" id="app" hidden>
+
+<header>
+  <span class="kicker">간호인력 편성가능성 연구 · 진행 현황</span>
+  <h1>어디까지 왔나</h1>
+  <p class="headline">
+    <b>1편은 계산을 끝내고 원고를 쓰는 중.</b><br>
+    <b>2편은 계산 직전 관문에서 대기 중</b>입니다.
+  </p>
+</header>
+
+<!-- ══════ 주인공: 진행 트랙 ══════ -->
+<div class="tracks">
+
+  <div class="paper-block">
+    <div class="paper-head">
+      <span class="paper-name">1편 — 이 측정 방법을 믿을 수 있는가</span>
+      <span class="paper-where">7단계 중 4</span>
+    </div>
+    <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="1편 진행 단계">
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">설계·사전검증</span></div>
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">본 계산</span></div>
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">결과 봉인</span></div>
+      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">원고 작성</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">학회지 투고</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">심사</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">게재</span></div>
+    </div>
+  </div>
+
+  <div class="paper-block">
+    <div class="paper-head">
+      <span class="paper-name">2편 — 조건별로 몇 명이 필요한가 <span class="small">(대표작)</span></span>
+      <span class="paper-where">6단계 중 3</span>
+    </div>
+    <div class="track" style="grid-template-columns:repeat(6,1fr)" role="list" aria-label="2편 진행 단계">
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">구상·설계</span></div>
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">계산기 제작</span></div>
+      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">재현 관문</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">본 계산</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">원고</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">투고</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="status">
+  <div class="status-row">
+    <span class="status-k">막힌 곳</span>
+    <span class="status-v">2편 재현 관문 — <em>실행 승인 대기</em>. 현재 계산 0건</span>
+  </div>
+  <div class="status-row">
+    <span class="status-k">다음 한 걸음</span>
+    <span class="status-v">관문 검사기를 만드는 것 <span class="small">(계산 없이 대조만 하는 단계)</span></span>
+  </div>
+  <div class="status-row">
+    <span class="status-k">시한 있는 일</span>
+    <span class="status-v">연구비 공모 접수 <span class="mono">2026-09-01 ~ 09-30</span></span>
+  </div>
+</div>
+
+<!-- ══════ 무엇을 하는 연구인가 ══════ -->
+<section>
+  <div class="sec-title">
+    <span class="kicker">무엇을 하는 연구인가</span>
+    <h2>“이 병동에 간호사가 몇 명 필요한가”를 계산으로 답한다</h2>
+  </div>
+  <p class="body-copy">
+    현장에서는 <strong>하루 필요인원 × 1.6</strong>이라는 어림셈을 씁니다. 근거가 분명치 않은
+    관행이죠. 이 연구는 야간 연속근무 제한, 근무 간 휴식, 연차·공휴일 같은
+    <strong>근무규칙을 전부 넣고 실제로 근무표가 짜이는지를 계산</strong>해서,
+    그 어림셈을 대체할 <strong>지도와 손계산 산식</strong>을 만듭니다.
+  </p>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>왜 세 편으로 나눴나<span class="sum-tail">1편 · 2편 · 3편</span></summary>
+      <div class="reveal">
+        <p><strong>1편 — 이 자를 믿을 수 있는가.</strong> 새 측정 도구를 만들면 먼저 그 도구부터
+          검증해야 합니다. 대표 조건 3개에서 인원을 한 명씩 늘려가며 계산해, 방법 자체가
+          작동하는지 확인했습니다. <b>완료·봉인.</b></p>
+        <p><strong>2편 — 그래서 몇 명인가.</strong> 검증된 도구로 변수 공간 전체를 훑어
+          조건별 필요 최소 인원의 경계면을 그립니다. <b>이게 대표작</b>이고, 최종 목표인
+          “지도와 산식”이 여기서 나옵니다.</p>
+        <p><strong>3편 — 결근을 버티려면.</strong> 병가·결근이 생겨도 근무표를 다시 짤 수 있는
+          여유 인원을 구합니다. 1편이 남긴 근무표 기록을 그대로 물려받아 계산합니다.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span class="tw">+</span>이 연구가 말하지 않는 것<span class="sum-tail">해석 경계</span></summary>
+      <div class="reveal">
+        <ul>
+          <li>합성 조건 위의 계산입니다. <strong>실제 병동 표본이 아닙니다.</strong></li>
+          <li>환자 안전·간호의 질·법적 적정 인원을 추정하지 않습니다.
+            근무표가 <strong>물리적으로 짜이는지</strong>만 계산합니다.</li>
+          <li><code>1.6</code>은 공식 기준이 아니라 출처가 확립되지 않은 현장 어림셈이며,
+            여기서는 비교용 참조점일 뿐입니다.</li>
+          <li>실제 병동 적용 주장은 외부 검증을 마친 뒤에만 합니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════ 1편 ══════ -->
+<section>
+  <div class="sec-title">
+    <span class="kicker">1편 · 계산 완료</span>
+    <h2>세 조건 모두, 어림셈 인원으로는 부족했다</h2>
+  </div>
+  <p class="body-copy">
+    9,150건을 계산했고 오류는 한 건도 없었습니다. 세 대표 조건에 <strong>어림셈 1.6배</strong>로
+    나온 인원을 넣어봤더니, <strong>95% 신뢰수준을 확정적으로 만족한 조건이 하나도 없었습니다.</strong>
+    이것이 1편의 핵심 결과이고, 숫자는 봉인돼 더 이상 바뀌지 않습니다.
+  </p>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>조건별 결과 숫자<span class="sum-tail">A · B · C</span></summary>
+      <div class="reveal">
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>조건</th><th class="n">인원</th><th class="n">성공</th><th class="n">실패</th><th class="n">성공률</th><th>판정</th></tr></thead>
+            <tbody>
+              <tr><td>A 균형형</td><td class="n">24</td><td class="n">1,287</td><td class="n">63</td><td class="n">95.3%</td><td><span class="flag wait">불확정</span></td></tr>
+              <tr><td>B 중간형</td><td class="n">32</td><td class="n">1,262</td><td class="n">88</td><td class="n">93.5%</td><td><span class="flag stop">미달</span></td></tr>
+              <tr><td>C 고수요형</td><td class="n">42</td><td class="n">1,226</td><td class="n">124</td><td class="n">90.8%</td><td><span class="flag stop">미달</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>“불확정”이 무슨 뜻인가.</strong> 성공률이 95%를 넘었지만, 표본 오차를 감안하면
+          “확실히 넘었다”고 단정할 수 없다는 뜻입니다. 확정하려면 성공이 더 나왔어야 합니다.</p>
+        <p><strong>B 조건은 판정선에 정확히 걸쳐 있습니다.</strong> 성공이 딱 1건만 더 나왔어도
+          판정이 “미달”에서 “불확정”으로 바뀌었을 위치입니다. 이 아슬아슬함은 원고에
+          이미 그대로 써 두었습니다 — 숨기지 않습니다.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span class="tw">+</span>계산 규모와 검증<span class="sum-tail">9,150건 · 오류 0</span></summary>
+      <div class="reveal">
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>항목</th><th class="n">값</th><th>뜻</th></tr></thead>
+            <tbody>
+              <tr><td>총 계산</td><td class="n"><b>9,150</b></td><td>PC 3대로 약 1시간 46분</td></tr>
+              <tr><td>편성 성공</td><td class="n">8,537</td><td>규칙을 다 지키는 근무표가 존재</td></tr>
+              <tr><td>편성 불가</td><td class="n">584</td><td>존재하지 않음이 <b>증명</b>됨</td></tr>
+              <tr><td>시간 초과</td><td class="n">29</td><td>제한 시간 내 판정 못 함</td></tr>
+              <tr><td>오류</td><td class="n"><b>0</b></td><td>계산 중 사고 없음</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>계산 전에 자격 검사 198건과 예비 실험 297건을 통과했고, 계산 뒤에는 독립 감사를 거쳐
+          결과를 봉인했습니다. <strong>봉인은 “결과를 본 뒤 해석을 바꾸지 못하게 잠근다”</strong>는
+          뜻입니다.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════ 2편 ══════ -->
+<section>
+  <div class="sec-title">
+    <span class="kicker">2편 · 지금 여기</span>
+    <h2>새 계산기가 1편을 재현하는지 확인하는 관문</h2>
+  </div>
+  <p class="body-copy">
+    2편은 조건을 자유롭게 바꿀 수 있는 <strong>새 계산기</strong>를 씁니다. 본 계산에 들어가기 전에
+    그 계산기가 1편과 같은 답을 내는지 확인해야 합니다.
+    <strong>1차 시도는 실패했는데, 원인이 계산기가 아니었습니다.</strong>
+  </p>
+
+  <div class="pull" style="margin-top:18px">
+    새 계산기만 바꿔서 비교했어야 하는데 <b>달력과 전월 근무표까지 같이 바뀌어</b> 있었습니다.
+    세 가지가 동시에 달라진 비교였으니, 무엇 때문에 결과가 달라졌는지 가릴 수 없었죠.
+    그래서 판정은 그대로 두고 <b>비교 설계를 다시 짰습니다.</b>
+  </div>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>1차 시도에서 정확히 뭐가 어긋났나<span class="sum-tail">원인 2가지</span></summary>
+      <div class="reveal">
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>항목</th><th>1편 (봉인)</th><th>1차 시도</th></tr></thead>
+            <tbody>
+              <tr><td>달력 공휴일</td><td class="n">8일</td><td class="n">8일 <b>+ 2일</b></td></tr>
+              <tr><td>전월 근무표</td><td>봉인된 8종</td><td><b>새로 만든 4종</b></td></tr>
+              <tr><td>수요·역할·휴가·규칙</td><td colspan="2">동일 — 이상 없음</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>공휴일 2일이 늘면서 <strong>수간호사가 배정될 수 있는 날이 22일에서 20일로</strong>
+          줄었고, 전월 근무표도 더 어려운 쪽으로 바뀌어 있었습니다. 계산은 정상이었고
+          기록에도 문제가 없었습니다 — <strong>비교 방식의 문제</strong>였습니다.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="tw">+</span>다시 짠 설계 — 관문을 둘로 나눴다<span class="sum-tail">게이트 A · B</span></summary>
+      <div class="reveal">
+        <p class="pull" style="border-color:var(--accent-2)">
+          <b>시험지를 똑같이 인쇄했는지 먼저 대조한다.</b> 시험지가 같으면 답도 같을 수밖에 없다 —
+          그러니 <b>문제를 풀 필요가 없다.</b>
+        </p>
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th></th><th>게이트 A <span class="small">(새로 만듦)</span></th><th>게이트 B <span class="small">(원래 계획)</span></th></tr></thead>
+            <tbody>
+              <tr><td>묻는 것</td><td>같은 문제를 같은 형태로 만드는가</td><td>새 표본에서 같은 비율이 나오는가</td></tr>
+              <tr><td>방법</td><td>지문 대조 <b>(풀지 않음)</b></td><td>실제로 풀어서 비교</td></tr>
+              <tr><td>계산량</td><td class="n"><b>0건</b></td><td class="n">4,050건</td></tr>
+              <tr><td>답</td><td>정확 — 같으면 같음이 증명됨</td><td>통계적 — 오차 범위 안이면 동등</td></tr>
+              <tr><td>실패하면</td><td>어느 항목이 다른지 <b>바로 지목</b></td><td>원인을 따로 규명해야 함</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>편성 가능/불가 판정은 확률이 아니라 <strong>증명서</strong>입니다 — 같은 문제를 두 번 풀어
+          답이 뒤집힐 수 없습니다. 그래서 문제가 같음을 먼저 증명해두면, 뒤이은 통계 판정의
+          해석이 자명해집니다. 이 구조 덕분에 원래 있던 복잡한 사후 진단 절차가
+          <strong>통째로 필요 없어졌습니다.</strong></p>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="tw">+</span>설계안을 두 차례, 7개 독립 검증에 걸었다<span class="sum-tail">두 번 다 전면 수정</span></summary>
+      <div class="reveal">
+        <p>승인을 요청하기 전에 서로 다른 관점의 검증을 동시에 돌려 설계안을
+          <strong>공격하게 했습니다.</strong> 각자 원자료를 직접 다시 계산했습니다.</p>
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th>회차</th><th>검증 관점</th><th class="n">점수</th><th>핵심 지적</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="5" class="n">1차</td><td>문서 정합</td><td class="n">85</td><td>바뀌는 계약 항목을 “그대로”라고 표기</td></tr>
+              <tr><td>통계</td><td class="n">61</td><td>오차 허용범위의 의미를 과장</td></tr>
+              <tr><td>실험설계</td><td class="n">58</td><td><b>사후 진단 절차가 코드상 작동 불가</b></td></tr>
+              <tr><td>학회지 심사</td><td class="n">50</td><td>설계 변경의 공개가 부족</td></tr>
+              <tr><td>반박(적대적)</td><td class="n">47</td><td>검사 항목 부족 · 사고 대비 없음</td></tr>
+              <tr><td rowspan="2" class="n">2차</td><td>관문 실현가능성</td><td class="n">38</td><td><b>검사 항목이 엉뚱한 것을 보고 있었다</b></td></tr>
+              <tr><td>재작성 손실 추적</td><td class="n">58</td><td>수정하며 빠뜨린 요구사항 추적</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>2차에서 실행을 멈출 오류가 나왔습니다.</strong> 관문의 검사 항목 하나에
+          <strong>B 조건 전용 숫자</strong>가 세 조건 공통 기준으로 들어가 있었습니다.
+          그대로 실행했으면 A·C 조건이 <strong>정상인데도 실패</strong>로 판정돼 관문이
+          100% 확률로 멈췄을 겁니다. 봉인 기록을 직접 세어 조건별 값을 확정하고 고쳤습니다.</p>
+        <p>더 근본적으로는, 검사표를 <strong>“중요해 보이는 것”</strong>이 아니라
+          <strong>“계산기가 실제로 읽는 것”</strong> 기준으로 다시 짰습니다. 확인해보니
+          제가 검사하던 항목 중 넷은 계산에 아예 들어가지 않았고, 정작 결과를 좌우하는
+          항목 둘은 검사에 없었습니다.</p>
+        <p><strong>중요한 결과 하나 — 1편에서는 두 차례 모두 결함이 0건이었습니다.</strong>
+          봉인 기록 7,950건을 전부 다시 세어 숫자가 전부 일치했고, 배정 규칙 4,050건도
+          전수 대조해 불일치가 없었습니다. 발견된 문제는 전부 <strong>2편 준비 단계</strong>와
+          <strong>설계안 초안</strong>에 있었습니다.</p>
+        <p class="pull" style="border-color:var(--stop)">
+          <b>솔직한 상태.</b> “이제 결함을 다 찾았다”고는 말할 수 없습니다. 1차 수정본을
+          완성한 직후에도 하나를 더 찾았고, 2차 검증에서 또 나왔습니다. 그래서 목표를
+          <i>결함을 전부 찾는 것</i>이 아니라
+          <b>결함이 남아 있어도 계산 0건에서 걸리는 구조</b>로 잡았습니다.
+          지금 남은 위험은 “관문이 통과 못 할 수도 있다”이지 “틀린 결과가 나온다”가 아닙니다.
+        </p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════ 다음 ══════ -->
+<section>
+  <div class="sec-title">
+    <span class="kicker">다음 단계</span>
+    <h2>계산을 시작하기까지 네 번의 승인</h2>
+  </div>
+  <p class="body-copy">
+    설계는 <strong>2026-08-11 승인</strong>됐습니다. 하지만 승인 하나로 계산이 시작되지는 않습니다.
+    되돌리기 어려운 일일수록 잘게 쪼개서, <strong>한 단계씩 따로</strong> 승인받습니다.
+  </p>
+
+  <div class="tw-scroll" style="margin-top:18px">
+    <table>
+      <thead><tr><th class="n">#</th><th>무엇</th><th class="n">계산</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">승인 · 진행</span></td></tr>
+        <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag wait">1 이후</span></td></tr>
+        <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag wait">2 통과 후</span></td></tr>
+        <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag wait">3 통과 후</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="small" style="margin-top:14px">
+    한 단계를 승인받아도 다음이 자동으로 열리지 않습니다.
+    <strong>현재 ①만 승인됐고 ②~④는 미승인, 계산은 여전히 0건입니다.</strong>
+  </p>
+
+  <div class="pull" style="margin-top:18px">
+    <b>①의 결과물은 코드만이 아닙니다.</b> 검사기를 만들면서
+    <b>“설계 문서와 실제 코드가 어긋난 지점”을 전부 기록</b>해 함께 냅니다.
+    글로 쓴 설계는 틀린 곳을 숨기지만 코드는 숨기지 못하기 때문입니다 —
+    <b>①이 곧 다음 검증</b>이고, 그 기록으로 설계를 한 번 더 고친 뒤에야 ②로 넘어갑니다.
+  </div>
+
+  <div style="margin-top:20px">
+    <details>
+      <summary><span class="tw">+</span>승인된 결정 6건<span class="sum-tail">2026-08-11</span></summary>
+      <div class="reveal">
+        <div class="tw-scroll">
+          <table>
+            <thead><tr><th class="n">#</th><th>결정</th><th>이유 한 줄</th></tr></thead>
+            <tbody>
+              <tr><td class="n">1</td><td>전월 근무표는 1편 봉인분을 그대로 재사용</td><td class="small">새로 만들면 1차 실패가 재발한다</td></tr>
+              <tr><td class="n">2</td><td>관문 A 신설 · 사후 진단 절차 폐기</td><td class="small">계산 0건으로 더 정확한 답이 나온다</td></tr>
+              <tr><td class="n">3</td><td>판정 문턱은 그대로 유지</td><td class="small">실패한 뒤 기준을 낮추지 않는다</td></tr>
+              <tr><td class="n">4</td><td>계산 시작 전 외부 사이트에 사전등록</td><td class="small">“미리 정했다”를 제3자가 확인할 수 있게</td></tr>
+              <tr><td class="n">5</td><td>재시도는 이번 1회로 끝 · 두 시도 모두 보고</td><td class="small">될 때까지 반복하지 않는다</td></tr>
+              <tr><td class="n">6</td><td>장비 사고는 실패로 치지 않고 판정 보류</td><td class="small">사고로 단 한 번뿐인 시도를 날리지 않게</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>관문 A 자체도 <strong>최대 2번까지만</strong> 고쳐 다시 시도할 수 있습니다.
+          그 이상은 연구 계약을 다시 여는 안건이 됩니다 — “될 때까지 표본을 바꿔가며
+          통과시키는” 길을 막기 위해서입니다.</p>
+      </div>
+    </details>
+    <details>
+      <summary><span class="tw">+</span>병행해서 굴러가는 일<span class="sum-tail">투고 · 공모</span></summary>
+      <div class="reveal">
+        <ul>
+          <li><strong>1편 원고 → 간호행정학회지 투고</strong> — 국문 원고 작성 완료, 투고 규정 대조와
+            행정 절차가 남았습니다. <span class="small">8~9월</span></li>
+          <li><strong>연구비 공모 제출</strong> — 12개 항목 초안 완료. 접수는
+            <span class="small">2026년 9월 1일 ~ 30일</span></li>
+          <li><strong>사전등록 외부 공증</strong> — 계산을 시작하기 전에 “무엇을 어떻게 판정할지”를
+            외부 사이트에 타임스탬프와 함께 올립니다. 나중에 기준을 바꾸지 않았다는 것을
+            제3자가 확인할 수 있게 하는 장치입니다.</li>
+          <li><strong>3편</strong> — 2편이 안정된 뒤 착수 판단.</li>
+        </ul>
+      </div>
+    </details>
+    <details>
+      <summary><span class="tw">+</span>왜 이렇게 조심스럽게 진행하나<span class="sum-tail">사전등록 원칙</span></summary>
+      <div class="reveal">
+        <p>이 연구의 핵심 자산은 계산 결과 자체가 아니라 <strong>“결과를 보기 전에 판정 기준을
+          정해두고, 결과가 나쁘게 나와도 기준을 고치지 않았다”</strong>는 기록입니다.</p>
+        <p>실제로 2편 1차 시도가 기준에 못 미쳤을 때, 기준을 낮추지 않고 <strong>멈췄습니다.</strong>
+          원인을 찾은 뒤에도 판정은 그대로 두었고, 재시도는 <strong>이번 한 번으로 끝</strong>이며
+          두 번의 시도를 모두 논문에 보고합니다.</p>
+        <p>번거롭지만, 이것이 심사에서 이 연구를 지켜주는 부분입니다.
+          잘 되면 “실패를 숨기지 않았다”는 기록 자체가 방법론적 강점이 됩니다.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
+  <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-11</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'nrf2-dash-open';
+  var EXPECT = 2472259498;               // djb2-xor("nrf2-gate|" + code)
+  var gate = document.getElementById('gate');
+  var app  = document.getElementById('app');
+  var form = document.getElementById('gate-form');
+  var pin  = document.getElementById('pin');
+  var msg  = document.getElementById('gate-msg');
+
+  function hash(s) {
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = (((h * 33) ^ s.charCodeAt(i)) >>> 0);
+    return h >>> 0;
+  }
+  function open() {
+    gate.remove();
+    app.hidden = false;
+    document.documentElement.scrollTop = 0;
+  }
+  try { if (sessionStorage.getItem(KEY) === '1') { open(); return; } } catch (e) {}
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = (pin.value || '').trim();
+    if (hash('nrf2-gate|' + v) === EXPECT) {
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      open();
+    } else {
+      msg.textContent = '코드가 맞지 않습니다.';
+      pin.value = '';
+      var box = form.querySelector('.pin-row');
+      box.classList.remove('shake');
+      void box.offsetWidth;
+      box.classList.add('shake');
+      pin.focus();
+    }
+  });
+  pin.addEventListener('input', function () { msg.textContent = ''; });
+  pin.focus();
+})();
+</script>
+
+</body>
+</html>
