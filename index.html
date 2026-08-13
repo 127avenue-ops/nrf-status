@@ -299,7 +299,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편 <u>본 계산의 첫 단계를 실제로 돌렸습니다</u> — 560쌍 전건 완료, 오류 0.</b>
+    <b>2편 본 계산 <u>두 단계를 돌렸습니다</u> — 오류 0. 다만 <u>둘째 단계에서 설계의 전제 하나가 어긋났습니다.</u></b>
   </p>
 </header>
 
@@ -308,7 +308,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">15</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">16</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -353,11 +353,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문 통과</span> · 뒷관문 <em>판정 미달로 종결</em>(재시도 없음). 이를 대신한 <strong>새 설계 「Research 2.0」이 검증을 통과하고, 2026-08-13 본 계산의 <span class="ok">첫 단계까지 실제로 돌았습니다</span></strong>. <strong>지금 막힌 곳은 그 다음 단계의 실행 프로그램이 아직 없다는 것</strong>뿐입니다 — 첫 단계와 같은 자리이고, 같은 방식으로 만들면 됩니다</span>
+    <span class="status-v">2편 본 계산은 <span class="ok">두 단계 모두 실제로 돌았습니다</span>(오류 0). <strong>지금 막힌 곳은 계산이 아니라 결과입니다</strong> — 둘째 단계는 “몇 명부터 95 %가 되는가”의 경계를 찾는 단계인데, <strong>사람을 여섯 명까지 더 넣어도 성공률이 0.9 언저리에서 오르지 않았습니다.</strong> 설계는 “인원을 늘리면 성공률이 오른다”를 전제로 축을 잡았는데, <em>이 구간에서는 그 오름이 보이지 않습니다</em></span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v"><span class="ok">본 계산 첫 단계 완료(2026-08-13)</span> — 컴퓨터 3대에서 560쌍을 돌려 오류 0으로 끝냈고, 완료 여부를 따지는 검사 20가지를 모두 통과했습니다. 남은 것은 <strong>다음 단계의 실행 프로그램</strong>입니다. 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong>(투고 직전에 한 번에)</span>
+    <span class="status-v"><strong>사람이 고를 갈래가 하나 생겼습니다</strong> — ① 미리 정해 둔 규칙대로 인원 축을 두 칸 더(＋2) 늘려 정말 안 오르는지 확인한다(계산 1,600건 추가, 예산 상한 조정 필요) ② 늘리지 않고 “이 구간에서는 경계가 없다”를 결과로 확정하고 다음 단계에서 더 넓게 훑는다. <strong>어느 쪽이든 판정 기준·표본·95 % 기준은 건드리지 않습니다.</strong> 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -593,7 +593,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">5</td><td><strong>새 설계 「Research 2.0」</strong> — 막힌 관문의 대체</td><td class="n">0</td><td><span class="flag done">채택 2026-08-12</span> <span class="flag done">확정·승인 2026-08-13</span></td></tr>
         <tr><td class="n">6</td><td>새 경로의 검증 계산 — 설명서와 프로그램 대조</td><td class="n">5,938</td><td><span class="flag done">전부 통과 2026-08-13</span></td></tr>
         <tr><td class="n">7</td><td>2편 본 계산 <span class="small">(새 경로 · 첫 단계 — 조건 20종 × 인원 7단 × 두 방식)</span></td><td class="n">2,179</td><td><span class="flag done">완료 2026-08-13</span> <span class="flag done">검사 20항 통과</span></td></tr>
-        <tr><td class="n">8</td><td>2편 본 계산 <span class="small">(다음 단계)</span></td><td class="n">≤4,900</td><td><span class="flag wait">실행 프로그램 제작 예정</span></td></tr>
+        <tr><td class="n">8</td><td>2편 본 계산 <span class="small">(둘째 단계 — 경계 찾기 · 7조건 × 인원 7단 × 두 방식 × 50회)</span></td><td class="n">9,608</td><td><span class="flag done">실행 완료 2026-08-13</span> <span class="flag stop">경계 미포착</span></td></tr>
+        <tr><td class="n">9</td><td>인원 축 ＋2 연장 <span class="small">(미리 정해 둔 규칙)</span> 또는 다음 단계로 이관</td><td class="n">1,600</td><td><span class="flag wait">사람이 고를 갈래</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -893,6 +894,38 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-08-13</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">둘째 단계도 돌렸습니다 — 계산은 깨끗했고, 대신 설계의 전제가 어긋났습니다</span>
+          <span class="flag stop">경계 미포착</span>
+        </div>
+        <p><strong>이 단계가 묻는 것은 하나입니다 — “인원을 몇 명부터 넣으면 근무표가 짜일 확률이
+          95 %를 넘는가.”</strong> 그래서 조건 7가지를 골라, 산술적으로 필요한 최소 인원(N₀)부터
+          <strong>한 명씩 여섯 명까지</strong> 늘려가며 각 지점을 <strong>50번씩</strong> 계산했습니다.
+          2,450쌍 · 9,608건을 컴퓨터 3대에서 78분에, <strong>오류 0건</strong>으로 끝냈습니다.</p>
+        <p><strong>그런데 성공률이 오르지 않았습니다.</strong> 인원을 여섯 명 더 넣어도 성공률은
+          0.9 언저리에 머물렀고, 14개 계단 중 <strong>4개는 95 % 선을 한 번도 넘지 못했습니다.</strong>
+          더 중요한 것은 나머지 계단들도 <em>오르는 모양이 아니었다</em>는 점입니다 —
+          인원을 한 칸 늘렸을 때 성공률이 <strong>오히려 떨어진 경우가 84번 중 33번(39 %)</strong>이고,
+          14개 중 8개는 <strong>통계적으로 평평</strong>했습니다(칸마다의 오차 범위가 서로 겹칩니다).</p>
+        <p><strong>이건 계산이 틀린 게 아니라 설계의 가정이 어긋난 것입니다.</strong> 이 연구는
+          “인원을 늘리면 성공률이 오른다”를 전제로 <em>인원을 응답축으로</em> 잡았고, 통계 모형에도
+          그 오름을 고정해 두었습니다. 이번이 그 전제를 <strong>실제로 재본 첫 자료</strong>이고,
+          이 구간에서는 전제가 보이지 않습니다. 왜인지는 아직 모릅니다 — 인원이 늘어도 “한 사람당
+          휴무를 정확히 9일”처럼 사람 수에 비례해 늘어나는 제약이 같이 늘기 때문일 수 있습니다.</p>
+        <p><strong>결과를 보고 기준을 바꾸지는 않았습니다.</strong> 진단은 전부 “재보고 적는 것”까지이며,
+          합격선도 표본도 95 % 기준도 그대로입니다. 취약한 지점도 그대로 적었습니다 — 한 조건은
+          95 % 선을 넘은 것처럼 보이지만, 그 지점의 50회 중 45~47회가 <strong>시간 안에 결론이 나지
+          않아</strong> 남은 3~5회로 계산된 값이라 <strong>아무것도 위치시키지 못합니다.</strong></p>
+        <p class="small">덧붙임: 계산을 시작하기 전에 예산 상한 하나를 고쳤습니다. 이 단계 상한
+          “4,900”은 <strong>본 계산 건수만 센 값</strong>이었는데, 실제로는 각 건마다 <strong>전월
+          근무표를 한 번 더 만들어야</strong> 하므로 같은 설계가 9,800건이 됩니다. 표본은 그대로 두고
+          <strong>단위만</strong> 맞췄습니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-08-13</div>
