@@ -299,7 +299,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>이번에 <u>규칙을 공개 명세로 떼어내고</u> 기록에 판본 관리를 붙였습니다 — 남이 쓸 수 있게 만드는 작업입니다.</b>
+    <b>2편 <u>본 계산의 첫 단계를 실제로 돌렸습니다</u> — 560쌍 전건 완료, 오류 0.</b>
   </p>
 </header>
 
@@ -308,7 +308,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">10</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">15</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -335,15 +335,16 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <div class="paper-block">
     <div class="paper-head">
       <span class="paper-name">2편 — 조건별로 몇 명이 필요한가 <span class="small">(대표작)</span></span>
-      <span class="paper-where">6단계 중 4</span>
+      <span class="paper-where">7단계 중 6</span>
     </div>
-    <div class="track" style="grid-template-columns:repeat(6,1fr)" role="list" aria-label="2편 진행 단계">
+    <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="2편 진행 단계">
       <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">구상·설계</span></div>
       <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">계산기 제작</span></div>
       <div class="step stop" role="listitem"><span class="bar"></span><span class="lbl">재현 관문</span></div>
-      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">결과 보고·원고</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">투고</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">심사</span></div>
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">결과 보고·원고</span></div>
+      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">재설계·검증</span></div>
+      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">본 계산</span></div>
+      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">원고·투고</span></div>
     </div>
   </div>
 
@@ -352,11 +353,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문 통과</span> · 뒷관문 <em>판정 미달로 종결</em>. 재시도·추가 계산 없이 끝냈고, <strong>2편 본 계산은 계속 막혀 있습니다</strong></span>
+    <span class="status-v">2편 재현 관문 — <span class="ok">앞관문 통과</span> · 뒷관문 <em>판정 미달로 종결</em>(재시도 없음). 이를 대신한 <strong>새 설계 「Research 2.0」이 검증을 통과하고, 2026-08-13 본 계산의 <span class="ok">첫 단계까지 실제로 돌았습니다</span></strong>. <strong>지금 막힌 곳은 그 다음 단계의 실행 프로그램이 아직 없다는 것</strong>뿐입니다 — 첫 단계와 같은 자리이고, 같은 방식으로 만들면 됩니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v"><strong>컴퓨터가 할 수 있는 일은 여기서 끝났습니다.</strong> 남은 것은 <strong>사람이 정할 항목</strong>뿐입니다 — 이해관계 고지 문안, 참고문헌, 투고 승인, 그리고 <strong>무엇을 공개할지</strong> <span class="small">(숫자는 허용 범위 안이었지만 사전에 정한 부가 조건 하나를 못 채워 미달이었습니다)</span></span>
+    <span class="status-v"><span class="ok">본 계산 첫 단계 완료(2026-08-13)</span> — 컴퓨터 3대에서 560쌍을 돌려 오류 0으로 끝냈고, 완료 여부를 따지는 검사 19가지를 모두 통과했습니다. 남은 것은 <strong>다음 단계의 실행 프로그램</strong>입니다. 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong>(투고 직전에 한 번에)</span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -574,7 +575,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <section>
   <div class="sec-title">
     <span class="kicker">다음 단계</span>
-    <h2>계산을 시작하기까지 네 번의 승인</h2>
+    <h2>계산을 시작하기까지</h2>
   </div>
   <p class="body-copy">
     설계는 <strong>2026-08-11 승인</strong>됐습니다. 하지만 승인 하나로 계산이 시작되지는 않습니다.
@@ -588,14 +589,21 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">1</td><td>관문 검사기 만들기</td><td class="n">0</td><td><span class="flag done">완료 2026-08-11</span></td></tr>
         <tr><td class="n">2</td><td>관문 A 실행 — 지문 대조</td><td class="n">0</td><td><span class="flag done">통과 2026-08-11</span></td></tr>
         <tr><td class="n">3</td><td>관문 B 실행 — 실제로 풀기</td><td class="n">4,050</td><td><span class="flag done">실행 완료</span> <span class="flag stop">판정 미달 · 종결</span></td></tr>
-        <tr><td class="n">4</td><td>2편 본 계산 시작</td><td class="n">2,240</td><td><span class="flag stop">막힘 — 열리지 않음</span></td></tr>
+        <tr><td class="n">4</td><td>2편 본 계산 시작 <span class="small">(옛 경로)</span></td><td class="n">2,240</td><td><span class="flag stop">막힘 — 열리지 않음</span></td></tr>
+        <tr><td class="n">5</td><td><strong>새 설계 「Research 2.0」</strong> — 막힌 관문의 대체</td><td class="n">0</td><td><span class="flag done">채택 2026-08-12</span> <span class="flag done">확정·승인 2026-08-13</span></td></tr>
+        <tr><td class="n">6</td><td>새 경로의 검증 계산 — 설명서와 프로그램 대조</td><td class="n">5,938</td><td><span class="flag done">전부 통과 2026-08-13</span></td></tr>
+        <tr><td class="n">7</td><td>2편 본 계산 <span class="small">(새 경로 · 첫 단계 — 조건 20종 × 인원 7단 × 두 방식)</span></td><td class="n">2,179</td><td><span class="flag done">완료 2026-08-13</span> <span class="flag done">검사 19항 통과</span></td></tr>
+        <tr><td class="n">8</td><td>2편 본 계산 <span class="small">(다음 단계)</span></td><td class="n">≤4,900</td><td><span class="flag wait">실행 프로그램 제작 예정</span></td></tr>
       </tbody>
     </table>
   </div>
 
   <p class="small" style="margin-top:14px">
     한 단계를 승인받아도 다음이 자동으로 열리지 않습니다.
-    <strong>①②③은 끝났고(③은 판정 미달로 종결), ④는 열리지 않았습니다 — 2편 본 계산은 시작하지 않습니다.</strong>
+    <strong>①②③은 끝났고(③은 판정 미달로 종결), ④는 그 경로로는 열리지 않습니다.</strong>
+    대신 ⑤ 새 설계가 채택·승인됐고, ⑥ 그 설계가 요구한 검증 계산을 <strong>전부 통과</strong>했습니다.
+    남은 것은 ⑦ — <strong>승인은 이미 났고, 그 계약대로 실제로 돌리는 프로그램을 만드는 일</strong>입니다.
+    ⑦부터는 중간 승인 없이 미리 정해 둔 정지 조건 아래 기계적으로 진행됩니다.
   </p>
 
   <div class="pull" style="margin-top:18px;border-color:var(--stop)">
@@ -887,6 +895,135 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <div class="log">
 
     <div class="log-item">
+      <div class="log-when">2026-08-13</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">본 계산의 첫 단계를 실제로 돌렸습니다 — 560쌍 전건 완료, 오류 0</span>
+          <span class="flag done">완료</span>
+        </div>
+        <p><strong>계산을 돌릴 프로그램이 없던 자리를 채우고, 그날 바로 돌렸습니다.</strong>
+          조건 20종 × 인원 7단계 × 상황 4종을 <em>두 가지 인원 구성 방식</em>으로 각각 풀어
+          <strong>560쌍(2,179건)</strong>을 컴퓨터 3대에 나눠 계산했습니다. 15분 걸렸고
+          <strong>오류는 0건</strong>이었습니다. 결과는 근무표가 짜인 경우 970, 짜이지 않는다고
+          증명된 경우 86, 시간 안에 결론이 안 난 경우 64입니다.</p>
+        <p>두 방식을 <strong>같은 컴퓨터에서 연달아, 한 묶음으로</strong> 푸는 것이 이 단계의 핵심입니다.
+          한쪽만 성공한 절반짜리 묶음은 아예 결과로 받지 않습니다 — 비교가 목적인데 한쪽이 없으면
+          비교가 성립하지 않기 때문입니다. 어느 쪽을 먼저 풀지도 묶음 이름에서 기계적으로 정해
+          <strong>순서 때문에 결과가 달라질 여지</strong>를 없앴습니다.</p>
+        <p><strong>계산이 스스로 두 번 멈췄고, 두 번 다 프로그램의 잘못이었습니다.</strong>
+          첫 번째는 <em>“시간 안에 못 풀었다”를 “오류”로 잘못 분류</em>해 캠페인 전체를 세운 것입니다.
+          이 연구는 <strong>시간 초과를 합격 조건으로 삼지 않기로</strong> 이미 정해 두었는데
+          (지난 관문이 바로 그 조건 때문에 무너졌습니다) 프로그램이 그 약속을 어긴 셈입니다.
+          두 번째는 그것을 고치고 나서도 <em>고친 쪽과 읽는 쪽이 어긋나</em> 같은 정지가 재발한
+          것입니다. <strong>정지 규칙 자체는 한 글자도 바꾸지 않았습니다</strong> — 규칙은 제대로
+          작동했고, 고친 것은 프로그램뿐입니다.</p>
+        <p><strong>같이 적어 둘 것 하나.</strong> 휴무를 8일로 줄인 조건(<code>OF=8</code>)에서는
+          전월 근무표가 <strong>시간을 10배 늘려도 결론이 나지 않았습니다</strong>(같은 자리의
+          휴무 12일 조건은 1초). 이 단계 전체에서 결론이 안 난 비율은 <strong>5.45%</strong>로
+          미리 정해 둔 경보선(5%)을 넘었습니다. 경보의 효력은 <strong>기록하고 알리는 것뿐</strong>이며,
+          표본도 판정 기준도 진행도 바꾸지 않았습니다. 다음 단계에서 이 조건을 어떻게 다룰지는
+          <em>결과를 보고 기준을 바꾸는 일이 아니라</em> 미리 정하는 일로 남겨 두었습니다.</p>
+        <p class="small">함께: 공개한 규칙 설명서에서 <strong>한 조항이 “어느 날에 예외가 붙는지”를
+          말하지 않고 있던 공백</strong>을 메웠습니다(설명서 v1.0.2). 또 원고를 자동 검사하는 장치 두 개가
+          <strong>옛 판본을 검사하고 있던 것</strong>을 발견해 현재 판본으로 맞추고, 새 판본이 생기면
+          검사가 실패하도록 바꿨습니다 — 맞춰서 다시 돌린 결과 어긋난 수치는 0건이었습니다.</p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-08-13</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">검증 계산을 전부 통과했습니다 — 본 계산 앞의 관문이 열렸습니다</span>
+          <span class="flag done">통과</span>
+        </div>
+        <p><strong>새 설계가 요구한 검증을 세 층 모두 통과했습니다.</strong> 확인하려던 것은
+          이것입니다 — <em>“우리가 공개한 규칙 설명서가, 실제 프로그램이 거는 조건과 정말 같은가.”</em>
+          설명서에 없는 조건을 프로그램이 몰래 더 걸고 있다면, 그 설명서를 보고 따라 만든 사람은
+          다른 답을 얻게 됩니다.</p>
+        <p>① <strong>설명서만 보고 검사기를 새로 만들어</strong>, 지금까지 “근무표가 짜인다”고
+          공표한 <strong>12,324장 전부</strong>를 원래 검사기와 나란히 돌렸습니다 — <strong>판정이
+          어긋난 것은 0건</strong>입니다. 검사기가 아무것도 못 잡는 게 아니라는 것도 따로 확인했습니다
+          (일부러 규칙을 어긴 근무표 72건을 넣어, 양쪽이 <em>같은 규칙</em>으로 걸러냈습니다).
+          ② 이어서 <strong>설명서만으로 근무표를 새로 만들어</strong> 프로그램에 그대로 밀어넣었습니다.
+          1,050장 전부, 프로그램도 <strong>“짜인다”</strong>고 답했습니다.
+          그중 150장은 <strong>설명서가 스스로 “여기가 가장 불확실하다”고 밝혀 둔 지점</strong>
+          (전월 야간근무 뒤 휴식이 달을 넘어가는 경계)을 일부러 찌른 것입니다.</p>
+        <p class="small">계산량 5,938건(상한 6,000) · 11분 · 오류 0건. 다만 이 결과가 말하는 것은
+          <b>“시험한 범위에서 어긋남을 찾지 못했다”</b>까지입니다 — 세 대표 조건 안에서의 결과이고,
+          모든 조건에서 같다는 증명은 아닙니다. 그 한계는 문서에 그대로 남겨 둡니다.
+          <b>1편의 봉인된 결과·판정은 바뀌지 않았습니다.</b></p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-08-13</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">실행 승인이 났습니다 — 2편이 다시 움직입니다</span>
+          <span class="flag done">승인</span>
+        </div>
+        <p><strong>연구 책임 측이 새 설계의 실행을 승인했습니다.</strong> 승인은 한 번이고,
+          이후에는 중간 승인 없이 <strong>미리 정해 둔 자동 정지 조건</strong>(오류 발생 시 즉시 정지,
+          단계별 계산량 상한 초과 시 정지) 아래에서 기계적으로 진행됩니다 — 결과를 보고 멈추거나
+          계속하는 선택 자체를 없애기 위한 구조입니다.</p>
+        <p>함께 정해진 것: 계산에 쓸 컴퓨터 구성(1편과 같은 3대 + 작업 분배, 대수·코어 상한 명시),
+          그리고 검증 실험의 범위(주 판정에 쓰인 세 조건 중심). <strong>1편 재계산이나 봉인 기록
+          수정은 이 승인으로도 열리지 않습니다</strong> — 열지 않는 범위가 안건에 명시돼 있습니다.</p>
+        <p class="small">다음 순서: 실행 계약 코드와 검사기 준비(계산 0) → 검증 계산(6,000건 이내)
+          → 본 계산. <b>1편의 봉인된 결과·판정은 바뀌지 않습니다.</b></p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-08-12</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">새 설계가 검증을 통과해 확정판이 됐습니다</span>
+          <span class="flag done">확정</span>
+        </div>
+        <p><strong>새 설계 「Research 2.0」 초안을 다섯 갈래로 독립 검증한 뒤 확정판(v1.0)을
+          발행했습니다.</strong> 다섯 갈래: 문서의 주장을 실제 기록과 대조 &middot; &ldquo;승인됐다&rdquo;는
+          말이 실제 승인 범위와 일치하는지 대조 &middot; 새 실험의 세부 사전 지정 &middot; 자동 정지
+          안전장치 목록화 &middot; 문안 자체 점검. <strong>숫자와 계산에서는 오류가 0건</strong>이었고,
+          발견된 것은 전부 문장 층위(갱신 안 된 상태 표기, 출처 표시 누락 등) 14건 &mdash; 전부
+          확정판에 반영했습니다.</p>
+        <p>검증에서 나온 가장 중요한 발견: 새 실험(제품 계산기가 공개 명세보다 더 엄격하지 않은지
+          확인)은 <strong>제품이 이미 만든 답을 다시 넣는 것만으로는 증명이 되지 않습니다</strong> &mdash;
+          자기가 만든 답을 자기가 받아들이는 것은 당연하기 때문입니다. 그래서 <strong>명세만 보고 새로
+          만든 답</strong>을 넣어 보는 부분을 실험의 본체로 삼도록 설계를 고쳤습니다.</p>
+        <p class="small">다음: <strong>실행 승인 한 번</strong>(무엇을 열고 무엇을 열지 않는지, 언제
+          자동으로 멈추는지가 명시된 안건)이면 2편 본 계산이 다시 열립니다.
+          <b>1편의 봉인된 결과·판정은 이번에도 바뀌지 않았습니다.</b></p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-08-12</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">2편을 새 설계 「Research 2.0」으로 다시 엽니다</span>
+          <span class="flag done">채택</span>
+        </div>
+        <p><strong>막힌 관문을 고치는 대신, 관문 자체를 다시 설계하기로 했습니다.</strong>
+          2편으로 가는 관문(봉인 수치의 재현)은 판정 미달로 종결됐고 재시도는 없습니다. 새 설계는
+          검증 기준을 <strong>&ldquo;봉인 수치를 다시 맞히는가&rdquo;에서 &ldquo;공개 명세와
+          일치하는가&rdquo;로</strong> 바꿉니다 &mdash; 이미 문제지 8,100장의 지문 대조로 실증된,
+          실패하면 원인이 바로 지목되는 방식입니다.</p>
+        <p>지난 미달의 원인이었던 부가 조건(시간초과 0건)은 새 설계에서 <strong>판정 기준으로 쓰지
+          않습니다</strong> &mdash; 시간초과는 컴퓨터 성능의 성질이라, 결과에 &ldquo;판정 못 함&rdquo;으로
+          정직하게 집계만 합니다. 지난 관문의 기록(두 번 시도·종결)은 앞으로의 모든 보고에 그대로
+          공개합니다.</p>
+        <p>같은 날 <strong>원고 숫자 자동 검사기</strong>와 <strong>금지 표현 검사기</strong>가 상시
+          가동을 시작했습니다. 가동 첫날, 투고할 때 그대로 복사될 안내 문안에서 <strong>이미 고쳤어야
+          할 표현 2건</strong>을 잡아 고쳤습니다. 연구비 계획서와 이해관계 고지 문안도 새 설계에 맞게
+          다시 썼습니다(고지 문안은 서명 대기).</p>
+        <p class="small">다음: 새 설계의 검증 → 실행 승인 한 번 → 2편 본 계산.
+          <b>1편의 봉인된 결과·판정은 이 결정으로도 바뀌지 않습니다.</b></p>
+      </div>
+    </div>
+
+    <div class="log-item">
       <div class="log-when">2026-08-12</div>
       <div class="log-body">
         <div class="log-head">
@@ -1052,7 +1189,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-12</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-13</p>
 </footer>
 
 </div>
