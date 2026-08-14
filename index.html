@@ -299,7 +299,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편 본 계산 <u>두 단계를 돌렸습니다</u> — 오류 0. 다만 <u>둘째 단계에서 설계의 전제 하나가 어긋났습니다.</u></b>
+    <b>2편은 다음 세션에 <u>넓은 훑기(셋째 단계)</u>를 엽니다 — 한 번에 다 돌리지 않고, 끊을 수 있게 나눕니다.</b>
   </p>
 </header>
 
@@ -308,7 +308,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">16</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">17</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -353,11 +353,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">2편 본 계산은 <span class="ok">두 단계 모두 실제로 돌았습니다</span>(오류 0). <strong>지금 막힌 곳은 계산이 아니라 결과입니다</strong> — 둘째 단계는 “몇 명부터 95 %가 되는가”의 경계를 찾는 단계인데, <strong>사람을 여섯 명까지 더 넣어도 성공률이 0.9 언저리에서 오르지 않았습니다.</strong> 설계는 “인원을 늘리면 성공률이 오른다”를 전제로 축을 잡았는데, <em>이 구간에서는 그 오름이 보이지 않습니다</em></span>
+    <span class="status-v">둘째 단계에서 <strong>인원을 더 넣어도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔고, 그 나머지가 조건마다 갈리지 않는다는 것까지 쟀습니다. 통계 모형에 “인원을 늘리면 무조건 오른다”를 고정하지 않기로 했습니다. <em>넓은 훑기를 돌릴 프로그램은 아직 없습니다</em> — 다음 세션에 만들고 첫 덩어리를 돌립니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v"><strong>사람이 고를 갈래가 하나 생겼습니다</strong> — ① 미리 정해 둔 규칙대로 인원 축을 두 칸 더(＋2) 늘려 정말 안 오르는지 확인한다(계산 1,600건 추가, 예산 상한 조정 필요) ② 늘리지 않고 “이 구간에서는 경계가 없다”를 결과로 확정하고 다음 단계에서 더 넓게 훑는다. <strong>어느 쪽이든 판정 기준·표본·95 % 기준은 건드리지 않습니다.</strong> 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
+    <span class="status-v"><strong>다음 세션에 넓은 훑기의 첫 덩어리를 돌립니다.</strong> 한 번에 다 하지 않습니다 — 약 40만 건씩 나누고, 중간에 멈춰도 끝난 것은 남습니다. 먼저 프로그램을 만들고, 확인한 뒤에 첫 덩어리를 시작합니다. 95 % 기준은 그대로입니다. 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -594,7 +594,9 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">6</td><td>새 경로의 검증 계산 — 설명서와 프로그램 대조</td><td class="n">5,938</td><td><span class="flag done">전부 통과 2026-08-13</span></td></tr>
         <tr><td class="n">7</td><td>2편 본 계산 <span class="small">(새 경로 · 첫 단계 — 조건 20종 × 인원 7단 × 두 방식)</span></td><td class="n">2,179</td><td><span class="flag done">완료 2026-08-13</span> <span class="flag done">검사 20항 통과</span></td></tr>
         <tr><td class="n">8</td><td>2편 본 계산 <span class="small">(둘째 단계 — 경계 찾기 · 7조건 × 인원 7단 × 두 방식 × 50회)</span></td><td class="n">9,608</td><td><span class="flag done">실행 완료 2026-08-13</span> <span class="flag stop">경계 미포착</span></td></tr>
-        <tr><td class="n">9</td><td>인원 축 ＋2 연장 <span class="small">(미리 정해 둔 규칙)</span> 또는 다음 단계로 이관</td><td class="n">1,600</td><td><span class="flag wait">사람이 고를 갈래</span></td></tr>
+        <tr><td class="n">9</td><td>인원 축 ＋2 연장 <span class="small">(미리 정해 둔 규칙)</span></td><td class="n">2,400</td><td><span class="flag done">완료 2026-08-14</span> <span class="flag stop">계단은 여전히 안 오름</span></td></tr>
+        <tr><td class="n">10</td><td>왜 안 오르는지 · 남은 5 %가 무엇인지</td><td class="n">1,800+2,200</td><td><span class="flag done">측정 완료 2026-08-14</span></td></tr>
+        <tr><td class="n">11</td><td>2편 본 계산 <span class="small">(셋째 단계 — 넓은 훑기 · 약 40만 건씩)</span></td><td class="n">최대 1,598,400</td><td><span class="flag wait">다음 세션 · 프로그램 제작 후 첫 덩어리</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -603,8 +605,9 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     한 단계를 승인받아도 다음이 자동으로 열리지 않습니다.
     <strong>①②③은 끝났고(③은 판정 미달로 종결), ④는 그 경로로는 열리지 않습니다.</strong>
     대신 ⑤ 새 설계가 채택·승인됐고, ⑥ 그 설계가 요구한 검증 계산을 <strong>전부 통과</strong>했습니다.
-    남은 것은 ⑦ — <strong>승인은 이미 났고, 그 계약대로 실제로 돌리는 프로그램을 만드는 일</strong>입니다.
-    ⑦부터는 중간 승인 없이 미리 정해 둔 정지 조건 아래 기계적으로 진행됩니다.
+    ⑦⑧⑨⑩은 끝났습니다(⑧은 경계 미포착, ⑨는 연장해도 계단이 안 오름).
+    남은 것은 ⑪ — <strong>넓은 훑기. 승인은 났고, 다음 세션에 프로그램을 만들어 첫 덩어리부터 돌립니다.</strong>
+    한 번에 다 돌리지 않고, 끊으면 끝난 것만 남깁니다.
   </p>
 
   <div class="pull" style="margin-top:18px;border-color:var(--stop)">
@@ -894,6 +897,22 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-08-14</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">다음 세션에 넓은 훑기를 엽니다 — 한 번에 다 하지 않고, 끊을 수 있게</span>
+          <span class="flag wait">다음 세션</span>
+        </div>
+        <p>둘째 단계 뒤에 물은 것은 둘입니다. <strong>인원을 두 칸 더 늘려도 계단은 오르지 않았고</strong>,
+          성공률이 95 % 바로 위에서 멈추는 그 나머지가 <strong>조건마다 갈리지 않는다</strong>는 것도 쟀습니다.
+          그래서 통계 모형에 “인원을 늘리면 무조건 오른다”를 고정하지 않기로 했습니다. 95 % 기준은 그대로입니다.</p>
+        <p><strong>넓은 훑기는 다음 세션에 엽니다.</strong> 상한은 약 160만 건·아흐레이지만,
+          <strong>약 40만 건씩</strong> 나누고 중간에 멈춰도 끝난 것은 남습니다.
+          먼저 프로그램을 만들고, 확인한 뒤에 첫 덩어리를 시작합니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-08-13</div>
@@ -1222,7 +1241,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-13</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-14</p>
 </footer>
 
 </div>
