@@ -61,10 +61,15 @@ p{margin:0}
 /* ── 헤드라인 ─────────────────────────────── */
 header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,50px)}
 .headline{
-  font-size:clamp(17px,2.7vw,21px);line-height:1.55;font-weight:500;color:var(--ink-2);
-  max-width:34ch;
+  font-size:clamp(16.5px,2.7vw,21px);line-height:1.55;font-weight:500;color:var(--ink-2);
+  max-width:52ch;word-break:keep-all;
 }
 .headline b{color:var(--ink);font-weight:750}
+.head-num{
+  display:block;margin-top:8px;
+  font-family:var(--mono);font-size:clamp(12.5px,2.2vw,14px);font-weight:650;
+  letter-spacing:-0.01em;color:var(--accent);font-variant-numeric:tabular-nums;
+}
 
 /* ── 진행 트랙 (주인공) ────────────────────── */
 .tracks{display:flex;flex-direction:column;gap:30px}
@@ -89,8 +94,9 @@ header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,
 .step.stop .bar{background:var(--stop)}
 .lbl{
   font-size:11.5px;line-height:1.35;color:var(--muted);text-wrap:balance;
-  letter-spacing:-0.01em;
+  letter-spacing:-0.01em;word-break:keep-all;
 }
+.ln{display:none}
 .step.done .lbl{color:var(--ink-2)}
 .step.now .lbl{color:var(--ink);font-weight:700}
 .here{
@@ -98,7 +104,7 @@ header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,
   font-weight:700;display:block;margin-bottom:-3px;
 }
 .track-hint{
-  font-size:12.5px;color:var(--muted);margin-top:-14px;
+  font-size:12.5px;color:var(--muted);margin-top:-14px;word-break:keep-all;
 }
 button.step{
   appearance:none;-webkit-appearance:none;background:none;border:0;padding:4px 2px 2px;
@@ -132,7 +138,7 @@ button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .sheet-close:hover{border-color:var(--accent);color:var(--accent)}
 .sheet-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sheet h2{font-size:20px}
-.sheet-body{display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.72;color:var(--ink-2);word-break:keep-all}
+.sheet-body{display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.72;color:var(--ink-2);word-break:keep-all;overflow:auto;flex:1;min-height:0}
 .sheet-body p{max-width:56ch}
 .sheet h2{word-break:keep-all}
 .sheet-body strong{color:var(--ink)}
@@ -179,12 +185,16 @@ button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .sheet-nav[hidden],.sheet-mini[hidden],#sheet-flag[hidden]{display:none}
 .sheet-nav{
   display:flex;gap:8px;margin-top:4px;padding-top:12px;border-top:1px solid var(--rule-soft);
+  flex:none;
 }
 .sheet-nav button{
   appearance:none;border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
-  font-family:var(--sans);font-size:13px;font-weight:650;padding:7px 11px;border-radius:5px;
-  cursor:pointer;flex:1;
+  font-family:var(--sans);font-size:13px;font-weight:650;padding:8px 11px;border-radius:5px;
+  cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+  min-width:0;text-align:left;
 }
+.nav-k{font-size:10.5px;letter-spacing:.08em;color:var(--muted);font-weight:650}
+.nav-t{font-size:13.5px;font-weight:650;word-break:keep-all;line-height:1.35}
 .sheet-nav button:hover{border-color:var(--accent);color:var(--accent)}
 .sheet-nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sheet-nav button:disabled{opacity:.4;cursor:default;border-color:var(--rule-soft);color:var(--idle)}
@@ -196,7 +206,7 @@ button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 }
 .rate-row:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
 .rate-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.rate-lab{font-size:13.5px;font-weight:650;color:var(--ink)}
+.rate-lab{font-size:13.5px;font-weight:650;color:var(--ink);word-break:keep-all}
 .rate-track{position:relative;height:8px;background:var(--track-empty);border-radius:2px;overflow:visible}
 .rate-tau{position:absolute;left:95%;top:-3px;bottom:-3px;width:1px;background:var(--ink);opacity:.4}
 .rate-fill{display:block;height:100%;border-radius:2px}
@@ -205,7 +215,37 @@ button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .rate-n{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 @media (min-width:640px){
   #step-sheet{place-items:center}
-  .sheet{border-radius:10px;padding:22px 24px 26px}
+  .sheet{border-radius:10px;padding:22px 24px 26px;width:min(600px,92vw)}
+}
+@media (max-width:639px){
+  .lw{display:none}
+  .ln{display:inline}
+  .lbl{font-size:11px;text-align:center;line-height:1.3}
+  .ln{letter-spacing:-0.02em}
+  .track{gap:5px}
+  button.step{padding:8px 1px 4px}
+  .bar{height:8px}
+  .here{font-size:9px;letter-spacing:.08em;text-align:center}
+  .paper-name{font-size:15.5px;word-break:keep-all}
+  .sheet{
+    width:100%;max-height:min(92dvh,720px);
+    padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));
+  }
+  .sheet h2{font-size:18px}
+  .sheet-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sheet-fact .v{font-size:15.5px;word-break:keep-all}
+  .sheet-nav{flex-direction:column}
+  .sheet-bar-row{grid-template-columns:52px 1fr 44px;gap:6px}
+  .status-row{flex-direction:column;align-items:flex-start;gap:3px}
+  .status-k{min-width:0}
+  .status-v{min-width:0;width:100%;font-weight:550;word-break:keep-all}
+  summary{align-items:flex-start;word-break:keep-all}
+  .sum-tail{max-width:46%;line-height:1.4}
+  .track-hint{margin-top:-8px}
+}
+@media (max-width:360px){
+  .lbl{font-size:10px}
+  .head-num{font-size:12px;line-height:1.45}
 }
 
 /* ── 지금 상태 요약줄 ──────────────────────── */
@@ -218,14 +258,14 @@ button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--muted);min-width:74px;
 }
-.status-v{font-size:15px;font-weight:600;flex:1;min-width:200px}
+.status-v{font-size:15px;font-weight:600;flex:1;min-width:200px;word-break:keep-all}
 .status-v em{font-style:normal;color:var(--stop);font-weight:750}
 .status-v .ok{color:var(--done);font-weight:750}
 
 /* ── 섹션 ──────────────────────────────────── */
 section{margin-top:clamp(38px,6vw,58px)}
 .sec-title{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
-.body-copy{font-size:15.5px;line-height:1.75;color:var(--ink-2);max-width:60ch}
+.body-copy{font-size:15.5px;line-height:1.75;color:var(--ink-2);max-width:60ch;word-break:keep-all}
 .body-copy strong{color:var(--ink);font-weight:700}
 
 /* ── 펼침 (progressive disclosure) ─────────── */
@@ -271,7 +311,7 @@ td b{font-weight:700;color:var(--ink)}
 /* ── 강조 인용 ─────────────────────────────── */
 .pull{
   border-left:2px solid var(--accent);padding:2px 0 2px 16px;
-  font-size:14.5px;line-height:1.7;color:var(--ink-2);
+  font-size:14.5px;line-height:1.7;color:var(--ink-2);word-break:keep-all;
 }
 .pull b{color:var(--ink)}
 
@@ -412,7 +452,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 지금 <u>넓은 훑기 첫 덩어리</u>를 도는 중 — 2026-08-15 18시 23분 기준 종결기록 121,248 / 399,528.</b>
+    <b>2편은 지금 <u>넓은 훑기 첫 덩어리</u>를 도는 중.</b>
+    <span class="head-num">종결기록 121,248 / 399,528 · 2026-08-15 18:23</span>
   </p>
 </header>
 
@@ -435,13 +476,13 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <span class="paper-where">7단계 중 4</span>
     </div>
     <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="1편 진행 단계">
-      <button type="button" class="step done" role="listitem" data-step="p1-design"><span class="bar"></span><span class="lbl">설계·사전검증</span></button>
-      <button type="button" class="step done" role="listitem" data-step="p1-run"><span class="bar"></span><span class="lbl">본 계산</span></button>
-      <button type="button" class="step done" role="listitem" data-step="p1-seal"><span class="bar"></span><span class="lbl">결과 봉인</span></button>
-      <button type="button" class="step now"  role="listitem" data-step="p1-ms"><span class="here">지금</span><span class="bar"></span><span class="lbl">원고 작성</span></button>
-      <button type="button" class="step"      role="listitem" data-step="p1-submit"><span class="bar"></span><span class="lbl">학회지 투고</span></button>
-      <button type="button" class="step"      role="listitem" data-step="p1-review"><span class="bar"></span><span class="lbl">심사</span></button>
-      <button type="button" class="step"      role="listitem" data-step="p1-pub"><span class="bar"></span><span class="lbl">게재</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p1-design" aria-label="설계·사전검증"><span class="bar"></span><span class="lbl"><span class="lw">설계·사전검증</span><span class="ln">설계</span></span></button>
+      <button type="button" class="step done" role="listitem" data-step="p1-run" aria-label="본 계산"><span class="bar"></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
+      <button type="button" class="step done" role="listitem" data-step="p1-seal" aria-label="결과 봉인"><span class="bar"></span><span class="lbl"><span class="lw">결과 봉인</span><span class="ln">봉인</span></span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p1-ms" aria-label="원고 작성"><span class="here">지금</span><span class="bar"></span><span class="lbl"><span class="lw">원고 작성</span><span class="ln">원고</span></span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-submit" aria-label="학회지 투고"><span class="bar"></span><span class="lbl"><span class="lw">학회지 투고</span><span class="ln">투고</span></span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-review" aria-label="심사"><span class="bar"></span><span class="lbl"><span class="lw">심사</span><span class="ln">심사</span></span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-pub" aria-label="게재"><span class="bar"></span><span class="lbl"><span class="lw">게재</span><span class="ln">게재</span></span></button>
     </div>
   </div>
 
@@ -451,13 +492,13 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <span class="paper-where">7단계 중 6</span>
     </div>
     <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="2편 진행 단계">
-      <button type="button" class="step done" role="listitem" data-step="p2-design"><span class="bar"></span><span class="lbl">구상·설계</span></button>
-      <button type="button" class="step done" role="listitem" data-step="p2-compiler"><span class="bar"></span><span class="lbl">계산기 제작</span></button>
-      <button type="button" class="step stop" role="listitem" data-step="p2-gate"><span class="bar"></span><span class="lbl">재현 관문</span></button>
-      <button type="button" class="step done" role="listitem" data-step="p2-report"><span class="bar"></span><span class="lbl">결과 보고·원고</span></button>
-      <button type="button" class="step done" role="listitem" data-step="p2-r20"><span class="bar"></span><span class="lbl">재설계·검증</span></button>
-      <button type="button" class="step now"  role="listitem" data-step="p2-campaign"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:30%"></span></span><span class="lbl">본 계산</span></button>
-      <button type="button" class="step"      role="listitem" data-step="p2-paper"><span class="bar"></span><span class="lbl">원고·투고</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-design" aria-label="구상·설계"><span class="bar"></span><span class="lbl"><span class="lw">구상·설계</span><span class="ln">구상</span></span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-compiler" aria-label="계산기 제작"><span class="bar"></span><span class="lbl"><span class="lw">계산기 제작</span><span class="ln">계산기</span></span></button>
+      <button type="button" class="step stop" role="listitem" data-step="p2-gate" aria-label="재현 관문"><span class="bar"></span><span class="lbl"><span class="lw">재현 관문</span><span class="ln">관문</span></span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-report" aria-label="결과 보고·원고"><span class="bar"></span><span class="lbl"><span class="lw">결과 보고·원고</span><span class="ln">보고</span></span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-r20" aria-label="재설계·검증"><span class="bar"></span><span class="lbl"><span class="lw">재설계·검증</span><span class="ln">재설계</span></span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:30%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
+      <button type="button" class="step"      role="listitem" data-step="p2-paper" aria-label="원고·투고"><span class="bar"></span><span class="lbl"><span class="lw">원고·투고</span><span class="ln">투고</span></span></button>
     </div>
   </div>
   <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 지금 칸의 초록 채움은 첫 덩어리의 진행입니다.</p>
@@ -1793,6 +1834,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       body.appendChild(extra);
     }
   }
+  function fillNav(btn, kicker, name) {
+    btn.textContent = '';
+    btn.appendChild(el('span', 'nav-k', kicker));
+    if (name) btn.appendChild(el('span', 'nav-t', name));
+  }
   function renderNav(key) {
     var idx = ORDER.indexOf(key);
     if (!nav) return;
@@ -1800,8 +1846,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     nav.hidden = false;
     prevBtn.disabled = idx <= 0;
     nextBtn.disabled = idx >= ORDER.length - 1;
-    prevBtn.textContent = idx > 0 ? '← ' + DETAIL[ORDER[idx - 1]].title : '이전 단계';
-    nextBtn.textContent = idx < ORDER.length - 1 ? DETAIL[ORDER[idx + 1]].title + ' →' : '다음 단계';
+    fillNav(prevBtn, '이전', idx > 0 ? DETAIL[ORDER[idx - 1]].title : '');
+    fillNav(nextBtn, '다음', idx < ORDER.length - 1 ? DETAIL[ORDER[idx + 1]].title : '');
   }
   function close() {
     if (!sheet || sheet.hidden) return;
