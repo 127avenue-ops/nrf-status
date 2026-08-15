@@ -82,7 +82,10 @@ header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,
 .step.now .bar{
   background:var(--accent);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);
+  overflow:hidden;
 }
+.step.now .bar:has(.bar-fill){background:var(--track-empty)}
+.bar-fill{display:block;height:100%;background:var(--accent);border-radius:2px}
 .step.stop .bar{background:var(--stop)}
 .lbl{
   font-size:11.5px;line-height:1.35;color:var(--muted);text-wrap:balance;
@@ -93,6 +96,116 @@ header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,
 .here{
   font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--accent);
   font-weight:700;display:block;margin-bottom:-3px;
+}
+.track-hint{
+  font-size:12.5px;color:var(--muted);margin-top:-14px;
+}
+button.step{
+  appearance:none;-webkit-appearance:none;background:none;border:0;padding:4px 2px 2px;
+  margin:0;font:inherit;text-align:left;cursor:pointer;border-radius:4px;
+  width:100%;
+}
+button.step:hover .bar{filter:brightness(.92)}
+button.step:hover .lbl{color:var(--ink)}
+button.step:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ── 단계 상세 (막대 클릭) ──────────────────── */
+#step-sheet[hidden]{display:none}
+#step-sheet{
+  position:fixed;inset:0;z-index:20;display:grid;place-items:end center;
+}
+.sheet-back{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 28%,transparent)}
+.sheet{
+  position:relative;z-index:1;width:min(560px,100%);max-height:min(86vh,720px);
+  overflow:auto;background:var(--paper);color:var(--ink);
+  border:1px solid var(--rule);border-radius:12px 12px 0 0;
+  padding:18px 20px 28px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 -12px 40px color-mix(in srgb,var(--ink) 12%,transparent);
+}
+.sheet-top{display:flex;align-items:flex-start;gap:12px}
+.sheet-kicker{margin:0}
+.sheet-close{
+  margin-left:auto;appearance:none;border:1px solid var(--rule);background:var(--sunk);
+  color:var(--ink-2);font-family:var(--sans);font-size:13px;font-weight:650;
+  padding:6px 10px;border-radius:5px;cursor:pointer;
+}
+.sheet-close:hover{border-color:var(--accent);color:var(--accent)}
+.sheet-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet h2{font-size:20px}
+.sheet-body{display:flex;flex-direction:column;gap:10px;font-size:14.5px;line-height:1.72;color:var(--ink-2);word-break:keep-all}
+.sheet-body p{max-width:56ch}
+.sheet h2{word-break:keep-all}
+.sheet-body strong{color:var(--ink)}
+.sheet-body ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.sheet-title-row{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.sheet-title-row h2{flex:1;min-width:12ch}
+.sheet-mini{display:grid;gap:3px;margin:2px 0 4px}
+.sheet-mini i{height:4px;border-radius:1px;background:var(--track-empty);display:block}
+.sheet-mini i.done{background:var(--done)}
+.sheet-mini i.stop{background:var(--stop)}
+.sheet-mini i.now{background:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 28%,transparent)}
+.sheet-mini i.on{outline:1px solid var(--ink);outline-offset:1px}
+.sheet-facts{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;
+}
+.sheet-fact{
+  background:var(--sunk);border:1px solid var(--rule-soft);border-radius:6px;
+  padding:8px 10px;display:flex;flex-direction:column;gap:3px;min-width:0;
+}
+.sheet-fact .k{
+  font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;
+}
+.sheet-fact .v{
+  font-weight:750;font-variant-numeric:tabular-nums;font-size:16.5px;line-height:1.25;
+  color:var(--ink);letter-spacing:-0.02em;
+}
+.sheet-meter{display:flex;flex-direction:column;gap:6px}
+.sheet-meter-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sheet-meter-lab{font-size:13px;font-weight:650;color:var(--ink)}
+.sheet-meter-n{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted)}
+.sheet-meter-track{height:8px;background:var(--track-empty);border-radius:2px;overflow:hidden}
+.sheet-meter-fill{display:block;height:100%;background:var(--accent);border-radius:2px}
+.sheet-bars{display:flex;flex-direction:column;gap:7px}
+.sheet-bar-row{display:grid;grid-template-columns:72px 1fr 64px;gap:8px;align-items:center}
+.sheet-bar-lab{font-size:12.5px;color:var(--ink-2)}
+.sheet-bar-track{height:6px;background:var(--track-empty);border-radius:2px;overflow:hidden}
+.sheet-bar-fill{display:block;height:100%;border-radius:2px;background:var(--idle)}
+.sheet-bar-fill.done{background:var(--done)}
+.sheet-bar-fill.stop{background:var(--stop)}
+.sheet-bar-fill.wait{background:var(--idle)}
+.sheet-bar-fill.now{background:var(--accent)}
+.sheet-bar-n{font-family:var(--mono);font-size:11.5px;font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.sheet-nav[hidden],.sheet-mini[hidden],#sheet-flag[hidden]{display:none}
+.sheet-nav{
+  display:flex;gap:8px;margin-top:4px;padding-top:12px;border-top:1px solid var(--rule-soft);
+}
+.sheet-nav button{
+  appearance:none;border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
+  font-family:var(--sans);font-size:13px;font-weight:650;padding:7px 11px;border-radius:5px;
+  cursor:pointer;flex:1;
+}
+.sheet-nav button:hover{border-color:var(--accent);color:var(--accent)}
+.sheet-nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sheet-nav button:disabled{opacity:.4;cursor:default;border-color:var(--rule-soft);color:var(--idle)}
+.rate-chart{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.rate-row{
+  appearance:none;-webkit-appearance:none;background:none;border:0;width:100%;
+  display:flex;flex-direction:column;gap:5px;text-align:left;padding:8px 4px;cursor:pointer;
+  border-radius:5px;font:inherit;
+}
+.rate-row:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.rate-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rate-lab{font-size:13.5px;font-weight:650;color:var(--ink)}
+.rate-track{position:relative;height:8px;background:var(--track-empty);border-radius:2px;overflow:visible}
+.rate-tau{position:absolute;left:95%;top:-3px;bottom:-3px;width:1px;background:var(--ink);opacity:.4}
+.rate-fill{display:block;height:100%;border-radius:2px}
+.rate-fill.wait{background:color-mix(in srgb,var(--accent) 70%,var(--idle))}
+.rate-fill.stop{background:var(--stop)}
+.rate-n{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (min-width:640px){
+  #step-sheet{place-items:center}
+  .sheet{border-radius:10px;padding:22px 24px 26px}
 }
 
 /* ── 지금 상태 요약줄 ──────────────────────── */
@@ -299,7 +412,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 다음 세션에 <u>넓은 훑기(셋째 단계)</u>를 엽니다 — 한 번에 다 돌리지 않고, 끊을 수 있게 나눕니다.</b>
+    <b>2편은 지금 <u>넓은 훑기 첫 덩어리</u>를 도는 중 — 2026-08-15 18시 23분 기준 종결기록 121,248 / 399,528.</b>
   </p>
 </header>
 
@@ -308,7 +421,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">17</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">19</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -322,13 +435,13 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <span class="paper-where">7단계 중 4</span>
     </div>
     <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="1편 진행 단계">
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">설계·사전검증</span></div>
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">본 계산</span></div>
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">결과 봉인</span></div>
-      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">원고 작성</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">학회지 투고</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">심사</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">게재</span></div>
+      <button type="button" class="step done" role="listitem" data-step="p1-design"><span class="bar"></span><span class="lbl">설계·사전검증</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p1-run"><span class="bar"></span><span class="lbl">본 계산</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p1-seal"><span class="bar"></span><span class="lbl">결과 봉인</span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p1-ms"><span class="here">지금</span><span class="bar"></span><span class="lbl">원고 작성</span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-submit"><span class="bar"></span><span class="lbl">학회지 투고</span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-review"><span class="bar"></span><span class="lbl">심사</span></button>
+      <button type="button" class="step"      role="listitem" data-step="p1-pub"><span class="bar"></span><span class="lbl">게재</span></button>
     </div>
   </div>
 
@@ -338,26 +451,27 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <span class="paper-where">7단계 중 6</span>
     </div>
     <div class="track" style="grid-template-columns:repeat(7,1fr)" role="list" aria-label="2편 진행 단계">
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">구상·설계</span></div>
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">계산기 제작</span></div>
-      <div class="step stop" role="listitem"><span class="bar"></span><span class="lbl">재현 관문</span></div>
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">결과 보고·원고</span></div>
-      <div class="step done" role="listitem"><span class="bar"></span><span class="lbl">재설계·검증</span></div>
-      <div class="step now"  role="listitem"><span class="here">지금</span><span class="bar"></span><span class="lbl">본 계산</span></div>
-      <div class="step"      role="listitem"><span class="bar"></span><span class="lbl">원고·투고</span></div>
+      <button type="button" class="step done" role="listitem" data-step="p2-design"><span class="bar"></span><span class="lbl">구상·설계</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-compiler"><span class="bar"></span><span class="lbl">계산기 제작</span></button>
+      <button type="button" class="step stop" role="listitem" data-step="p2-gate"><span class="bar"></span><span class="lbl">재현 관문</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-report"><span class="bar"></span><span class="lbl">결과 보고·원고</span></button>
+      <button type="button" class="step done" role="listitem" data-step="p2-r20"><span class="bar"></span><span class="lbl">재설계·검증</span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p2-campaign"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:30%"></span></span><span class="lbl">본 계산</span></button>
+      <button type="button" class="step"      role="listitem" data-step="p2-paper"><span class="bar"></span><span class="lbl">원고·투고</span></button>
     </div>
   </div>
+  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 지금 칸의 초록 채움은 첫 덩어리의 진행입니다.</p>
 
 </div>
 
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">둘째 단계에서 <strong>인원을 더 넣어도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔고, 그 나머지가 조건마다 갈리지 않는다는 것까지 쟀습니다. 통계 모형에 “인원을 늘리면 무조건 오른다”를 고정하지 않기로 했습니다. <em>넓은 훑기를 돌릴 프로그램은 아직 없습니다</em> — 다음 세션에 만들고 첫 덩어리를 돌립니다</span>
+    <span class="status-v">둘째 단계에서 <strong>인원을 더 넣어도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔고, 그 전제는 통계 모형에 고정하지 않기로 했습니다. 넓은 훑기 첫 덩어리는 <strong>지금 계산 중</strong>입니다(18시 23분 기준 종결기록 121,248 / 399,528). 끝나도 바로 세밀 지도로 가지 않습니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v"><strong>다음 세션에 넓은 훑기의 첫 덩어리를 돌립니다.</strong> 한 번에 다 하지 않습니다 — 약 40만 건씩 나누고, 중간에 멈춰도 끝난 것은 남습니다. 먼저 프로그램을 만들고, 확인한 뒤에 첫 덩어리를 시작합니다. 95 % 기준은 그대로입니다. 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
+    <span class="status-v"><strong>첫 덩어리가 끝날 때까지 기다립니다.</strong> 중간에 멈춰도 끝난 것은 남고, 같은 프로그램으로 이어 돌리면 됩니다. 첫 덩어리가 끝나도 바로 세밀 지도로 가지 않습니다 — 훑기 전체가 끝나야 합니다. 95 % 기준은 그대로입니다. 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -434,6 +548,24 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
             </tbody>
           </table>
         </div>
+        <div class="rate-chart" role="list" aria-label="조건별 성공률. 세로선은 목표 95%">
+          <button type="button" class="rate-row" role="listitem" data-step="p1-A">
+            <span class="rate-lab">A 균형형 · 24명</span>
+            <span class="rate-track"><span class="rate-tau" title="목표 95%"></span><span class="rate-fill wait" style="width:95.3%"></span></span>
+            <span class="rate-n">95.3% · 불확정</span>
+          </button>
+          <button type="button" class="rate-row" role="listitem" data-step="p1-B">
+            <span class="rate-lab">B 중간형 · 32명</span>
+            <span class="rate-track"><span class="rate-tau" title="목표 95%"></span><span class="rate-fill stop" style="width:93.5%"></span></span>
+            <span class="rate-n">93.5% · 미달</span>
+          </button>
+          <button type="button" class="rate-row" role="listitem" data-step="p1-C">
+            <span class="rate-lab">C 고수요형 · 42명</span>
+            <span class="rate-track"><span class="rate-tau" title="목표 95%"></span><span class="rate-fill stop" style="width:90.8%"></span></span>
+            <span class="rate-n">90.8% · 미달</span>
+          </button>
+        </div>
+        <p class="small">세로선은 목표 95%. 막대를 누르면 그 조건만 펼칩니다.</p>
         <p><strong>“불확정”이 무슨 뜻인가.</strong> 성공률이 95%를 넘었지만, 표본 오차를 감안하면
           “확실히 넘었다”고 단정할 수 없다는 뜻입니다. 확정하려면 성공이 더 나왔어야 합니다.</p>
         <p><strong>B 조건은 판정선에 정확히 걸쳐 있습니다.</strong> 성공이 딱 1건만 더 나왔어도
@@ -596,7 +728,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">8</td><td>2편 본 계산 <span class="small">(둘째 단계 — 경계 찾기 · 7조건 × 인원 7단 × 두 방식 × 50회)</span></td><td class="n">9,608</td><td><span class="flag done">실행 완료 2026-08-13</span> <span class="flag stop">경계 미포착</span></td></tr>
         <tr><td class="n">9</td><td>인원 축 ＋2 연장 <span class="small">(미리 정해 둔 규칙)</span></td><td class="n">2,400</td><td><span class="flag done">완료 2026-08-14</span> <span class="flag stop">계단은 여전히 안 오름</span></td></tr>
         <tr><td class="n">10</td><td>왜 안 오르는지 · 남은 5 %가 무엇인지</td><td class="n">1,800+2,200</td><td><span class="flag done">측정 완료 2026-08-14</span></td></tr>
-        <tr><td class="n">11</td><td>2편 본 계산 <span class="small">(셋째 단계 — 넓은 훑기 · 약 40만 건씩)</span></td><td class="n">최대 1,598,400</td><td><span class="flag wait">다음 세션 · 프로그램 제작 후 첫 덩어리</span></td></tr>
+        <tr><td class="n">11</td><td>2편 본 계산 <span class="small">(셋째 단계 — 넓은 훑기 · 첫 덩어리 399,528)</span></td><td class="n">121,248 / 399,528</td><td><span class="flag wait">실행 중 · 2026-08-15 18:23</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -606,8 +738,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <strong>①②③은 끝났고(③은 판정 미달로 종결), ④는 그 경로로는 열리지 않습니다.</strong>
     대신 ⑤ 새 설계가 채택·승인됐고, ⑥ 그 설계가 요구한 검증 계산을 <strong>전부 통과</strong>했습니다.
     ⑦⑧⑨⑩은 끝났습니다(⑧은 경계 미포착, ⑨는 연장해도 계단이 안 오름).
-    남은 것은 ⑪ — <strong>넓은 훑기. 승인은 났고, 다음 세션에 프로그램을 만들어 첫 덩어리부터 돌립니다.</strong>
-    한 번에 다 돌리지 않고, 끊으면 끝난 것만 남깁니다.
+    남은 것은 ⑪ — <strong>넓은 훑기. 첫 덩어리 121,248 / 399,528 종결기록이 쌓인 채로 돌아가고 있습니다</strong>
+    (2026-08-15 18:23). 한 번에 다 돌리지 않고, 끊으면 끝난 것만 남깁니다. 첫 덩어리가 끝나도 바로 세밀 지도로 가지 않습니다.
   </p>
 
   <div class="pull" style="margin-top:18px;border-color:var(--stop)">
@@ -897,6 +1029,32 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-08-15</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">첫 덩어리가 돌아가고 있습니다 — 막대를 누르면 숫자와 판정이 펼쳐집니다</span>
+          <span class="flag wait">실행 중</span>
+        </div>
+        <p>18시 23분 기준 종결기록 <strong>121,248 / 399,528</strong>(받은 묶음 77,300).
+          중간에 한 번 멈췄고, 끝난 기록은 남긴 채 같은 프로그램으로 이어 돌렸습니다.
+          위쪽 색 막대와 1편 성공률 막대를 누르면 그 단계·조건의 숫자·진행·판정이 열립니다.</p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-08-14</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">넓은 훑기의 첫 덩어리를 돌리기 시작했습니다</span>
+          <span class="flag wait">실행 중</span>
+        </div>
+        <p>프로그램을 만들고 확인한 뒤에 <strong>첫 덩어리 399,528건</strong>을 시작했습니다.
+          한 번에 다 하지 않습니다. 중간에 멈춰도 끝난 것은 남고, 같은 프로그램으로 이어 돌리면 됩니다.
+          첫 덩어리가 끝나도 바로 세밀 지도로 가지 않습니다 — 훑기 두 덩어리가 끝나야 합니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-08-14</div>
@@ -1241,9 +1399,29 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-14</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-08-15</p>
 </footer>
 
+</div>
+
+<div id="step-sheet" hidden>
+  <div class="sheet-back" data-sheet-close></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-top">
+      <p class="kicker sheet-kicker" id="sheet-kicker"></p>
+      <button type="button" class="sheet-close" data-sheet-close>닫기</button>
+    </div>
+    <div class="sheet-mini" id="sheet-mini" hidden></div>
+    <div class="sheet-title-row">
+      <h2 id="sheet-title"></h2>
+      <span class="flag" id="sheet-flag" hidden></span>
+    </div>
+    <div class="sheet-body" id="sheet-body"></div>
+    <div class="sheet-nav" id="sheet-nav" hidden>
+      <button type="button" id="sheet-prev">이전 단계</button>
+      <button type="button" id="sheet-next">다음 단계</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1330,6 +1508,349 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
   show((location.hash || '').slice(1), false);
   window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+})();
+</script>
+<script>
+(function () {
+  var ORDER = [
+    'p1-design','p1-run','p1-seal','p1-ms','p1-submit','p1-review','p1-pub',
+    'p2-design','p2-compiler','p2-gate','p2-report','p2-r20','p2-campaign','p2-paper'
+  ];
+  var MINI = {
+    p1: [
+      {key:'p1-design', cls:'done'}, {key:'p1-run', cls:'done'}, {key:'p1-seal', cls:'done'},
+      {key:'p1-ms', cls:'now'}, {key:'p1-submit', cls:''}, {key:'p1-review', cls:''}, {key:'p1-pub', cls:''}
+    ],
+    p2: [
+      {key:'p2-design', cls:'done'}, {key:'p2-compiler', cls:'done'}, {key:'p2-gate', cls:'stop'},
+      {key:'p2-report', cls:'done'}, {key:'p2-r20', cls:'done'}, {key:'p2-campaign', cls:'now'}, {key:'p2-paper', cls:''}
+    ]
+  };
+  var FLAG = {
+    done: {cls:'flag done', t:'완료'},
+    now:  {cls:'flag wait', t:'지금'},
+    stop: {cls:'flag stop', t:'미달 · 종결'},
+    wait: {cls:'flag wait', t:'예정'}
+  };
+  var DETAIL = {
+    'p1-design': {
+      kicker: '1편 · 완료', title: '설계·사전검증', status: 'done', paper: 'p1',
+      facts: [
+        {k:'자격 검사', v:'198'},
+        {k:'예비 실험', v:'297'},
+        {k:'예비 오류', v:'0'},
+        {k:'결과', v:'통과'}
+      ],
+      html: '<p>측정 방법 자체부터 검증하기로 한 단계입니다. 본 계산에 들어가기 전 자격 검사와 예비 실험을 통과했고, 그 뒤에야 9,150건을 돌렸습니다.</p>'
+    },
+    'p1-run': {
+      kicker: '1편 · 완료', title: '본 계산', status: 'done', paper: 'p1',
+      facts: [
+        {k:'총 계산', v:'9,150'},
+        {k:'성공', v:'8,537'},
+        {k:'불가 증명', v:'584'},
+        {k:'시간 초과', v:'29'},
+        {k:'오류', v:'0'},
+        {k:'소요', v:'1시간 46분'}
+      ],
+      bars: [
+        {label:'성공', n:8537, cls:'done'},
+        {label:'불가', n:584, cls:'stop'},
+        {label:'초과', n:29, cls:'wait'}
+      ],
+      html: '<p>어림셈 1.6배 인원으로 95%를 확정적으로 충족한 조건은 <strong>0개</strong>였습니다. A는 불확정, B·C는 미달. 이 숫자는 봉인돼 바뀌지 않습니다.</p><p>아래 1편 「조건별 결과 숫자」에서 성공률 막대를 누르면 조건마다 따로 볼 수 있습니다.</p>'
+    },
+    'p1-seal': {
+      kicker: '1편 · 완료', title: '결과 봉인', status: 'done', paper: 'p1',
+      facts: [
+        {k:'봉인 후 변경', v:'0'},
+        {k:'감사', v:'통과'},
+        {k:'재실행', v:'하지 않음'}
+      ],
+      html: '<p>결과를 잠가 이후 손댈 수 없게 했습니다. 봉인 이후의 모든 재검증은 이 기록을 기준점으로 씁니다. 숫자·표·판정을 사후에 고치지 않습니다.</p>'
+    },
+    'p1-ms': {
+      kicker: '1편 · 지금', title: '원고 작성', status: 'now', paper: 'p1',
+      facts: [
+        {k:'영문', v:'거의 끝'},
+        {k:'국문', v:'거의 끝'},
+        {k:'투고처', v:'간호행정학회지'},
+        {k:'남은 것', v:'사람 항목'}
+      ],
+      html: '<p>투고 직전에 사람이 먼저 말할 항목만 남았습니다 — <strong>투고 승인·소속·저장소 주소</strong>.</p>'
+    },
+    'p1-submit': {
+      kicker: '1편 · 예정', title: '학회지 투고', status: 'wait', paper: 'p1',
+      facts: [{k:'상태', v:'아직 안 함'}],
+      html: '<p>사람이 정할 항목이 채워진 뒤에만 이 칸이 넘어갑니다.</p>'
+    },
+    'p1-review': {
+      kicker: '1편 · 예정', title: '심사', status: 'wait', paper: 'p1',
+      facts: [{k:'상태', v:'비어 있음'}],
+      html: '<p>투고 다음 단계입니다. 지금은 비어 있습니다.</p>'
+    },
+    'p1-pub': {
+      kicker: '1편 · 예정', title: '게재', status: 'wait', paper: 'p1',
+      facts: [{k:'상태', v:'비어 있음'}],
+      html: '<p>심사 다음 단계입니다. 지금은 비어 있습니다.</p>'
+    },
+    'p2-design': {
+      kicker: '2편 · 완료', title: '구상·설계', status: 'done', paper: 'p2',
+      facts: [
+        {k:'질문', v:'조건별 최소 인원'},
+        {k:'위치', v:'대표작'}
+      ],
+      html: '<p>1편에서 검증한 도구로 변수 공간 전체를 훑어, 조건별 필요 최소 인원의 경계를 그리는 연구입니다.</p>'
+    },
+    'p2-compiler': {
+      kicker: '2편 · 완료', title: '계산기 제작', status: 'done', paper: 'p2',
+      facts: [
+        {k:'하는 일', v:'조건 → 문제지'},
+        {k:'다음 확인', v:'1편과 같은 문제인가'}
+      ],
+      html: '<p>조건을 바꿔 가며 문제를 만들 수 있는 새 계산기를 만들었습니다. 본 계산에 들어가기 전, 이 계산기가 1편과 같은 문제지를 만드는지부터 확인해야 했습니다.</p>'
+    },
+    'p2-gate': {
+      kicker: '2편 · 판정 미달 · 종결', title: '재현 관문', status: 'stop', paper: 'p2',
+      facts: [
+        {k:'앞관문', v:'4,050 / 4,050'},
+        {k:'뒷관문', v:'4,050건'},
+        {k:'숫자', v:'허용 범위 안'},
+        {k:'시간 초과', v:'2'},
+        {k:'사고', v:'0'},
+        {k:'판정', v:'미달'}
+      ],
+      bars: [
+        {label:'앞관문', n:4050, cls:'done'},
+        {label:'뒷관문', n:4050, cls:'now'},
+        {label:'초과', n:2, cls:'stop'}
+      ],
+      html: '<p>앞관문(지문 대조)은 전건 일치로 통과했습니다. 뒷관문은 숫자는 허용 범위 안(차이 −0.6 / +0.4 / +1.0%p, 허용 ±4%p)이었으나, 미리 정한 “시간 초과 0건”을 2건이 못 채워 <strong>미달</strong>로 종결했습니다.</p><p>규칙을 고치면 통과였습니다. 고치지 않았습니다. 3차 시도는 없습니다.</p>'
+    },
+    'p2-report': {
+      kicker: '2편 · 완료', title: '결과 보고·원고', status: 'done', paper: 'p2',
+      facts: [
+        {k:'시도', v:'두 번 모두 기록'},
+        {k:'재현 주장', v:'하지 않음'}
+      ],
+      html: '<p>관문이 끝난 자리에서 쓸 수 있는 것을 정리해 보고와 초안을 남겼습니다. 두 번의 시도를 모두 싣고, 통과하지 못했다는 사실도 그대로 씁니다.</p>'
+    },
+    'p2-r20': {
+      kicker: '2편 · 완료', title: '재설계·검증', status: 'done', paper: 'p2',
+      facts: [
+        {k:'검증 계산', v:'5,938 통과'},
+        {k:'첫 단계', v:'2,179'},
+        {k:'둘째 단계', v:'9,608'},
+        {k:'＋2 연장', v:'2,400'},
+        {k:'경계', v:'미포착'}
+      ],
+      html: '<p>막힌 관문을 고치는 대신 검증 기준을 “봉인 수치 재현”에서 “공개 명세와 일치”로 바꿨습니다.</p><p>이어서 본 계산 첫·둘째 단계를 돌렸고, 둘째 단계에서 <strong>인원을 늘려도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔습니다. 통계 모형에 그 오름을 고정하지 않기로 했습니다.</p>'
+    },
+    'p2-campaign': {
+      kicker: '2편 · 지금', title: '본 계산 — 넓은 훑기 첫 덩어리', status: 'now', paper: 'p2',
+      facts: [
+        {k:'종결기록', v:'121,248'},
+        {k:'이 덩어리', v:'399,528'},
+        {k:'조건 점', v:'179'},
+        {k:'받은 묶음', v:'77,300'},
+        {k:'중간 정지', v:'1회'},
+        {k:'다음', v:'둘째 덩어리'}
+      ],
+      meter: {label:'첫 덩어리 진행', value:121248, max:399528, note:'2026-08-15 18:23'},
+      html: '<p>조건 공간을 한 번에 다 돌리지 않고 <strong>약 40만 건씩</strong> 나눕니다. 첫 덩어리는 점 179개입니다.</p><p>중간에 한 번 멈췄고, 끝난 기록은 남긴 채 같은 프로그램으로 이어 돌렸습니다.</p><p>첫 덩어리가 끝나도 바로 세밀 지도로 가지 않습니다. 훑기 두 덩어리가 끝나야 합니다. 95% 기준은 그대로입니다.</p>'
+    },
+    'p2-paper': {
+      kicker: '2편 · 예정', title: '원고·투고', status: 'wait', paper: 'p2',
+      facts: [{k:'상태', v:'본 계산 뒤'}],
+      html: '<p>훑기와 그 다음 단계가 안정된 뒤에 씁니다. 지금은 비어 있습니다.</p>'
+    },
+    'p1-A': {
+      kicker: '1편 · 조건 A', title: '균형형 · 24명', status: 'wait',
+      badge: {cls:'flag wait', t:'불확정'},
+      facts: [
+        {k:'인원', v:'24'},
+        {k:'성공', v:'1,287'},
+        {k:'실패', v:'63'},
+        {k:'성공률', v:'95.3%'},
+        {k:'목표', v:'95%'},
+        {k:'판정', v:'불확정'}
+      ],
+      meter: {label:'성공률 (목표 95%)', value:953, max:1000, note:'1,287 / 1,350'},
+      html: '<p>성공률이 목표를 넘었지만, 표본 오차를 감안하면 “확실히 넘었다”고 단정할 수 없습니다. 확정하려면 성공이 더 나왔어야 합니다.</p>'
+    },
+    'p1-B': {
+      kicker: '1편 · 조건 B', title: '중간형 · 32명', status: 'stop',
+      badge: {cls:'flag stop', t:'미달'},
+      facts: [
+        {k:'인원', v:'32'},
+        {k:'성공', v:'1,262'},
+        {k:'실패', v:'88'},
+        {k:'성공률', v:'93.5%'},
+        {k:'목표', v:'95%'},
+        {k:'판정', v:'미달'}
+      ],
+      meter: {label:'성공률 (목표 95%)', value:935, max:1000, note:'1,262 / 1,350'},
+      html: '<p>판정선에 정확히 걸쳐 있습니다. 성공이 <strong>딱 1건만 더</strong> 나왔어도 판정이 “미달”에서 “불확정”으로 바뀌었을 위치입니다. 이 아슬아슬함은 원고에 그대로 써 두었습니다.</p>'
+    },
+    'p1-C': {
+      kicker: '1편 · 조건 C', title: '고수요형 · 42명', status: 'stop',
+      badge: {cls:'flag stop', t:'미달'},
+      facts: [
+        {k:'인원', v:'42'},
+        {k:'성공', v:'1,226'},
+        {k:'실패', v:'124'},
+        {k:'성공률', v:'90.8%'},
+        {k:'목표', v:'95%'},
+        {k:'판정', v:'미달'}
+      ],
+      meter: {label:'성공률 (목표 95%)', value:908, max:1000, note:'1,226 / 1,350'},
+      html: '<p>세 조건 가운데 목표에서 가장 멀리 떨어져 있습니다. 어림셈 1.6배 인원으로는 부족하다는 1편의 결론을 가장 선명하게 보여 주는 칸입니다.</p>'
+    }
+  };
+
+  var sheet = document.getElementById('step-sheet');
+  var title = document.getElementById('sheet-title');
+  var kicker = document.getElementById('sheet-kicker');
+  var body = document.getElementById('sheet-body');
+  var mini = document.getElementById('sheet-mini');
+  var flag = document.getElementById('sheet-flag');
+  var nav = document.getElementById('sheet-nav');
+  var prevBtn = document.getElementById('sheet-prev');
+  var nextBtn = document.getElementById('sheet-next');
+  var lastBtn = null;
+  var currentKey = null;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function fmt(n) {
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  function renderMini(d, key) {
+    if (!mini) return;
+    var row = d.paper && MINI[d.paper];
+    if (!row) { mini.hidden = true; mini.innerHTML = ''; return; }
+    mini.innerHTML = '';
+    mini.style.gridTemplateColumns = 'repeat(' + row.length + ',1fr)';
+    row.forEach(function (item) {
+      var i = el('i', item.cls || '');
+      if (item.key === key) i.classList.add('on');
+      i.title = item.key;
+      mini.appendChild(i);
+    });
+    mini.hidden = false;
+  }
+  function renderBody(d) {
+    body.innerHTML = '';
+    if (d.facts && d.facts.length) {
+      var facts = el('div', 'sheet-facts');
+      d.facts.forEach(function (f) {
+        var card = el('div', 'sheet-fact');
+        card.appendChild(el('span', 'k', f.k));
+        card.appendChild(el('span', 'v', f.v));
+        facts.appendChild(card);
+      });
+      body.appendChild(facts);
+    }
+    if (d.meter) {
+      var m = d.meter;
+      var wrap = el('div', 'sheet-meter');
+      var top = el('div', 'sheet-meter-top');
+      top.appendChild(el('span', 'sheet-meter-lab', m.label));
+      var pct = m.max ? Math.round((1000 * m.value) / m.max) / 10 : 0;
+      top.appendChild(el('span', 'sheet-meter-n', (m.note || (fmt(m.value) + ' / ' + fmt(m.max))) + ' · ' + pct + '%'));
+      wrap.appendChild(top);
+      var track = el('div', 'sheet-meter-track');
+      var fill = el('span', 'sheet-meter-fill');
+      fill.style.width = Math.max(0, Math.min(100, pct)) + '%';
+      track.appendChild(fill);
+      wrap.appendChild(track);
+      body.appendChild(wrap);
+    }
+    if (d.bars && d.bars.length) {
+      var max = 0;
+      d.bars.forEach(function (b) { if (b.n > max) max = b.n; });
+      var bars = el('div', 'sheet-bars');
+      d.bars.forEach(function (b) {
+        var row = el('div', 'sheet-bar-row');
+        row.appendChild(el('span', 'sheet-bar-lab', b.label));
+        var track = el('div', 'sheet-bar-track');
+        var fill = el('span', 'sheet-bar-fill ' + (b.cls || ''));
+        fill.style.width = max ? Math.max(2, Math.round((100 * b.n) / max)) + '%' : '0%';
+        track.appendChild(fill);
+        row.appendChild(track);
+        row.appendChild(el('span', 'sheet-bar-n', fmt(b.n)));
+        bars.appendChild(row);
+      });
+      body.appendChild(bars);
+    }
+    if (d.html) {
+      var extra = el('div');
+      extra.innerHTML = d.html;
+      body.appendChild(extra);
+    }
+  }
+  function renderNav(key) {
+    var idx = ORDER.indexOf(key);
+    if (!nav) return;
+    if (idx < 0) { nav.hidden = true; return; }
+    nav.hidden = false;
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= ORDER.length - 1;
+    prevBtn.textContent = idx > 0 ? '← ' + DETAIL[ORDER[idx - 1]].title : '이전 단계';
+    nextBtn.textContent = idx < ORDER.length - 1 ? DETAIL[ORDER[idx + 1]].title + ' →' : '다음 단계';
+  }
+  function close() {
+    if (!sheet || sheet.hidden) return;
+    sheet.hidden = true;
+    currentKey = null;
+    if (lastBtn) { lastBtn.focus(); lastBtn = null; }
+  }
+  function open(key, btn) {
+    var d = DETAIL[key];
+    if (!d || !sheet) return;
+    currentKey = key;
+    if (btn) lastBtn = btn;
+    kicker.textContent = d.kicker;
+    title.textContent = d.title;
+    if (flag) {
+      var f = d.badge || FLAG[d.status] || FLAG.wait;
+      flag.className = f.cls;
+      flag.textContent = f.t;
+      flag.hidden = false;
+    }
+    renderMini(d, key);
+    renderBody(d);
+    renderNav(key);
+    sheet.hidden = false;
+    var closer = sheet.querySelector('.sheet-close');
+    if (closer) closer.focus();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-step]'), function (btn) {
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.addEventListener('click', function () { open(btn.getAttribute('data-step'), btn); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sheet-close]'), function (elx) {
+    elx.addEventListener('click', close);
+  });
+  if (prevBtn) prevBtn.addEventListener('click', function () {
+    var i = ORDER.indexOf(currentKey);
+    if (i > 0) open(ORDER[i - 1], lastBtn);
+  });
+  if (nextBtn) nextBtn.addEventListener('click', function () {
+    var i = ORDER.indexOf(currentKey);
+    if (i >= 0 && i < ORDER.length - 1) open(ORDER[i + 1], lastBtn);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (sheet.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowLeft' && prevBtn && !prevBtn.disabled) { e.preventDefault(); prevBtn.click(); }
+    if (e.key === 'ArrowRight' && nextBtn && !nextBtn.disabled) { e.preventDefault(); nextBtn.click(); }
+  });
 })();
 </script>
 
