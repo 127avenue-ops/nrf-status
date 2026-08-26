@@ -452,8 +452,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 넓은 훑기 <u>두 덩어리가 끝났습니다</u>.</b>
-    <span class="head-num">교차 540 / 600 계단 · 미교차 46 · 2026-08-26</span>
+    <b>2편은 세밀 지도를 <u>시작했습니다</u>.</b>
+    <span class="head-num">교차한 1,382칸 · 한 방식으로 · 713,112 · 2026-08-26</span>
   </p>
 </header>
 
@@ -462,7 +462,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">29</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">30</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -497,22 +497,22 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <button type="button" class="step stop" role="listitem" data-step="p2-gate" aria-label="재현 관문"><span class="bar"></span><span class="lbl"><span class="lw">재현 관문</span><span class="ln">관문</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-report" aria-label="결과 보고·원고"><span class="bar"></span><span class="lbl"><span class="lw">결과 보고·원고</span><span class="ln">보고</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-r20" aria-label="재설계·검증"><span class="bar"></span><span class="lbl"><span class="lw">재설계·검증</span><span class="ln">재설계</span></span></button>
-      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:100%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:0%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
       <button type="button" class="step"      role="listitem" data-step="p2-paper" aria-label="원고·투고"><span class="bar"></span><span class="lbl"><span class="lw">원고·투고</span><span class="ln">투고</span></span></button>
     </div>
   </div>
-  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 지금 칸의 초록 채움은 넓은 훑기가 끝났다는 뜻입니다.</p>
+  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 지금 칸의 초록 채움은 세밀 지도가 얼마나 왔는지를 뜻합니다.</p>
 
 </div>
 
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">넓은 훑기 <strong>두 덩어리가 끝났습니다</strong>. 95% 기준을 넘긴 계단은 600개 중 540개, 못 넘긴 계단은 46개입니다(14개는 결정이 하나도 없음). “인원을 더 넣어도 성공률이 0.9 언저리에서 더 오르지 않는다”는 전제는 그대로입니다</span>
+    <span class="status-v">세밀 지도가 <strong>돌아가고 있습니다</strong>(7950X 한 대). 넓은 훑기에서 95%를 넘긴 <strong>1,382칸</strong>만 넣었습니다. 못 넘긴 46칸과 결정이 없던 14칸은 넣지 않습니다. 95% 기준은 그대로입니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v"><strong>세밀 지도는 기준을 넘긴 점만</strong> 엽니다(아직 시작하지 않음). 넘기지 못한 46개는 지도에 넣지 않고 다음 단계로 넘깁니다. 95 % 기준은 그대로입니다. 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
+    <span class="status-v">세밀 지도가 끝날 때까지 기다립니다(칸 1,382 · 묶음 713,112). 넘기지 못한 60칸은 다음 단계로 넘깁니다. 그 밖에 사람이 정할 항목: 1편 <strong>투고 승인·소속·저장소 주소</strong></span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -1073,6 +1073,19 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-08-26</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">세밀 지도를 시작했습니다</span>
+          <span class="flag wait">실행 중</span>
+        </div>
+        <p>95%를 넘긴 <strong>1,382칸</strong>만 넣습니다. 칸마다 500번, 한 방식으로.
+          묶음 <strong>713,112</strong>(상한 928,800 안). 컴퓨터는 7950X 한 대만 씁니다.
+          못 넘긴 46칸과 결정이 없던 14칸은 넣지 않습니다. 95% 기준은 그대로입니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-08-26</div>
@@ -1820,17 +1833,17 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       html: '<p>막힌 관문을 고치는 대신 검증 기준을 “봉인 수치 재현”에서 “공개 명세와 일치”로 바꿨습니다.</p><p>이어서 본 계산 첫·둘째 단계를 돌렸고, 둘째 단계에서 <strong>인원을 늘려도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔습니다. 통계 모형에 그 오름을 고정하지 않기로 했습니다.</p>'
     },
     'p2-campaign': {
-      kicker: '2편 · 지금', title: '본 계산 — 넓은 훑기 완료', status: 'now', paper: 'p2',
+      kicker: '2편 · 지금', title: '본 계산 — 세밀 지도', status: 'now', paper: 'p2',
       facts: [
-        {k:'교차', v:'540 / 600'},
-        {k:'미교차', v:'46'},
-        {k:'전칸 검열', v:'14'},
-        {k:'둘째 덩어리', v:'246,720'},
-        {k:'첫 덩어리', v:'366,176'},
-        {k:'세밀 지도', v:'아직'}
+        {k:'칸', v:'1,382'},
+        {k:'묶음', v:'713,112'},
+        {k:'상한', v:'928,800'},
+        {k:'방식', v:'한 쪽만'},
+        {k:'컴퓨터', v:'7950X'},
+        {k:'제외', v:'60칸'}
       ],
-      meter: {label:'95%를 넘긴 계단', value:540, max:600, note:'2026-08-26'},
-      html: '<p>넓은 훑기 두 덩어리가 <strong>끝났습니다</strong>. 미리 정해 둔 규칙(성공률 95%에 처음 닿는 인원 칸과 그 옆칸)으로 600개 계단을 집계했습니다.</p><p><strong>540개</strong>가 기준을 넘겼고, <strong>46개</strong>는 끝까지 못 넘겼으며, 14개는 결정이 하나도 없었습니다. 넘긴 점만 세밀 지도로 갑니다. 95% 기준은 그대로입니다.</p>'
+      meter: {label:'세밀 지도 묶음', value:0, max:713112, note:'2026-08-26 시작'},
+      html: '<p>넓은 훑기에서 95%를 넘긴 칸만 세밀하게 다시 셉니다. 칸마다 500번, <strong>한 방식만</strong>입니다(양쪽을 같이 넣으면 상한을 넘습니다).</p><p>못 넘긴 46칸과 결정이 없던 14칸은 넣지 않고 다음 단계로 넘깁니다. 95% 기준은 그대로입니다.</p>'
     },
     'p2-paper': {
       kicker: '2편 · 예정', title: '원고·투고', status: 'wait', paper: 'p2',
