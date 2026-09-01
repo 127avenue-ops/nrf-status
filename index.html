@@ -420,6 +420,91 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   .log-item{grid-template-columns:1fr;gap:9px}
   .log-when{padding-top:0}
 }
+
+/* ── 연구 이야기 ──────────────────────────── */
+.story-shell{display:flex;flex-direction:column;gap:clamp(42px,7vw,68px)}
+.story-hero{
+  position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--rule);
+  border-radius:10px;padding:clamp(24px,6vw,46px);display:flex;flex-direction:column;gap:18px;
+}
+.story-hero::after{
+  content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-90px;top:-110px;
+  background:color-mix(in srgb,var(--accent) 10%,transparent);pointer-events:none;
+}
+.story-hero h2{font-size:clamp(27px,5vw,40px);max-width:16ch;position:relative;z-index:1}
+.story-deck{font-size:clamp(16px,2.5vw,19px);line-height:1.7;color:var(--ink-2);max-width:48ch;word-break:keep-all}
+.story-snapshot{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.story-chip{
+  font-family:var(--mono);font-size:11px;font-weight:650;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 8%,var(--paper));border:1px solid color-mix(in srgb,var(--accent) 24%,var(--rule));
+  border-radius:999px;padding:5px 9px;font-variant-numeric:tabular-nums;
+}
+.story-chapter{display:grid;grid-template-columns:48px minmax(0,1fr);gap:0 20px;position:relative}
+.story-chapter::before{content:"";position:absolute;left:23px;top:48px;bottom:-68px;border-left:1px solid var(--rule)}
+.story-chapter.story-last::before{display:none}
+.story-num{
+  width:48px;height:48px;border-radius:50%;display:grid;place-items:center;position:relative;z-index:1;
+  background:var(--ground);border:1px solid var(--rule);font-family:var(--mono);font-size:11px;
+  font-weight:700;letter-spacing:.08em;color:var(--accent);
+}
+.story-content{display:flex;flex-direction:column;gap:16px;padding-top:4px;min-width:0}
+.story-content h2{font-size:clamp(20px,3vw,25px)}
+.story-copy{display:flex;flex-direction:column;gap:13px;max-width:58ch}
+.story-copy p,.story-copy li{font-size:15.5px;line-height:1.82;color:var(--ink-2);word-break:keep-all}
+.story-copy strong{color:var(--ink)}
+.story-dialogue{
+  margin:2px 0;padding:16px 18px;background:var(--paper);border:1px solid var(--rule-soft);
+  border-left:3px solid var(--accent);border-radius:0 7px 7px 0;font-size:16px;line-height:1.7;
+  color:var(--ink);font-weight:650;word-break:keep-all;
+}
+.story-rule-grid,.story-result-grid,.story-term-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.story-card{background:var(--paper);border:1px solid var(--rule-soft);border-radius:7px;padding:13px 14px;min-width:0}
+.story-card .story-card-k{
+  display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:650;margin-bottom:5px;
+}
+.story-card .story-card-v{display:block;font-size:14px;line-height:1.58;color:var(--ink-2);word-break:keep-all}
+.story-card .story-card-v strong{color:var(--ink)}
+.story-term{display:flex;gap:10px;align-items:flex-start}
+.story-term b{
+  flex:none;width:28px;height:28px;border-radius:5px;display:grid;place-items:center;
+  font-family:var(--mono);font-size:13px;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);
+}
+.story-term span{font-size:13.5px;line-height:1.55;color:var(--ink-2);word-break:keep-all}
+.story-callout{
+  border:1px solid var(--rule);background:var(--sunk);border-radius:8px;padding:16px 18px;
+  display:flex;flex-direction:column;gap:7px;max-width:58ch;
+}
+.story-callout b{font-size:14.5px;color:var(--ink)}
+.story-callout p{font-size:14px;line-height:1.7;color:var(--ink-2);word-break:keep-all}
+.story-callout.accent{border-color:color-mix(in srgb,var(--accent) 34%,var(--rule));background:color-mix(in srgb,var(--accent) 6%,var(--paper))}
+.story-callout.stop{border-color:color-mix(in srgb,var(--stop) 26%,var(--rule));background:color-mix(in srgb,var(--stop) 5%,var(--paper))}
+.story-metric{display:flex;flex-direction:column;gap:9px;max-width:58ch}
+.story-metric-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline;flex-wrap:wrap}
+.story-metric-top b{font-size:15px}
+.story-metric-top span{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.story-progress{height:11px;background:var(--track-empty);border-radius:3px;overflow:hidden}
+.story-progress span{display:block;height:100%;width:27.51%;background:var(--accent);border-radius:3px}
+.story-result-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.story-result{text-align:center;background:var(--paper);border:1px solid var(--rule-soft);border-radius:7px;padding:15px 10px}
+.story-result b{display:block;font-family:var(--mono);font-size:21px;color:var(--ink);font-variant-numeric:tabular-nums}
+.story-result span{display:block;font-size:12px;color:var(--muted);margin-top:4px;line-height:1.45}
+.story-ending{
+  background:var(--accent);color:var(--ground);border-radius:10px;padding:clamp(24px,6vw,42px);
+  display:flex;flex-direction:column;gap:15px;
+}
+.story-ending .kicker{color:color-mix(in srgb,var(--ground) 72%,var(--accent))}
+.story-ending h2{font-size:clamp(22px,4vw,31px);max-width:22ch}
+.story-ending p{font-size:15.5px;line-height:1.78;max-width:52ch;color:color-mix(in srgb,var(--ground) 90%,var(--accent));word-break:keep-all}
+.story-fineprint{font-size:12.5px!important;color:color-mix(in srgb,var(--ground) 68%,var(--accent))!important}
+@media (max-width:620px){
+  .story-chapter{grid-template-columns:36px minmax(0,1fr);gap:0 13px}
+  .story-num{width:36px;height:36px;font-size:10px}
+  .story-chapter::before{left:17px;top:36px}
+  .story-rule-grid,.story-term-grid{grid-template-columns:1fr}
+  .story-result-grid{grid-template-columns:1fr 1fr}
+  .story-result:last-child{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
@@ -461,8 +546,10 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <nav class="tabs" role="tablist" aria-label="페이지 메뉴">
   <button class="tab" type="button" role="tab" data-view="now"
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
+  <button class="tab" type="button" role="tab" data-view="story"
+          id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">40</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">41</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -1061,6 +1148,206 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
 </div><!-- /view-now -->
 
+<!-- ══════ 연구 이야기 ══════ -->
+<div class="view" id="view-story" role="tabpanel" aria-labelledby="tab-story" hidden>
+
+  <article class="story-shell">
+    <section class="story-hero">
+      <span class="kicker">연구계획서 쉬운 설명 · 이야기판 v5.1</span>
+      <h2>근무표 한 장에서 시작된 질문</h2>
+      <p class="story-deck">
+        하루에 필요한 간호사 수는 셀 수 있습니다. 그런데 그 사람들이 한 달 내내 휴무·연가·야간회복
+        규칙을 지키며 일하도록 배치할 수 있을까요? 이 연구가 답하려는 것은 바로 그다음 질문입니다.
+      </p>
+      <div class="story-snapshot" aria-label="현재 연구 스냅숏">
+        <span class="story-chip">1편 · 9,150건 완료</span>
+        <span class="story-chip">2편 · 세밀 지도 28%</span>
+        <span class="story-chip">합성자료 · 개인정보 0</span>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">01</span>
+      <div class="story-content">
+        <span class="kicker">월말의 가상 병동</span>
+        <h2>“24명이면 되는 것 아닌가요?”</h2>
+        <div class="story-copy">
+          <p>가상의 병동 하나를 떠올려 봅시다. 다음 달에도 매일 낮 5명, 저녁 5명, 밤 5명이
+            필요합니다. 하루 합계는 15명이고, 익숙한 어림셈 <strong>15 × 1.6</strong>을 쓰면
+            24명이 나옵니다.</p>
+          <div class="story-dialogue">“계산이 끝났네요. 간호사 24명이면 되겠군요?”</div>
+          <p>잠깐만요. 하루치 칸을 채우는 것과 30일짜리 근무표를 완성하는 것은 전혀 다른 문제입니다.
+            한 사람은 매일 일할 수 없고, 쉬는 날과 연가가 있으며, 밤근무 뒤에는 회복할 시간도
+            필요합니다. <strong>사람 수를 세는 산수와 실제 한 달표 사이에는 간격</strong>이 있습니다.</p>
+        </div>
+        <div class="story-rule-grid" aria-label="1편 기준 근무 규칙 예시">
+          <div class="story-card"><span class="story-card-k">휴무</span><span class="story-card-v">1편 기준 순수 휴무는 <strong>정확히 9일</strong></span></div>
+          <div class="story-card"><span class="story-card-k">연속근무</span><span class="story-card-v">최대 <strong>5일</strong>까지만</span></div>
+          <div class="story-card"><span class="story-card-k">야간회복</span><span class="story-card-v">야간 2일 묶음 뒤 <strong>회복휴무 2일</strong></span></div>
+          <div class="story-card"><span class="story-card-k">역할</span><span class="story-card-v">각 교대에 경력간호사 최소 1명</span></div>
+          <div class="story-card"><span class="story-card-k">추가 비가용</span><span class="story-card-v">연가·교육일은 휴무와 별도로 반영</span></div>
+          <div class="story-card"><span class="story-card-k">지난달</span><span class="story-card-v">월말 근무가 새달 첫날 휴식에 영향</span></div>
+        </div>
+        <div class="story-callout">
+          <b>1.6은 정답 공식이 아닙니다.</b>
+          <p>이 연구에서는 법적 기준이나 안전 기준이 아니라, 비교해 볼 산술 참조점으로만 씁니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">02</span>
+      <div class="story-content">
+        <span class="kicker">거대한 스도쿠</span>
+        <h2>컴퓨터에게 어려운 부탁을 합니다</h2>
+        <div class="story-copy">
+          <div class="story-dialogue">“이 가상의 병동과 간호사들로, 규칙을 하나도 어기지 않는 30일 근무표를 만들어 줘.”</div>
+          <p>이 부탁을 받는 계산기가 Google OR-Tools의 <strong>CP-SAT solver</strong>입니다. 날짜와
+            사람마다 D·E·N·OF를 넣는 거대한 스도쿠처럼 문제를 풉니다. 답을 찾으면 별도 검증기가
+            규칙을 다시 확인합니다. 어려운 문제는 제한시간 안에 결론이 안 날 수도 있습니다.</p>
+        </div>
+        <div class="story-term-grid" aria-label="계산 결과 네 종류">
+          <div class="story-card story-term"><b>F</b><span>규칙을 지킨 표를 찾았고 별도 검증도 통과</span></div>
+          <div class="story-card story-term"><b>I</b><span>동결한 수학모형에서는 가능한 표가 없다고 증명</span></div>
+          <div class="story-card story-term"><b>T</b><span>정한 시간 안에 가능·불가능을 결정하지 못함</span></div>
+          <div class="story-card story-term"><b>E</b><span>입력·환경·실행·검증·기록에서 오류 발생</span></div>
+        </div>
+        <div class="story-callout accent">
+          <b>시간 초과 T는 실패 I가 아닙니다.</b>
+          <p>모르는 것을 실패라고 바꾸지 않고, 미판정 상태 그대로 남겨 불확실성에 포함합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">03</span>
+      <div class="story-content">
+        <span class="kicker">첫 번째 여행 · 1편</span>
+        <h2>같은 질문을 수천 번 되풀이했습니다</h2>
+        <div class="story-copy">
+          <p>우연히 쉬운 달 하나에서 근무표가 만들어졌다고 끝낼 수는 없습니다. 실제 개인정보 대신
+            휴가와 역할 구성이 조금씩 다른 <strong>가상의 한 달</strong>을 반복해서 만들고, 같은 조건에서
+            간호사 수를 한 명씩 바꾸어 다시 물었습니다.</p>
+          <div class="story-dialogue">“이번에는 만들어지나요? 한 명을 더하면 어떤가요?”</div>
+          <p>세 합성 수요형의 여러 인원수와 민감도 조건을 합쳐 <strong>9,150건</strong>을 계산했고,
+            실행 오류는 0건이었습니다. 명목 1.6에 해당하는 세 지점은 각각 1,350회 정밀하게 봤습니다.</p>
+        </div>
+        <div class="tw-scroll" aria-label="1편 1.6 참조점 결과">
+          <table>
+            <thead><tr><th>합성 수요형</th><th class="n">명목 총원</th><th class="n">관찰 편성률</th><th>사전 판정</th></tr></thead>
+            <tbody>
+              <tr><td>A · 매일 5/5/5</td><td class="n">24명</td><td class="n">95.3%</td><td><b>불확정</b></td></tr>
+              <tr><td>B · 매일 7/7/6</td><td class="n">32명</td><td class="n">93.5%</td><td><b>95% 미충족</b></td></tr>
+              <tr><td>C · 매일 9/9/8</td><td class="n">42명</td><td class="n">90.8%</td><td><b>95% 미충족</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="story-callout stop">
+          <b>결론을 세게 말하지 않습니다.</b>
+          <p>명목 1.6 인원에서 95% 기준을 확정적으로 충족한 합성 수요형은 없었습니다. 하지만 이것은
+            “실제 병동은 모두 인력 부족” 또는 “1.6은 언제나 틀림”이라는 뜻이 아닙니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">04</span>
+      <div class="story-content">
+        <span class="kicker">예상 밖의 계단</span>
+        <h2>사람을 늘렸는데 관찰값이 내려갔습니다</h2>
+        <div class="story-copy">
+          <p>인접한 인원수 13쌍 중 5쌍에서는 관찰 편성률이 오히려 낮아졌습니다. 그렇다고 사람이
+            많을수록 나쁘다는 뜻은 아닙니다. 당시에는 사람 수와 함께 역할 구성·휴가 배정도 움직였기
+            때문에 <strong>순수한 한 명 추가 효과만 분리할 수 없었습니다.</strong></p>
+          <p>전월상태를 계단 전체에서 같게 만든 추가 실험에서도 비단조가 사라지지 않았습니다. 그래서
+            원인을 하나로 단정하지 않고, 2편에서는 성공률이 반드시 계단처럼 오른다고 통계모형에
+            강요하지 않았습니다. 결과를 본 뒤 95% 목표를 낮추지도 않았습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">05</span>
+      <div class="story-content">
+        <span class="kicker">두 번째 여행 · 2편</span>
+        <h2>세 병동에서 300가지 조건의 지도로</h2>
+        <div class="story-copy">
+          <p>1편이 “측정하는 자를 믿을 수 있는가?”를 물었다면, 2편은 그 자를 들고 더 넓은 지도를
+            그립니다. 평일 수요, 야간 비율, 휴무, 연가, 신규·경력 비율이 다른 <strong>300가지
+            조건</strong>을 만들고 두 인원구성 방식으로 살펴, 총 600개의 인원 계단을 훑었습니다.</p>
+        </div>
+        <div class="story-result-grid" aria-label="Stage B 넓은 훑기 결과">
+          <div class="story-result"><b>540</b><span>95% 선을 넘나든 계단</span></div>
+          <div class="story-result"><b>46</b><span>경계를 찾지 못한 계단</span></div>
+          <div class="story-result"><b>14</b><span>모든 칸이 미판정인 계단</span></div>
+        </div>
+        <div class="story-copy">
+          <p>경계를 찾지 못한 60개를 버린 것은 아닙니다. 현재 세밀 지도에서는 제외하고, 경계가
+            포착되지 않은 영역을 다루는 다음 단계로 넘겼습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter">
+      <span class="story-num">06</span>
+      <div class="story-content">
+        <span class="kicker">지금 여기</span>
+        <h2>지도의 빈칸을 채우는 중입니다</h2>
+        <div class="story-copy">
+          <p>지금은 95% 선을 넘나든 곳 주변의 <strong>1,382개 칸</strong>을 더 촘촘히 계산합니다.
+            각 대상 칸은 기본 500회 확인하고 있으며, 계산은 7950X 한 대에서 이어지고 있습니다.</p>
+        </div>
+        <div class="story-metric">
+          <div class="story-metric-top">
+            <b>Stage B 세밀 지도</b>
+            <span>196,200 / 713,112 · 27.51%</span>
+          </div>
+          <div class="story-progress" role="progressbar" aria-label="세밀 지도 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="27.51"><span></span></div>
+          <p class="small">2026-09-01 17:30 스냅숏 · 진행 수치는 ‘현황’ 탭에서 갱신됩니다.</p>
+        </div>
+        <div class="story-callout accent">
+          <b>최종 숫자는 아직 나오지 않았습니다.</b>
+          <p>지도 완성 뒤에는 산수로 얻은 최소선 N₀와, 실제 근무규칙 조합 때문에 더 필요한 몫 Δ를
+            나누어 보여 줄 계획입니다. 현재는 최종 지도·산식·조건별 최소인원을 예상해 채우지 않습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter story-last">
+      <span class="story-num">07</span>
+      <div class="story-content">
+        <span class="kicker">연구가 멈춰 서야 하는 선</span>
+        <h2>이 지도는 무엇을 말할 수 있을까요?</h2>
+        <div class="story-copy">
+          <p>이 연구는 실제 환자·간호사·병동 자료를 쓰지 않는 완전 합성 연구입니다. 따라서 합성
+            조건에서 월 근무표가 만들어지는 비율은 말할 수 있지만, 전국 모든 병원의 안전·적정·최소
+            인원을 처방할 수는 없습니다. 환자안전, 간호의 질, 업무부담, 개인별 공정성도 직접
+            측정하지 않았습니다.</p>
+          <p>문헌조사 역시 포괄적 체계적 문헌고찰이 아니라 구조화 신규성 검색입니다. 기존의 간호인력·
+            스케줄링 연구가 있으므로 “최초 연구”라고 주장하지 않습니다. 다만 <strong>1.6 × 하루
+            D/E/N 합</strong>을 월간 필수규칙 근무표의 최소 총원으로 검증한 공식은 확인하지 못했습니다.</p>
+        </div>
+        <div class="story-callout">
+          <b>신뢰를 지키는 방식</b>
+          <p>각 단계는 시작 전에 판정 기준과 계산범위를 내부적으로 고정했고, 같은 단계의 결과를 본 뒤
+            기준을 바꾸지 않았습니다. 외부 등록은 하지 않았으므로 “사전등록”이 아니라 “내부 사전
+            지정”이라고 씁니다. 내부 계산감사 PASS도 외부 독립감사나 동료심사를 뜻하지 않습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-ending">
+      <span class="kicker">한 문장으로 끝내면</span>
+      <h2>사람 수를 세는 데서 멈추지 않고, 한 달표가 실제로 만들어지는지 확인합니다.</h2>
+      <p>하루 인원 산수만으로는 보이지 않던 휴무·연가·야간회복·역할 제약을 계산으로 드러내고,
+        어디까지 알았으며 어디부터는 아직 모르는지를 함께 표시하는 연구입니다.</p>
+      <p class="story-fineprint">이 페이지는 연구계획서 쉬운 설명 v5.1을 웹에서 읽기 좋게 옮긴
+        파생본입니다. 수치의 정본은 프로젝트 문서와 계산 산출물입니다.</p>
+    </section>
+  </article>
+
+</div><!-- /view-story -->
+
 <!-- ══════ 업데이트 기록 ══════ -->
 <div class="view" id="view-log" role="tabpanel" aria-labelledby="tab-log" hidden>
 
@@ -1075,6 +1362,19 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-09-01</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">연구계획서를 이야기처럼 읽는 페이지를 열었습니다</span>
+          <span class="flag done">게시</span>
+        </div>
+        <p>전체 연구 문서와 현재 대시보드를 다시 대조한 쉬운 설명 v5.1을 <strong>‘연구 이야기’</strong>
+          탭에 옮겼습니다. 가상의 한 달 근무표에서 출발해 1편 결과와 2편 지도 계산까지 구어체로
+          따라갈 수 있습니다. 수치·판정·한계는 정본과 동일합니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-09-01</div>
@@ -1708,7 +2008,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-01</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-01 · 쉬운 설명 v5.1</p>
 </footer>
 
 </div>
