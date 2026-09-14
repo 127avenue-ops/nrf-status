@@ -537,8 +537,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 훑기 두 파를 끝냈고, 세밀 지도가 <u>끝났습니다</u>.</b>
-    <span class="head-num">받은 묶음 713,112 / 713,112 · 완료 2026-09-14 08:42</span>
+    <b>2편은 세밀 지도 71만 건을 끝내고, <u>첫 결과가 나왔습니다</u>.</b>
+    <span class="head-num">받은 묶음 713,112 / 713,112 · 지도 완료 2026-09-14 08:42 · 집계 13:20</span>
   </p>
 </header>
 
@@ -549,7 +549,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">56</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">57</span></button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
@@ -595,11 +595,11 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">세밀 지도가 <strong>끝났습니다</strong>. 받은 묶음 <strong>713,112 / 713,112</strong>. 검사 통과. 훑기 두 파는 끝났습니다(334,800쌍). 95% 기준은 그대로입니다. 다음 단계는 사람이 다시 말한 뒤에 시작합니다</span>
+    <span class="status-v">없습니다. 세밀 지도 <strong>713,112 / 713,112</strong> 완료·검사 통과, 그 기록을 <strong>2026-09-02에 미리 정해 둔 규칙</strong>으로 집계해 다음 단계(C)가 살 칸 <strong>890개</strong>까지 확정했습니다. 계약서도 그에 맞춰 새로 발행했습니다. <strong>95% 기준은 그대로</strong>입니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">세밀 지도가 끝날 때까지 기다립니다. 끝난 뒤에는 <strong>2026-09-02에 미리 적어 둔 규칙</strong>대로 다음 단계(C)를 7950X에서 돌립니다 — 46칸은 90% 선을 같은 정밀도로 보강하고, 14칸은 다시 풀지 않습니다. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
+    <span class="status-v">사람이 <strong>“시작”</strong>이라고 말하면 다음 단계(C)를 7950X에서 돌립니다 — 약 2주, 459,240건. 돌리기 전에 그 단계 전용 실행기를 새로 만들어야 합니다. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -1434,6 +1434,35 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <div class="log-when">2026-09-14</div>
       <div class="log-body">
         <div class="log-head">
+          <span class="log-title">71만 건을 집계했습니다 — 첫 결과가 나왔습니다</span>
+          <span class="flag done">완료</span>
+        </div>
+        <p><strong>어떻게 했나.</strong> 결과를 보면 규칙을 결과에 맞게 바꾸고 싶어지므로,
+          2026-09-02에 글로 정해 둔 규칙을 <strong>기록을 열어 보기 전에</strong> 코드로 만들어 먼저 잠갔습니다.
+          그다음 713,112건을 읽었습니다. 세어 보니 칸 수·건수가 예정과 정확히 맞았습니다(1,382칸 × 500 = 691,000).</p>
+        <p><strong>1. 경계는 생각보다 잡기 어렵습니다.</strong> 넓은 훑기(칸당 120회)에서는 540개 계단이 모두
+          95% 선을 넘는 지점을 가진 것처럼 보였는데, 정밀도를 <strong>칸당 500회</strong>로 올리자
+          <strong>114개(21%)</strong>만 실제로 그 선을 사이에 두고 있었습니다. 225개는 세 칸 모두 95% 아래,
+          139개는 세 칸 모두 위였습니다. 적은 횟수로 본 “넘김”이 상당 부분 흔들림이었다는 뜻이고,
+          다음 단계(C)가 위·아래로 칸을 넓혀 그 자리를 메웁니다.</p>
+        <p><strong>2. 목표선 세 개 중 쓸모 있는 것은 하나였습니다.</strong> 미리 정해 둔 목표선은 90% · 95% · 99%인데,
+          <strong>99%는 540개 전부에서 도달하지 못했고</strong>, 90%는 489개에서 이미 창 아래였습니다.
+          구분이 생기는 선은 <strong>95% 하나</strong>입니다. 이것 자체가 보고할 결과입니다.</p>
+        <p><strong>3. 흔히 쓰는 “1.6배” 어림셈은 인원을 적게 잡습니다.</strong>
+          하루 필요인원 × 1.6으로 총원을 어림하는 방식과 이번 계산을 맞대어 보니,
+          540개 계단 중 <strong>506개(93.7%)에서 어림셈이 확실히 모자랐습니다</strong>. 많이 잡은 경우는 2개뿐입니다.
+          모자란 양은 <strong>최소 중앙값 4명</strong>이고 큰 곳은 15명입니다(“최소”인 이유는, 아직 경계를 정확히
+          찾지 못한 칸에서는 실제 차이가 더 클 수만 있기 때문입니다).</p>
+        <p class="small"><strong>읽을 때 주의.</strong> 이 숫자들은 <strong>합성(가상) 병동 조건 위에서 나온 계산 결과</strong>이고,
+          확인용 마지막 단계(D)를 아직 거치지 않았습니다. 실제 병동에 그대로 적용하자는 주장이 아닙니다.
+          95% 기준은 처음 정한 대로 바꾸지 않았습니다.</p>
+      </div>
+    </div>
+
+    <div class="log-item">
+      <div class="log-when">2026-09-14</div>
+      <div class="log-body">
+        <div class="log-head">
           <span class="log-title">세밀 지도가 끝났습니다</span>
           <span class="flag done">완료</span>
         </div>
@@ -2262,7 +2291,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-14 · 쉬운 설명 v5.1</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-14 · 71만 건 집계 결과 반영</p>
 </footer>
 
 </div>
@@ -2512,15 +2541,15 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     'p2-campaign': {
       kicker: '2편 · 완료', title: '본 계산 — 훑기·세밀 지도 완료', status: 'done', paper: 'p2',
       facts: [
-        {k:'훑기 1파', v:'199,764쌍'},
-        {k:'훑기 2파', v:'135,036쌍'},
+        {k:'훑기 합계', v:'334,800쌍'},
         {k:'승격', v:'540 / 46 / 14'},
         {k:'지도', v:'713,112'},
         {k:'목표', v:'713,112'},
+        {k:'다음 단계가 살 칸', v:'890'},
         {k:'진행', v:'완료'}
       ],
-      meter: {label:'세밀 지도 묶음', value:713112, max:713112, note:'완료 2026-09-14 08:42'},
-      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764). 95% 기준은 그대로입니다. 다음 단계는 사람이 다시 말한 뒤에 시작합니다.</p>'
+      meter: {label:'세밀 지도 묶음', value:713112, max:713112, note:'완료 2026-09-14 08:42 · 집계 13:20'},
+      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다. 실행은 사람이 말한 뒤에 시작합니다.</p>'
     },
     'p2-paper': {
       kicker: '2편 · 예정', title: '원고·투고', status: 'wait', paper: 'p2',
