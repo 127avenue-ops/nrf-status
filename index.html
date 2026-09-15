@@ -537,8 +537,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 세밀 지도 71만 건을 끝내고, <u>첫 결과가 나왔습니다</u>.</b>
-    <span class="head-num">받은 묶음 713,112 / 713,112 · 지도 완료 2026-09-14 08:42 · 집계 13:20</span>
+    <b>2편은 세밀 지도를 끝냈고, 보강 계산(C) 45만 9천 건을 <u>오늘 7950X 한 대에서 시작합니다</u>.</b>
+    <span class="head-num">보강 계산 0 / 459,240 · 기동 준비 중(사본 복사 → 계약 확인 → 시험 → 사전 점검) 2026-09-15 11:55</span>
   </p>
 </header>
 
@@ -549,7 +549,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">58</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">59</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
@@ -586,22 +586,22 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <button type="button" class="step stop" role="listitem" data-step="p2-gate" aria-label="재현 관문"><span class="bar"></span><span class="lbl"><span class="lw">재현 관문</span><span class="ln">관문</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-report" aria-label="결과 보고·원고"><span class="bar"></span><span class="lbl"><span class="lw">결과 보고·원고</span><span class="ln">보고</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-r20" aria-label="재설계·검증"><span class="bar"></span><span class="lbl"><span class="lw">재설계·검증</span><span class="ln">재설계</span></span></button>
-      <button type="button" class="step done" role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="bar"></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:0%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
       <button type="button" class="step"      role="listitem" data-step="p2-paper" aria-label="원고·투고"><span class="bar"></span><span class="lbl"><span class="lw">원고·투고</span><span class="ln">투고</span></span></button>
     </div>
   </div>
-  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 세밀 지도는 끝났습니다.</p>
+  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 세밀 지도는 끝났고, 보강 계산(C)이 오늘 시작합니다.</p>
 
 </div>
 
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">없습니다. 세밀 지도 <strong>713,112 / 713,112</strong> 완료·검사 통과, 그 기록을 <strong>2026-09-02에 미리 정해 둔 규칙</strong>으로 집계해 다음 단계(C)가 살 칸 <strong>890개</strong>까지 확정했습니다. 계약서도 그에 맞춰 새로 발행했습니다. <strong>95% 기준은 그대로</strong>입니다</span>
+    <span class="status-v">없습니다. 연구책임자가 <strong>2026-09-15 착수를 지시</strong>했습니다. 세밀 지도 때는 노트북이 지휘하고 중계 컴퓨터를 거쳐 7950X가 계산하는 세 대 연결이었는데 그 연결이 네 번 끊겼기 때문에, 이번에는 <strong>계산하는 컴퓨터(7950X)가 직접 지휘</strong>하도록 실행기를 새로 만들고 계약서를 v1.2로 올렸습니다. 돌릴 범위(890칸 · 459,240건)는 결과를 보기 전에 잠근 규칙 그대로이고 <strong>95% 기준도 그대로</strong>입니다. 지금은 7950X에 사본을 복사하고 계약·시험·사전 점검을 차례로 통과하는 중입니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">사람이 <strong>“시작”</strong>이라고 말하면 다음 단계(C)를 7950X에서 돌립니다 — 약 2주, 459,240건. 돌리기 전에 그 단계 전용 실행기를 새로 만들어야 합니다. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
+    <span class="status-v">사전 점검을 통과하는 즉시 보강 계산(C)을 기동합니다 — <strong>890칸 · 459,240건 · 약 2주</strong>(계산 15개 동시). 첫 1시간 처리율로 예상 종료일을 다시 잡아 이 페이지에 적습니다. 끊기면 5분 안에 스스로 다시 켜지고, 끝난 건은 다시 풀지 않습니다. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -863,7 +863,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">12</td><td>2편 본 계산 <span class="small">(넓은 훑기 · 2파 · 조건 121개 · 두 방식)</span></td><td class="n">135,036쌍</td><td><span class="flag done">완료 2026-08-26 · 검사 통과</span></td></tr>
         <tr><td class="n">13</td><td>훑기 결과 — 95%를 넘긴 점만 고르기</td><td class="n">540 / 46 / 14</td><td><span class="flag done">집계 완료</span></td></tr>
         <tr><td class="n">14</td><td>2편 본 계산 <span class="small">(세밀 지도 — 넘긴 칸만 · 한 방식)</span></td><td class="n">713,112/713,112</td><td><span class="flag done">완료 2026-09-14 · 검사 통과</span></td></tr>
-        <tr><td class="n">15</td><td>다음 단계(C·D) 계산 규칙 <span class="small">(지도 결과를 보기 전에 고정)</span></td><td class="n">0</td><td><span class="flag done">동결 2026-09-02</span> <span class="flag wait">지도가 끝난 뒤 실행</span></td></tr>
+        <tr><td class="n">15</td><td>다음 단계(C·D) 계산 규칙 <span class="small">(지도 결과를 보기 전에 고정)</span></td><td class="n">0</td><td><span class="flag done">동결 2026-09-02</span> <span class="flag done">집계 · 890칸 확정 2026-09-14</span></td></tr>
+        <tr><td class="n">16</td><td>2편 본 계산 <span class="small">(보강 계산 C — 890칸 · 7950X 한 대 · 한 방식)</span></td><td class="n">0/459,240</td><td><span class="flag done">착수 지시 2026-09-15</span> <span class="flag wait">기동 준비 중</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -1467,6 +1468,26 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-09-15</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">보강 계산(C)을 7950X 한 대에서 시작합니다 — 실행기·계약서 준비 끝, 기동 준비 중</span>
+          <span class="flag wait">진행 중</span>
+        </div>
+        <p><strong>결정.</strong> 연구책임자가 착수를 지시했습니다. 세밀 지도 때는 노트북이 지휘하고 중계 컴퓨터를 거쳐 7950X가
+          계산하는 세 대 연결이었는데, 그 연결이 네 번 끊겨 그때마다 이어 붙여야 했습니다. 이번에는
+          <strong>계산하는 컴퓨터(7950X)가 직접 지휘</strong>하도록 바꿨습니다 — 중계가 없으니 끊길 고리도 없습니다.
+          계산 방식과 기록 형식은 지도 때와 같습니다.</p>
+        <p><strong>준비.</strong> 그 방식대로 도는 실행기를 새로 만들고, 계약서를 v1.2로 올려 이 변경을 결정 원문과 함께 적었습니다.
+          돌릴 범위(890칸 · 459,240건 · 한도 516,000 안)는 결과를 보기 전에 잠근 규칙에서 나온 그대로이며, 회귀 시험 492건을 통과했습니다.
+          지금은 7950X에 저장소 사본을 복사하고, 계약 확인 → 시험 → 사전 점검을 차례로 통과하는 중입니다.</p>
+        <p><strong>다음.</strong> 사전 점검을 통과하는 즉시 기동합니다. 계산 15개를 동시에 돌려 약 2주로 예상하며, 첫 1시간 처리율로
+          종료일을 다시 잡아 여기에 적겠습니다. 끊기면 5분 안에 스스로 다시 켜지고, 이미 끝난 건은 다시 풀지 않습니다.
+          끝나면 검증 계산(D)이 이어지고, 그 결과로 논문 초안의 숫자를 확정합니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-09-15</div>
@@ -2350,7 +2371,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-15 · 문서 3종 현행화·게시 · 2편 원고 초안</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-15 · 보강 계산(C) 7950X 기동 준비</p>
 </footer>
 
 </div>
@@ -2598,17 +2619,17 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       html: '<p>막힌 관문을 고치는 대신 검증 기준을 “봉인 수치 재현”에서 “공개 명세와 일치”로 바꿨습니다.</p><p>이어서 본 계산 첫·둘째 단계를 돌렸고, 둘째 단계에서 <strong>인원을 늘려도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔습니다. 통계 모형에 그 오름을 고정하지 않기로 했습니다.</p>'
     },
     'p2-campaign': {
-      kicker: '2편 · 완료', title: '본 계산 — 훑기·세밀 지도 완료', status: 'done', paper: 'p2',
+      kicker: '2편 · 지금', title: '본 계산 — 훑기·지도 완료 · 보강 계산(C) 시작', status: 'now', paper: 'p2',
       facts: [
         {k:'훑기 합계', v:'334,800쌍'},
         {k:'승격', v:'540 / 46 / 14'},
-        {k:'지도', v:'713,112'},
-        {k:'목표', v:'713,112'},
-        {k:'다음 단계가 살 칸', v:'890'},
-        {k:'진행', v:'완료'}
+        {k:'지도', v:'713,112 완료'},
+        {k:'보강 계산(C)', v:'0'},
+        {k:'목표', v:'459,240'},
+        {k:'진행', v:'기동 준비 중'}
       ],
-      meter: {label:'세밀 지도 묶음', value:713112, max:713112, note:'완료 2026-09-14 08:42 · 집계 13:20'},
-      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다. 실행은 사람이 말한 뒤에 시작합니다.</p>'
+      meter: {label:'보강 계산(C) 종결 기록', value:0, max:459240, note:'2026-09-15 11:55 · 7950X 한 대 · 890칸'},
+      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다.</p><p><strong>보강 계산(C)을 오늘 시작합니다.</strong> 연구책임자가 2026-09-15 착수를 지시했습니다. 지도 때는 세 대를 잇는 연결이 네 번 끊겼으므로, 이번에는 계산하는 컴퓨터(7950X) 한 대가 직접 지휘합니다 — 중계가 없으니 끊길 고리도 없습니다. 실행기를 새로 만들고 계약서를 v1.2로 올렸으며, 회귀 시험 492건을 통과했습니다. 지금은 사본 복사 → 계약 확인 → 시험 → 사전 점검을 차례로 통과하는 중이고, 통과 즉시 기동합니다. 첫 1시간 처리율로 종료일을 다시 잡아 여기에 적습니다.</p>'
     },
     'p2-paper': {
       kicker: '2편 · 예정', title: '원고·투고', status: 'wait', paper: 'p2',
