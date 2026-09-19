@@ -58,6 +58,69 @@ p{margin:0}
 }
 .small{font-size:13.5px;color:var(--muted);line-height:1.65}
 
+/* ── 한눈에 (첫 화면 · 진행 / 의의 / 남은 것) ─────────
+   토큰만 쓴다. 막대는 한 색(accent)으로 크기를, 참조값은 idle로, 판정은 stop/idle/accent로 —
+   색만으로 구별하지 않도록 모든 막대·조각에 글자 라벨을 붙인다. */
+.glance{display:grid;gap:16px;margin-bottom:clamp(30px,5vw,44px)}
+@media (min-width:700px){.glance{grid-template-columns:1fr 1fr}.g-card.wide{grid-column:1/-1}}
+.g-card{
+  background:var(--paper);border:1px solid var(--rule);border-radius:9px;padding:18px 20px 20px;
+  display:flex;flex-direction:column;gap:13px;min-width:0;
+}
+.g-head{display:flex;flex-direction:column;gap:4px}
+.g-head h2{font-size:17px}
+.g-lead{font-size:14.5px;line-height:1.72;color:var(--ink-2);word-break:keep-all;max-width:60ch}
+.g-lead strong{color:var(--ink)}
+.g-lead + .g-lead{margin-top:-4px}
+.hero{display:flex;flex-direction:column;gap:7px}
+.hero-num{
+  font-size:clamp(30px,6vw,40px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;
+  font-variant-numeric:tabular-nums;color:var(--ink);word-break:keep-all;
+}
+.hero-num small{display:block;font-size:.42em;font-weight:650;color:var(--muted);letter-spacing:-0.01em;margin-top:2px;white-space:nowrap}
+.meter{height:10px;background:var(--track-empty);border-radius:3px;overflow:hidden}
+.meter > span{display:block;height:100%;background:var(--accent);border-radius:3px}
+.hero-sub{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.6;word-break:keep-all}
+.chart-title{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-0.005em;margin-top:4px;word-break:keep-all}
+.hbars{display:flex;flex-direction:column;gap:7px}
+.hbar{display:grid;grid-template-columns:minmax(78px,118px) 1fr minmax(88px,auto);gap:10px;align-items:center}
+.hbar-lab{font-size:13px;color:var(--ink-2);word-break:keep-all;line-height:1.35}
+.hbar-track{height:11px;background:var(--track-empty);border-radius:3px;overflow:hidden;display:flex;gap:2px}
+.hbar-fill{display:block;height:100%;background:var(--accent);border-radius:3px}
+.hbar-fill.ref{background:var(--idle)}
+.hbar-fill.run{background:color-mix(in srgb,var(--accent) 45%,var(--track-empty))}
+.hbar-n{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.hbar-n b{color:var(--ink);font-weight:700}
+.stack{display:flex;height:18px;border-radius:3px;overflow:hidden;gap:2px}
+.stack > span{display:block;height:100%;min-width:3px;border-radius:2px}
+.stack .short{background:var(--stop)}
+.stack .open{background:var(--idle)}
+.stack .over{background:var(--accent)}
+.stack-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.stack-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.stack-legend i.short{background:var(--stop)}
+.stack-legend i.open{background:var(--idle)}
+.stack-legend i.over{background:var(--accent)}
+.stack-legend b{color:var(--ink);font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:700}
+.todo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.todo li{
+  display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:baseline;
+  padding:9px 0;border-top:1px solid var(--rule-soft);font-size:14px;line-height:1.55;word-break:keep-all;
+}
+.todo li:first-child{border-top:0}
+.todo .mark{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);text-align:center}
+.todo li.now .mark,.todo li.now .what{color:var(--accent)}
+.todo li.now .what{font-weight:750}
+.todo li.done .mark{color:var(--done)}
+.todo li.done .what{color:var(--muted)}
+.todo .what{color:var(--ink);min-width:0}
+.todo .eta{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.g-note{font-size:12.5px;color:var(--muted);line-height:1.6;word-break:keep-all}
+.g-link{font-size:13px;color:var(--accent);font-weight:650;text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.g-link:hover{border-bottom-color:var(--accent)}
+details.status-fold{margin-top:22px;border-top:1px solid var(--rule)}
+details.status-fold .status{margin-top:0;border-top:0}
+
 /* ── 헤드라인 ─────────────────────────────── */
 header{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,50px)}
 .headline{
@@ -540,7 +603,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
     <b>2편은 보강 계산(C)까지 끝내고 <u>검증 계산(D)을 돌리는 중</u>입니다 — 새 조건 48개 · 137칸 · 43,292건, 2026-09-19 16:55 시작.</b>
-    <span class="head-num">검증 계산 32,500 / 43,292 · 137칸 중 100칸 완료(18:30) · 시작 2026-09-19 16:55 · 남은 칸은 어려운 조건(한 건 최대 10분) → 완료는 9/20 예상 · 보강 계산(C) 459,240 완료 · 검사 21/21</span>
+    <span class="head-num">검증 계산 137칸 중 117칸 · 37,500 / 43,292 · 완료 9/20 예상 · 보강 계산 459,240 완료 · 검사 21/21</span>
   </p>
 </header>
 
@@ -551,12 +614,77 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">63</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">64</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
+
+<!-- ══════ 한눈에 — 진행 / 의의 / 남은 것 ══════ -->
+<div class="glance" id="glance">
+
+  <div class="g-card">
+    <div class="g-head">
+      <span class="kicker">지금 어디</span>
+      <h2>마지막 계산인 검증 계산(D)이 돌고 있습니다</h2>
+    </div>
+    <div class="hero">
+      <div class="hero-num">137칸 중 117칸<small>완료 85% · 19:06 기준</small></div>
+      <div class="meter" role="progressbar" aria-label="검증 계산(D) 칸 진행률" aria-valuemin="0" aria-valuemax="137" aria-valuenow="117"><span style="width:85.4%"></span></div>
+      <p class="hero-sub">기록 37,500 / 43,292 · 2026-09-19 16:55 시작 · 7950X 한 대 · 오류 0<br>남은 20칸은 어려운 조건(한 건 최대 10분) → <b>완료 9/20(내일) 예상</b> · 자동 재기동 감시 등록</p>
+    </div>
+    <p class="chart-title">2편에서 지금까지 푼 근무표 문제 — 약 154만 건</p>
+    <div class="hbars" aria-label="단계별 계산량(작업 묶음 수)">
+      <div class="hbar"><span class="hbar-lab">넓은 훑기</span><span class="hbar-track"><span class="hbar-fill" style="width:47%"></span></span><span class="hbar-n">334,800 · 끝</span></div>
+      <div class="hbar"><span class="hbar-lab">세밀 지도</span><span class="hbar-track"><span class="hbar-fill" style="width:100%"></span></span><span class="hbar-n">713,112 · 끝</span></div>
+      <div class="hbar"><span class="hbar-lab">보강 계산 C</span><span class="hbar-track"><span class="hbar-fill" style="width:64.4%"></span></span><span class="hbar-n">459,240 · 끝</span></div>
+      <div class="hbar"><span class="hbar-lab">검증 계산 D</span><span class="hbar-track"><span class="hbar-fill" style="width:5.3%"></span><span class="hbar-fill run" style="width:0.8%"></span></span><span class="hbar-n"><b>37,500</b> / 43,292</span></div>
+    </div>
+    <p class="g-note">막대 길이 = 작업 묶음 수. 검증 계산은 전체의 3%도 안 되지만, 지도와 산식이 <em style="font-style:normal;color:var(--ink)">처음 보는 조건</em>에서도 맞는지를 재는 유일한 단계라 따로 둡니다.</p>
+  </div>
+
+  <div class="g-card">
+    <div class="g-head">
+      <span class="kicker">왜 하는가</span>
+      <h2>“간호사가 몇 명이면 근무표가 짜이는가”를 계산으로 답합니다</h2>
+    </div>
+    <p class="g-lead">병상 수·야간 비율·연가·시간 외 근무 계수 같은 조건 8가지를 바꿔 가며, 근무규칙을 전부 지킨 <strong>한 달 근무표가 실제로 짜이는 최소 인원</strong>을 컴퓨터로 찾습니다. 현장에서 쓰는 어림셈 「하루 필요인원 × 1.6」이 맞는지도 같은 계산으로 확인합니다.</p>
+    <p class="chart-title">1.6 어림셈은 어디에 서 있나 — 세밀 지도 540개 조건 계단(중간판)</p>
+    <div class="stack" role="img" aria-label="540개 계단 중 1.6 어림셈이 확정적으로 부족한 곳 506, 아직 미결정 32, 확정적으로 과다한 곳 2">
+      <span class="short" style="width:93.7%" title="확정적으로 부족 506"></span><span class="open" style="width:5.9%" title="미결정 32"></span><span class="over" style="width:0.4%" title="확정적으로 과다 2"></span>
+    </div>
+    <div class="stack-legend">
+      <span><i class="short"></i>부족하게 산정 <b>506</b> (94%)</span>
+      <span><i class="open"></i>아직 미결정 <b>32</b></span>
+      <span><i class="over"></i>과다 산정 <b>2</b></span>
+    </div>
+    <p class="g-lead">부족한 조건에서는 <strong>최소 4명(중앙값)</strong>이 더 필요했습니다. 대신 조건을 넣으면 인원이 나오는 <strong>다섯 항짜리 산식</strong>을 만들었고, 그 산식과 통계모형이 새 조건에서도 맞는지를 검증 계산이 재고 있습니다.</p>
+    <p class="chart-title">±1명 안에 맞힌 비율 — 검증 전(지도+보강 자료 · 교차검증)</p>
+    <div class="hbars" aria-label="±1명 적중률 비교">
+      <div class="hbar"><span class="hbar-lab">1.6 어림셈</span><span class="hbar-track"><span class="hbar-fill ref" style="width:17%"></span></span><span class="hbar-n"><b>17%</b></span></div>
+      <div class="hbar"><span class="hbar-lab">5항 산식</span><span class="hbar-track"><span class="hbar-fill" style="width:62%"></span></span><span class="hbar-n"><b>62%</b></span></div>
+    </div>
+    <p class="g-note">검증 계산이 끝나면 이 두 수는 「처음 보는 조건 48개」에서의 성적으로 바뀝니다. 합격선은 없고 있는 그대로 적습니다.</p>
+  </div>
+
+  <div class="g-card wide">
+    <div class="g-head">
+      <span class="kicker">완료까지 남은 것</span>
+      <h2>계산은 내일이면 끝나고, 그 뒤는 정리·집필 순서입니다</h2>
+    </div>
+    <ol class="todo" aria-label="완료까지 남은 순서">
+      <li class="now"><span class="mark">▶</span><span class="what">검증 계산(D) 끝내기 — 137칸 중 117칸, 어려운 조건 20칸 남음</span><span class="eta">9/20 예상</span></li>
+      <li><span class="mark">2</span><span class="what">완결 검사 → 예측이 맞았는지 채점(미리 봉인해 둔 규칙으로) → 결과 저장</span><span class="eta">D 직후 · 1시간</span></li>
+      <li><span class="mark">3</span><span class="what">분석·그림 최종본 — 지도+보강+검증 결과로 재생성</span><span class="eta">반나절</span></li>
+      <li><span class="mark">4</span><span class="what">2편 원고 최종본 — 표 18개·본문 수치는 자동 재생성, 결과·논의 장 다시 쓰기</span><span class="eta">1~2일</span></li>
+      <li><span class="mark">5</span><span class="what">브리핑 문서 3종 재생성 · 이 페이지 갱신</span><span class="eta">반나절</span></li>
+      <li><span class="mark">6</span><span class="what">연구책임자가 정할 것 — 투고 학술지 · 이해상충 문안 · 저자·소속 → 투고</span><span class="eta">사람 몫</span></li>
+    </ol>
+    <p class="g-note">그동안 한 일: 1편 계산·원고 완료(투고 승인 대기) → 2편 넓은 훑기(8월) → 세밀 지도(9/14) → 보강 계산(9/19) → 통계모형 고정·예측표 봉인(9/19) → 검증 계산 시작(9/19 16:55). 자세한 순서와 담당은 <a class="g-link" href="#roadmap">「앞으로의 순서」</a>, 단계별 숫자는 아래 색 막대를 누르면 나옵니다.</p>
+  </div>
+
+</div>
 
 <!-- ══════ 주인공: 진행 트랙 ══════ -->
 <div class="tracks">
@@ -596,6 +724,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
 </div>
 
+<details class="status-fold">
+  <summary><span class="tw">+</span>자세한 현황<span class="sum-tail">막힌 곳 · 다음 한 걸음 · 시한 있는 일</span></summary>
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
@@ -610,6 +740,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <span class="status-v">연구비 공모 접수 <span class="mono">2026-09-01 ~ 09-30</span> · 연구책임자가 직접 진행</span>
   </div>
 </div>
+</details>
 
 <!-- ══════ 무엇을 하는 연구인가 ══════ -->
 <section>
@@ -867,7 +998,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">14</td><td>2편 본 계산 <span class="small">(세밀 지도 — 넘긴 칸만 · 한 방식)</span></td><td class="n">713,112/713,112</td><td><span class="flag done">완료 2026-09-14 · 검사 통과</span></td></tr>
         <tr><td class="n">15</td><td>다음 단계(C·D) 계산 규칙 <span class="small">(지도 결과를 보기 전에 고정)</span></td><td class="n">0</td><td><span class="flag done">동결 2026-09-02</span> <span class="flag done">집계 · 890칸 확정 2026-09-14</span></td></tr>
         <tr><td class="n">16</td><td>2편 본 계산 <span class="small">(보강 계산 C — 890칸 · 7950X 한 대 · 한 방식)</span></td><td class="n">459,240/459,240</td><td><span class="flag done">착수 지시 2026-09-15</span> <span class="flag done">완료 2026-09-19 · 검사 21항 통과</span></td></tr>
-        <tr><td class="n">17</td><td>2편 검증 계산 <span class="small">(D — 새 조건 48개 · 137칸 · 7950X 한 대 · 계약 v1.3 재발행)</span></td><td class="n">32,500/43,292</td><td><span class="flag done">모형 고정 · 계약 재발행 2026-09-19</span> <span class="flag wait">실행 중 · 16:55 시작 · 137칸 중 100칸 · 완료 9/20 예상</span></td></tr>
+        <tr><td class="n">17</td><td>2편 검증 계산 <span class="small">(D — 새 조건 48개 · 137칸 · 7950X 한 대 · 계약 v1.3 재발행)</span></td><td class="n">37,500/43,292</td><td><span class="flag done">모형 고정 · 계약 재발행 2026-09-19</span> <span class="flag wait">실행 중 · 16:55 시작 · 137칸 중 117칸 · 완료 9/20 예상</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -1430,7 +1561,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <section class="story-chapter">
       <span class="story-num">07</span>
       <div class="story-content">
-        <span class="kicker">지금 여기 · 2026-09-19</span>
+        <span class="kicker">2026-09-15 → 09-19</span>
         <h2>지도의 흐린 자리를 다시 쟀습니다 — 보강 계산 완료</h2>
         <div class="story-copy">
           <p>연구책임자가 9월 15일에 착수를 지시했습니다. 세밀 지도 때는 노트북이 지휘하고 중계 컴퓨터를 거쳐 7950X가 계산하는
@@ -1468,8 +1599,49 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       </div>
     </section>
 
-    <section class="story-chapter story-last">
+    <section class="story-chapter">
       <span class="story-num">08</span>
+      <div class="story-content">
+        <span class="kicker">지금 여기 · 2026-09-19 저녁</span>
+        <h2>예측을 먼저 적어 두고, 처음 보는 조건에서 잽니다 — 검증 계산 시작</h2>
+        <div class="story-copy">
+          <p>보강 계산이 끝난 그날 저녁, 통계모형에 넓은 훑기·세밀 지도·보강 결과를 모두 넣어 다시 적합하고 <strong>그대로 고정</strong>했습니다.
+            그 모형이 미리 떼어 둔 새 조건 64개에서 “95% 선을 처음 넘는 인원”을 읽었더니 <strong>48개 조건에서는 숫자가 나왔고, 16개 조건에서는
+            사다리(최소인원 +0~11명) 안에서 선에 닿지 않았습니다.</strong> 이 16개는 규칙대로 「제외영역」으로 기록만 하고 계산하지 않습니다.
+            예측표와 그것을 만든 코드의 지문을 계약서에 적어 다시 발행했고(정지 규칙은 글자 하나 바뀌지 않았습니다), 오후 4시 55분에 검증 계산을 시작했습니다.</p>
+        </div>
+        <div class="story-metric">
+          <div class="story-metric-top">
+            <b>Stage D 검증 계산</b>
+            <span>137칸 중 117칸 · 37,500 / 43,292 · 85%</span>
+          </div>
+          <div class="story-progress" role="progressbar" aria-label="검증 계산 진행률" aria-valuemin="0" aria-valuemax="137" aria-valuenow="117"><span style="width:85.4%"></span></div>
+          <p class="small">2026-09-19 16:55 시작 · 48개 조건 × 예측 인원 ±1명(예측이 0명인 7개 조건은 2칸) = 137칸 × 300회 + 전월 뱅크 2,192건 · 완료 9/20 예상.</p>
+        </div>
+        <div class="story-result-grid" aria-label="새 조건 64개의 예측 결과">
+          <div class="story-result"><b>48</b><span>예측 인원이 나온 조건 → 검증 계산</span></div>
+          <div class="story-result"><b>16</b><span>모형이 선에 닿지 않은 조건 → 제외영역(계산 0)</span></div>
+          <div class="story-result"><b>43,292</b><span>검증 계산 총량(건) · 한도 60,672 안</span></div>
+        </div>
+        <div class="story-copy">
+          <p>이번에는 지휘 프로그램이 받은 기록을 메모리에 쌓지 않습니다(9월 16일 정지의 원인을 없앤 것 — 시작 직후 194 MB, 보강 때는 20만 건에 11 GB).
+            쉬운 칸은 30초 안팎이지만, 시간 외 근무 계수가 높고 예측 인원이 최소인원과 같은 칸은 한 건에 최대 10분씩 걸려서 완료는 9월 20일로 봅니다.</p>
+          <p><strong>검증이 왜 따로 필요한가.</strong> 지도와 산식은 이미 본 자료에 맞춰 만든 것이라, 그 자료 안에서 잘 맞는 것은 당연합니다.
+            <strong>처음 보는 조건에서도 맞는지</strong>를 재야 “이 산식을 써도 된다”고 말할 수 있습니다. 그래서 결과를 열기 전에 채점 규칙까지 먼저 적어 두었습니다 —
+            새 조건에서 관측된 최소인원(세 칸 중 95% 선을 처음 넘는 칸)과 예측을 비교해 평균 오차(명)·±1명 적중률·부족하게 산정한 비율을
+            1.6 어림셈·5항 산식·9항 산식·통계모형 순으로 나란히 적습니다. 합격선은 두지 않습니다.</p>
+        </div>
+        <div class="story-callout accent">
+          <b>미리 말해 두는 것 하나.</b>
+          <p>검증 칸이 통계모형의 예측을 중심으로 잡혀 있어서, 모형 자신은 “빗나가도 ±1명 안”이 구조적으로 보장됩니다. 그래서 모형의 정직한 성적은
+            적중률이 아니라 “예측 창 안에서 경계가 실제로 발견된 조건의 비율”입니다. 지도+보강 자료를 합쳐 다시 만든 5항 산식은 교차검증에서 ±1명 안에
+            62%를 맞힙니다(1.6 어림셈은 17%) — 검증 전 숫자이고, 검증이 끝나면 새 조건 48개에서의 성적으로 바뀝니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-chapter story-last">
+      <span class="story-num">09</span>
       <div class="story-content">
         <span class="kicker">연구가 멈춰 서야 하는 선</span>
         <h2>이 지도는 무엇을 말할 수 있을까요?</h2>
@@ -1496,7 +1668,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <h2>사람 수를 세는 데서 멈추지 않고, 한 달표가 실제로 만들어지는지 확인합니다.</h2>
       <p>하루 인원 산수만으로는 보이지 않던 휴무·연가·야간회복·역할 제약을 계산으로 드러내고,
         어디까지 알았으며 어디부터는 아직 모르는지를 함께 표시하는 연구입니다.</p>
-      <p class="story-fineprint">이 페이지는 연구계획서 쉬운 설명 v5.3(2026-09-19)을 웹에서 읽기 좋게 옮긴
+      <p class="story-fineprint">이 페이지는 연구계획서 쉬운 설명 v5.4(2026-09-19)을 웹에서 읽기 좋게 옮긴
         파생본입니다. 수치의 정본은 프로젝트 문서와 계산 산출물입니다.</p>
     </section>
   </article>
@@ -1555,6 +1727,23 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-09-19</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">첫 화면을 다시 정리했습니다 — 지금 어디 · 왜 하는가 · 남은 것, 그리고 그래프</span>
+          <span class="flag done">페이지</span>
+        </div>
+        <p><strong>바뀐 것.</strong> 연구책임자 요청(간결·명확, 진행·의의·남은 것을 쉽게)으로 현황 탭 맨 위에 「한눈에」 세 칸을 두었습니다 — 검증 계산 진행 미터와
+          단계별 계산량 막대, 1.6 어림셈 판정(540계단 중 부족 506·미결정 32·과다 2)과 ±1명 적중률 비교 막대, 완료까지의 순서 6줄. 길던 상태줄은
+          「자세한 현황」으로 접었고, 「연구 이야기」에 8장(검증 계산 시작 · 예측 48/64 · 채점 규칙 사전 봉인)을 더했습니다(쉬운 설명 v5.4와 동일).</p>
+        <p><strong>바뀌지 않은 것.</strong> 숫자와 판정은 전부 기존 정본 그대로입니다. 그래프는 외부 라이브러리 없이 이 페이지 안의 색만 쓰고, 색만으로 구별하지 않도록
+          모든 막대에 숫자 라벨을 붙였습니다.</p>
+        <p><strong>진행.</strong> 검증 계산 137칸 중 117칸(37,500/43,292 · 19:06). 남은 20칸은 어려운 조건이라 완료는 9/20 예상. 그 사이 D 결과를 열기 전에 해 둘 것 —
+          지도+보강 결과를 합친 계단표, 5항·9항 산식의 고정, 채점 규칙 — 을 끝내 저장소에 봉인했고, 분석 최종본 가운데 D와 무관한 부분(모형·Δ 분해·요인 분해·그림 7장)도 미리 재생성했습니다.</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-09-19</div>
@@ -2540,7 +2729,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-19 18:40 · 검증 계산(D) 실행 중(16:55 시작 · 137칸 중 100칸 · 32,500/43,292 · 완료 9/20 예상) · 보강 계산(C) 완료 · 검사 21/21 · 기록 63</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-19 19:30 · 첫 화면 「한눈에」 신설 · 검증 계산(D) 실행 중(137칸 중 117칸 · 37,500/43,292 · 완료 9/20 예상) · 보강 계산(C) 완료 · 검사 21/21 · 기록 64</p>
 </footer>
 
 </div>
@@ -2798,7 +2987,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         {k:'진행', v:'C 완료 · 검사 21/21'},
         {k:'검증 계산(D)', v:'137칸 · 43,292건 · 9/19 16:55 시작'}
       ],
-      meter: {label:'검증 계산(D) 받은 묶음', value:32500, max:43292, note:'시작 2026-09-19 16:55 · 18:30 137칸 중 100칸 · 남은 칸은 어려운 조건 → 완료 9/20 예상 · 7950X 한 대 · 보강 계산(C)은 459,240/459,240 완료'},
+      meter: {label:'검증 계산(D) 받은 묶음', value:37500, max:43292, note:'시작 2026-09-19 16:55 · 19:06 137칸 중 117칸 · 남은 20칸은 어려운 조건 → 완료 9/20 예상 · 7950X 한 대 · 보강 계산(C)은 459,240/459,240 완료'},
       html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다.</p><p><strong>보강 계산(C)을 오늘 시작합니다.</strong> 연구책임자가 2026-09-15 착수를 지시했습니다. 지도 때는 세 대를 잇는 연결이 네 번 끊겼으므로, 이번에는 계산하는 컴퓨터(7950X) 한 대가 직접 지휘합니다 — 중계가 없으니 끊길 고리도 없습니다. 실행기를 새로 만들고 계약서를 v1.2로 올렸으며, 회귀 시험 492건을 통과했습니다. 7950X에서 계약 확인 → 시험 → 사전 점검을 통과해 <strong>2026-09-15 13:06에 기동</strong>했습니다. 뱅크 구간(14,240건)은 47분에 끝났고, 케이스 구간(445,000건 · 그중 10,726건은 뱅크 단계에서 이미 「기한 초과」로 판정돼 다시 풀지 않습니다)은 <strong>시간당 평균 약 16,000건</strong>(칸에 따라 8천~2만 6천)으로 돌고 있습니다 — 세밀 지도 때의 열 배가 넘습니다. 중계 컴퓨터를 없앤 효과가 그대로 숫자로 나왔습니다. 9월 16일 01:06, <strong>46%(213,358건)에서 안전장치가 작동해 스스로 멈췄습니다.</strong> 계산 컴퓨터의 메모리 예약 한도가 찼기 때문입니다 — 지휘 프로그램이 받은 기록을 메모리에 쌓아 두는 구조(20만 건에 11 GB)에 같은 컴퓨터의 다른 작업이 겹쳤습니다. 기록은 전부 보존됐고, 메모리 예약 한도를 49.6 → 113.6 GB로 늘려 04:44에 재개했습니다.</p><p><strong>2026-09-19 01:53 완료.</strong> 459,240건을 전부 받았고 완결 검사 21항을 통과했습니다 — 종결 기록 448,514건(전월 뱅크 344건이 시간 안에 안 만들어져 거기 딸린 케이스 10,726건은 규칙대로 「기한 초과」 처리), 케이스 445,000건 중 근무표가 짜인 경우 404,273 · 못 짜인 경우 27,784 · 시간 안에 결론이 안 난 경우 12,943(검열 누적 2.4%). 시간 초과가 절반을 넘긴 조건 3개(x216 · x229 · x249)는 보고서에 표시만 했습니다.</p><p><strong>검증 계산(D)을 2026-09-19 16:55에 시작했습니다.</strong> 결정이 난 3,594칸으로 분석 모형을 다시 적합해 고정하고, 새 조건 64개 가운데 모형이 95% 기준에 닿는 인원을 낸 48개(16개는 사다리 안에서 닿지 않아 「제외영역」으로 기록 · 계산 0)에서 예측 인원 ±1명 — 137칸 × 300회 = 41,100건과 전월 뱅크 2,192건, 합쳐 43,292건(한도 60,672 안). 계약은 예측표를 담아 다시 발행했고(정지 조건은 그대로), 지휘 프로그램은 이번엔 기록을 메모리에 쌓지 않습니다(시작 직후 194 MB). 전월 뱅크는 3분 반에 끝났고 첫 칸들은 30초 안팎입니다 — 예상은 칸 종류별 잔여로 봅니다.</p>'
     },
     'p2-paper': {
