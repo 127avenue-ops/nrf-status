@@ -537,8 +537,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <h1>어디까지 왔나</h1>
   <p class="headline">
     <b>1편은 계산을 끝내고 원고를 다듬는 중 — 투고 전 사람이 정할 항목만 남았습니다.</b><br>
-    <b>2편은 세밀 지도를 끝냈고, 보강 계산(C) 45만 9천 건이 <u>46%에서 다시 돌아가고 있습니다</u> — 메모리 한도를 늘려 04:44에 재개했습니다.</b>
-    <span class="head-num">보강 계산 299,800 / 459,240 (65%) · 9월 18일 03:49 기준 · 어려운 조건 구간 거의 끝(6,015건 남음) → 정밀 보강 14만 건 · 예상 완료 9월 20일(토) ~ 21일(일), 늦으면 23일</span>
+    <b>2편은 세밀 지도에 이어 보강 계산(C) 45만 9천 건도 <u>끝냈습니다</u> — 검사 21항 전부 통과, 다음은 검증 계산(D)입니다.</b>
+    <span class="head-num">보강 계산 459,240 / 459,240 · 완료 2026-09-19 01:53 · 검사 21/21 통과 · 종결 기록 448,514</span>
   </p>
 </header>
 
@@ -549,7 +549,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">60</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">61</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
@@ -586,22 +586,22 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       <button type="button" class="step stop" role="listitem" data-step="p2-gate" aria-label="재현 관문"><span class="bar"></span><span class="lbl"><span class="lw">재현 관문</span><span class="ln">관문</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-report" aria-label="결과 보고·원고"><span class="bar"></span><span class="lbl"><span class="lw">결과 보고·원고</span><span class="ln">보고</span></span></button>
       <button type="button" class="step done" role="listitem" data-step="p2-r20" aria-label="재설계·검증"><span class="bar"></span><span class="lbl"><span class="lw">재설계·검증</span><span class="ln">재설계</span></span></button>
-      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:65%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
+      <button type="button" class="step now"  role="listitem" data-step="p2-campaign" aria-label="본 계산"><span class="here">지금</span><span class="bar"><span class="bar-fill" style="width:100%"></span></span><span class="lbl"><span class="lw">본 계산</span><span class="ln">계산</span></span></button>
       <button type="button" class="step"      role="listitem" data-step="p2-paper" aria-label="원고·투고"><span class="bar"></span><span class="lbl"><span class="lw">원고·투고</span><span class="ln">투고</span></span></button>
     </div>
   </div>
-  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 세밀 지도는 끝났고, 보강 계산(C)이 돌아가고 있습니다.</p>
+  <p class="track-hint">색 막대를 누르면 그 단계의 숫자·진행·판정이 펼쳐집니다. 세밀 지도와 보강 계산(C)은 끝났고, 검증 계산(D)이 남았습니다.</p>
 
 </div>
 
 <div class="status">
   <div class="status-row">
     <span class="status-k">막힌 곳</span>
-    <span class="status-v">없습니다 — <strong>04:44 재개.</strong> 01:06에 메모리 예약 한도가 차서 안전장치가 작동해 멈췄었는데(46% · 기록 213,358건 전부 보존), 예약 한도를 49.6 GB → 113.6 GB로 늘리자 재부팅 없이 바로 적용됐고, 프로그램이 끝난 213,358건을 인식한 뒤 남은 245,882건만 이어서 돌리기 시작했습니다. 원인은 지휘 프로그램이 받은 기록을 메모리에 쌓아 두는 구조(20만 건에 11 GB)에 같은 컴퓨터의 다른 작업이 겹친 것이었습니다. — 이전 기록: 연구책임자가 <strong>2026-09-15 착수를 지시</strong>했습니다. 세밀 지도 때는 노트북이 지휘하고 중계 컴퓨터를 거쳐 7950X가 계산하는 세 대 연결이었는데 그 연결이 네 번 끊겼기 때문에, 이번에는 <strong>계산하는 컴퓨터(7950X)가 직접 지휘</strong>하도록 실행기를 새로 만들고 계약서를 v1.2로 올렸습니다. 돌릴 범위(890칸 · 459,240건)는 결과를 보기 전에 잠근 규칙 그대로이고 <strong>95% 기준도 그대로</strong>입니다. 7950X에서 계약 확인 → 시험 → 사전 점검을 통과하고 <strong>2026-09-15 13:06에 기동</strong>했습니다. 시험 490건 중 11건은 이 컴퓨터에 제품 소스 사본이 없어 뜬 것으로, 계산은 봉인 번들로 돌기 때문에 결과와 무관합니다(연구책임자 확인 뒤 기동)</span>
+    <span class="status-v">없습니다. 보강 계산(C)이 <strong>2026-09-19 01:53에 끝났고 완결 검사 21항을 전부 통과</strong>했습니다 — 받은 종결 기록 448,514건(예정 459,240 중 11,070건은 규칙에 따라 「기한 초과」로 처리), 시간 초과 누적 2.4%(기준 5% 안), 재시도 격리 0. 계산 프로그램·계약·지도 결과는 손대지 않았고, 결과 보고서는 정본 저장소에 반영했습니다. 9/16 새벽 메모리 한도로 한 번 멈췄다 재개한 것 외에는 끊김이 없었습니다. — 이전 기록: 연구책임자가 <strong>2026-09-15 착수를 지시</strong>했습니다. 세밀 지도 때는 노트북이 지휘하고 중계 컴퓨터를 거쳐 7950X가 계산하는 세 대 연결이었는데 그 연결이 네 번 끊겼기 때문에, 이번에는 <strong>계산하는 컴퓨터(7950X)가 직접 지휘</strong>하도록 실행기를 새로 만들고 계약서를 v1.2로 올렸습니다. 돌릴 범위(890칸 · 459,240건)는 결과를 보기 전에 잠근 규칙 그대로이고 <strong>95% 기준도 그대로</strong>입니다. 7950X에서 계약 확인 → 시험 → 사전 점검을 통과하고 <strong>2026-09-15 13:06에 기동</strong>했습니다. 시험 490건 중 11건은 이 컴퓨터에 제품 소스 사본이 없어 뜬 것으로, 계산은 봉인 번들로 돌기 때문에 결과와 무관합니다(연구책임자 확인 뒤 기동)</span>
   </div>
   <div class="status-row">
     <span class="status-k">다음 한 걸음</span>
-    <span class="status-v">보강 계산(C)이 돌아가는 동안 기다립니다 — <strong>890칸 · 459,240건</strong>(계산 15개 동시). 뱅크 구간(14,240건)은 47분에 끝났고, 케이스 구간은 <strong>시간당 평균 약 16,000건</strong>(칸에 따라 8천~2만 6천으로 출렁임)으로 돌고 있습니다 — 세밀 지도 때(시간당 1,300건)의 열 배가 넘습니다. 9월 18일 03:49 기준 65%. 속도는 칸마다 <strong>수백 배</strong> 다릅니다 — 쉬운 칸은 한 건에 1~2초인데, 부수준(τ=0.90) 구간의 어려운 조건(x027 · x078 · x135 · x161 등, 훑기에서 95%를 못 넘긴 점들)은 한 건에 <strong>5~10분</strong>이라 9/16~18 이틀이 여기에 들었습니다. 30만 건을 칸별로 다시 세어 보니(9/18 04:50) 그 어려운 구간은 <strong>6,015건만 남았고</strong>(오늘 낮~저녁 종료), 그다음 <strong>경계 근처 정밀 보강 290칸(143,657건)</strong>이 시작됩니다 — 세밀 지도와 같은 자리라 한 건 10~40초로 보며 1~4.5일. 그래서 예상 완료는 <strong>9월 20일(토) ~ 21일(일), 늦으면 23일</strong>입니다 — 처음 계획(약 2주 · 9/29)보다는 빠릅니다. 정밀 보강 첫 1시간 속도로 확정하겠습니다. 끝난 건은 다시 풀지 않고, 끊기면 5분 안에 스스로 다시 켜집니다. <strong>끝나면 검증 계산(D) → 2편 원고 최종</strong> 순서로 갑니다 — 아래 「앞으로의 순서」 표. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
+    <span class="status-v"><strong>검증 계산(D) 준비</strong>로 넘어갑니다 — ① 지휘 프로그램이 기록을 메모리에 쌓지 않도록 고치고 계약을 v1.3으로 다시 발행 ② 분석 모형(K)에 보강 결과까지 넣어 다시 적합하고 고정 ③ D 실행기 제작 → D(새 조건 64개 · 약 6만 건 · 반나절~하루) → 분석·집필 최종. 순서와 담당은 아래 「앞으로의 순서」 표. 1편 <strong>투고 승인·소속·저장소 주소</strong>는 투고 직전에 사람이 먼저 말합니다</span>
   </div>
   <div class="status-row">
     <span class="status-k">시한 있는 일</span>
@@ -842,7 +842,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <p class="body-copy">
     설계는 <strong>2026-08-11 승인</strong>됐습니다. 되돌리기 어려운 일일수록 잘게 쪼개서,
     <strong>한 단계씩 따로</strong> 승인받았습니다. 아래 표가 그 기록입니다.
-    지금 돌아가는 것은 <strong>⑯ 보강 계산(C)</strong>입니다.
+    ⑯ 보강 계산(C)까지 끝났고, 다음은 검증 계산(D)입니다.
   </p>
 
   <div class="tw-scroll" style="margin-top:18px">
@@ -864,7 +864,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
         <tr><td class="n">13</td><td>훑기 결과 — 95%를 넘긴 점만 고르기</td><td class="n">540 / 46 / 14</td><td><span class="flag done">집계 완료</span></td></tr>
         <tr><td class="n">14</td><td>2편 본 계산 <span class="small">(세밀 지도 — 넘긴 칸만 · 한 방식)</span></td><td class="n">713,112/713,112</td><td><span class="flag done">완료 2026-09-14 · 검사 통과</span></td></tr>
         <tr><td class="n">15</td><td>다음 단계(C·D) 계산 규칙 <span class="small">(지도 결과를 보기 전에 고정)</span></td><td class="n">0</td><td><span class="flag done">동결 2026-09-02</span> <span class="flag done">집계 · 890칸 확정 2026-09-14</span></td></tr>
-        <tr><td class="n">16</td><td>2편 본 계산 <span class="small">(보강 계산 C — 890칸 · 7950X 한 대 · 한 방식)</span></td><td class="n">299,800/459,240</td><td><span class="flag done">착수 지시 2026-09-15</span> <span class="flag wait">실행 중 · 65% · 예상 완료 09-20~21(최대 23)</span></td></tr>
+        <tr><td class="n">16</td><td>2편 본 계산 <span class="small">(보강 계산 C — 890칸 · 7950X 한 대 · 한 방식)</span></td><td class="n">459,240/459,240</td><td><span class="flag done">착수 지시 2026-09-15</span> <span class="flag done">완료 2026-09-19 · 검사 21항 통과</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -879,7 +879,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     ⑬ 600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과였습니다.
     ⑭ 세밀 지도는 넘긴 칸만 <strong>끝났습니다</strong>(받은 묶음 713,112 / 713,112 · 검사 통과 · 7950X).
     ⑮ 다음 단계(C·D) 규칙은 <strong>지도 결과를 보기 전인 2026-09-02에 고정</strong>했고, 지도가 끝난 9/14에 코드로 옮겨 잠갔습니다.
-    ⑯ 그 규칙대로 <strong>보강 계산(C)</strong>이 2026-09-15 13:06부터 7950X 한 대에서 돌아가고 있습니다(9/16 새벽 메모리 한도로 한 번 멈췄다 04:44 재개). 그다음은 아래 「앞으로의 순서」.
+    ⑯ 그 규칙대로 <strong>보강 계산(C)</strong>을 2026-09-15 13:06부터 7950X 한 대에서 돌려 <strong>2026-09-19 01:53에 끝냈습니다</strong>(459,240 / 459,240 · 검사 21항 통과 · 9/16 새벽 메모리 한도로 한 번 멈췄다 재개). 그다음은 아래 「앞으로의 순서」.
   </p>
 
   <div style="margin-top:20px">
@@ -1195,7 +1195,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <section id="roadmap">
   <div class="sec-title">
     <span class="kicker">앞으로의 순서</span>
-    <h2>보강 계산(C)이 끝나면 — 검증 계산(D)을 거쳐 2편 원고 최종까지</h2>
+    <h2>보강 계산(C)이 끝났다 — 검증 계산(D)을 거쳐 2편 원고 최종까지</h2>
   </div>
   <p class="body-copy">
     순서는 <strong>2026-09-02에 미리 정해 둔 규칙</strong>을 따릅니다. 계산이 한 단계 끝날 때마다 사람이 다시 승인하지 않고,
@@ -1206,8 +1206,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
     <table>
       <thead><tr><th class="n">#</th><th>무엇</th><th>누가 · 어디서</th><th>얼마나</th><th>상태</th></tr></thead>
       <tbody>
-        <tr><td class="n">1</td><td><strong>보강 계산(C) 마무리</strong> — 검사 통과 확인 · 자동 재기동 감시 해제 · 결과 보고서 저장 · 정본 저장소에 반영 · 이 페이지 갱신</td><td>에이전트 · 7950X</td><td>완료 직후</td><td><span class="flag wait">C 완료 뒤</span></td></tr>
-        <tr><td class="n">2</td><td><strong>검증 계산(D) 준비</strong> — ① 지휘 프로그램이 기록을 메모리에 쌓지 않도록 고치고 계약을 v1.3으로 다시 발행(9/16 새벽 정지의 원인 제거) ② 분석 모형(K)에 C 결과까지 넣어 다시 적합한 뒤 고정 ③ D 실행기 제작(C 실행기 재활용)</td><td>에이전트 · 7950X</td><td>1세션</td><td><span class="flag wait">예정</span></td></tr>
+        <tr><td class="n">1</td><td><strong>보강 계산(C) 마무리</strong> — 검사 통과 확인 · 자동 재기동 감시 해제 · 결과 보고서 저장 · 정본 저장소에 반영 · 이 페이지 갱신</td><td>에이전트 · 7950X</td><td>완료 직후</td><td><span class="flag done">완료 2026-09-19</span></td></tr>
+        <tr><td class="n">2</td><td><strong>검증 계산(D) 준비</strong> — ① 지휘 프로그램이 기록을 메모리에 쌓지 않도록 고치고 계약을 v1.3으로 다시 발행(9/16 새벽 정지의 원인 제거) ② 분석 모형(K)에 C 결과까지 넣어 다시 적합한 뒤 고정 ③ D 실행기 제작(C 실행기 재활용)</td><td>에이전트 · 7950X</td><td>1세션</td><td><span class="flag wait">다음 · 지금 여기</span></td></tr>
         <tr><td class="n">3</td><td><strong>검증 계산(D)</strong> — 훑기·지도에 쓰지 않은 <strong>새 조건 64개</strong>에서, 모형이 예측한 인원 ±1명을 각 300회 계산. 「처음 보는 조건에서도 맞히는가」를 재는 단계라 <strong>합격선 없이 기술 보고</strong>(오차 · ±1명 적중률 · 과소산정률 · 1.6 어림셈 대조)</td><td>7950X 한 대</td><td>약 60,000건 · 반나절~하루</td><td><span class="flag wait">C 검사 통과 + K 고정 뒤 자동 개시</span></td></tr>
         <tr><td class="n">4</td><td><strong>분석·집필 최종</strong> — 중간판 분석 ①~⑨를 C+D 결과로 재생성 → 2편 본편 원고 v0.1을 최종본으로(표 18개 · 본문 수치 79건 자동 재생성 · 그림 1~3) → 브리핑 문서 3종 재생성 → 이 페이지</td><td>에이전트</td><td>1~2세션</td><td><span class="flag wait">D 뒤</span></td></tr>
         <tr><td class="n">5</td><td><strong>연구책임자가 정할 것</strong> — 1편 투고 승인·소속·저장소 주소(투고 직전) · 2편 이해상충 문안(1편 서명본에서 이관) · 연구비 공모 접수(<span class="mono">~09-30</span> · 직접) · 3편(결근 버퍼) 착수 여부(D 뒤)</td><td>연구책임자</td><td>—</td><td><span class="flag wait">사람 몫</span></td></tr>
@@ -1500,6 +1500,22 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   </p>
 
   <div class="log">
+
+    <div class="log-item">
+      <div class="log-when">2026-09-19</div>
+      <div class="log-body">
+        <div class="log-head">
+          <span class="log-title">보강 계산(C)이 끝났습니다 — 45만 9천 건, 검사 21항 통과</span>
+          <span class="flag done">완료</span>
+        </div>
+        <p><strong>결과.</strong> 2026-09-19 01:53, 890칸 · 459,240건을 전부 받았고 완결 검사 21항(건수 항등 · 중복 0 · 오류 0 · 검증기 불일치 0 · 계약 해시 · 지도 결과 무개서 · τ 불변 등)을 통과했습니다.
+          종결 기록은 448,514건 — 11,070건은 뱅크 단계에서 이미 「기한 초과」로 판정돼 규칙대로 다시 풀지 않았습니다. 근무표가 짜인 경우 404,273, 못 짜인 경우 27,784, 시간 초과 13,287(누적 2.4% · 기준 5% 안).
+          시간 초과가 절반을 넘긴 조건 3개(x216 · x229 · x249)는 보고서에 표시만 했습니다 — 결과에 따라 규칙을 바꾸지 않습니다.</p>
+        <p><strong>어떻게 돌았나.</strong> 7950X 한 대가 지휘와 계산을 함께 맡아 9/15 13:06 시작 → 9/16 01:06 메모리 예약 한도로 한 번 멈춤 → 04:44 재개(끝난 21만 건은 다시 풀지 않음) → 9/19 01:53 완료. 순계산 69시간.
+          쉬운 칸은 한 건 2초, 어려운 조건은 한 건 5~10분이어서 예상 완료가 몇 번 바뀌었습니다 — 다음 단계부터는 칸 종류별 잔여로 예상합니다.</p>
+        <p><strong>다음.</strong> 결과 보고서를 정본 저장소에 반영했고, 기록은 계산 컴퓨터에 그대로 둡니다. 이제 검증 계산(D) 준비 — 지휘 프로그램이 기록을 메모리에 쌓지 않도록 고치고 계약을 v1.3으로 다시 발행한 뒤, 분석 모형을 보강 결과까지 넣어 고정하고 D 실행기를 만듭니다(「앞으로의 순서」 2~3행).</p>
+      </div>
+    </div>
 
     <div class="log-item">
       <div class="log-when">2026-09-16</div>
@@ -2431,7 +2447,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <footer>
   <p class="small">간호인력 편성가능성 연구 · 진행 상황 공유용 요약</p>
   <p class="small">수치의 정본은 프로젝트 문서에 있으며 이 페이지는 그 파생물입니다.</p>
-  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-18 04:55 · 보강 계산(C) 65% · 칸별 재집계 · 예상 완료 09-20~21(최대 23)</p>
+  <p class="small" style="font-family:var(--mono)">최종 갱신 2026-09-19 14:45 · 보강 계산(C) 완료 · 검사 21/21 · 다음 = 검증 계산(D) 준비</p>
 </footer>
 
 </div>
@@ -2679,17 +2695,17 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
       html: '<p>막힌 관문을 고치는 대신 검증 기준을 “봉인 수치 재현”에서 “공개 명세와 일치”로 바꿨습니다.</p><p>이어서 본 계산 첫·둘째 단계를 돌렸고, 둘째 단계에서 <strong>인원을 늘려도 성공률이 0.9 언저리에서 더 오르지 않는다</strong>는 것이 나왔습니다. 통계 모형에 그 오름을 고정하지 않기로 했습니다.</p>'
     },
     'p2-campaign': {
-      kicker: '2편 · 지금', title: '본 계산 — 훑기·지도 완료 · 보강 계산(C) 시작', status: 'now', paper: 'p2',
+      kicker: '2편 · 지금', title: '본 계산 — 훑기·지도·보강(C) 완료 · 검증(D) 남음', status: 'now', paper: 'p2',
       facts: [
         {k:'훑기 합계', v:'334,800쌍'},
         {k:'승격', v:'540 / 46 / 14'},
         {k:'지도', v:'713,112 완료'},
-        {k:'보강 계산(C)', v:'299,800'},
+        {k:'보강 계산(C)', v:'459,240'},
         {k:'목표', v:'459,240'},
-        {k:'진행', v:'65% · 예상 완료 09-20~21(최대 23)'}
+        {k:'진행', v:'완료 · 검사 21/21'}
       ],
-      meter: {label:'보강 계산(C) 받은 건수', value:299800, max:459240, note:'기동 2026-09-15 13:06 · 01:06 자동 정지 → 04:44 재개 · 09-18 03:49 기준 · 7950X 한 대 · 890칸'},
-      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다.</p><p><strong>보강 계산(C)을 오늘 시작합니다.</strong> 연구책임자가 2026-09-15 착수를 지시했습니다. 지도 때는 세 대를 잇는 연결이 네 번 끊겼으므로, 이번에는 계산하는 컴퓨터(7950X) 한 대가 직접 지휘합니다 — 중계가 없으니 끊길 고리도 없습니다. 실행기를 새로 만들고 계약서를 v1.2로 올렸으며, 회귀 시험 492건을 통과했습니다. 7950X에서 계약 확인 → 시험 → 사전 점검을 통과해 <strong>2026-09-15 13:06에 기동</strong>했습니다. 뱅크 구간(14,240건)은 47분에 끝났고, 케이스 구간(445,000건 · 그중 10,726건은 뱅크 단계에서 이미 「기한 초과」로 판정돼 다시 풀지 않습니다)은 <strong>시간당 평균 약 16,000건</strong>(칸에 따라 8천~2만 6천)으로 돌고 있습니다 — 세밀 지도 때의 열 배가 넘습니다. 중계 컴퓨터를 없앤 효과가 그대로 숫자로 나왔습니다. 9월 16일 01:06, <strong>46%(213,358건)에서 안전장치가 작동해 스스로 멈췄습니다.</strong> 계산 컴퓨터의 메모리 예약 한도가 찼기 때문입니다 — 지휘 프로그램이 받은 기록을 메모리에 쌓아 두는 구조(20만 건에 11 GB)에 같은 컴퓨터의 다른 작업이 겹쳤습니다. 기록은 전부 보존됐고, 메모리 예약 한도를 49.6 → 113.6 GB로 늘리자 재부팅 없이 적용돼 <strong>04:44에 재개</strong>했습니다 — 끝난 213,358건을 인식하고 남은 245,882건만 이어서 계산합니다.</p><p><strong>속도는 칸마다 수백 배 다릅니다.</strong> 890칸을 종류별로 보면 — 쉬운 「위쪽 확장」 450칸(22만 5천 건)은 한 건 2초꼴로 이미 끝났고, 「아래쪽 확장」 52칸은 대부분 「불가능」이 빨리 증명돼 빠르며, 부수준(τ=0.90) 98칸에는 한 건에 5~8분 걸리는 어려운 칸이 섞여 있고(지금 여기), 경계 근처 정밀 보강 290칸(14만 건)은 아직 시작 전입니다. 부수준 구간의 어려운 조건(x027 · x078 · x135 등)은 한 건 5~10분이라 9/16 07시부터 하루 동안 2만 건 남짓만 진행됐습니다. 그래서 예상 완료를 <strong>9월 19일(금) ~ 21일(일)</strong>로 잡고, 정밀 보강 구간에 들어가면 첫 1시간 속도로 다시 좁힙니다.</p>'
+      meter: {label:'보강 계산(C) 받은 묶음', value:459240, max:459240, note:'완료 2026-09-19 01:53 · 종결 기록 448,514 · 7950X 한 대 · 890칸'},
+      html: '<p>넓은 훑기는 <strong>두 파로 나눠 전부 끝났습니다.</strong> 1파 조건 179개 · 199,764쌍 · 기록 366,176. 2파 나머지 121개 · 135,036쌍 · 기록 246,720. 합 334,800쌍, 사고 0, 검사 통과. 숫자는 봉인입니다.</p><p>600개 계단 중 <strong>540개가 95%를 넘겼고</strong>, 46개는 못 넘겼으며, 14개는 모든 칸이 시간 초과입니다.</p><p>세밀 지도는 <strong>713,112 / 713,112</strong>로 끝났고 검사를 통과했습니다(끝까지 판정 702,348 · 시간 초과 10,764).</p><p><strong>그리고 그 기록을 집계했습니다.</strong> 미리 정해 둔 규칙을 <u>결과를 보기 전에</u> 코드로 만들어 먼저 잠근 뒤 돌렸습니다. 다음 단계(C)가 살 칸은 <strong>890개 · 459,240건 · 약 2주</strong>로 확정됐고, 한도(516,000) 안입니다. 95% 기준은 그대로입니다.</p><p><strong>보강 계산(C)을 오늘 시작합니다.</strong> 연구책임자가 2026-09-15 착수를 지시했습니다. 지도 때는 세 대를 잇는 연결이 네 번 끊겼으므로, 이번에는 계산하는 컴퓨터(7950X) 한 대가 직접 지휘합니다 — 중계가 없으니 끊길 고리도 없습니다. 실행기를 새로 만들고 계약서를 v1.2로 올렸으며, 회귀 시험 492건을 통과했습니다. 7950X에서 계약 확인 → 시험 → 사전 점검을 통과해 <strong>2026-09-15 13:06에 기동</strong>했습니다. 뱅크 구간(14,240건)은 47분에 끝났고, 케이스 구간(445,000건 · 그중 10,726건은 뱅크 단계에서 이미 「기한 초과」로 판정돼 다시 풀지 않습니다)은 <strong>시간당 평균 약 16,000건</strong>(칸에 따라 8천~2만 6천)으로 돌고 있습니다 — 세밀 지도 때의 열 배가 넘습니다. 중계 컴퓨터를 없앤 효과가 그대로 숫자로 나왔습니다. 9월 16일 01:06, <strong>46%(213,358건)에서 안전장치가 작동해 스스로 멈췄습니다.</strong> 계산 컴퓨터의 메모리 예약 한도가 찼기 때문입니다 — 지휘 프로그램이 받은 기록을 메모리에 쌓아 두는 구조(20만 건에 11 GB)에 같은 컴퓨터의 다른 작업이 겹쳤습니다. 기록은 전부 보존됐고, 메모리 예약 한도를 49.6 → 113.6 GB로 늘려 04:44에 재개했습니다.</p><p><strong>2026-09-19 01:53 완료.</strong> 459,240건을 전부 받았고 완결 검사 21항을 통과했습니다 — 종결 기록 448,514건(11,070건은 규칙대로 「기한 초과」 처리), 근무표가 짜인 경우 404,273 · 못 짜인 경우 27,784 · 시간 초과 13,287(2.4%). 시간 초과가 절반을 넘긴 조건 3개(x216 · x229 · x249)는 보고서에 표시만 했습니다. 다음은 검증 계산(D)입니다.</p>'
     },
     'p2-paper': {
       kicker: '2편 · 예정', title: '원고·투고', status: 'wait', paper: 'p2',
