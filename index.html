@@ -614,7 +614,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">68</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">69</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
@@ -646,7 +646,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <p class="g-note">과거의 67% 일반 정확도, 96% 하한 부족률, 91% 산술 비중이라는 해석은 현행 결론으로 사용하지 않습니다. 실제 병동의 환자 안전성이나 적정 인력은 검증하지 않았습니다.</p>
  </div>
 </div>
-<section id="roadmap"><h2>최종 검토와 자료 준비 완료</h2><p class="g-lead">독립 검수에서 확인한 잔여 설명을 보완하고 원고·표·그림·설명자료의 정합을 확인했습니다. 편집 가능한 Word 원고와 커버레터·핵심 요약·제출 점검표도 준비했습니다. 연구자가 내용과 저자 정보를 확인한 뒤 투고할 수 있습니다.</p>
+<section id="roadmap"><h2>최종 검토와 자료 준비 완료</h2><p class="g-lead">독립 검수에서 확인한 잔여 설명을 보완하고 원고·표·그림·설명자료의 정합을 확인했습니다. 편집 가능한 Word 원고와 커버레터·핵심 요약·제출 점검표도 준비했습니다. 저자 최종 승인과 저자 정보·투고지·공개 범위 확인, 저널별 제출본 확정이 남아 있습니다. 실제 접수는 아직 확인되지 않았습니다.</p>
  <p class="g-lead">원고 v0.4와 생성 표·그림·수치 검증을 정정 내용에 맞췄습니다. 봉인한 실험 기록과 기존 예측은 보존했고 추가 솔버 실행이나 재학습은 하지 않았습니다.</p>
  <p class="g-lead">1편은 기존 원고를 유지합니다. 투고에는 연구책임자의 원고 검토와 최종 승인, 저자·소속·연구비 정보, 투고 학술지와 공개 자료 범위 확정이 필요합니다. 투고나 공모 접수가 완료됐다는 뜻은 아닙니다.</p>
 </section>
@@ -655,18 +655,21 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <!-- ══════ 연구 이야기 ══════ -->
 <div class="view" id="view-story" role="tabpanel" aria-labelledby="tab-story" hidden>
 
-<div class="story-shell"><section class="story-hero"><span class="kicker">연구 이야기</span><h2>몇 명부터 가능한지 말하려면</h2><p class="story-deck">근무표를 만들 수 있는지와 그보다 적은 인원으로는 만들 수 없는지는 서로 다른 질문입니다.</p></section>
-<section class="story-copy"><h2>이번 연구가 관측한 것</h2><p>하루 근무 수요 W, 휴무, 야간, 이월 조건 등을 바꾸며 합성 사례의 편성 가능성을 계산했습니다. F는 가능, I는 불가능의 증명, T는 시간 내 미결정입니다. W는 외부에서 주는 수요이고, 인원 수는 연간 FTE나 환자 안전의 기준이 아닙니다.</p></section>
-<section class="story-copy"><h2>방문하지 않은 낮은 계단</h2><p>몇 칸의 계단에서 처음 성공을 봤더라도, 방문하지 않은 낮은 칸에서 이미 성공했을 수 있습니다. 또 관측 성공률은 인원이 늘 때마다 반드시 높아지지 않습니다. 이번 정정은 그런 칸을 빼지 않고 가능한 최소값의 집합에 남깁니다.</p><p>D의 계산 조건 48개에서 후보가 하나인 경우는 10개였습니다. 나머지는 여러 후보 또는 상한 미확정·미도달 가능성이 남습니다. 이 논리적 집합은 통계적 신뢰구간이 아닙니다.</p></section>
-<section class="story-copy"><h2>논문이 남기는 것</h2><p>재현할 수 있는 합성 실험과 명시된 제약, 그리고 어느 주장까지 자료가 뒷받침하는지를 남깁니다. 인력 산식의 우월성을 입증했다는 결론은 사용하지 않습니다. 이미 확인한 검증자료를 다시 새 검증자료처럼 사용할 수도 없습니다.</p><p>과거 진행 기록은 당시의 설명입니다. 정정된 결과와 해석은 현황 탭과 v0.4 브리핑을 기준으로 읽어 주세요.</p></section></div>
+<div class="story-shell"><section class="story-hero"><span class="kicker">연구 이야기 · 2026년 9월 20일</span><h2>근무표가 가능한 인원과 최소 인원은 어떻게 다를까</h2><p class="story-deck">계산은 마쳤습니다. 지금은 관측한 사실과 그 자료로 말할 수 있는 범위를 함께 설명합니다.</p></section>
+<section class="story-copy"><h2>하루 인원과 한 달 직원 수</h2><p>낮·저녁·밤에 필요한 사람 수를 더해도 한 달 근무표가 완성되는 것은 아닙니다. 휴무·휴가·연속근무·야간 뒤 회복·경력자 배치가 동시에 맞아야 합니다. 이 연구는 정해진 합성 규칙을 모두 지키는 근무표가 존재하는지 계산했습니다.</p><p>하루 수요 W는 외부 입력이며 환자 수에서 적정 수요를 추정한 값이 아닙니다. 직원 수는 연간 FTE나 환자 안전의 기준과도 다릅니다. F는 편성 가능, I는 불가능의 증명, T는 시간 안에 미결정입니다. T를 실패로 바꾸지 않습니다.</p></section>
+<section class="story-copy"><h2>세 조건에서 넓은 조건 공간으로</h2><p>1편은 세 합성 수요형의 계산을 봉인했습니다. 2편은 여덟 조건 축을 바꿔 300개 조건을 훑고, 일부 인원 구간의 지도·보강 계산과 Stage D 계산을 마쳤습니다. 완료 검사는 실행이 빠짐없이 끝났는지를 확인하며, 전체 최소인원의 통계적 확정을 뜻하지 않습니다.</p></section>
+<section class="story-copy"><h2>방문하지 않은 낮은 계단</h2><p>세 번째 칸에서 처음 성공을 봐도 첫 번째 칸을 방문하지 않았다면 그곳에서도 성공했을 수 있습니다. 관측 성공률도 인원이 늘 때마다 반드시 오르지는 않았습니다. 수정본은 그런 칸을 후보에서 빼지 않고 가능한 첫 달성 인원을 집합으로 남깁니다.</p><p>이것은 보고된 유한 표본률을 고정한 논리적 가능성입니다. 모집단 최소인원의 신뢰구간이나 실제 병동의 안전 인원을 구한 결과는 아닙니다.</p></section>
+<section class="story-copy"><h2>새 조건에서 남은 답</h2><p>D는 64개로 설계했지만 관측 구간을 정하지 못한 16개는 계산하지 않았습니다. 계산한 48개 중 단일 후보 10개, 유한한 여러 후보 26개, 상한 미확정 또는 미도달 가능 12개였습니다.</p><p>단일 후보 10개 중 8개는 산술 하한 N0에 놓였습니다. 이 선택된 부분에서 M1·M2와 사후 N0 비교값 모두 ±1명 이내 9/10이었습니다. 일반 성능 우월성으로 확대하지 않습니다. 기존 학습 표지 144개 중 33개의 전역 최소값 해석에도 문제가 있었고 재채점만으로 학습 문제가 해결된 것은 아닙니다.</p></section>
+<section class="story-copy"><h2>최종 결과와 남은 절차</h2><p>원고 v0.4·표·그림·설명자료의 최종 검토를 마쳤습니다. Word 본문과 커버레터 초안·핵심 요약·제출 점검표도 준비했습니다. 연구계획서 v4.1은 1편의 동결 방법과 2편의 실제 결과를 구분하고, 쉬운 설명 v6.0은 이야기와 결과표를 최신 해석에 맞췄습니다.</p><p>남은 것은 저자 정보·투고지·공개 범위 확인, 저자 최종 승인과 실제 제출입니다. 결근·회복가능성·실자료 검증은 별도 후속 후보입니다. 이미 본 D를 새 독립 검증자료로 다시 사용할 수 없습니다.</p><p>과거 기록의 67% 일반 정확도·96% 부족률·91% 산술 비중은 현행 성과로 인용하지 않습니다. 현재 결과는 현황 탭과 최신 문서를 기준으로 읽어 주세요.</p></section></div>
 </div><!-- /view-story -->
 
 <!-- ══════ 업데이트 기록 ══════ -->
 <div class="view" id="view-docs" role="tabpanel" aria-labelledby="tab-docs" hidden>
-<section><h2>정정된 브리핑 문서</h2><p class="g-lead">2026년 9월 20일 v0.4 반영본입니다. 기존 최소 인원·모형 성능 해석을 고쳤습니다.</p><ul class="story-copy"><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_1_%EC%89%AC%EC%9A%B4%EB%B2%84%EC%A0%84.docx" download>쉬운 요약</a><p>핵심 정정과 결과를 3쪽으로 정리했습니다.</p></li><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_2_%EC%8B%AC%EC%82%AC%EC%9A%A9.docx" download>방법과 타당성 검토</a><p>대상 정의·후보 집합·분석 이력을 4쪽으로 설명합니다.</p></li><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_3_%EC%89%AC%EC%9A%B4%EC%84%A4%EB%AA%85%EA%B8%80.docx" download>쉬운 설명글</a><p>방문하지 않은 계단의 비유와 분모 해석을 3쪽으로 설명합니다.</p></li></ul><p class="g-note">저자 검토용 연구 설명 자료이며, 실제 병동의 인력 권고나 투고 승인 문서가 아닙니다.</p></section>
+<section><h2>정정된 브리핑 문서</h2><p class="g-lead">2026년 9월 20일 최종 검토 반영본입니다. 계획서 v4.1·쉬운 설명 v6.0과 결과 및 남은 절차를 맞춘 요약 자료입니다. 상세 계획서는 연구 문서 정본에 보존합니다.</p><ul class="story-copy"><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_1_%EC%89%AC%EC%9A%B4%EB%B2%84%EC%A0%84.docx" download>쉬운 요약</a><p>핵심 정정과 결과를 3쪽으로 정리했습니다.</p></li><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_2_%EC%8B%AC%EC%82%AC%EC%9A%A9.docx" download>방법과 타당성 검토</a><p>대상 정의·후보 집합·분석 이력을 4쪽으로 설명합니다.</p></li><li><a href="docs/%EA%B0%84%ED%98%B8%EC%9D%B8%EB%A0%A5%EC%97%B0%EA%B5%AC_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0_3_%EC%89%AC%EC%9A%B4%EC%84%A4%EB%AA%85%EA%B8%80.docx" download>쉬운 설명글</a><p>방문하지 않은 계단의 비유와 분모 해석을 3쪽으로 설명합니다.</p></li></ul><p class="g-note">저자 검토용 연구 설명 자료이며, 실제 병동의 인력 권고나 투고 승인 문서가 아닙니다.</p></section>
 </div><!-- /view-docs -->
 
 <div class="view" id="view-log" role="tabpanel" aria-labelledby="tab-log" hidden>
+<!-- plan-explanation-sync-log --><section><span class="kicker">기록 69 · 2026년 9월 20일</span><h2>연구계획서와 쉬운 설명 본문 최신화</h2><p>연구계획서 v4.1의 프로그램 목적·2편 결과·추진 현황·후속 조건을 갱신했습니다. 쉬운 설명 v6.0은 옛 수치에 경보만 붙이는 대신 이야기·결과표·1분 요약을 최종 해석으로 고쳤습니다. 대시보드 연구 이야기와 요약 문서도 동기화했습니다. 1편의 동결 방법과 실험 기록은 보존했습니다.</p></section>
 <!-- final-review-log --><section><span class="kicker">기록 68 · 2026년 9월 20일</span><h2>최종 검토 반영과 투고 준비 자료</h2><p>과학적 수정본을 독립 검수하고 지적된 문안을 보완했습니다. Word 검토본·커버레터 문안·핵심 요약·제출 점검표를 준비했습니다. 실험 원자료와 동결 예측은 보존했습니다. 저자 정보·투고지 확정과 최종 내용 승인은 남아 있으며, 실제 투고 완료를 뜻하지 않습니다.</p></section>
 <!-- v04-log -->
 <section><span class="kicker">기록 67 · 2026년 9월 20일</span><h2>전역 최소값 해석 정정과 원고 v0.4</h2>
@@ -1718,7 +1721,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 </div><!-- /view-log -->
 
 <footer>
-  <p>간호인력 편성가능성 연구 · 2026년 9월 20일 · v0.4 최종 검토 반영</p>
+  <p>간호인력 편성가능성 연구 · 2026년 9월 20일 · v0.4 최종 검토 · 계획서 v4.1 · 쉬운 설명 v6.0 동기화</p>
 </footer>
 
 </div>
