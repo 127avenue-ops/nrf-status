@@ -452,6 +452,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   margin-left:6px;font-variant-numeric:tabular-nums;
 }
 .tab[aria-selected="true"] .n{color:var(--accent-2)}
+@media (max-width:480px){.tabs{flex-wrap:wrap}.tab{margin-right:18px}}  /* 5탭(투고본 추가 · 2026-09-20)이 폰 폭에서 가로 넘침 → 두 줄로 */
 .view[hidden]{display:none}
 .view{animation:slip .2s ease both}
 @media (prefers-reduced-motion:reduce){.view{animation:none}}
