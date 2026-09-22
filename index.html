@@ -383,6 +383,7 @@ td b{font-weight:700;color:var(--ink)}
   padding:2px 7px;border-radius:3px;white-space:nowrap;
 }
 .flag.done{color:var(--done);background:color-mix(in srgb,var(--done) 12%,transparent)}
+.flag.part{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
 .flag.wait{color:var(--muted);background:color-mix(in srgb,var(--idle) 16%,transparent)}
 .flag.stop{color:var(--stop);background:color-mix(in srgb,var(--stop) 12%,transparent)}
 
@@ -617,7 +618,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">70</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">71</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
@@ -626,8 +627,8 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
 <section id="pi-checklist"><span class="kicker">접수 전 · 연구책임자와 공동저자가 채울 것</span><h2>투고 전 확인 7건</h2>
 <p class="g-lead">원고는 완성됐고, 아래 일곱 가지만 채워지면 접수합니다. 항목 번호는 투고 점검표(<code>SUBMISSION_JKAN.md</code> §0)와 같습니다. 답을 주시면 원고에 반영해 다시 만들고, 「투고본」 탭의 파일도 교체됩니다.</p>
-<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag wait">1</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스</li><li><span class="flag wait">2</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지</li><li><span class="flag wait">3</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식</li><li><span class="flag wait">4</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)</li><li><span class="flag wait">5</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)</li><li><span class="flag wait">6</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인</li><li><span class="flag wait">7</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정</li></ul>
-<p class="g-note">2026년 9월 21일(월) 저자 정보부터. 하나라도 비어 있으면 접수를 보류합니다.</p>
+<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag part">1 · 진행</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스<br><small>송지수 선생님 로마자·학위·소속 반영 — 남은 것: 두 저자 ORCID · 교신저자 지정 · 제2저자 학위·소속</small></li><li><span class="flag part">2 · 진행</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지<br><small>기관 IRB 심의 신청 접수 · 결과 대기 — 번호가 와야 접수</small></li><li><span class="flag done">완료</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식<br><small>문안 승인 · 학회 COI 서식·ICMJE 양식은 접수 당일</small></li><li><span class="flag done">완료</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)<br><small>외부 지원 없음 · 저자 사비</small></li><li><span class="flag part">5 · 진행</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)<br><small>문안 채움(S.J. 연구 설계·총괄 · K.D. 기술 · AI 초안은 두 저자 지시·검토) — 송지수 선생님 영문 확인 남음</small></li><li><span class="flag wait">6</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인</li><li><span class="flag wait">7</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정</li></ul>
+<p class="g-note">2026년 9월 22일 기준 완료 2 · 진행 3 · 대기 2. 하나라도 비어 있으면 접수를 보류합니다.</p>
 </section>
 <div class="glance" id="revision-glance">
  <div class="g-card">
@@ -654,17 +655,17 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <p class="g-note">과거의 67% 일반 정확도, 96% 하한 부족률, 91% 산술 비중이라는 해석은 현행 결론으로 사용하지 않습니다. 실제 병동의 환자 안전성이나 적정 인력은 검증하지 않았습니다.</p>
  </div>
 </div>
-<section id="roadmap"><h2>투고본 준비 완료 — 접수는 연구책임자 확인 뒤</h2><p class="g-lead">1편(세 수요 원형 · 9,150건)과 2편(조건 상자 · 1,550,444건)을 하나의 국문 원고로 합쳤습니다. 본문은 6,000단어 한도 안(3983단어)에 표 3개·그림 2개를 두고, 두 편의 방법·결과 전문은 보충자료 S1–S5로 붙였습니다. 참고문헌 32편은 출현 순으로 번호를 매겼고, 본문의 모든 숫자는 봉인 산출물에서 자동으로 채워집니다.</p>
+<section id="roadmap"><h2>투고본 준비 완료 — 접수는 연구책임자 확인 뒤</h2><p class="g-lead">1편(세 수요 원형 · 9,150건)과 2편(조건 상자 · 1,550,444건)을 하나의 국문 원고로 합쳤습니다. 본문은 6,000단어 한도 안(4067단어)에 표 3개·그림 2개를 두고, 두 편의 방법·결과 전문은 보충자료 S1–S5로 붙였습니다. 참고문헌 32편은 출현 순으로 번호를 매겼고, 본문의 모든 숫자는 봉인 산출물에서 자동으로 채워집니다.</p>
  <p class="g-lead">새로 더한 결과: 배수 척도로 보면 규칙만 세어 나온 산술 하한이 하루 인원의 1.67배(중앙값 · 1.46–1.93), 목표 도달이 관측된 324계단의 첫 도달 인원은 1.79배(1.54–2.18)였습니다. 후보 집합 판독기를 정답을 아는 설계 곡선에서 검증하니 관측률이 목표에서 멀면 98.0%, 목표 근처 평탄이면 54.6%만 참값을 담았습니다.</p>
  <p class="g-lead">남은 것은 연구책임자 몫입니다 — 저자·소속·ORCID·교신 정보, 기관 IRB 심의 면제 확인, 이해상충 문안 재서명, 연구비 문안, 국문 초록 요건 확인 → 접수. 후속 연구는 「규칙 파라미터에 따른 배수 표」 구상 단계입니다. 접수가 완료됐다는 뜻은 아닙니다.</p>
 </section>
 </div><!-- /view-now -->
 
 <div class="view" id="view-paper" role="tabpanel" aria-labelledby="tab-paper" hidden>
-<section><span class="kicker">투고본 · v0.1 · 2026년 9월 20일 저녁</span><h2>대한간호학회지 투고 원고 — 지금까지 완성된 판</h2>
+<section><span class="kicker">투고본 · v0.1 · 2026년 9월 22일 판</span><h2>대한간호학회지 투고 원고 — 지금까지 완성된 판</h2>
 <p class="g-lead">1편·2편을 하나로 합친 국문 원고와 보충자료입니다. PDF는 바로 열리고, Word는 내려받아 편집할 수 있습니다. 판이 바뀌면 같은 자리의 파일을 교체합니다.</p>
-<ul class="story-copy"><li><b>원고 본문</b> — <a href="docs/manuscript_combined_kr_v0.1.pdf">PDF · 27쪽</a> · <a href="docs/manuscript_combined_kr_v0.1.docx" download>Word</a><p>국·영 제목 · 영문 초록 · 서론·방법·결과·논의·결론 · Declarations · 참고문헌 32편. 본문 3,983단어 · 표 3 · 그림 2.</p></li><li><b>보충자료 S1–S5</b> — <a href="docs/supplement_combined_v0.1.pdf">PDF · 58쪽</a> · <a href="docs/supplement_combined_v0.1.docx" download>Word</a><p>1편 방법·결과와 2편 방법·결과·논의 전문. 표 16.</p></li></ul>
-<p class="g-note">접수 전 저자 검토판입니다. 저자·소속·ORCID·교신 정보, IRB 심의 면제 확인, 연구비 문안은 아직 [TBD]로 비어 있고, 이해상충 문안은 재서명 전입니다. 학술지에 접수·게재된 논문이 아니며, 실제 병동의 인력 권고가 아닙니다.</p>
+<ul class="story-copy"><li><b>원고 본문</b> — <a href="docs/manuscript_combined_kr_v0.1.pdf">PDF · 27쪽</a> · <a href="docs/manuscript_combined_kr_v0.1.docx" download>Word</a><p>국·영 제목 · 영문 초록 · 서론·방법·결과·논의·결론 · Declarations · 참고문헌 32편. 본문 4,067단어 · 표 3 · 그림 2.</p></li><li><b>보충자료 S1–S5</b> — <a href="docs/supplement_combined_v0.1.pdf">PDF · 58쪽</a> · <a href="docs/supplement_combined_v0.1.docx" download>Word</a><p>1편 방법·결과와 2편 방법·결과·논의 전문. 표 —.</p></li></ul>
+<p class="g-note">접수 전 저자 검토판입니다. 저자 이름·소속, 연구비 문안, 저자 기여, 이해상충 문안 승인은 반영됐고, ORCID·교신저자·IRB 심의 결과·공개 저장소 주소는 아직 [TBD]입니다. 학술지에 접수·게재된 논문이 아니며, 실제 병동의 인력 권고가 아닙니다.</p>
 </section>
 </div><!-- /view-paper -->
 
@@ -686,6 +687,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 </div><!-- /view-docs -->
 
 <div class="view" id="view-log" role="tabpanel" aria-labelledby="tab-log" hidden>
+<!-- pi-answers-log --><section><span class="kicker">기록 71 · 2026년 9월 22일</span><h2>투고 전 확인 7건 — 연구책임자 회신 반영</h2><p>저자 정보(송지수 · MSN, GNP · 국립중앙의료원 간호부)를 원고에 넣었고, 연구비는 외부 지원 없이 저자 사비로 수행했음을, 저자 기여는 연구책임자가 연구 설계와 총괄을, 공동저자가 기술적 구현·실행·분석을 맡았음을 Declarations에 적었습니다. 연구 설계 논의에도 생성형 AI를 활용했다는 사실을 AI 활용 고지에 추가했습니다. 이해상충 문안은 변경 없이 승인됐고, 기관 IRB 심의는 신청 후 결과를 기다리고 있습니다. 남은 것은 ORCID·교신저자 지정, IRB 심의 결과, 국문 투고규정 확인, 게재료 부담입니다. 접수 완료를 뜻하지 않습니다.</p></section>
 <!-- combined-kr-log --><section><span class="kicker">기록 70 · 2026년 9월 20일 저녁</span><h2>1편·2편 합병 국문 투고본 v0.1과 배수 척도·판독기 검증</h2><p>1편(세 수요 원형 확증 실험)과 2편(조건 상자 계산과 판독 정정)을 하나의 국문 원고로 합쳐 대한간호학회지 규격(본문 6,000단어 · 표+그림 5 · 번호 인용)에 맞췄습니다. 두 편의 방법·결과 전문은 보충자료로 붙였고 모든 숫자는 봉인 산출물에서 자동으로 채워집니다. 2편에는 판독 절차의 전제·식·절차·실례(§2.6), 설계된 정답 아래 판독기 포함률(§3.9 · 계단형 98.0% vs 평탄 54.6%), 배수 척도의 기술 결과(§4.7 · 산술 하한 1.67배 · 관측 도달 1.79배)와 근접 문헌 인용을 더했습니다. 독립 콜드 리드의 지적(초록의 셀별 판정, 1단계 산술 하한 표기, 결론의 주어 분리, 용어 정의)을 반영했습니다. 저자 정보·IRB 면제·이해상충 재서명 뒤 접수하며, 접수 완료를 뜻하지 않습니다. 같은 날 밤 연구책임자 결정으로 원고·보충자료 전문(Word·PDF)을 「투고본」 탭에 공개했습니다.</p></section>
 <!-- plan-explanation-sync-log --><section><span class="kicker">기록 69 · 2026년 9월 20일</span><h2>연구계획서와 쉬운 설명 본문 최신화</h2><p>연구계획서 v4.1의 프로그램 목적·2편 결과·추진 현황·후속 조건을 갱신했습니다. 쉬운 설명 v6.0은 옛 수치에 경보만 붙이는 대신 이야기·결과표·1분 요약을 최종 해석으로 고쳤습니다. 대시보드 연구 이야기와 요약 문서도 동기화했습니다. 1편의 동결 방법과 실험 기록은 보존했습니다.</p></section>
 <!-- final-review-log --><section><span class="kicker">기록 68 · 2026년 9월 20일</span><h2>최종 검토 반영과 투고 준비 자료</h2><p>과학적 수정본을 독립 검수하고 지적된 문안을 보완했습니다. Word 검토본·커버레터 문안·핵심 요약·제출 점검표를 준비했습니다. 실험 원자료와 동결 예측은 보존했습니다. 저자 정보·투고지 확정과 최종 내용 승인은 남아 있으며, 실제 투고 완료를 뜻하지 않습니다.</p></section>
@@ -1739,7 +1741,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 </div><!-- /view-log -->
 
 <footer>
-  <p>간호인력 편성가능성 연구 · 2026년 9월 20일 저녁 · 1편·2편 합병 국문 투고본 v0.1 · 브리핑 3종 갱신 · 투고본 Word·PDF 공개</p>
+  <p>간호인력 편성가능성 연구 · 2026년 9월 22일 · 투고 전 확인 7건 회신 반영(완료 2 · 진행 3)</p>
 </footer>
 
 </div>
