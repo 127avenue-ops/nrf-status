@@ -572,6 +572,306 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   .story-result-grid{grid-template-columns:1fr 1fr}
   .story-result:last-child{grid-column:1/-1}
 }
+/* ── 파일 탭 (files-tab) ── 탐색기형 보관함. 토큰만 쓴다(단일 라이트 테마). ── */
+:root{
+  --ft-pdf:#b0472f;--ft-doc:#2d5f9a;--ft-xls:#2f6b48;--ft-hwp:#1d7a88;
+  --ft-img:#7a5a94;--ft-md:#4c463b;--ft-txt:#8a8170;--folder:#dcae55;--folder-2:#bf8f35;
+  --fx-h:clamp(360px,56vh,540px);
+}
+.fx-intro{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
+.fx-intro-main,.fx-intro-side{display:flex;flex-direction:column;gap:11px;min-width:0}
+@media (min-width:760px){
+  .fx-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px 30px;align-items:start}
+  .fx-intro-side{padding-top:24px}
+}
+.fx-chips{display:flex;gap:8px;flex-wrap:wrap}
+.fx-chips:empty{display:none}
+.fx-warn{
+  display:flex;gap:10px;align-items:flex-start;max-width:66ch;
+  font-size:13.5px;line-height:1.65;color:var(--ink-2);word-break:keep-all;
+  background:color-mix(in srgb,var(--stop) 5%,var(--paper));
+  border:1px solid color-mix(in srgb,var(--stop) 24%,var(--rule));border-radius:8px;padding:11px 14px;
+}
+.fx-warn svg{flex:none;width:18px;height:18px;margin-top:2px;color:var(--stop)}
+.fx-warn b{color:var(--stop);font-weight:750}
+details.fx-how{max-width:66ch}
+details.fx-how:last-of-type{border-bottom:1px solid var(--rule-soft)}
+.fx-steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.fx-steps li{font-size:14px;line-height:1.7;color:var(--ink-2);word-break:keep-all}
+.fx-steps li::marker{color:var(--accent);font-family:var(--mono);font-weight:700;font-size:12px}
+.fx-steps code{overflow-wrap:anywhere}
+
+.fx{
+  position:relative;background:var(--paper);border:1px solid var(--rule);border-radius:11px;overflow:hidden;min-width:0;
+  box-shadow:0 1px 0 var(--rule-soft),0 22px 44px -30px color-mix(in srgb,var(--ink) 34%,transparent);
+}
+.fx button{font-family:var(--sans)}
+.fx svg{display:block}
+.fx-bar{
+  display:flex;align-items:center;gap:8px;padding:9px 10px;
+  background:var(--sunk);border-bottom:1px solid var(--rule);
+}
+.fx-btn{
+  appearance:none;-webkit-appearance:none;flex:none;height:34px;min-width:34px;padding:0 9px;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--rule);border-radius:7px;background:var(--paper);color:var(--ink-2);
+  font-size:13px;font-weight:650;cursor:pointer;transition:border-color .15s,color .15s,background .15s;
+}
+.fx-btn svg{width:16px;height:16px}
+.fx-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.fx-btn:disabled{opacity:.42;cursor:default}
+.fx-tree-toggle{display:none}
+.fx-tree-toggle svg{width:17px;height:14px}
+.fx-crumbs{flex:1;min-width:0}
+.fx-crumbs ol{
+  list-style:none;margin:0;padding:0 6px;height:34px;display:flex;align-items:center;gap:1px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:7px;
+  overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;
+}
+.fx-crumbs ol::-webkit-scrollbar{display:none}
+.fx-crumbs li{display:flex;align-items:center;flex:none}
+.fx-crumbs li + li::before{content:"›";color:var(--idle);padding:0 3px;font-size:14px}
+.fx-crumb{
+  appearance:none;border:0;background:none;padding:3px 6px;border-radius:5px;cursor:pointer;
+  font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap;
+}
+.fx-crumb:hover{background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--accent)}
+.fx-crumb[aria-current="page"]{color:var(--ink);font-weight:750;cursor:default;background:none}
+.fx-find{display:flex;gap:8px;flex:0 1 250px;min-width:0}
+.fx-search{position:relative;flex:1;min-width:0;display:block}
+.fx-search svg{position:absolute;left:10px;top:50%;width:15px;height:15px;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.fx-search input{
+  width:100%;height:34px;margin:0;padding:0 10px 0 31px;
+  border:1px solid var(--rule);border-radius:7px;background:var(--paper);color:var(--ink);
+  font:500 13.5px var(--sans);outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.fx-search input::placeholder{color:var(--idle)}
+.fx-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}
+.fx-sort-m{
+  display:none;height:34px;flex:none;max-width:44%;padding:0 8px;border:1px solid var(--rule);border-radius:7px;
+  background:var(--paper);color:var(--ink-2);font:600 13px var(--sans);
+}
+.fx :focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.fx-search input:focus-visible{outline:none}
+
+.fx-body{display:grid;grid-template-columns:206px minmax(0,1fr);grid-template-areas:"tree main" "prev prev";min-width:0}
+.fx-tree{
+  grid-area:tree;height:var(--fx-h);overflow:auto;padding:8px 6px 12px;
+  background:color-mix(in srgb,var(--sunk) 42%,var(--paper));border-right:1px solid var(--rule-soft);
+}
+.fx-tree-ul,.fx-tree-ul ul{list-style:none;margin:0;padding:0}
+.fx-node{display:flex;align-items:center;gap:1px;padding-left:calc(var(--d,0) * 13px);border-radius:6px}
+.fx-tw,.fx-tw-sp{flex:none;width:20px;height:28px}
+.fx-tw{
+  appearance:none;border:0;background:none;padding:0;display:grid;place-items:center;cursor:pointer;color:var(--muted);border-radius:5px;
+}
+.fx-tw svg{width:11px;height:11px;transition:transform .16s ease}
+.fx-tw[aria-expanded="true"] svg{transform:rotate(90deg)}
+.fx-tw:hover{color:var(--accent)}
+.fx-nb{
+  appearance:none;border:0;background:none;flex:1;min-width:0;height:30px;padding:0 7px 0 4px;
+  display:flex;align-items:center;gap:8px;border-radius:6px;cursor:pointer;
+  color:var(--ink-2);font-size:13.5px;font-weight:600;text-align:left;
+}
+.fx-nb:hover{background:color-mix(in srgb,var(--accent) 7%,transparent);color:var(--ink)}
+.fx-nb .fx-svg.fold{width:19px;height:15px;flex:none}
+.fx-nb-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fx-cnt{
+  flex:none;font-family:var(--mono);font-size:10.5px;font-weight:650;color:var(--muted);
+  font-variant-numeric:tabular-nums;background:color-mix(in srgb,var(--idle) 16%,transparent);
+  border-radius:999px;padding:1px 7px;line-height:1.5;
+}
+.fx-node.is-on .fx-nb{background:color-mix(in srgb,var(--accent) 12%,var(--paper));color:var(--ink);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 26%,transparent)}
+.fx-node.is-on .fx-cnt{background:var(--accent);color:var(--paper)}
+.fx-tree-ul > li > .fx-node .fx-nb{font-weight:750}
+
+.fx-main{grid-area:main;height:var(--fx-h);display:flex;flex-direction:column;min-width:0}
+.fx-cols{display:grid;grid-template-columns:minmax(0,1fr) 92px 66px 114px;gap:12px;align-items:center}
+.fx-head{
+  flex:none;height:34px;padding:0 14px 0 16px;border-bottom:1px solid var(--rule-soft);
+  display:grid;grid-template-columns:minmax(0,1fr) 92px 66px 114px;gap:12px;align-items:center;
+}
+.fx-sort{
+  appearance:none;border:0;background:none;padding:4px 0;cursor:pointer;display:flex;align-items:center;gap:4px;
+  font-size:11.5px;font-weight:650;letter-spacing:.02em;color:var(--muted);text-align:left;white-space:nowrap;
+}
+.fx-sort:hover{color:var(--ink)}
+.fx-sort.fx-c-sz{justify-content:flex-end}
+.fx-sort[aria-pressed="true"]{color:var(--accent)}
+.fx-sort[aria-pressed="true"]::after{content:"▲";font-size:8px;transform:translateY(-1px)}
+.fx-sort[data-dir="-1"][aria-pressed="true"]::after{content:"▼"}
+.fx-note{
+  flex:none;margin:10px 12px 2px;padding:8px 11px;border-radius:7px;font-size:12.5px;line-height:1.55;color:var(--ink-2);word-break:keep-all;
+  background:color-mix(in srgb,var(--accent) 6%,var(--paper));border:1px solid color-mix(in srgb,var(--accent) 18%,var(--rule-soft));
+}
+.fx-list{list-style:none;margin:0;padding:4px 0 8px;overflow:auto;flex:1;min-height:0}
+.fx-row{
+  appearance:none;-webkit-appearance:none;width:100%;margin:0;border:0;background:none;cursor:pointer;text-align:left;color:var(--ink);
+  display:grid;grid-template-columns:minmax(0,1fr) 92px 66px 114px;gap:12px;align-items:center;
+  padding:6px 14px 6px 12px;border-left:3px solid transparent;transition:background .12s;
+}
+.fx-row:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.fx-row.is-sel{background:color-mix(in srgb,var(--accent) 11%,var(--paper));border-left-color:var(--accent)}
+.fx-nm{display:flex;align-items:center;gap:11px;min-width:0}
+.fx-nm .fx-svg{flex:none;width:25px;height:31px}
+.fx-nm .fx-svg.fold{width:28px;height:23px;margin:0 -1px 0 -2px}
+.fx-nmtx{display:flex;flex-direction:column;min-width:0;gap:1px}
+.fx-t{font-size:14px;font-weight:600;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fx-t mark,.fx-sub mark{background:color-mix(in srgb,var(--folder) 45%,transparent);color:inherit;border-radius:2px;padding:0 1px}
+.fx-sub{font-size:11.5px;color:var(--muted);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fx-sub:empty{display:none}
+.fx-mm{display:none}
+.fx-ty{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fx-sz,.fx-dt{font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fx-sz{text-align:right}
+.fx-empty{margin:auto;padding:30px 20px;text-align:center;font-size:13.5px;color:var(--muted);word-break:keep-all}
+.fx-status{
+  display:flex;justify-content:space-between;gap:14px;padding:6px 14px;
+  border-top:1px solid var(--rule);background:var(--sunk);
+  font-family:var(--mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.fx-status span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* 미리 보기 */
+.fx-prev{grid-area:prev;min-width:0;display:flex;flex-direction:column;border-top:1px solid var(--rule);background:var(--paper);scroll-margin-top:64px;outline:none}
+.fx-prev.is-empty{display:none}
+.fx-pv-head{display:flex;gap:12px;align-items:flex-start;padding:15px 16px 11px}
+.fx-pv-head .fx-svg{flex:none;width:34px;height:42px}
+.fx-pv-tt{flex:1;min-width:0}
+.fx-pv-name{margin:0;font-size:15.5px;font-weight:750;line-height:1.38;letter-spacing:-0.01em;overflow-wrap:anywhere}
+.fx-pv-meta{margin-top:3px;font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.5;overflow-wrap:anywhere}
+.fx-pv-label{display:block;font-family:var(--sans);font-size:12.5px;color:var(--ink-2);font-weight:600}
+.fx-x{flex:none;height:30px;min-width:30px;padding:0 8px;font-size:12.5px}
+.fx-x svg{width:12px;height:12px}
+.fx-pv-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 13px;border-bottom:1px solid var(--rule-soft)}
+.fx-a{
+  display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 13px;border-radius:7px;
+  font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap;cursor:pointer;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink-2);transition:filter .15s,border-color .15s,color .15s;
+}
+.fx-a svg{width:15px;height:15px;flex:none}
+.fx-a:hover{border-color:var(--accent);color:var(--accent)}
+.fx-a.primary{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.fx-a.primary:hover{filter:brightness(1.1);color:var(--paper)}
+.fx-a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.fx-a{font-family:var(--sans)}
+.fx-pv-body{flex:1;min-height:0;min-width:0;overflow:auto;padding:14px 16px 18px}
+.fx-pdf{display:block;width:100%;height:min(78vh,900px);border:1px solid var(--rule);border-radius:7px;background:var(--sunk)}
+.fx-pdf-note{margin-top:8px;font-size:12px;color:var(--muted);word-break:keep-all}
+.fx-img{margin:0;display:flex;flex-direction:column;gap:8px;align-items:center}
+.fx-img a{display:block;max-width:100%;border-radius:7px;border:1px solid var(--rule);overflow:hidden;
+  background:repeating-conic-gradient(var(--sunk) 0 25%,var(--paper) 0 50%) 0 0/16px 16px}
+.fx-img img{display:block;max-width:100%;max-height:70vh;height:auto;margin:0 auto}
+.fx-img figcaption{font-size:12px;color:var(--muted)}
+.fx-card{
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;
+  padding:26px 18px 28px;border:1px dashed var(--rule);border-radius:10px;background:color-mix(in srgb,var(--sunk) 45%,var(--paper));
+}
+.fx-card .fx-svg{width:54px;height:67px}
+.fx-card b{font-size:15px;color:var(--ink);word-break:keep-all}
+.fx-card p{font-size:13.5px;line-height:1.65;color:var(--ink-2);max-width:40ch;word-break:keep-all}
+.fx-card .fx-a.primary{height:46px;padding:0 22px;font-size:15px;border-radius:9px}
+.fx-card .fx-a.primary svg{width:18px;height:18px}
+.fx-seg{display:inline-flex;align-self:flex-start;border:1px solid var(--rule);border-radius:7px;overflow:hidden;margin-bottom:12px}
+.fx-seg button{appearance:none;border:0;background:var(--paper);color:var(--muted);font-size:12.5px;font-weight:650;padding:5px 12px;cursor:pointer}
+.fx-seg button + button{border-left:1px solid var(--rule)}
+.fx-seg button[aria-pressed="true"]{background:var(--accent);color:var(--paper)}
+.fx-load{font-size:13px;color:var(--muted)}
+.fx-ph{margin:auto;display:flex;flex-direction:column;align-items:center;gap:10px;padding:30px 24px;text-align:center}
+.fx-ph .fx-svg.fold{width:70px;height:56px;opacity:.9}
+.fx-ph b{font-size:15px;color:var(--ink)}
+.fx-ph p{font-size:13px;line-height:1.6;color:var(--muted);max-width:30ch;word-break:keep-all}
+.fx-ph .fx-ph-n{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+/* Markdown 렌더 결과 */
+.fx-md{font-size:14.5px;line-height:1.78;color:var(--ink-2);word-break:keep-all;overflow-wrap:anywhere;max-width:72ch}
+.fx-md > :first-child{margin-top:0}
+.fx-md h1,.fx-md h2,.fx-md h3,.fx-md h4,.fx-md h5,.fx-md h6{color:var(--ink);line-height:1.35;letter-spacing:-0.015em;margin:1.3em 0 .45em;font-weight:750}
+.fx-md h1{font-size:21px;padding-bottom:.3em;border-bottom:1px solid var(--rule-soft)}
+.fx-md h2{font-size:18px}
+.fx-md h3{font-size:16px}
+.fx-md h4,.fx-md h5,.fx-md h6{font-size:14.5px}
+.fx-md p{margin:0 0 .8em}
+.fx-md ul,.fx-md ol{margin:0 0 .8em;padding-left:1.5em}
+.fx-md li{margin:.18em 0}
+.fx-md li > ul,.fx-md li > ol{margin:.2em 0 .1em}
+.fx-md li::marker{color:var(--idle)}
+.fx-md ol > li::marker{font-family:var(--mono);font-size:.88em;color:var(--muted)}
+.fx-md li.fx-task{list-style:none;margin-left:-1.3em}
+.fx-chk{display:inline-block;width:13px;height:13px;border:1.5px solid var(--idle);border-radius:3px;margin-right:7px;vertical-align:-1px}
+.fx-task.done > .fx-chk{background:var(--done);border-color:var(--done);box-shadow:inset 0 0 0 2px var(--paper)}
+.fx-task.done{color:var(--muted)}
+.fx-md strong{color:var(--ink);font-weight:750}
+.fx-md a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 38%,transparent)}
+.fx-md a:hover{border-bottom-color:var(--accent)}
+.fx-md code{font-size:.86em;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;padding:.05em .35em}
+.fx-md pre,.fx-txt{margin:0 0 .9em;padding:12px 14px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:7px;overflow:auto;font:12.5px/1.6 var(--mono);color:var(--ink);white-space:pre}
+.fx-md pre code{background:none;border:0;padding:0;font-size:inherit}
+.fx-txt{white-space:pre-wrap;overflow-wrap:anywhere;max-width:none}
+.fx-md blockquote{margin:0 0 .9em;padding:2px 0 2px 14px;border-left:3px solid var(--rule);color:var(--muted)}
+.fx-md blockquote p:last-child{margin-bottom:0}
+.fx-callout{margin:0 0 .9em;padding:10px 14px;border-radius:7px;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--rule));background:color-mix(in srgb,var(--accent) 6%,var(--paper))}
+.fx-callout[data-kind="warning"],.fx-callout[data-kind="caution"],.fx-callout[data-kind="danger"]{border-color:color-mix(in srgb,var(--stop) 28%,var(--rule));background:color-mix(in srgb,var(--stop) 5%,var(--paper))}
+.fx-callout-t{font-weight:750;color:var(--ink);margin-bottom:.3em!important}
+.fx-callout > :last-child{margin-bottom:0}
+.fx-md hr{border:0;border-top:1px solid var(--rule);margin:1.4em 0}
+.fx-md img{max-width:100%;height:auto;border-radius:6px}
+.fx-md mark{background:color-mix(in srgb,var(--folder) 40%,transparent);color:inherit;padding:0 2px;border-radius:2px}
+.fx-md del{color:var(--muted)}
+.fx-wl{color:var(--accent);font-weight:600}
+.fx-tbl{overflow-x:auto;margin:0 0 1em;border:1px solid var(--rule);border-radius:7px;max-width:100%}
+.fx-md table{min-width:0;width:100%;border-collapse:collapse;font-size:13px}
+.fx-md th,.fx-md td{padding:7px 11px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;word-break:keep-all}
+.fx-md th:last-child,.fx-md td:last-child{border-right:0}
+.fx-md tr:last-child td{border-bottom:0}
+.fx-md thead th{background:var(--sunk);color:var(--ink);font-family:var(--sans);font-size:12.5px;letter-spacing:0;text-transform:none;font-weight:700;white-space:normal}
+.fx-fm{margin:0 0 1.1em;padding:9px 12px;border-radius:7px;background:var(--sunk);border:1px solid var(--rule-soft);display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;font-size:12px}
+.fx-fm dt{font-family:var(--mono);color:var(--muted)}
+.fx-fm dd{margin:0;color:var(--ink-2);overflow-wrap:anywhere}
+.fx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 넓은 화면: 탐색기가 본문 폭을 벗어나 3단(폴더 | 목록 | 미리 보기)으로 */
+@media (min-width:1100px){
+  #view-files .fx{width:min(1140px,calc(100vw - 80px));margin-left:calc(50% - min(570px,50vw - 40px))}
+  .fx{--fx-h:clamp(480px,70vh,700px)}
+  .fx-body{grid-template-columns:238px minmax(0,1fr) minmax(0,404px);grid-template-areas:"tree main prev"}
+  .fx-prev,.fx-prev.is-empty{display:flex;height:var(--fx-h);border-top:0;border-left:1px solid var(--rule-soft)}
+  .fx-prev .fx-pv-body{display:flex;flex-direction:column}
+  .fx-prev .fx-pv-body > *{flex:none}
+  .fx-prev .fx-pv-body > .fx-pdf{flex:1 1 auto}
+  .fx-prev .fx-pdf{flex:1;height:auto;min-height:300px}
+  .fx-x.fx-x-back{display:none}
+  .fx-head,.fx-row{grid-template-columns:minmax(0,1fr) 62px 112px}
+  .fx-c-ty,.fx-ty{display:none}
+}
+/* 폰: 폴더 트리는 서랍, 목록은 한 줄 요약 */
+@media (max-width:639px){
+  .fx{border-radius:9px}
+  .fx-bar{flex-wrap:wrap;padding:8px}
+  .fx-tree-toggle{display:inline-flex}
+  .fx-find{flex:1 1 100%;order:3}
+  .fx-search input{font-size:16px}
+  .fx-sort-m{display:block}
+  .fx-body{grid-template-columns:minmax(0,1fr);grid-template-areas:"tree" "main" "prev"}
+  .fx-tree{display:none;height:auto;max-height:52vh;border-right:0;border-bottom:1px solid var(--rule)}
+  .fx.tree-open .fx-tree{display:block}
+  .fx-tree-toggle[aria-expanded="true"]{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--paper))}
+  .fx-main{height:auto}
+  .fx-list{overflow:visible;padding-bottom:4px}
+  .fx-head{display:none}
+  .fx-row{grid-template-columns:minmax(0,1fr);padding:8px 12px 8px 9px}
+  .fx-ty,.fx-sz,.fx-dt{display:none}
+  .fx-t{white-space:normal;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .fx-mm{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fx-pv-head{padding:14px 12px 10px}
+  .fx-pv-actions{padding:0 12px 12px}
+  .fx-pv-actions .fx-a{flex:1 1 auto;justify-content:center}
+  .fx-pv-body{padding:12px}
+  .fx-pdf{height:70vh}
+  .fx-status{padding:6px 12px}
+}
+/* /files-tab */
+.grant-list{columns:2;column-gap:28px}.grant-list li{break-inside:avoid;margin:0 0 8px}.grant-list .flag{font-size:14px;letter-spacing:0;padding:1px 7px;min-width:26px;text-align:center}@media (max-width:640px){.grant-list{columns:1}}
 </style>
 </head>
 <body>
@@ -603,9 +903,9 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <span class="kicker">간호인력 편성가능성 연구 · 진행 현황</span>
   <h1>어디까지 왔나</h1>
   <p class="headline">
-    <b>1편과 2편을 하나의 국문 원고로 합쳤습니다 — 대한간호학회지 투고본 v0.1.</b><br>
-    계산과 정정은 끝났습니다. 세 수요 원형의 확증 실험(1편)과 조건 공간의 계산·판독 정정(2편)을 한 편으로 묶고, 배수 척도의 기술 결과와 판독기의 통제 검증을 더했습니다.
-    <span class="head-num">본문 3표·2그림 · 보충자료에 두 편의 방법·결과 전문. 저자 정보·IRB 면제 확인·이해상충 재서명이 끝나면 접수합니다. 실제 병동 인력 권고는 아닙니다. 원고 전문은 「투고본」 탭에서 Word·PDF로 볼 수 있습니다.</span>
+    <b>연구계획서 제출 준비 — 2026 제2차 내부연구사업(마감 9월 30일).</b><br>
+    12개월 과제 「근무규칙 전부 반영 병동 간호인력 배수표 개발」의 신청서·연구계획서·동의서·산출내역을 공식 서식대로 만들었습니다. 선생님이 노란 칸 13곳을 채우시면 날인·서명 후 접수합니다.
+    <span class="head-num">1·2편 합병 국문 투고본 v0.1은 「투고본」 탭 · 과제 쉬운 설명과 입력 안내는 「파일」 탭에 있습니다. 실제 병동 인력 권고는 아닙니다.</span>
   </p>
 </header>
 
@@ -615,19 +915,26 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
           id="tab-now" aria-controls="view-now" aria-selected="true">현황</button>
   <button class="tab" type="button" role="tab" data-view="paper"
           id="tab-paper" aria-controls="view-paper" aria-selected="false" tabindex="-1">투고본</button>
+  <button class="tab" type="button" role="tab" data-view="files"
+          id="tab-files" aria-controls="view-files" aria-selected="false" tabindex="-1">파일<span class="n" data-files-count></span></button>
   <button class="tab" type="button" role="tab" data-view="story"
           id="tab-story" aria-controls="view-story" aria-selected="false" tabindex="-1">연구 이야기</button>
   <button class="tab" type="button" role="tab" data-view="log"
-          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">71</span></button>
+          id="tab-log" aria-controls="view-log" aria-selected="false" tabindex="-1">업데이트 기록<span class="n">72</span></button>
   <button class="tab" type="button" role="tab" data-view="docs"
           id="tab-docs" aria-controls="view-docs" aria-selected="false" tabindex="-1">문서</button>
 </nav>
 
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
 
+<section id="grant-checklist"><span class="kicker">2026 제2차 내부연구사업 · 마감 9월 30일 · 연구책임자 송지수</span><h2>연구계획서 제출 — 선생님이 채우실 13칸</h2>
+<p class="g-lead">공식 서식대로 만든 제출본 3종(신청서+연구계획서 · 개인정보 동의서 · 연구비 산출내역 엑셀)이 준비됐습니다. Word 파일의 <b>노란 칸 ①~⑬</b>만 채워 주시면 인쇄 → 날인·서명 → rERP 접수입니다. 과제 내용은 <a href="#files/%EB%82%B4%EB%B6%80%EC%97%B0%EA%B5%AC%EC%82%AC%EC%97%85%20%EA%B3%B5%EB%AA%A8%20%EC%A0%9C%EC%B6%9C">「파일」 탭의 쉬운 설명</a>에, 칸별 안내는 같은 폴더의 「제출본 입력 안내」에 있습니다.</p>
+<ul class="story-copy grant-list" style="list-style:none;padding-left:0"><li><span class="flag wait">①</span> <b>휴대전화</b> — 신청서 · 붙임 1-가</li><li><span class="flag wait">②</span> <b>직급(직위) 확인</b> — 지금 「수간호사」</li><li><span class="flag wait">③</span> <b>소속부서 표기</b> — 지금 「간호부」 — 부서명까지 쓸지</li><li><span class="flag wait">④</span> <b>직종 확인</b> — 지금 「간호직」</li><li><span class="flag wait">⑤</span> <b>IRB 칸</b> — 회신 상태·접수번호</li><li><span class="flag wait">⑥</span> <b>학력</b> — 학사·석사 기간·학교·전공</li><li><span class="flag wait">⑦</span> <b>석사 취득년도</b> — 연구원 구성 표</li><li><span class="flag wait">⑧</span> <b>경력</b> — 기간·기관·직위</li><li><span class="flag wait">⑨</span> <b>논문 SCI(E) 최근 3년</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑩</span> <b>논문 비SCI 최근 3년</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑪</span> <b>특허</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑫</span> <b>기타 실적</b> — 자격·수상·교육 등</li><li><span class="flag wait">⑬</span> <b>연구과제 수행 실적 최근 3년</b> — 없으면 「실적없음」 → 신진연구자</li></ul>
+<p class="g-note">공개 페이지의 제출본은 전화·이메일을 가린 공개본입니다. 실제 제출용 원본은 연구진 공유 드라이브에 있습니다. 인쇄 후 할 일: 신청서 (인) 날인 · 동의서 두 분 서명과 「동의함」 체크 · 스캔 PDF 2개 + 엑셀을 rERP에.</p>
+</section>
 <section id="pi-checklist"><span class="kicker">접수 전 · 연구책임자와 공동저자가 채울 것</span><h2>투고 전 확인 7건</h2>
 <p class="g-lead">원고는 완성됐고, 아래 일곱 가지만 채워지면 접수합니다. 항목 번호는 투고 점검표(<code>SUBMISSION_JKAN.md</code> §0)와 같습니다. 답을 주시면 원고에 반영해 다시 만들고, 「투고본」 탭의 파일도 교체됩니다.</p>
-<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag part">1 · 진행</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스<br><small>제1저자 송지수 · 교신저자 김대연으로 확정, 송지수 선생님 로마자·학위·소속 반영 — 남은 것: 두 저자 ORCID · 교신저자 학위·소속·연락처</small></li><li><span class="flag part">2 · 진행</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지<br><small>기관 IRB 심의 신청 접수 · 결과 대기 — 번호가 와야 접수</small></li><li><span class="flag done">완료</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식<br><small>문안 승인 · 학회 COI 서식·ICMJE 양식은 접수 당일</small></li><li><span class="flag done">완료</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)<br><small>외부 지원 없음 · 저자 사비</small></li><li><span class="flag part">5 · 진행</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)<br><small>문안 채움(S.J. 연구 설계·총괄 · K.D. 기술 · AI 초안은 두 저자 지시·검토) — 송지수 선생님 영문 확인 남음</small></li><li><span class="flag wait">6</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인</li><li><span class="flag wait">7</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정</li></ul>
+<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag part">1 · 진행</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스<br><small>제1저자 송지수 · 교신저자 김대연으로 확정, 송지수 선생님 로마자·학위·소속 반영 — 남은 것: 두 저자 ORCID · 교신저자 학위·소속·연락처</small></li><li><span class="flag part">2 · 진행</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지<br><small>기관 IRB 심의 신청 접수 · 결과 대기 — 번호가 와야 접수</small></li><li><span class="flag done">완료</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식<br><small>문안 승인 · 학회 COI 서식·ICMJE 양식은 접수 당일</small></li><li><span class="flag done">완료</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)<br><small>외부 지원 없음 · 저자 사비</small></li><li><span class="flag part">5 · 진행</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)<br><small>문안 채움(S.J. 연구 설계·총괄 · K.D. 기술 · AI 초안은 두 저자 지시·검토) — 송지수 선생님 영문 확인 남음</small></li><li><span class="flag part">6 · 진행</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인<br><small>국문초록 불필요·영문 초록 충족(지침 실물 확인) — 남은 것: 표·그림을 영문으로, 각각 별도 페이지에(지침 의무 · 결정 뒤 반영)</small></li><li><span class="flag part">7 · 진행</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정<br><small>게재료 = 게재 확정 시 USD 1,500 확인 — 남은 것: 국문 제목·주요어 어감 확인</small></li></ul>
 <p class="g-note">2026년 9월 22일 기준 완료 2 · 진행 3 · 대기 2. 하나라도 비어 있으면 접수를 보류합니다.</p>
 </section>
 <div class="glance" id="revision-glance">
@@ -655,7 +962,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   <p class="g-note">과거의 67% 일반 정확도, 96% 하한 부족률, 91% 산술 비중이라는 해석은 현행 결론으로 사용하지 않습니다. 실제 병동의 환자 안전성이나 적정 인력은 검증하지 않았습니다.</p>
  </div>
 </div>
-<section id="roadmap"><h2>투고본 준비 완료 — 접수는 연구책임자 확인 뒤</h2><p class="g-lead">1편(세 수요 원형 · 9,150건)과 2편(조건 상자 · 1,550,444건)을 하나의 국문 원고로 합쳤습니다. 본문은 6,000단어 한도 안(4067단어)에 표 3개·그림 2개를 두고, 두 편의 방법·결과 전문은 보충자료 S1–S5로 붙였습니다. 참고문헌 32편은 출현 순으로 번호를 매겼고, 본문의 모든 숫자는 봉인 산출물에서 자동으로 채워집니다.</p>
+<section id="roadmap"><h2>투고본 준비 완료 — 접수는 연구책임자 확인 뒤</h2><p class="g-lead">1편(세 수요 원형 · 9,150건)과 2편(조건 상자 · 1,550,444건)을 하나의 국문 원고로 합쳤습니다. 본문은 6,000단어 한도 안(4231단어)에 표 3개·그림 2개를 두고, 두 편의 방법·결과 전문은 보충자료 S1–S5로 붙였습니다. 참고문헌 32편은 출현 순으로 번호를 매겼고, 본문의 모든 숫자는 봉인 산출물에서 자동으로 채워집니다.</p>
  <p class="g-lead">새로 더한 결과: 배수 척도로 보면 규칙만 세어 나온 산술 하한이 하루 인원의 1.67배(중앙값 · 1.46–1.93), 목표 도달이 관측된 324계단의 첫 도달 인원은 1.79배(1.54–2.18)였습니다. 후보 집합 판독기를 정답을 아는 설계 곡선에서 검증하니 관측률이 목표에서 멀면 98.0%, 목표 근처 평탄이면 54.6%만 참값을 담았습니다.</p>
  <p class="g-lead">남은 것은 연구책임자 몫입니다 — 저자·소속·ORCID·교신 정보, 기관 IRB 심의 면제 확인, 이해상충 문안 재서명, 연구비 문안, 국문 초록 요건 확인 → 접수. 후속 연구는 「규칙 파라미터에 따른 배수 표」 구상 단계입니다. 접수가 완료됐다는 뜻은 아닙니다.</p>
 </section>
@@ -664,10 +971,211 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 <div class="view" id="view-paper" role="tabpanel" aria-labelledby="tab-paper" hidden>
 <section><span class="kicker">투고본 · v0.1 · 2026년 9월 22일 판</span><h2>대한간호학회지 투고 원고 — 지금까지 완성된 판</h2>
 <p class="g-lead">1편·2편을 하나로 합친 국문 원고와 보충자료입니다. PDF는 바로 열리고, Word는 내려받아 편집할 수 있습니다. 판이 바뀌면 같은 자리의 파일을 교체합니다.</p>
-<ul class="story-copy"><li><b>원고 본문</b> — <a href="docs/manuscript_combined_kr_v0.1.pdf">PDF · 27쪽</a> · <a href="docs/manuscript_combined_kr_v0.1.docx" download>Word</a><p>국·영 제목 · 영문 초록 · 서론·방법·결과·논의·결론 · Declarations · 참고문헌 32편. 본문 4,067단어 · 표 3 · 그림 2.</p></li><li><b>보충자료 S1–S5</b> — <a href="docs/supplement_combined_v0.1.pdf">PDF · 58쪽</a> · <a href="docs/supplement_combined_v0.1.docx" download>Word</a><p>1편 방법·결과와 2편 방법·결과·논의 전문. 표 —.</p></li></ul>
+<ul class="story-copy"><li><b>원고 본문</b> — <a href="docs/manuscript_combined_kr_v0.1.pdf">PDF · 27쪽</a> · <a href="docs/manuscript_combined_kr_v0.1.docx" download>Word</a><p>국·영 제목 · 영문 초록 · 서론·방법·결과·논의·결론 · Declarations · 참고문헌 32편. 본문 4,231단어 · 표 3 · 그림 2.</p></li><li><b>보충자료 S1–S5</b> — <a href="docs/supplement_combined_v0.1.pdf">PDF · 58쪽</a> · <a href="docs/supplement_combined_v0.1.docx" download>Word</a><p>1편 방법·결과와 2편 방법·결과·논의 전문. 표 —.</p></li></ul>
 <p class="g-note">접수 전 저자 검토판입니다. 저자 이름·소속, 연구비 문안, 저자 기여, 이해상충 문안 승인은 반영됐고, ORCID·교신저자·IRB 심의 결과·공개 저장소 주소는 아직 [TBD]입니다. 학술지에 접수·게재된 논문이 아니며, 실제 병동의 인력 권고가 아닙니다.</p>
 </section>
 </div><!-- /view-paper -->
+
+<div class="view" id="view-files" role="tabpanel" aria-labelledby="tab-files" hidden>
+<section class="fx-intro"><div class="fx-intro-main"><span class="kicker">파일 보관함</span><h2>올려 둔 파일</h2>
+<p class="g-lead">폴더별로 모아 둔 연구 자료입니다. PDF·그림·MD는 이 화면에서 바로 보고, Word·한글·엑셀은 내려받아 엽니다.</p>
+<div class="fx-chips" id="fx-stats"></div></div>
+<div class="fx-intro-side"><p class="fx-warn"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.2 18.4 17H1.6z" style="fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round"/><path d="M10 7.6v4.6M10 14.4v.2" style="stroke:currentColor;stroke-width:1.8;stroke-linecap:round"/></svg><span><b>공개 주소입니다.</b> 링크를 아는 누구나 내려받을 수 있으니 전화번호·이메일 같은 개인 연락처가 든 파일은 올리지 않습니다. 사진·스캔본은 자동 검사가 되지 않습니다.</span></p>
+<details class="fx-how"><summary><span class="tw" aria-hidden="true">+</span>파일 올리는 법<span class="sum-tail">연구팀용</span></summary>
+<div class="reveal"><ol class="fx-steps">
+<li>구글 드라이브 <code>Obsidian › 60. Research › 45. 공모행정 › 대시보드 파일</code> 안의 폴더에 파일을 넣습니다. 그 폴더가 그대로 이 화면의 폴더가 됩니다 — 새 폴더를 만들어도 됩니다.</li>
+<li>연구 PC에서 <code>scripts/nrf2_files_sync.py</code>를 실행하면 목록이 다시 만들어집니다. 개인 연락처(휴대전화·전화·이메일)가 보이는 파일은 자동으로 빠지고, 이유가 화면에 찍힙니다.</li>
+<li>대시보드를 다시 게시하면 이 탭에 나타납니다. 올릴 수 있는 형식은 MD·PDF·DOC·DOCX·XLSX·HWP·HWPX·TXT·JPG·PNG·GIF·WEBP, 파일당 15MB까지입니다.</li>
+</ol></div></details></div>
+</section>
+<div class="fx" id="fx" role="region" aria-label="파일 탐색기">
+ <div class="fx-bar">
+  <button type="button" class="fx-btn fx-tree-toggle" id="fx-tree-toggle" aria-expanded="false" aria-controls="fx-tree"><svg viewBox="0 0 20 16" aria-hidden="true" focusable="false"><path d="M1.5 3.2c0-.9.7-1.6 1.6-1.6h4.2l1.8 1.9h7.8c.9 0 1.6.7 1.6 1.6v8.1c0 .9-.7 1.6-1.6 1.6H3.1c-.9 0-1.6-.7-1.6-1.6z" style="fill:none;stroke:currentColor;stroke-width:1.5"/></svg><span>폴더</span></button>
+  <button type="button" class="fx-btn fx-up" id="fx-up" aria-label="상위 폴더로"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 13V3.5M3.8 7.5 8 3.3l4.2 4.2" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
+  <nav class="fx-crumbs" aria-label="현재 위치"><ol id="fx-crumbs"></ol></nav>
+  <div class="fx-find">
+   <label class="fx-search"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.6" style="fill:none;stroke:currentColor;stroke-width:1.6"/><path d="m10.5 10.5 3.6 3.6" style="stroke:currentColor;stroke-width:1.7;stroke-linecap:round"/></svg><input type="search" id="fx-q" placeholder="이 폴더에서 찾기" aria-label="파일 이름으로 찾기 (현재 폴더와 하위 폴더)" autocomplete="off" spellcheck="false"></label>
+   <select class="fx-sort-m" id="fx-sort-m" aria-label="정렬"><option value="name:1">이름 ↑</option><option value="name:-1">이름 ↓</option><option value="date:-1">최근 수정순</option><option value="date:1">오래된 순</option><option value="size:-1">큰 파일순</option><option value="size:1">작은 파일순</option></select>
+  </div>
+ </div>
+ <div class="fx-body">
+  <aside class="fx-tree" id="fx-tree" aria-label="폴더 목록"><ul class="fx-tree-ul" id="fx-tree-ul"></ul></aside>
+  <div class="fx-main">
+   <div class="fx-head" id="fx-head">
+    <button type="button" class="fx-sort" data-sort="name">이름</button>
+    <button type="button" class="fx-sort fx-c-ty" data-sort="type">종류</button>
+    <button type="button" class="fx-sort fx-c-sz" data-sort="size">크기</button>
+    <button type="button" class="fx-sort fx-c-dt" data-sort="date">수정한 날짜</button>
+   </div>
+   <div class="fx-note" id="fx-note" hidden></div>
+   <ul class="fx-list" id="fx-list" aria-label="파일 목록"></ul>
+   <p class="fx-empty" id="fx-empty" hidden></p>
+  </div>
+  <div class="fx-prev is-empty" id="fx-prev" tabindex="-1" aria-label="미리 보기"></div>
+ </div>
+ <div class="fx-status"><span id="fx-count"></span><span id="fx-sel"></span></div>
+</div>
+<noscript><p class="g-note">파일 목록을 보려면 자바스크립트가 필요합니다.</p></noscript>
+</div><!-- /view-files -->
+<script id="files-manifest" type="application/json">
+{
+ "base": "docs/files",
+ "files": [
+  {
+   "bytes": 45660,
+   "ext": "docx",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T09:47:00+09:00",
+   "name": "1_연구계획서 쉬운 설명(송지수 선생님용).docx",
+   "path": "docs/files/내부연구사업 공모 제출/1_연구계획서 쉬운 설명(송지수 선생님용).docx",
+   "sha": "a838f825f828"
+  },
+  {
+   "bytes": 176041,
+   "ext": "pdf",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T09:47:03+09:00",
+   "name": "1_연구계획서 쉬운 설명(송지수 선생님용).pdf",
+   "path": "docs/files/내부연구사업 공모 제출/1_연구계획서 쉬운 설명(송지수 선생님용).pdf",
+   "sha": "e7f98e7dd6e5"
+  },
+  {
+   "bytes": 40306,
+   "ext": "docx",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T10:02:27+09:00",
+   "name": "2_제출본 입력 안내(노란 칸 ①~⑬).docx",
+   "path": "docs/files/내부연구사업 공모 제출/2_제출본 입력 안내(노란 칸 ①~⑬).docx",
+   "sha": "f2bbada42771"
+  },
+  {
+   "bytes": 99664,
+   "ext": "pdf",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T10:02:29+09:00",
+   "name": "2_제출본 입력 안내(노란 칸 ①~⑬).pdf",
+   "path": "docs/files/내부연구사업 공모 제출/2_제출본 입력 안내(노란 칸 ①~⑬).pdf",
+   "sha": "bb0d1f5a5833"
+  },
+  {
+   "bytes": 364926,
+   "ext": "pdf",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T09:33:52+09:00",
+   "name": "3_별첨1 신청서 및 연구계획서(공개본·연락처 가림).pdf",
+   "path": "docs/files/내부연구사업 공모 제출/3_별첨1 신청서 및 연구계획서(공개본·연락처 가림).pdf",
+   "sha": "8ae54db9be0c"
+  },
+  {
+   "bytes": 59071,
+   "ext": "pdf",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T09:26:20+09:00",
+   "name": "4_별첨2 개인정보 동의서.pdf",
+   "path": "docs/files/내부연구사업 공모 제출/4_별첨2 개인정보 동의서.pdf",
+   "sha": "b5cbb5d88689"
+  },
+  {
+   "bytes": 22516,
+   "ext": "xlsx",
+   "folder": "내부연구사업 공모 제출",
+   "mtime": "2026-09-23T08:10:50+09:00",
+   "name": "5_별첨3 연구비 산출내역서.xlsx",
+   "path": "docs/files/내부연구사업 공모 제출/5_별첨3 연구비 산출내역서.xlsx",
+   "sha": "1a8b2ed0c296"
+  },
+  {
+   "bytes": 40987,
+   "ext": "docx",
+   "folder": "중간 보고서",
+   "label": "쉬운 요약",
+   "mtime": "2026-09-20T19:22:11+09:00",
+   "name": "간호인력연구_중간보고_1_쉬운버전.docx",
+   "path": "docs/간호인력연구_중간보고_1_쉬운버전.docx",
+   "sha": "1b876ae0ed57",
+   "virtual": true
+  },
+  {
+   "bytes": 42007,
+   "ext": "docx",
+   "folder": "중간 보고서",
+   "label": "방법과 타당성 검토",
+   "mtime": "2026-09-20T19:22:11+09:00",
+   "name": "간호인력연구_중간보고_2_심사용.docx",
+   "path": "docs/간호인력연구_중간보고_2_심사용.docx",
+   "sha": "d0a10a76ef87",
+   "virtual": true
+  },
+  {
+   "bytes": 41389,
+   "ext": "docx",
+   "folder": "중간 보고서",
+   "label": "쉬운 설명글",
+   "mtime": "2026-09-20T19:22:11+09:00",
+   "name": "간호인력연구_중간보고_3_쉬운설명글.docx",
+   "path": "docs/간호인력연구_중간보고_3_쉬운설명글.docx",
+   "sha": "6b1cd9f3249c",
+   "virtual": true
+  },
+  {
+   "bytes": 244076,
+   "ext": "docx",
+   "folder": "투고본 (대한간호학회지)",
+   "label": "원고 본문",
+   "mtime": "2026-09-23T05:15:09+09:00",
+   "name": "manuscript_combined_kr_v0.1.docx",
+   "path": "docs/manuscript_combined_kr_v0.1.docx",
+   "sha": "72871961e3c5",
+   "virtual": true
+  },
+  {
+   "bytes": 551759,
+   "ext": "pdf",
+   "folder": "투고본 (대한간호학회지)",
+   "label": "원고 본문",
+   "mtime": "2026-09-23T05:17:11+09:00",
+   "name": "manuscript_combined_kr_v0.1.pdf",
+   "path": "docs/manuscript_combined_kr_v0.1.pdf",
+   "sha": "afc035f1a984",
+   "virtual": true
+  },
+  {
+   "bytes": 75554,
+   "ext": "docx",
+   "folder": "투고본 (대한간호학회지)",
+   "label": "보충자료 S1–S5",
+   "mtime": "2026-09-20T20:47:42+09:00",
+   "name": "supplement_combined_v0.1.docx",
+   "path": "docs/supplement_combined_v0.1.docx",
+   "sha": "4a1c6e8d7d11",
+   "virtual": true
+  },
+  {
+   "bytes": 549640,
+   "ext": "pdf",
+   "folder": "투고본 (대한간호학회지)",
+   "label": "보충자료 S1–S5",
+   "mtime": "2026-09-20T20:48:36+09:00",
+   "name": "supplement_combined_v0.1.pdf",
+   "path": "docs/supplement_combined_v0.1.pdf",
+   "sha": "4ae48c374676",
+   "virtual": true
+  }
+ ],
+ "folders": {
+  "내부연구사업 공모 제출": {},
+  "중간 보고서": {
+   "note": "「문서」 탭의 중간 보고 브리핑 3종과 같은 파일입니다.",
+   "order": 2
+  },
+  "투고본 (대한간호학회지)": {
+   "note": "「투고본」 탭과 같은 파일입니다 — 1편·2편 합병 국문 원고와 보충자료(Word·PDF).",
+   "order": 1
+  }
+ },
+ "v": 1
+}
+</script>
 
 <!-- ══════ 연구 이야기 ══════ -->
 <div class="view" id="view-story" role="tabpanel" aria-labelledby="tab-story" hidden>
@@ -687,6 +1195,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 </div><!-- /view-docs -->
 
 <div class="view" id="view-log" role="tabpanel" aria-labelledby="tab-log" hidden>
+<!-- grant-proposal-log --><section><span class="kicker">기록 72 · 2026년 9월 23일</span><h2>내부연구사업 연구계획서 — 공식 서식판 제출본 준비</h2><p>2026년 제2차 내부연구사업(12개월 · 10,000,000원 · 연구책임자 송지수 80% · 공동 김대연 20%)에 낼 연구계획서를 공식 서식 구조(신청서 → 요약문 → 목차 → 본문 1~11 → 연구참여자 인적사항)로 다시 만들고, 개인정보 동의서와 연구비 산출내역 엑셀을 함께 준비했습니다. 12개월 본체는 3편 「규칙 파라미터별 간호인력 배수표」로, 배수를 규칙만으로 계산되는 바닥(N₀/W)과 근무표를 짜 봐야 알 수 있는 웃돈(Δ/W)으로 나눠 범위로 보고하는 배수표와 계산기입니다. 1·2편은 준비 실적입니다. 예산은 원 단위로 상한을 정확히 맞췄고(직접비 9,433,962원 + 간접비 566,038원), 공식 엑셀 서식의 합계 수식 오류 2곳(국내여비 합계 누락 · 구성비 분모)을 고쳤습니다. 다른 AI 모델의 독립 검수 두 차례로 원문 대비 과장·단위 오류를 잡아 반영했습니다. 선생님 몫은 노란 칸 13곳 입력 → 날인·서명 → rERP 접수이며, 접수 완료를 뜻하지 않습니다.</p></section>
 <!-- pi-answers-log --><section><span class="kicker">기록 71 · 2026년 9월 22일</span><h2>투고 전 확인 7건 — 연구책임자 회신 반영</h2><p>저자 정보(송지수 · MSN, GNP · 국립중앙의료원 간호부)를 원고에 넣었고, 연구비는 외부 지원 없이 저자 사비로 수행했음을, 저자 기여는 연구책임자가 연구 설계와 총괄을, 공동저자가 기술적 구현·실행·분석을 맡았음을 Declarations에 적었습니다. 연구 설계 논의에도 생성형 AI를 활용했다는 사실을 AI 활용 고지에 추가했습니다. 이해상충 문안은 변경 없이 승인됐고, 기관 IRB 심의는 신청 후 결과를 기다리고 있습니다. 남은 것은 ORCID·교신저자 지정, IRB 심의 결과, 국문 투고규정 확인, 게재료 부담입니다. 접수 완료를 뜻하지 않습니다.</p></section>
 <!-- combined-kr-log --><section><span class="kicker">기록 70 · 2026년 9월 20일 저녁</span><h2>1편·2편 합병 국문 투고본 v0.1과 배수 척도·판독기 검증</h2><p>1편(세 수요 원형 확증 실험)과 2편(조건 상자 계산과 판독 정정)을 하나의 국문 원고로 합쳐 대한간호학회지 규격(본문 6,000단어 · 표+그림 5 · 번호 인용)에 맞췄습니다. 두 편의 방법·결과 전문은 보충자료로 붙였고 모든 숫자는 봉인 산출물에서 자동으로 채워집니다. 2편에는 판독 절차의 전제·식·절차·실례(§2.6), 설계된 정답 아래 판독기 포함률(§3.9 · 계단형 98.0% vs 평탄 54.6%), 배수 척도의 기술 결과(§4.7 · 산술 하한 1.67배 · 관측 도달 1.79배)와 근접 문헌 인용을 더했습니다. 독립 콜드 리드의 지적(초록의 셀별 판정, 1단계 산술 하한 표기, 결론의 주어 분리, 용어 정의)을 반영했습니다. 저자 정보·IRB 면제·이해상충 재서명 뒤 접수하며, 접수 완료를 뜻하지 않습니다. 같은 날 밤 연구책임자 결정으로 원고·보충자료 전문(Word·PDF)을 「투고본」 탭에 공개했습니다.</p></section>
 <!-- plan-explanation-sync-log --><section><span class="kicker">기록 69 · 2026년 9월 20일</span><h2>연구계획서와 쉬운 설명 본문 최신화</h2><p>연구계획서 v4.1의 프로그램 목적·2편 결과·추진 현황·후속 조건을 갱신했습니다. 쉬운 설명 v6.0은 옛 수치에 경보만 붙이는 대신 이야기·결과표·1분 요약을 최종 해석으로 고쳤습니다. 대시보드 연구 이야기와 요약 문서도 동기화했습니다. 1편의 동결 방법과 실험 기록은 보존했습니다.</p></section>
@@ -1741,7 +2250,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 </div><!-- /view-log -->
 
 <footer>
-  <p>간호인력 편성가능성 연구 · 2026년 9월 22일 · 투고 전 확인 7건 회신 반영(완료 2 · 진행 3)</p>
+  <p>간호인력 연구 · 2026년 9월 23일 · 내부연구사업 제출본 준비(선생님 입력 13칸 대기) · 「파일」 탭 신설</p>
 </footer>
 
 </div>
@@ -1819,6 +2328,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
   });
 
   function show(name, fromUser) {
+    name = String(name || '').split('/')[0];   // #files/<폴더> 깊은 링크 → 탭 이름만
     if (!views[name]) name = tabs[0].getAttribute('data-view');
     tabs.forEach(function (t) {
       var key = t.getAttribute('data-view');
@@ -1850,6 +2360,545 @@ code{font-family:var(--mono);font-size:.88em;color:var(--ink-2)}
 
   show((location.hash || '').slice(1), false);
   window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
+})();
+</script>
+<script id="files-app">
+/* 파일 탭 — 탐색기. 데이터는 #files-manifest(빌드 때 박제). MD·TXT 미리 보기만 해당 파일을 불러온다. */
+(function () {
+  'use strict';
+  var fx = document.getElementById('fx');
+  var dataEl = document.getElementById('files-manifest');
+  if (!fx || !dataEl) return;
+  var M = {};
+  try { M = JSON.parse(dataEl.textContent || '{}') || {}; } catch (e) { M = {}; }
+  var FILES = (M.files || []).filter(function (f) { return f && f.name && f.path; });
+  var FMETA = M.folders || {};
+  var $ = function (id) { return document.getElementById(id); };
+  var treeUl = $('fx-tree-ul'), list = $('fx-list'), crumbs = $('fx-crumbs'), prev = $('fx-prev');
+  var q = $('fx-q'), empty = $('fx-empty'), note = $('fx-note'), upBtn = $('fx-up'), toggle = $('fx-tree-toggle');
+  var sortM = $('fx-sort-m'), countEl = $('fx-count'), selEl = $('fx-sel');
+  var wide = window.matchMedia ? window.matchMedia('(min-width:1100px)') : { matches: false };
+  var phone = window.matchMedia ? window.matchMedia('(max-width:639px)') : { matches: false };
+  var reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+
+  var TYPES = { pdf: ['PDF 문서', 'pdf'], doc: ['Word 문서', 'doc'], docx: ['Word 문서', 'doc'], xlsx: ['Excel 통합 문서', 'xls'],
+    hwp: ['한글 문서', 'hwp'], hwpx: ['한글 문서', 'hwp'], md: ['Markdown 문서', 'md'], txt: ['텍스트 문서', 'txt'],
+    jpg: ['JPG 그림', 'img'], jpeg: ['JPG 그림', 'img'], png: ['PNG 그림', 'img'], gif: ['GIF 그림', 'img'], webp: ['WebP 그림', 'img'] };
+  var HUE = { pdf: '--ft-pdf', doc: '--ft-doc', xls: '--ft-xls', hwp: '--ft-hwp', md: '--ft-md', txt: '--ft-txt', img: '--ft-img', etc: '--ft-txt' };
+  var OPEN_HINT = { doc: 'Word·한컴오피스·구글 문서에서 열 수 있습니다.', xls: 'Excel·한컴오피스·구글 스프레드시트에서 열 수 있습니다.',
+    hwp: '한컴오피스 한글(또는 한컴독스)에서 열 수 있습니다.', etc: '내려받아 알맞은 프로그램으로 여세요.' };
+  function typeOf(ext) { return TYPES[ext] || [((ext || '파일') + '').toUpperCase() + ' 파일', 'etc']; }
+
+  /* ── 형식·경로 도우미 ── */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function human(n) {
+    if (n == null) return '—';
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return Math.max(1, Math.round(n / 1024)) + ' KB';
+    return (n / 1048576).toFixed(n < 10485760 ? 1 : 0) + ' MB';
+  }
+  function when(s, short) {
+    var m = /^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/.exec(s || '');
+    if (!m) return '—';
+    return m[1] + '.' + m[2] + '.' + m[3] + (short ? '' : ' ' + m[4] + ':' + m[5]);
+  }
+  function enc(p) { return String(p).split('/').map(encodeURIComponent).join('/'); }
+  function hrefOf(f) { return enc(f.path); }
+  function absOf(f) { try { return new URL(hrefOf(f), location.href).href; } catch (e) { return hrefOf(f); } }
+  function cmpName(a, b) { return String(a).localeCompare(String(b), 'ko', { numeric: true, sensitivity: 'base' }); }
+
+  /* ── 아이콘 (인라인 SVG · 외부 자원 없음) ── */
+  function fileIcon(ext) {
+    var kind = typeOf(ext)[1], lab = (ext || '?').toUpperCase().slice(0, 4);
+    if (lab === 'JPEG') lab = 'JPG';
+    var c = 'var(' + HUE[kind] + ')';
+    var glyph = kind === 'img'
+      ? '<circle cx="11" cy="10" r="2.4" style="fill:' + c + ';opacity:.55"/><path d="M6 18.5l5.2-5.4 3.4 3.3 3.6-4.4 5.3 6.5z" style="fill:' + c + ';opacity:.55"/>'
+      : '<path d="M7.5 8.5h9M7.5 12h13M7.5 15.5h11" style="stroke:var(--idle);stroke-width:1.4;stroke-linecap:round;opacity:.75"/>';
+    return '<svg class="fx-svg" viewBox="0 0 32 40" aria-hidden="true" focusable="false">' +
+      '<path d="M5 1.5h15.2l9.3 9.3v25.7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-33a2 2 0 0 1 2-2z" style="fill:var(--paper);stroke:color-mix(in srgb,' + c + ' 38%,var(--rule));stroke-width:1.3"/>' +
+      '<path d="M20.2 1.5v7.3a2 2 0 0 0 2 2h7.3" style="fill:color-mix(in srgb,' + c + ' 10%,var(--paper));stroke:color-mix(in srgb,' + c + ' 38%,var(--rule));stroke-width:1.3;stroke-linejoin:round"/>' +
+      glyph +
+      '<rect x="0.8" y="23" width="' + (lab.length > 3 ? 26 : 22) + '" height="10.5" rx="2.2" style="fill:' + c + '"/>' +
+      '<text x="' + (lab.length > 3 ? 13.8 : 11.8) + '" y="30.7" text-anchor="middle" style="font:700 7.2px var(--mono);fill:#fff;letter-spacing:.03em">' + esc(lab) + '</text></svg>';
+  }
+  function folderIcon() {
+    return '<svg class="fx-svg fold" viewBox="0 0 40 32" aria-hidden="true" focusable="false">' +
+      '<path d="M2 5.6A2.6 2.6 0 0 1 4.6 3h9.1c.8 0 1.5.3 2 .9L18 6.5h17.4A2.6 2.6 0 0 1 38 9.1v18.3a2.6 2.6 0 0 1-2.6 2.6H4.6A2.6 2.6 0 0 1 2 27.4z" style="fill:var(--folder-2)"/>' +
+      '<path d="M2 11.2a2.6 2.6 0 0 1 2.6-2.6h30.8a2.6 2.6 0 0 1 2.6 2.6v16.2a2.6 2.6 0 0 1-2.6 2.6H4.6A2.6 2.6 0 0 1 2 27.4z" style="fill:var(--folder)"/>' +
+      '<path d="M2.6 12.5h34.8" style="stroke:#fff;stroke-opacity:.35;stroke-width:1"/></svg>';
+  }
+  var ICON = {
+    down: '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.2v8.4M4.3 7.2 8 10.9l3.7-3.7M2.6 13.6h10.8" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"/></svg>',
+    ext: '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M9.2 2.6h4.2v4.2M13.2 2.8 7.4 8.6M11.6 9.6v3a.9.9 0 0 1-.9.9H3.4a.9.9 0 0 1-.9-.9V5.3a.9.9 0 0 1 .9-.9h3" style="fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round"/></svg>',
+    link: '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6.8 9.2a2.9 2.9 0 0 0 4.1 0l2.2-2.2a2.9 2.9 0 0 0-4.1-4.1l-.9.9M9.2 6.8a2.9 2.9 0 0 0-4.1 0L2.9 9a2.9 2.9 0 0 0 4.1 4.1l.9-.9" style="fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round"/></svg>',
+    x: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" style="stroke:currentColor;stroke-width:1.7;stroke-linecap:round"/></svg>',
+    chev: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.3 2.3 8 6l-3.7 3.7" style="fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round"/></svg>'
+  };
+
+  /* ── 폴더 색인 ── */
+  var DIRS = {};
+  function dir(path) {
+    if (DIRS[path]) return DIRS[path];
+    var i = path.lastIndexOf('/');
+    var d = DIRS[path] = { path: path, name: path ? path.slice(i + 1) : '전체 파일', parent: path ? (i < 0 ? '' : path.slice(0, i)) : null,
+      dirs: [], files: [], total: 0, bytes: 0, latest: '' };
+    if (path) dir(d.parent).dirs.push(d);
+    return d;
+  }
+  dir('');
+  FILES.forEach(function (f) {
+    f.folder = String(f.folder || '').replace(/^\/+|\/+$/g, '');
+    f.ext = String(f.ext || (f.name.indexOf('.') > 0 ? f.name.split('.').pop() : '')).toLowerCase();
+    dir(f.folder).files.push(f);
+    for (var d = DIRS[f.folder]; d; d = d.parent === null ? null : DIRS[d.parent]) {
+      d.total++; d.bytes += f.bytes || 0;
+      if ((f.mtime || '') > d.latest) d.latest = f.mtime || '';
+    }
+  });
+  function orderOf(p) { return (FMETA[p] && FMETA[p].order) || 999; }
+  Object.keys(DIRS).forEach(function (k) {
+    DIRS[k].dirs.sort(function (a, b) { return orderOf(a.path) - orderOf(b.path) || cmpName(a.name, b.name); });
+  });
+  function fileKey(f) { return (f.folder ? f.folder + '/' : '') + f.name; }
+
+  /* ── 상태 ── */
+  var cur = '', sel = null, query = '', sortKey = 'name', sortDir = 1, mdRaw = false;
+  var expanded = { '': true };
+  try { var saved = localStorage.getItem('nrf2-files-sort'); if (saved && /^(name|date|size|type):-?1$/.test(saved)) { sortKey = saved.split(':')[0]; sortDir = +saved.split(':')[1]; } } catch (e) {}
+
+  /* ── 트리 ── */
+  function treeHTML(d, depth) {
+    var has = d.dirs.length > 0, open = !!expanded[d.path], on = d.path === cur;
+    var h = '<li><div class="fx-node' + (on ? ' is-on' : '') + '" style="--d:' + depth + '">';
+    h += has ? '<button type="button" class="fx-tw" data-tw="' + esc(d.path) + '" aria-expanded="' + open + '" aria-label="' + esc(d.name) + ' 하위 폴더 ' + (open ? '접기' : '펼치기') + '">' + ICON.chev + '</button>'
+             : '<span class="fx-tw-sp"></span>';
+    h += '<button type="button" class="fx-nb" data-dir="' + esc(d.path) + '"' + (on ? ' aria-current="true"' : '') +
+         ' aria-label="' + esc(d.name) + ' — 파일 ' + d.total + '개">' + folderIcon() + '<span class="fx-nb-t" title="' + esc(d.name) + '">' + esc(d.name) +
+         '</span><span class="fx-cnt" aria-hidden="true">' + d.total + '</span></button></div>';
+    if (has && open) h += '<ul>' + d.dirs.map(function (c) { return treeHTML(c, depth + 1); }).join('') + '</ul>';
+    return h + '</li>';
+  }
+  function renderTree() { treeUl.innerHTML = treeHTML(DIRS[''], 0); }
+
+  /* ── 목록 ── */
+  function mark(text, qq) {
+    if (!qq) return esc(text);
+    var i = String(text).toLowerCase().indexOf(qq);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + qq.length)) + '</mark>' + esc(text.slice(i + qq.length));
+  }
+  function collect(d, qq, outD, outF) {
+    d.files.forEach(function (f) { if ((f.name + ' ' + (f.label || '')).toLowerCase().indexOf(qq) >= 0) outF.push(f); });
+    d.dirs.forEach(function (c) { if (c.name.toLowerCase().indexOf(qq) >= 0) outD.push(c); collect(c, qq, outD, outF); });
+  }
+  function sorter(a, b) {
+    var r = 0;
+    if (sortKey === 'date') r = String(a.mtime || '').localeCompare(String(b.mtime || ''));
+    else if (sortKey === 'size') r = (a.bytes || 0) - (b.bytes || 0);
+    else if (sortKey === 'type') r = cmpName(typeOf(a.ext)[0], typeOf(b.ext)[0]);
+    if (!r) r = cmpName(a.name, b.name);
+    return r * sortDir;
+  }
+  var rowsData = [];
+  function renderList() {
+    var d = DIRS[cur], qq = query.trim().toLowerCase(), ds = [], fs = [];
+    if (qq) collect(d, qq, ds, fs); else { ds = d.dirs.slice(); fs = d.files.slice(); }
+    fs.sort(sorter);
+    rowsData = ds.map(function (x) { return { dir: x }; }).concat(fs.map(function (x) { return { file: x }; }));
+    var h = '';
+    rowsData.forEach(function (r, i) {
+      if (r.dir) {
+        var x = r.dir;
+        h += '<li><button type="button" class="fx-row" data-i="' + i + '" aria-label="폴더 ' + esc(x.name) + ', 파일 ' + x.total + '개 — 열기">' +
+          '<span class="fx-nm">' + folderIcon() + '<span class="fx-nmtx"><span class="fx-t">' + mark(x.name, qq) + '</span>' +
+          '<span class="fx-sub">' + (qq && x.parent ? esc(DIRS[x.parent].path || '전체 파일') : '') + '</span>' +
+          '<span class="fx-mm">폴더 · 파일 ' + x.total + '개 · ' + human(x.bytes) + '</span></span></span>' +
+          '<span class="fx-ty">파일 폴더</span><span class="fx-sz">' + x.total + '개</span><span class="fx-dt">' + when(x.latest) + '</span></button></li>';
+      } else {
+        var f = r.file, t = typeOf(f.ext), on = sel === f;
+        var sub = qq ? (f.folder || '전체 파일') + (f.label ? ' · ' + f.label : '') : (f.label || '');
+        h += '<li><button type="button" class="fx-row' + (on ? ' is-sel' : '') + '" data-i="' + i + '"' + (on ? ' aria-current="true"' : '') +
+          ' aria-label="' + esc(f.name) + ', ' + t[0] + ', ' + human(f.bytes) + ', ' + when(f.mtime) + ' — 미리 보기">' +
+          '<span class="fx-nm">' + fileIcon(f.ext) + '<span class="fx-nmtx"><span class="fx-t" title="' + esc(f.name) + '">' + mark(f.name, qq) + '</span>' +
+          '<span class="fx-sub">' + (qq ? mark(sub, qq) : esc(sub)) + '</span>' +
+          '<span class="fx-mm">' + esc(t[0]) + ' · ' + human(f.bytes) + ' · ' + when(f.mtime, true) + '</span></span></span>' +
+          '<span class="fx-ty">' + esc(t[0]) + '</span><span class="fx-sz">' + human(f.bytes) + '</span><span class="fx-dt">' + when(f.mtime) + '</span></button></li>';
+      }
+    });
+    list.innerHTML = h;
+    empty.hidden = rowsData.length > 0;
+    if (!rowsData.length) empty.textContent = qq ? '「' + query.trim() + '」와(과) 맞는 파일이 없습니다.' : '이 폴더는 비어 있습니다.';
+    var nt = !qq && FMETA[cur] && FMETA[cur].note;
+    note.hidden = !nt; note.textContent = nt || '';
+    var bytes = fs.reduce(function (s, f) { return s + (f.bytes || 0); }, 0);
+    countEl.textContent = (qq ? '찾은 항목 ' : '항목 ') + rowsData.length + '개' + (fs.length ? ' · ' + human(bytes) : '');
+    selEl.textContent = sel ? '선택: ' + sel.name : '';
+    document.querySelectorAll('#fx-head .fx-sort').forEach(function (b) {
+      var on = b.getAttribute('data-sort') === sortKey;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('data-dir', String(sortDir));
+      b.setAttribute('aria-label', b.textContent + ' 기준 정렬' + (on ? (sortDir > 0 ? ' (오름차순, 누르면 내림차순)' : ' (내림차순, 누르면 오름차순)') : ''));
+    });
+    if (sortM) { var v = sortKey + ':' + sortDir; sortM.value = v; if (sortM.value !== v) sortM.selectedIndex = -1; }
+  }
+  function renderCrumbs() {
+    var parts = cur ? cur.split('/') : [], h = '', acc = '';
+    h += '<li><button type="button" class="fx-crumb" data-dir=""' + (cur ? '' : ' aria-current="page"') + '>전체 파일</button></li>';
+    parts.forEach(function (p, i) {
+      acc = acc ? acc + '/' + p : p;
+      var last = i === parts.length - 1;
+      h += '<li><button type="button" class="fx-crumb" data-dir="' + esc(acc) + '"' + (last ? ' aria-current="page"' : '') + '>' + esc(p) + '</button></li>';
+    });
+    crumbs.innerHTML = h;
+    crumbs.scrollLeft = crumbs.scrollWidth;
+    upBtn.disabled = !cur;
+  }
+
+  /* ── 미리 보기 ── */
+  function actions(f) {
+    return '<a class="fx-a primary" href="' + hrefOf(f) + '" download="' + esc(f.name) + '">' + ICON.down + '내려받기</a>' +
+      '<a class="fx-a" href="' + hrefOf(f) + '" target="_blank" rel="noopener">' + ICON.ext + '새 탭에서 열기</a>' +
+      '<button type="button" class="fx-a" data-copy>' + ICON.link + '<span>주소 복사</span></button>';
+  }
+  function card(f, title, text) {
+    return '<div class="fx-card">' + fileIcon(f.ext) + '<b>' + esc(title) + '</b><p>' + esc(text) + '</p>' +
+      '<a class="fx-a primary" href="' + hrefOf(f) + '" download="' + esc(f.name) + '">' + ICON.down + '내려받기 · ' + human(f.bytes) + '</a></div>';
+  }
+  function placeholder() {
+    var d = DIRS[cur];
+    prev.className = 'fx-prev is-empty';
+    prev.innerHTML = '<div class="fx-ph">' + folderIcon() + '<b>' + esc(d.name) + '</b><span class="fx-ph-n">파일 ' + d.total + '개 · ' + human(d.bytes) +
+      (d.latest ? ' · 최근 ' + when(d.latest, true) : '') + '</span><p>파일을 고르면 여기에서 미리 봅니다. PDF·그림·MD는 바로 열리고, 나머지는 내려받을 수 있습니다.</p></div>';
+  }
+  function select(f, fromUser) {
+    sel = f; mdRaw = false;
+    var t = typeOf(f.ext), kind = t[1];
+    prev.className = 'fx-prev';
+    var meta = esc(t[0]) + ' · ' + human(f.bytes) + ' · ' + when(f.mtime);
+    var body = '';
+    if (f.ext === 'pdf') {
+      body = '<object class="fx-pdf" data="' + hrefOf(f) + '#view=FitH" type="application/pdf" aria-label="PDF 미리 보기: ' + esc(f.name) + '">' +
+        card(f, '이 브라우저는 PDF를 페이지 안에서 보여주지 않습니다', '「새 탭에서 열기」로 보거나 내려받아 주세요.') + '</object>' +
+        '<p class="fx-pdf-note">미리 보기가 비어 보이면 「새 탭에서 열기」를 눌러 주세요. 휴대전화에서는 새 탭이 더 편합니다.</p>';
+    } else if (kind === 'img') {
+      body = '<figure class="fx-img"><a href="' + hrefOf(f) + '" target="_blank" rel="noopener" aria-label="원본 크기로 보기 (새 탭)"><img src="' + hrefOf(f) +
+        '" alt="' + esc(f.label || f.name) + '" decoding="async"></a><figcaption id="fx-imgcap">누르면 원본 크기로 열립니다.</figcaption></figure>';
+    } else if (f.ext === 'md' || f.ext === 'txt') {
+      body = (f.bytes > 2097152) ? card(f, '미리 보기에는 너무 큰 문서입니다', '2MB가 넘는 문서는 내려받아 열어 주세요.') : '<p class="fx-load" role="status">불러오는 중…</p>';
+    } else {
+      body = card(f, t[0] + '는 브라우저에서 미리 볼 수 없습니다', '내려받은 뒤 ' + (OPEN_HINT[kind] || OPEN_HINT.etc));
+    }
+    prev.innerHTML = '<div class="fx-pv-head">' + fileIcon(f.ext) + '<div class="fx-pv-tt"><h3 class="fx-pv-name">' + esc(f.name) + '</h3>' +
+      '<p class="fx-pv-meta"' + (f.sha ? ' title="sha256 ' + esc(f.sha) + '…"' : '') + '>' + (f.label ? '<span class="fx-pv-label">' + esc(f.label) + '</span>' : '') + meta + '</p></div>' +
+      '<button type="button" class="fx-btn fx-x" data-close aria-label="미리 보기 닫기">' + ICON.x + '</button></div>' +
+      '<div class="fx-pv-actions">' + actions(f) + '</div><div class="fx-pv-body" id="fx-pv-body">' + body + '</div>';
+    if (kind === 'img') {
+      var im = prev.querySelector('img');
+      im.addEventListener('load', function () { var c = $('fx-imgcap'); if (c) c.textContent = im.naturalWidth + ' × ' + im.naturalHeight + ' px · 누르면 원본 크기로 열립니다.'; });
+      im.addEventListener('error', function () { var b = $('fx-pv-body'); if (b && sel === f) b.innerHTML = card(f, '그림을 불러오지 못했습니다', '내려받아 확인해 주세요.'); });
+    }
+    if ((f.ext === 'md' || f.ext === 'txt') && !(f.bytes > 2097152)) loadText(f);
+    renderList();
+    if (fromUser) {
+      writeHash();
+      if (!wide.matches) {
+        try { prev.focus({ preventScroll: true }); } catch (e) {}
+        prev.scrollIntoView({ block: 'start', behavior: reduce.matches ? 'auto' : 'smooth' });
+      }
+    }
+  }
+  function closePreview() {
+    var had = sel; sel = null;
+    placeholder(); renderList(); writeHash();
+    if (had) {
+      var i = -1; rowsData.forEach(function (r, k) { if (r.file === had) i = k; });
+      var b = list.querySelector('.fx-row[data-i="' + i + '"]');
+      if (b) { b.focus({ preventScroll: true }); if (!wide.matches) b.scrollIntoView({ block: 'center' }); }
+    }
+  }
+  function decode(buf) {
+    try { return new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (e) {}
+    try { return new TextDecoder('euc-kr').decode(buf); } catch (e2) {}
+    return new TextDecoder().decode(buf);
+  }
+  function loadText(f) {
+    fetch(hrefOf(f)).then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }).then(function (buf) {
+      if (sel !== f) return;
+      var txt = decode(buf).replace(/^﻿/, '');
+      f._text = txt; paintText(f);
+    }).catch(function () {
+      if (sel !== f) return;
+      var b = $('fx-pv-body');
+      if (b) b.innerHTML = card(f, '미리 보기를 불러오지 못했습니다', '파일은 그대로 있습니다. 내려받거나 새 탭에서 열어 주세요.');
+    });
+  }
+  function paintText(f) {
+    var b = $('fx-pv-body'); if (!b || sel !== f) return;
+    if (f.ext === 'txt') { b.innerHTML = '<pre class="fx-txt">' + esc(f._text) + '</pre>'; return; }
+    var seg = '<div class="fx-seg" role="group" aria-label="보기 방식"><button type="button" data-md="0" aria-pressed="' + !mdRaw + '">읽기</button>' +
+      '<button type="button" data-md="1" aria-pressed="' + mdRaw + '">원문</button></div>';
+    b.innerHTML = seg + (mdRaw ? '<pre class="fx-txt">' + esc(f._text) + '</pre>' : '<div class="fx-md">' + md(f._text, absOf(f)) + '</div>');
+  }
+
+  /* ── 작은 Markdown 렌더러 — 모든 원문을 먼저 이스케이프한다(원시 HTML 주입 없음) ── */
+  function safeUrl(u, base) {
+    var raw = String(u).replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+    if (/^[a-z][a-z0-9+.\-]*:/i.test(raw) && !/^(https?|mailto):/i.test(raw)) return null;
+    var abs; try { abs = new URL(raw, base).href; } catch (e) { return null; }
+    if (!/^(https?|mailto|file):/i.test(abs)) return null;
+    return abs;
+  }
+  function inline(s, base) {
+    var keep = [];
+    function hold(html) { keep.push(html); return '\u0000' + (keep.length - 1) + '\u0000'; }
+    s = String(s).replace(/(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/g, function (_, a, c) { return hold('<code>' + esc(c) + '</code>'); });
+    s = s.replace(/\\([\\`*_{}\[\]()#+\-.!|~=>])/g, function (_, c) { return hold(esc(c)); });
+    s = esc(s);
+    s = s.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function (_, a, b) { return hold('<span class="fx-wl">' + (b || a) + '</span>'); });
+    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+&quot;.*?&quot;)?\)/g, function (_, alt, u) {
+      var h = safeUrl(u, base); return h && !/^mailto:/i.test(h) ? hold('<img src="' + esc(h) + '" alt="' + alt + '" loading="lazy">') : alt;
+    });
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+&quot;.*?&quot;)?\)/g, function (_, txt, u) {
+      var h = safeUrl(u, base); if (!h) return txt;
+      return hold('<a href="' + esc(h) + '" target="_blank" rel="noopener noreferrer">') + txt + hold('</a>');
+    });
+    s = s.replace(/&lt;((?:https?:\/\/|mailto:)[^\s&]+)&gt;/g, function (_, u) {
+      var h = safeUrl(u, base); return h ? hold('<a href="' + esc(h) + '" target="_blank" rel="noopener noreferrer">' + u + '</a>') : u;
+    });
+    s = s.replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>').replace(/__(?=\S)([\s\S]*?\S)__/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[^*])\*(?=[^\s*])([^*]*?[^\s*])\*(?!\*)/g, '$1<em>$2</em>');
+    s = s.replace(/(^|[^_A-Za-z0-9])_(?=[^\s_])([^_]*?[^\s_])_(?![_A-Za-z0-9])/g, '$1<em>$2</em>');
+    s = s.replace(/~~(?=\S)([\s\S]*?\S)~~/g, '<del>$1</del>').replace(/==(?=\S)([\s\S]*?\S)==/g, '<mark>$1</mark>');
+    return s.replace(/\u0000(\d+)\u0000/g, function (_, i) { return keep[+i]; });
+  }
+  var LI = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
+  function indentOf(s) { return s.replace(/\t/g, '    ').length; }
+  function isSep(l) { return l.indexOf('|') >= 0 && l.indexOf('-') >= 0 && /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(l); }
+  function cells(l) {
+    var s = l.trim(), out = [], buf = '', tick = false;
+    if (s.charAt(0) === '|') s = s.slice(1);
+    if (s.slice(-1) === '|' && s.slice(-2) !== '\\|') s = s.slice(0, -1);
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (ch === '\\' && s.charAt(i + 1) === '|') { buf += '|'; i++; continue; }
+      if (ch === '`') tick = !tick;
+      if (ch === '|' && !tick) { out.push(buf.trim()); buf = ''; continue; }
+      buf += ch;
+    }
+    out.push(buf.trim());
+    return out;
+  }
+  function nest(items) {
+    var root = { kids: [], ind: -1 }, stack = [root];
+    items.forEach(function (it) {
+      while (stack.length > 1 && it.ind <= stack[stack.length - 1].ind) stack.pop();
+      stack[stack.length - 1].kids.push(it); stack.push(it);
+    });
+    return root.kids;
+  }
+  function mdList(arr, base) {
+    var h = '', k = 0;
+    while (k < arr.length) {
+      var ord = arr[k].ord, grp = [];
+      while (k < arr.length && arr[k].ord === ord) grp.push(arr[k++]);
+      h += ord ? '<ol' + (grp[0].start !== 1 ? ' start="' + grp[0].start + '"' : '') + '>' : '<ul>';
+      grp.forEach(function (it) {
+        var t = it.text, task = /^\[([ xX])\]\s+/.exec(t), done = task && task[1] !== ' ';
+        if (task) t = t.slice(task[0].length);
+        h += '<li' + (task ? ' class="fx-task' + (done ? ' done' : '') + '"' : '') + '>' +
+          (task ? '<span class="fx-chk" aria-hidden="true"></span><span class="fx-sr">' + (done ? '[완료] ' : '[할 일] ') + '</span>' : '') +
+          t.split('\n').map(function (x) { return inline(x, base); }).join('<br>') + (it.kids.length ? mdList(it.kids, base) : '') + '</li>';
+      });
+      h += ord ? '</ol>' : '</ul>';
+    }
+    return h;
+  }
+  function blocks(L, base, depth) {
+    var h = [], i = 0, para = [], m;
+    function flush() { if (para.length) { h.push('<p>' + para.map(function (x) { return inline(x, base); }).join('<br>') + '</p>'); para = []; } }
+    while (i < L.length) {
+      var line = L[i];
+      if (/^\s*$/.test(line)) { flush(); i++; continue; }
+      if ((m = /^ {0,3}(`{3,}|~{3,})\s*([^`\s]*)/.exec(line))) {
+        flush();
+        var close = new RegExp('^ {0,3}' + (m[1].charAt(0) === '`' ? '`' : '~') + '{' + m[1].length + ',}\\s*$'), buf = [];
+        i++;
+        while (i < L.length && !close.test(L[i])) buf.push(L[i++]);
+        i++;
+        h.push('<pre><code>' + esc(buf.join('\n')) + '</code></pre>');
+        continue;
+      }
+      if ((m = /^ {0,3}(#{1,6})\s+(.*?)(?:\s+#+)?\s*$/.exec(line))) { flush(); h.push('<h' + m[1].length + '>' + inline(m[2], base) + '</h' + m[1].length + '>'); i++; continue; }
+      if (/^ {0,3}([-*_])(?:\s*\1){2,}\s*$/.test(line)) { flush(); h.push('<hr>'); i++; continue; }
+      if (line.indexOf('|') >= 0 && i + 1 < L.length && isSep(L[i + 1])) {
+        flush();
+        var head = cells(line), al = cells(L[i + 1]).map(function (c) { return /^:-+:$/.test(c) ? 'center' : /-+:$/.test(c) ? 'right' : /^:-+/.test(c) ? 'left' : ''; });
+        var th = head.map(function (c, j) { return '<th' + (al[j] ? ' style="text-align:' + al[j] + '"' : '') + '>' + inline(c, base) + '</th>'; }).join('');
+        i += 2;
+        var rows = '';
+        while (i < L.length && L[i].indexOf('|') >= 0 && !/^\s*$/.test(L[i])) {
+          var c = cells(L[i]); i++;
+          rows += '<tr>' + head.map(function (_, j) { return '<td' + (al[j] ? ' style="text-align:' + al[j] + '"' : '') + '>' + inline(c[j] || '', base) + '</td>'; }).join('') + '</tr>';
+        }
+        h.push('<div class="fx-tbl"><table><thead><tr>' + th + '</tr></thead><tbody>' + rows + '</tbody></table></div>');
+        continue;
+      }
+      if (/^ {0,3}>/.test(line)) {
+        flush();
+        var qb = [];
+        while (i < L.length && /^ {0,3}>/.test(L[i])) qb.push(L[i++].replace(/^ {0,3}> ?/, ''));
+        var co = /^\[!(\w+)\][-+]?\s*(.*)$/.exec(qb[0] || '');
+        var inner = depth > 6 ? '<p>' + esc(qb.join(' ')) + '</p>' : null;
+        if (co) { qb.shift(); h.push('<div class="fx-callout" data-kind="' + esc(co[1].toLowerCase()) + '"><p class="fx-callout-t">' + inline(co[2] || co[1], base) + '</p>' + (inner || blocks(qb, base, depth + 1)) + '</div>'); }
+        else h.push('<blockquote>' + (inner || blocks(qb, base, depth + 1)) + '</blockquote>');
+        continue;
+      }
+      if (LI.test(line)) {
+        flush();
+        var items = [];
+        while (i < L.length) {
+          var l = L[i], mm = LI.exec(l);
+          if (mm && !/^ {0,3}([-*_])(?:\s*\1){2,}\s*$/.test(l)) { items.push({ ind: indentOf(mm[1]), ord: /\d/.test(mm[2]), start: parseInt(mm[2], 10) || 1, text: mm[3], kids: [] }); i++; continue; }
+          if (/^\s*$/.test(l)) { if (i + 1 < L.length && LI.test(L[i + 1])) { i++; continue; } break; }
+          if (/^\s+\S/.test(l) && items.length) { items[items.length - 1].text += '\n' + l.trim(); i++; continue; }
+          break;
+        }
+        h.push(mdList(nest(items), base));
+        continue;
+      }
+      para.push(line.replace(/^\s+/, '').replace(/\s+$/, ''));
+      i++;
+    }
+    flush();
+    return h.join('');
+  }
+  function frontmatter(y) {
+    var rows = [], last = null;
+    y.split('\n').forEach(function (l) {
+      var kv = /^([\wㄱ-힝][\wㄱ-힝 .\-]*):\s*(.*)$/.exec(l), it = /^\s*-\s+(.*)$/.exec(l);
+      if (kv) { last = [kv[1], kv[2]]; rows.push(last); }
+      else if (it && last) last[1] += (last[1] ? ', ' : '') + it[1];
+    });
+    if (!rows.length) return '';
+    return '<dl class="fx-fm">' + rows.map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1].replace(/^["']|["']$/g, '')) + '</dd>'; }).join('') + '</dl>';
+  }
+  function md(src, base) {
+    src = String(src).replace(/\r\n?/g, '\n');
+    var meta = '', fm = /^---\n([\s\S]*?)\n---[ \t]*(?:\n|$)/.exec(src);
+    if (fm) { meta = frontmatter(fm[1]); src = src.slice(fm[0].length); }
+    if (src.length > 400000) src = src.slice(0, 400000) + '\n\n…(너무 길어 앞부분만 보여 줍니다)';
+    return meta + blocks(src.split('\n'), base, 0);
+  }
+
+  /* ── 이동·주소 ── */
+  function expandTo(p) { expanded[''] = true; var acc = ''; (p ? p.split('/') : []).forEach(function (s) { acc = acc ? acc + '/' + s : s; expanded[acc] = true; }); var par = p.lastIndexOf('/'); if (par >= 0) expanded[p.slice(0, par)] = true; }
+  function go(p, fromUser) {
+    if (!DIRS[p]) p = '';
+    cur = p; sel = null; query = ''; if (q) q.value = '';
+    expandTo(p);
+    var dp = DIRS[p]; if (dp.dirs.length) expanded[p] = true;
+    renderTree(); renderCrumbs(); placeholder(); renderList();
+    if (fromUser) { writeHash(); if (phone.matches) setTree(false); }
+  }
+  function writeHash() {
+    var p = sel ? fileKey(sel) : cur;
+    var h = '#files' + (p ? '/' + enc(p) : '');
+    if (location.hash !== h) { try { history.replaceState(null, '', h); } catch (e) {} }
+  }
+  function readHash() {
+    var h = location.hash.slice(1);
+    if (!/^files(\/|$)/.test(h)) return false;
+    var p = h.slice(6).split('/').map(function (s) { try { return decodeURIComponent(s); } catch (e) { return s; } }).join('/');
+    if (DIRS[p]) { go(p, false); return true; }
+    var i = p.lastIndexOf('/'), fo = i < 0 ? '' : p.slice(0, i), nm = p.slice(i + 1);
+    go(DIRS[fo] ? fo : '', false);
+    var f = DIRS[fo] && DIRS[fo].files.filter(function (x) { return x.name === nm; })[0];
+    if (f) select(f, false);
+    return true;
+  }
+  function setTree(open) { fx.classList.toggle('tree-open', open); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+
+  /* ── 이벤트 ── */
+  treeUl.addEventListener('click', function (e) {
+    var tw = e.target.closest('.fx-tw'), nb = e.target.closest('.fx-nb');
+    if (tw) { var p = tw.getAttribute('data-tw'); expanded[p] = !expanded[p]; renderTree(); var again = treeUl.querySelector('.fx-tw[data-tw="' + CSS.escape(p) + '"]'); if (again) again.focus(); return; }
+    if (nb) { go(nb.getAttribute('data-dir'), true); var b = treeUl.querySelector('.fx-nb[aria-current="true"]'); if (b && !phone.matches) b.focus(); }
+  });
+  treeUl.addEventListener('keydown', function (e) {
+    var nb = e.target.closest('.fx-nb'); if (!nb) return;
+    var all = Array.prototype.slice.call(treeUl.querySelectorAll('.fx-nb')), i = all.indexOf(nb), p = nb.getAttribute('data-dir'), d = DIRS[p];
+    if (e.key === 'ArrowDown' && i < all.length - 1) { e.preventDefault(); all[i + 1].focus(); }
+    else if (e.key === 'ArrowUp' && i > 0) { e.preventDefault(); all[i - 1].focus(); }
+    else if (e.key === 'ArrowRight' && d && d.dirs.length && !expanded[p]) { e.preventDefault(); expanded[p] = true; renderTree(); treeUl.querySelector('.fx-nb[data-dir="' + CSS.escape(p) + '"]').focus(); }
+    else if (e.key === 'ArrowLeft' && d) {
+      e.preventDefault();
+      if (d.dirs.length && expanded[p] && p) { expanded[p] = false; renderTree(); treeUl.querySelector('.fx-nb[data-dir="' + CSS.escape(p) + '"]').focus(); }
+      else if (d.parent !== null) { var pb = treeUl.querySelector('.fx-nb[data-dir="' + CSS.escape(d.parent) + '"]'); if (pb) pb.focus(); }
+    }
+  });
+  list.addEventListener('click', function (e) {
+    var b = e.target.closest('.fx-row'); if (!b) return;
+    var r = rowsData[+b.getAttribute('data-i')]; if (!r) return;
+    if (r.dir) { go(r.dir.path, true); var first = list.querySelector('.fx-row'); if (first) first.focus({ preventScroll: true }); }
+    else select(r.file, true);
+  });
+  list.addEventListener('keydown', function (e) {
+    var b = e.target.closest('.fx-row'); if (!b) return;
+    var all = Array.prototype.slice.call(list.querySelectorAll('.fx-row')), i = all.indexOf(b), n = -1;
+    if (e.key === 'ArrowDown') n = Math.min(all.length - 1, i + 1);
+    else if (e.key === 'ArrowUp') n = Math.max(0, i - 1);
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = all.length - 1;
+    else if (e.key === 'Backspace' && cur) { e.preventDefault(); upBtn.click(); return; }
+    if (n >= 0) { e.preventDefault(); all[n].focus(); }
+  });
+  crumbs.addEventListener('click', function (e) { var b = e.target.closest('.fx-crumb'); if (b && b.getAttribute('aria-current') !== 'page') go(b.getAttribute('data-dir'), true); });
+  upBtn.addEventListener('click', function () { if (!cur) return; var from = cur; go(DIRS[cur].parent || '', true); var i = -1; rowsData.forEach(function (r, k) { if (r.dir && r.dir.path === from) i = k; }); var b = list.querySelector('.fx-row[data-i="' + i + '"]'); if (b) b.focus({ preventScroll: true }); });
+  toggle.addEventListener('click', function () { setTree(!fx.classList.contains('tree-open')); });
+  q.addEventListener('input', function () { query = q.value; renderList(); });
+  q.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && q.value) { e.preventDefault(); q.value = ''; query = ''; renderList(); }
+    if (e.key === 'ArrowDown') { var f = list.querySelector('.fx-row'); if (f) { e.preventDefault(); f.focus(); } }
+  });
+  function setSort(k, d) { sortKey = k; sortDir = d; try { localStorage.setItem('nrf2-files-sort', k + ':' + d); } catch (e) {} renderList(); }
+  $('fx-head').addEventListener('click', function (e) {
+    var b = e.target.closest('.fx-sort'); if (!b) return;
+    var k = b.getAttribute('data-sort');
+    setSort(k, k === sortKey ? -sortDir : (k === 'name' || k === 'type' ? 1 : -1));
+  });
+  if (sortM) sortM.addEventListener('change', function () { var v = sortM.value.split(':'); setSort(v[0], +v[1]); });
+  prev.addEventListener('click', function (e) {
+    if (e.target.closest('[data-close]')) { closePreview(); return; }
+    var mdb = e.target.closest('[data-md]');
+    if (mdb && sel) { mdRaw = mdb.getAttribute('data-md') === '1'; paintText(sel); return; }
+    var cp = e.target.closest('[data-copy]');
+    if (cp && sel) {
+      var url = absOf(sel), lab = cp.querySelector('span');
+      var done = function (ok) { lab.textContent = ok ? '복사했습니다' : '복사 실패'; setTimeout(function () { lab.textContent = '주소 복사'; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+      else { var ta = document.createElement('textarea'); ta.value = url; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (er) {} ta.remove(); done(ok); }
+    }
+  });
+  prev.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sel) { e.preventDefault(); closePreview(); } });
+  var tabBtn = $('tab-files');
+  if (tabBtn) tabBtn.addEventListener('click', function () { writeHash(); });
+  window.addEventListener('hashchange', readHash);
+
+  /* ── 시작 ── */
+  var badge = document.querySelector('#tab-files [data-files-count]');
+  if (badge) badge.textContent = FILES.length ? String(FILES.length) : '';
+  var st = $('fx-stats');
+  if (st) {
+    var nd = Object.keys(DIRS).length - 1, all = DIRS[''];
+    st.innerHTML = [ '파일 ' + FILES.length + '개', '폴더 ' + nd + '개', human(all.bytes), all.latest ? when(all.latest, true) + ' 갱신' : '' ]
+      .filter(Boolean).map(function (s) { return '<span class="story-chip">' + esc(s) + '</span>'; }).join('');
+  }
+  if (!readHash()) go('', false);
 })();
 </script>
 <script>
