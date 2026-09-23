@@ -819,6 +819,9 @@ button.fx-a{font-family:var(--sans)}
 .fx-md mark{background:color-mix(in srgb,var(--folder) 40%,transparent);color:inherit;padding:0 2px;border-radius:2px}
 .fx-md del{color:var(--muted)}
 .fx-wl{color:var(--accent);font-weight:600}
+.fx-extimg{appearance:none;display:inline-flex;align-items:baseline;gap:6px;max-width:100%;margin:2px 0;padding:6px 10px;border:1px dashed var(--rule);border-radius:7px;background:var(--sunk);color:var(--ink-2);font:600 12.5px var(--sans);cursor:pointer;overflow-wrap:anywhere;text-align:left}
+.fx-extimg:hover{border-color:var(--accent);color:var(--accent)}
+.fx-extimg small{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:500}
 .fx-tbl{overflow-x:auto;margin:0 0 1em;border:1px solid var(--rule);border-radius:7px;max-width:100%}
 .fx-md table{min-width:0;width:100%;border-collapse:collapse;font-size:13px}
 .fx-md th,.fx-md td{padding:7px 11px;border-bottom:1px solid var(--rule-soft);border-right:1px solid var(--rule-soft);vertical-align:top;word-break:keep-all}
@@ -943,7 +946,7 @@ button.fx-a{font-family:var(--sans)}
 .bd-btn:disabled{opacity:.5;cursor:default}
 .bd-btn:focus-visible,.bd-person:focus-visible,.bd-link:focus-visible,.bd-card-a:focus-visible,.bd-post-t:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .bd-form{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
-.bd-form-h{font-size:16px;font-weight:800;margin:0}
+.bd-form-h{font-size:16px;font-weight:800;margin:0;word-break:keep-all;line-height:1.5}
 .bd-field{display:flex;flex-direction:column;gap:5px}
 .bd-field label{font-size:13.5px;font-weight:700;color:var(--ink-2)}
 .bd-in{
@@ -1018,8 +1021,8 @@ textarea.bd-in.sm{min-height:76px}
 .bd-alert.ok{background:color-mix(in srgb,var(--done) 8%,var(--paper));border-color:color-mix(in srgb,var(--done) 32%,var(--rule))}
 .bd-alert > span{flex:1 1 220px;min-width:0}
 .bd-token{border-color:color-mix(in srgb,var(--accent) 40%,var(--rule))}
-.bd-token-row{display:flex;gap:8px}
-.bd-token-row .bd-in{max-width:180px;letter-spacing:.3em;font-family:var(--mono)}
+.bd-token-row{display:flex;gap:8px;flex-wrap:wrap}
+.bd-token-row .bd-in{flex:1 1 180px;max-width:300px;letter-spacing:.06em;font-family:var(--mono)}
 .bd-err{font-size:13px;color:var(--stop);font-weight:700;min-height:1em}
 
 /* 글 보기 */
@@ -1068,7 +1071,7 @@ textarea.bd-in.sm{min-height:76px}
   .bd-bar .bd-btn.primary{flex:1 1 auto}
 }
 /* /board-tab */
-.grant-list{columns:2;column-gap:28px}.grant-list li{break-inside:avoid;margin:0 0 8px}.grant-list .flag{font-size:14px;letter-spacing:0;padding:1px 7px;min-width:26px;text-align:center}@media (max-width:640px){.grant-list{columns:1}}
+/* grant-list:start */.grant-list{columns:2;column-gap:28px}.grant-list li{break-inside:avoid;margin:0 0 8px}.grant-list .flag{font-size:14px;letter-spacing:0;padding:1px 7px;min-width:26px;text-align:center}@media (max-width:640px){.grant-list{columns:1}}/* grant-list:end */
 /* ══ theme-layer:start ══ */
 /* ══════════════════════════════════════════════════════════════════
    THEME B — 「부드러운 웜톤」 override layer
@@ -1429,6 +1432,9 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
 .fx-mm,.fx-ph .fx-ph-n{font-family:var(--sans);font-size:12.5px}
 .tab .n:empty{display:none}
 .gate-foot,.gate-sub{word-break:keep-all}
+
+/* print (QA 09-23) */
+@media print{html.b-motion .b-fade,html.b-motion .b-fade:not(.b-in){opacity:1!important;transform:none!important;transition:none!important}.view{animation:none!important}.tabs,nav.tabs{position:static!important;box-shadow:none!important;backdrop-filter:none!important}#gate{display:none!important}}
 /* ══ theme-layer:end ══ */
 </style>
 </head>
@@ -1488,14 +1494,14 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
 <div class="view" id="view-now" role="tabpanel" aria-labelledby="tab-now">
 
 <section id="grant-checklist"><span class="kicker">2026 제2차 내부연구사업 · 마감 9월 30일 · 연구책임자 송지수</span><h2>연구계획서 제출 — 선생님이 채우실 13칸</h2>
-<p class="g-lead">공식 서식대로 만든 제출본 3종(신청서+연구계획서 · 개인정보 동의서 · 연구비 산출내역 엑셀)이 준비됐습니다. Word 파일의 <b>노란 칸 ①~⑬</b>만 채워 주시면 인쇄 → 날인·서명 → rERP 접수입니다. 과제 내용은 <a href="#files/%EB%82%B4%EB%B6%80%EC%97%B0%EA%B5%AC%EC%82%AC%EC%97%85%20%EA%B3%B5%EB%AA%A8%20%EC%A0%9C%EC%B6%9C">「파일」 탭의 쉬운 설명</a>에, 칸별 안내는 같은 폴더의 「제출본 입력 안내」에 있습니다.</p>
+<p class="g-lead">공식 서식대로 만든 제출본 3종(신청서+연구계획서 · 개인정보 동의서 · 연구비 산출내역 엑셀)이 준비됐습니다. 대표님이 보내 드리는 제출용 <b>Word 파일</b>(별첨1)의 <b>노란 칸 ①~⑬</b>만 채워 주시면 인쇄 → 날인·서명 → rERP 접수입니다. 과제 내용은 <a href="#files/%EB%82%B4%EB%B6%80%EC%97%B0%EA%B5%AC%EC%82%AC%EC%97%85%20%EA%B3%B5%EB%AA%A8%20%EC%A0%9C%EC%B6%9C/1_%EC%97%B0%EA%B5%AC%EA%B3%84%ED%9A%8D%EC%84%9C%20%EC%89%AC%EC%9A%B4%20%EC%84%A4%EB%AA%85%28%EC%86%A1%EC%A7%80%EC%88%98%20%EC%84%A0%EC%83%9D%EB%8B%98%EC%9A%A9%29.pdf">쉬운 설명(PDF)</a>에, 칸별 안내는 「파일」 탭 같은 폴더의 「제출본 입력 안내」에 있습니다. 이 페이지에 올린 제출본은 연락처를 가린 PDF 공개본이라 여기서 채우지는 않습니다.</p>
 <ul class="story-copy grant-list" style="list-style:none;padding-left:0"><li><span class="flag wait">①</span> <b>휴대전화</b> — 신청서 · 붙임 1-가</li><li><span class="flag wait">②</span> <b>직급(직위) 확인</b> — 지금 「수간호사」</li><li><span class="flag wait">③</span> <b>소속부서 표기</b> — 지금 「간호부」 — 부서명까지 쓸지</li><li><span class="flag wait">④</span> <b>직종 확인</b> — 지금 「간호직」</li><li><span class="flag wait">⑤</span> <b>IRB 칸</b> — 회신 상태·접수번호</li><li><span class="flag wait">⑥</span> <b>학력</b> — 학사·석사 기간·학교·전공</li><li><span class="flag wait">⑦</span> <b>석사 취득년도</b> — 연구원 구성 표</li><li><span class="flag wait">⑧</span> <b>경력</b> — 기간·기관·직위</li><li><span class="flag wait">⑨</span> <b>논문 SCI(E) 최근 3년</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑩</span> <b>논문 비SCI 최근 3년</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑪</span> <b>특허</b> — 없으면 「실적없음」</li><li><span class="flag wait">⑫</span> <b>기타 실적</b> — 자격·수상·교육 등</li><li><span class="flag wait">⑬</span> <b>연구과제 수행 실적 최근 3년</b> — 없으면 「실적없음」 → 신진연구자</li></ul>
 <p class="g-note">공개 페이지의 제출본은 전화·이메일을 가린 공개본입니다. 실제 제출용 원본은 연구진 공유 드라이브에 있습니다. 인쇄 후 할 일: 신청서 (인) 날인 · 동의서 두 분 서명과 「동의함」 체크 · 스캔 PDF 2개 + 엑셀을 rERP에.</p>
 </section>
 <section id="pi-checklist"><span class="kicker">접수 전 · 연구책임자와 공동저자가 채울 것</span><h2>투고 전 확인 7건</h2>
 <p class="g-lead">원고는 완성됐고, 아래 일곱 가지만 채워지면 접수합니다. 항목 번호는 투고 점검표(<code>SUBMISSION_JKAN.md</code> §0)와 같습니다. 답을 주시면 원고에 반영해 다시 만들고, 「투고본」 탭의 파일도 교체됩니다.</p>
-<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag part">1 · 진행</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스<br><small>제1저자 송지수 · 교신저자 김대연으로 확정, 송지수 선생님 로마자·학위·소속 반영 — 남은 것: 두 저자 ORCID · 교신저자 학위·소속·연락처</small></li><li><span class="flag part">2 · 진행</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지<br><small>기관 IRB 심의 신청 접수 · 결과 대기 — 번호가 와야 접수</small></li><li><span class="flag done">완료</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식<br><small>문안 승인 · 학회 COI 서식·ICMJE 양식은 접수 당일</small></li><li><span class="flag done">완료</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)<br><small>외부 지원 없음 · 저자 사비</small></li><li><span class="flag part">5 · 진행</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)<br><small>문안 채움(S.J. 연구 설계·총괄 · K.D. 기술 · AI 초안은 두 저자 지시·검토) — 송지수 선생님 영문 확인 남음</small></li><li><span class="flag part">6 · 진행</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인<br><small>국문초록 불필요·영문 초록 충족(지침 실물 확인) — 남은 것: 표·그림을 영문으로, 각각 별도 페이지에(지침 의무 · 결정 뒤 반영)</small></li><li><span class="flag part">7 · 진행</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정<br><small>게재료 = 게재 확정 시 USD 1,500 확인 — 남은 것: 국문 제목·주요어 어감 확인</small></li></ul>
-<p class="g-note">2026년 9월 22일 기준 완료 2 · 진행 3 · 대기 2. 하나라도 비어 있으면 접수를 보류합니다.</p>
+<ul class="story-copy" style="list-style:none;padding-left:0"><li><span class="flag part">1 · 진행</span> <b>저자 정보</b> — 두 저자의 로마자 이름·학위·소속(부서·기관·도시)·ORCID, 교신저자의 주소·이메일·전화·팩스<br><small>제1저자 송지수 · 교신저자 김대연으로 확정, 송지수 선생님 로마자·학위·소속 반영 — 남은 것: 두 저자 ORCID · 교신저자 학위·소속·연락처</small></li><li><span class="flag part">2 · 진행</span> <b>IRB</b> — 기관 IRB 심의 면제 확인 번호, 또는 「인간 대상 연구가 아님」 진술을 기관이 인정하는지<br><small>기관 IRB 심의 신청 접수 · 결과 대기 — 번호가 와야 접수</small></li><li><span class="flag done">3 · 완료</span> <b>이해상충</b> — 1편에서 서명한 이해상충 문안이 합병 원고에 그대로 실림 — 재서명 + 학회 COI 서식·ICMJE 양식<br><small>문안 승인 · 학회 COI 서식·ICMJE 양식은 접수 당일</small></li><li><span class="flag done">4 · 완료</span> <b>연구비</b> — 연구비 문안(없으면 「외부 지원 없음」)<br><small>외부 지원 없음 · 저자 사비</small></li><li><span class="flag part">5 · 진행</span> <b>저자 기여</b> — CRediT 기여 항목(AI 보조 부분을 포함해 두 저자가 전체에 책임진다는 문장 유지)<br><small>문안 채움(S.J. 연구 설계·총괄 · K.D. 기술 · AI 초안은 두 저자 지시·검토) — 송지수 선생님 영문 확인 남음</small></li><li><span class="flag part">6 · 진행</span> <b>국문 규정</b> — 국문 초록이 필요한지 · 표/그림을 영문으로 둬도 되는지 · 글꼴/줄간격 — 학회 국문 투고규정 PDF로 확인<br><small>국문초록 불필요·영문 초록 충족(지침 실물 확인) — 남은 것: 표·그림을 영문으로, 각각 별도 페이지에(지침 의무 · 결정 뒤 반영)</small></li><li><span class="flag part">7 · 진행</span> <b>제목·주요어</b> — 국문 제목과 주요어의 어감 · 1편 국문 초안(JKANA v0.6)은 폐기 확정<br><small>게재료 = 게재 확정 시 USD 1,500 확인 — 남은 것: 국문 제목·주요어 어감 확인</small></li></ul>
+<p class="g-note">2026년 9월 23일 기준 완료 2 · 진행 5 · 대기 0. 하나라도 비어 있으면 접수를 보류합니다.</p>
 </section>
 <div class="glance" id="revision-glance">
  <div class="g-card">
@@ -1524,7 +1530,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
 </div>
 <section id="roadmap"><h2>투고본 준비 완료 — 접수는 연구책임자 확인 뒤</h2><p class="g-lead">1편(세 수요 원형 · 9,150건)과 2편(조건 상자 · 1,550,444건)을 하나의 국문 원고로 합쳤습니다. 본문은 6,000단어 한도 안(4231단어)에 표 3개·그림 2개를 두고, 두 편의 방법·결과 전문은 보충자료 S1–S5로 붙였습니다. 참고문헌 32편은 출현 순으로 번호를 매겼고, 본문의 모든 숫자는 봉인 산출물에서 자동으로 채워집니다.</p>
  <p class="g-lead">새로 더한 결과: 배수 척도로 보면 규칙만 세어 나온 산술 하한이 하루 인원의 1.67배(중앙값 · 1.46–1.93), 목표 도달이 관측된 324계단의 첫 도달 인원은 1.79배(1.54–2.18)였습니다. 후보 집합 판독기를 정답을 아는 설계 곡선에서 검증하니 관측률이 목표에서 멀면 98.0%, 목표 근처 평탄이면 54.6%만 참값을 담았습니다.</p>
- <p class="g-lead">남은 것은 연구책임자 몫입니다 — 저자·소속·ORCID·교신 정보, 기관 IRB 심의 면제 확인, 이해상충 문안 재서명, 연구비 문안, 국문 초록 요건 확인 → 접수. 후속 연구는 「규칙 파라미터에 따른 배수 표」 구상 단계입니다. 접수가 완료됐다는 뜻은 아닙니다.</p>
+ <p class="g-lead">남은 것은 위 「투고 전 확인 7건」 중 진행 중인 항목입니다 — 두 저자 ORCID·교신저자 정보, 기관 IRB 심의 결과, 저자 기여 영문 확인, 표·그림 영문화, 국문 제목·주요어 어감 → 접수. 후속 연구는 「규칙 파라미터에 따른 배수 표」 구상 단계입니다. 접수가 완료됐다는 뜻은 아닙니다.</p>
 </section>
 </div><!-- /view-now -->
 
@@ -1575,11 +1581,11 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
 <section class="fx-intro"><div class="fx-intro-main"><span class="kicker">파일 보관함</span><h2>올려 둔 파일</h2>
 <p class="g-lead">폴더별로 모아 둔 연구 자료입니다. PDF·그림·MD는 이 화면에서 바로 보고, Word·한글·엑셀은 내려받아 엽니다.</p>
 <div class="fx-chips" id="fx-stats"></div></div>
-<div class="fx-intro-side"><p class="fx-warn"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.2 18.4 17H1.6z" style="fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round"/><path d="M10 7.6v4.6M10 14.4v.2" style="stroke:currentColor;stroke-width:1.8;stroke-linecap:round"/></svg><span><b>공개 주소입니다.</b> 링크를 아는 누구나 내려받을 수 있으니 전화번호·이메일 같은 개인 연락처가 든 파일은 올리지 않습니다. 사진·스캔본은 자동 검사가 되지 않습니다.</span></p>
+<div class="fx-intro-side"><p class="fx-warn"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 2.2 18.4 17H1.6z" style="fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round"/><path d="M10 7.6v4.6M10 14.4v.2" style="stroke:currentColor;stroke-width:1.8;stroke-linecap:round"/></svg><span><b>공개 주소입니다.</b> 링크를 아는 누구나 내려받을 수 있으니 전화번호·이메일·주민번호 같은 개인정보가 든 파일은 올리지 않습니다. 글자로 된 문서는 올리기 전에 자동으로 한 번 찾아보지만 완벽하지 않고, 사진·스캔본·HWP는 자동으로 검사하지 못하니 올리는 사람이 직접 확인합니다.</span></p>
 <details class="fx-how"><summary><span class="tw" aria-hidden="true">+</span>파일 올리는 법<span class="sum-tail">연구팀용</span></summary>
 <div class="reveal"><ol class="fx-steps">
 <li>구글 드라이브 <code>Obsidian › 60. Research › 45. 공모행정 › 대시보드 파일</code> 안의 폴더에 파일을 넣습니다. 그 폴더가 그대로 이 화면의 폴더가 됩니다 — 새 폴더를 만들어도 됩니다.</li>
-<li>연구 PC에서 <code>scripts/nrf2_files_sync.py</code>를 실행하면 목록이 다시 만들어집니다. 개인 연락처(휴대전화·전화·이메일)가 보이는 파일은 자동으로 빠지고, 이유가 화면에 찍힙니다.</li>
+<li>연구 PC에서 <code>scripts/nrf2_files_sync.py</code>를 실행하면 목록이 다시 만들어집니다. 글자로 된 문서(MD·TXT·Word·엑셀·PDF)와 파일·폴더 이름에서 휴대전화·전화·이메일·주민번호로 보이는 것을 찾으면 그 파일을 빼고 이유를 알려 줍니다. 자동 검사는 보조 수단이라 놓칠 수 있고, 사진·스캔본·HWP는 검사하지 못합니다(위치정보가 든 사진만 뺍니다).</li>
 <li>대시보드를 다시 게시하면 이 탭에 나타납니다. 올릴 수 있는 형식은 MD·PDF·DOC·DOCX·XLSX·HWP·HWPX·TXT·JPG·PNG·GIF·WEBP, 파일당 15MB까지입니다.</li>
 </ol></div></details></div>
 </section>
@@ -1758,7 +1764,6 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   }
  ],
  "folders": {
-  "내부연구사업 공모 제출": {},
   "중간 보고서": {
    "note": "「문서」 탭의 중간 보고 브리핑 3종과 같은 파일입니다.",
    "order": 2
@@ -2897,7 +2902,6 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     var v = (pin.value || '').trim();
     if (hash('nrf2-gate|' + v) === EXPECT) {
       try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
-      try { localStorage.setItem('nrf2-board-token', v); } catch (e) {}   // 게시판 글쓰기에 재사용(board-tab) — 가림막 코드
       open();
     } else {
       msg.textContent = '코드가 맞지 않습니다.';
@@ -2937,8 +2941,9 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
       if (location.hash.slice(1) !== name) {
         try { history.replaceState(null, '', '#' + name); } catch (e) { location.hash = name; }
       }
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
+      var hd = document.querySelector('#app header') || document.querySelector('header');
+      var y = hd ? Math.max(0, hd.getBoundingClientRect().bottom + (window.pageYOffset || 0) - 8) : 0;
+      if ((window.pageYOffset || document.documentElement.scrollTop) > y) window.scrollTo(0, y);
     }
   }
 
@@ -2968,7 +2973,9 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   var M = {};
   try { M = JSON.parse(dataEl.textContent || '{}') || {}; } catch (e) { M = {}; }
   var FILES = (M.files || []).filter(function (f) { return f && f.name && f.path; });
-  var FMETA = M.folders || {};
+  // 사용자 폴더 이름을 키로 쓰는 사전은 모두 프로토타입 없는 객체(constructor·__proto__·toString 이름 폴더 대비)
+  var FMETA = Object.create(null);
+  if (M.folders && typeof M.folders === 'object') Object.keys(M.folders).forEach(function (k) { var v = M.folders[k]; FMETA[k] = v && typeof v === 'object' ? v : {}; });
   var $ = function (id) { return document.getElementById(id); };
   var treeUl = $('fx-tree-ul'), list = $('fx-list'), crumbs = $('fx-crumbs'), prev = $('fx-prev');
   var q = $('fx-q'), empty = $('fx-empty'), note = $('fx-note'), upBtn = $('fx-up'), toggle = $('fx-tree-toggle');
@@ -2983,7 +2990,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   var HUE = { pdf: '--ft-pdf', doc: '--ft-doc', xls: '--ft-xls', hwp: '--ft-hwp', md: '--ft-md', txt: '--ft-txt', img: '--ft-img', etc: '--ft-txt' };
   var OPEN_HINT = { doc: 'Word·한컴오피스·구글 문서에서 열 수 있습니다.', xls: 'Excel·한컴오피스·구글 스프레드시트에서 열 수 있습니다.',
     hwp: '한컴오피스 한글(또는 한컴독스)에서 열 수 있습니다.', etc: '내려받아 알맞은 프로그램으로 여세요.' };
-  function typeOf(ext) { return TYPES[ext] || [((ext || '파일') + '').toUpperCase() + ' 파일', 'etc']; }
+  function typeOf(ext) { return Object.prototype.hasOwnProperty.call(TYPES, ext) ? TYPES[ext] : [((ext || '파일') + '').toUpperCase() + ' 파일', 'etc']; }
 
   /* ── 형식·경로 도우미 ── */
   function esc(s) {
@@ -3037,7 +3044,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   };
 
   /* ── 폴더 색인 ── */
-  var DIRS = {};
+  var DIRS = Object.create(null);
   function dir(path) {
     if (DIRS[path]) return DIRS[path];
     var i = path.lastIndexOf('/');
@@ -3064,7 +3071,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
 
   /* ── 상태 ── */
   var cur = '', sel = null, query = '', sortKey = 'name', sortDir = 1, mdRaw = false;
-  var expanded = { '': true };
+  var expanded = Object.create(null); expanded[''] = true;
   try { var saved = localStorage.getItem('nrf2-files-sort'); if (saved && /^(name|date|size|type):-?1$/.test(saved)) { sortKey = saved.split(':')[0]; sortDir = +saved.split(':')[1]; } } catch (e) {}
 
   /* ── 트리 ── */
@@ -3119,7 +3126,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
         var f = r.file, t = typeOf(f.ext), on = sel === f;
         var sub = qq ? (f.folder || '전체 파일') + (f.label ? ' · ' + f.label : '') : (f.label || '');
         h += '<li><button type="button" class="fx-row' + (on ? ' is-sel' : '') + '" data-i="' + i + '"' + (on ? ' aria-current="true"' : '') +
-          ' aria-label="' + esc(f.name) + ', ' + t[0] + ', ' + human(f.bytes) + ', ' + when(f.mtime) + ' — 미리 보기">' +
+          ' aria-label="' + esc(f.name) + ', ' + esc(t[0]) + ', ' + human(f.bytes) + ', ' + when(f.mtime) + ' — 미리 보기">' +
           '<span class="fx-nm">' + fileIcon(f.ext) + '<span class="fx-nmtx"><span class="fx-t" title="' + esc(f.name) + '">' + mark(f.name, qq) + '</span>' +
           '<span class="fx-sub">' + (qq ? mark(sub, qq) : esc(sub)) + '</span>' +
           '<span class="fx-mm">' + esc(t[0]) + ' · ' + human(f.bytes) + ' · ' + when(f.mtime, true) + '</span></span></span>' +
@@ -3225,7 +3232,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   function loadText(f) {
     fetch(hrefOf(f)).then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }).then(function (buf) {
       if (sel !== f) return;
-      var txt = decode(buf).replace(/^﻿/, '');
+      var txt = decode(buf).replace(/^\uFEFF/, '');
       f._text = txt; paintText(f);
     }).catch(function () {
       if (sel !== f) return;
@@ -3249,17 +3256,49 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     if (!/^(https?|mailto|file):/i.test(abs)) return null;
     return abs;
   }
+  var LINE_CAP = 2000;            // 한 줄이 이보다 길면 서식 없이 글자만(정규식 역추적으로 멈추지 않게)
+  var URLP = '((?:[^()\\s]|\\([^()\\s]*\\))+)';   // 괄호 한 겹까지 짝이 맞는 URL: https://x.com/a_(b)
+  var RX_IMG = new RegExp('!\\[([^\\]]*)\\]\\(' + URLP + '(?:\\s+&quot;.*?&quot;)?\\)', 'g');
+  var RX_LINK = new RegExp('\\[([^\\]]+)\\]\\(' + URLP + '(?:\\s+&quot;.*?&quot;)?\\)', 'g');
+  function sameOrigin(h) { try { return new URL(h).origin === location.origin; } catch (e) { return false; } }
+  function codeSpans(s, hold) {            // 백틱 묶음을 선형으로 짝지음(같은 길이의 닫는 묶음)
+    var out = '', i = 0, n = s.length;
+    while (i < n) {
+      var j = s.indexOf('`', i);
+      if (j < 0) { out += s.slice(i); break; }
+      out += s.slice(i, j);
+      var k = j; while (k < n && s.charAt(k) === '`') k++;
+      var run = k - j, m = k, found = -1;
+      while (m < n) {
+        var a = s.indexOf('`', m); if (a < 0) break;
+        var b = a; while (b < n && s.charAt(b) === '`') b++;
+        if (b - a === run) { found = a; break; }
+        m = b;
+      }
+      if (found < 0) { out += s.slice(j, k); i = k; }
+      else { out += hold('<code>' + esc(s.slice(k, found)) + '</code>'); i = found + run; }
+    }
+    return out;
+  }
   function inline(s, base) {
+    s = String(s).replace(/\u0000/g, '');
+    if (s.length > LINE_CAP) return esc(s);
     var keep = [];
     function hold(html) { keep.push(html); return '\u0000' + (keep.length - 1) + '\u0000'; }
-    s = String(s).replace(/(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/g, function (_, a, c) { return hold('<code>' + esc(c) + '</code>'); });
+    s = codeSpans(s, hold);
     s = s.replace(/\\([\\`*_{}\[\]()#+\-.!|~=>])/g, function (_, c) { return hold(esc(c)); });
     s = esc(s);
     s = s.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function (_, a, b) { return hold('<span class="fx-wl">' + (b || a) + '</span>'); });
-    s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+&quot;.*?&quot;)?\)/g, function (_, alt, u) {
-      var h = safeUrl(u, base); return h && !/^mailto:/i.test(h) ? hold('<img src="' + esc(h) + '" alt="' + alt + '" loading="lazy">') : alt;
+    s = s.replace(RX_IMG, function (_, alt, u) {
+      var h = safeUrl(u, base);
+      if (!h || /^mailto:/i.test(h)) return alt;
+      if (sameOrigin(h)) return hold('<img src="' + esc(h) + '" alt="' + alt + '" loading="lazy">');
+      // 외부 그림은 자동으로 불러오지 않는다(열람 추적·외부 요청 방지) — 누르면 불러옴
+      var host = ''; try { host = new URL(h).host; } catch (e) {}
+      return hold('<button type="button" class="fx-extimg" data-src="' + esc(h) + '" data-alt="' + alt + '">외부 그림 불러오기' +
+        (alt ? ' · ' + alt : '') + ' <small>' + esc(host) + '</small></button>');
     });
-    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+&quot;.*?&quot;)?\)/g, function (_, txt, u) {
+    s = s.replace(RX_LINK, function (_, txt, u) {
       var h = safeUrl(u, base); if (!h) return txt;
       return hold('<a href="' + esc(h) + '" target="_blank" rel="noopener noreferrer">') + txt + hold('</a>');
     });
@@ -3274,7 +3313,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   }
   var LI = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
   function indentOf(s) { return s.replace(/\t/g, '    ').length; }
-  function isSep(l) { return l.indexOf('|') >= 0 && l.indexOf('-') >= 0 && /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(l); }
+  function isSep(l) { return l.length <= LINE_CAP && l.indexOf('|') >= 0 && l.indexOf('-') >= 0 && /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)*\|?\s*$/.test(l); }
   function cells(l) {
     var s = l.trim(), out = [], buf = '', tick = false;
     if (s.charAt(0) === '|') s = s.slice(1);
@@ -3329,6 +3368,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
         h.push('<pre><code>' + esc(buf.join('\n')) + '</code></pre>');
         continue;
       }
+      if (line.length > LINE_CAP) { flush(); h.push('<p>' + esc(line) + '</p>'); i++; continue; }
       if ((m = /^ {0,3}(#{1,6})\s+(.*?)(?:\s+#+)?\s*$/.exec(line))) { flush(); h.push('<h' + m[1].length + '>' + inline(m[2], base) + '</h' + m[1].length + '>'); i++; continue; }
       if (/^ {0,3}([-*_])(?:\s*\1){2,}\s*$/.test(line)) { flush(); h.push('<hr>'); i++; continue; }
       if (line.indexOf('|') >= 0 && i + 1 < L.length && isSep(L[i + 1])) {
@@ -3383,12 +3423,15 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     if (!rows.length) return '';
     return '<dl class="fx-fm">' + rows.map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1].replace(/^["']|["']$/g, '')) + '</dd>'; }).join('') + '</dl>';
   }
+  var MD_CAP = 150000;   // 미리 보기 상한(글자 수) — 나머지는 내려받아 보기
   function md(src, base) {
-    src = String(src).replace(/\r\n?/g, '\n');
+    src = String(src).replace(/\u0000/g, '').replace(/\r\n?/g, '\n');
+    var cut = src.length > MD_CAP;
+    if (cut) src = src.slice(0, MD_CAP);
     var meta = '', fm = /^---\n([\s\S]*?)\n---[ \t]*(?:\n|$)/.exec(src);
     if (fm) { meta = frontmatter(fm[1]); src = src.slice(fm[0].length); }
-    if (src.length > 400000) src = src.slice(0, 400000) + '\n\n…(너무 길어 앞부분만 보여 줍니다)';
-    return meta + blocks(src.split('\n'), base, 0);
+    return meta + blocks(src.split('\n'), base, 0) +
+      (cut ? '<p class="g-note">문서가 길어 앞 150KB만 보여 줍니다. 전체는 내려받아 보세요.</p>' : '');
   }
 
   /* ── 이동·주소 ── */
@@ -3472,6 +3515,12 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     if (e.target.closest('[data-close]')) { closePreview(); return; }
     var mdb = e.target.closest('[data-md]');
     if (mdb && sel) { mdRaw = mdb.getAttribute('data-md') === '1'; paintText(sel); return; }
+    var xi = e.target.closest('.fx-extimg');
+    if (xi) {
+      var img = document.createElement('img');
+      img.alt = xi.getAttribute('data-alt') || ''; img.referrerPolicy = 'no-referrer'; img.src = xi.getAttribute('data-src');
+      xi.replaceWith(img); return;
+    }
     var cp = e.target.closest('[data-copy]');
     if (cp && sel) {
       var url = absOf(sel), lab = cp.querySelector('span');
@@ -3512,7 +3561,9 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   var NAMES = PEOPLE.map(function (a) { return a.name; });
   var LIM = CFG.limits || { title: 120, body: 5000, comment: 2000 };
   var POLL = Math.max(20, +CFG.poll_s || 60) * 1000;
-  var K = { me: 'nrf2-board-me', token: 'nrf2-board-token', cache: 'nrf2-board-cache', demo: 'nrf2-board-demo-v1', draft: 'nrf2-board-draft' };
+  // 글쓰기 코드는 열람 코드와 별개(서버 스크립트 속성 BOARD_TOKEN). 예전 판이 열람 코드를 넣어 두던 키는 지운다.
+  var K = { me: 'nrf2-board-me', token: 'nrf2-board-code', cache: 'nrf2-board-cache', demo: 'nrf2-board-demo-v1', draft: 'nrf2-board-draft' };
+  try { localStorage.removeItem('nrf2-board-token'); } catch (e) {}
   var $ = function (id) { return document.getElementById(id); };
   var tabBtn = $('tab-board'), view = $('view-board'), badge = document.querySelector('[data-board-unread]');
   var main = $('bd-main'), whoEl = $('bd-who'), msgEl = $('bd-msg'), live = $('bd-live');
@@ -3541,7 +3592,8 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   var S = {
     me: null, choosing: false, posts: [], confirmed: [], loaded: false, loading: false, error: null, skew: 0, lastSync: 0,
     route: { view: 'list', id: null }, composing: false, editPost: null, editComment: null, drafts: {},
-    queue: [], busy: false, needToken: null, msg: null, listScroll: 0, jsonp: false, sig: ''
+    queue: [], busy: false, needToken: null, tokenDraft: '', msg: null, listScroll: 0, jsonp: false, sig: '',
+    gen: 0, composingIme: false, deferred: false
   };
   (function () { var m = load(K.me); if (NAMES.indexOf(m) >= 0) S.me = m; })();
   (function () { try { var d = JSON.parse(load(K.draft) || 'null'); if (d && (d.title || d.body)) S.drafts['new'] = { title: String(d.title || ''), body: String(d.body || '') }; } catch (e) {} })();
@@ -3695,7 +3747,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
         p.deleted = true; p.updated_at = ts; id = p.id; break;
       case 'pin_post':
         p = row(db.posts, req.id); if (!p) throw E('not_found', '글을 찾을 수 없습니다.');
-        p.pinned = !!req.pinned; id = p.id; break;
+        p.pinned = req.pinned === true || req.pinned === 1 || req.pinned === '1'; id = p.id; break;
       case 'add_comment':
         p = row(db.posts, req.post_id); if (!p) throw E('not_found', '글을 찾을 수 없습니다.');
         if (!req.body) throw E('empty', '댓글 내용을 적어 주세요.');
@@ -3705,6 +3757,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
         c = row(db.comments, req.id); if (!c) throw E('not_found', '댓글을 찾을 수 없습니다.');
         if (c.author !== who) throw E('not_author', '쓴 사람만 고칠 수 있습니다.');
         if (!req.body) throw E('empty', '댓글 내용을 적어 주세요.');
+        if (req.body.length > LIM.comment) throw E('too_long', '댓글은 ' + LIM.comment + '자까지 쓸 수 있습니다.');
         c.body = req.body; c.updated_at = ts; id = c.id; break;
       case 'delete_comment':
         c = row(db.comments, req.id); if (!c) throw E('not_found', '댓글을 찾을 수 없습니다.');
@@ -3791,18 +3844,32 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   function refresh(silent) {
     if (S.loading) return;
     S.loading = true;
+    var gen = S.gen;   // 이 목록 요청이 시작될 때의 쓰기 세대
     if (!silent) refreshTimes();
     api.list().then(function (data) {
       S.loading = false;
-      if (S.queue.length || S.busy) { S.lastSync = Date.now(); refreshTimes(); return; }   // 보내는 중이면 덮어쓰지 않는다
+      // 보내는 중이거나, 요청한 뒤에 쓰기가 반영됐으면(더 새 목록을 이미 받음) 이 목록은 버린다 — 갱신 시각도 그대로
+      if (S.queue.length || S.busy || gen !== S.gen) { refreshTimes(); return; }
       var sig = JSON.stringify(data.posts || []);
       var changed = sig !== S.sig || !S.loaded || S.error;
       S.sig = sig; accept(data);
-      if (changed) render(); else { refreshTimes(); updateBadge(); }
+      if (changed) softRender(); else { refreshTimes(); updateBadge(); }
     }, function (err) {
-      S.loading = false; S.error = err; render();
+      S.loading = false;
+      if (gen !== S.gen) return;
+      S.error = err; softRender();
     });
   }
+  /* 자동 새로고침으로 다시 그릴 때: 입력 중(포커스·한글 조합)이면 미루고, 입력이 끝나면 그린다 */
+  function typing() {
+    var a = document.activeElement;
+    return S.composingIme || !!(a && root.contains(a) && /^(INPUT|TEXTAREA)$/.test(a.tagName));
+  }
+  function softRender() {
+    if (typing()) { S.deferred = true; refreshTimes(); updateBadge(); return; }
+    S.deferred = false; render();
+  }
+  function flushDeferred() { if (S.deferred && !typing()) { S.deferred = false; render(); } }
   function run(action, payload, mutate, opts) {
     opts = opts || {};
     S.msg = null;
@@ -3819,15 +3886,16 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     var req = extend({ action: item.action, token: DEMO ? 'demo' : token(), author: S.me }, item.payload);
     api.write(req).then(function (res) {
       S.busy = false; S.queue.shift();
+      S.gen++;   // 이보다 먼저 출발한 목록 응답은 낡은 것
       S.sig = JSON.stringify((res.data && res.data.posts) || []);
       accept(res.data);
       if (item.opts.done) item.opts.done(res);
       render(); pump();
     }, function (err) {
       S.busy = false;
-      if (err.code === 'bad_token') {
+      if (err.code === 'bad_token' || err.code === 'locked') {
         save(K.token, null);
-        S.needToken = { err: '코드가 맞지 않아요. 대시보드를 열 때 넣은 숫자를 다시 입력해 주세요.' };
+        S.needToken = { err: err.code === 'locked' ? errText(err) : '게시판 코드가 맞지 않아요. 대표님이 알려 드린 코드를 다시 입력해 주세요.' };
         render(); focusId('bd-token-in'); return;   // 줄은 그대로 두고, 코드를 받으면 다시 보낸다
       }
       S.queue.shift(); rebuild();
@@ -3862,7 +3930,11 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     S.editPost = null;
     run('edit_post', { id: id, title: title, body: body }, function (posts) {
       var p = find(posts, id); if (p) { p.title = title; p.body = body; p.updated_at = ts; }
-    }, { label: '고친 내용을 저장하지 못했어요', done: function () { say('고쳤어요.'); } });
+    }, {
+      label: '고친 내용을 저장하지 못했어요', done: function () { say('고쳤어요.'); },
+      fail: function () { S.drafts['edit:' + id] = { title: title, body: body }; S.editPost = id; },
+      beforeRetry: function () { S.editPost = null; }
+    });
   }
   function deletePost(id) {
     run('delete_post', { id: id }, function (posts) {
@@ -3897,7 +3969,11 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     run('edit_comment', { id: cid, body: body }, function (posts) {
       var p = find(posts, pid); if (!p) return;
       p.comments.forEach(function (c) { if (c.id === cid) { c.body = body; c.updated_at = ts; } });
-    }, { label: '댓글을 고치지 못했어요' });
+    }, {
+      label: '댓글을 고치지 못했어요',
+      fail: function () { S.drafts['ce:' + cid] = { body: body }; S.editComment = cid; },
+      beforeRetry: function () { S.editComment = null; }
+    });
   }
   function deleteComment(pid, cid) {
     run('delete_comment', { id: cid }, function (posts) {
@@ -3956,9 +4032,9 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   }
   function tokenHtml() {
     if (!S.needToken) return '';
-    return '<form class="bd-form bd-token" data-form="token"><p class="bd-form-h">열람 코드를 한 번만 입력해 주세요</p>' +
-      '<p class="bd-hint">대시보드를 열 때 넣은 숫자입니다. 이 기기에서 기억하니 다음부터는 묻지 않아요.</p>' +
-      '<div class="bd-token-row"><input class="bd-in" id="bd-token-in" type="password" inputmode="numeric" autocomplete="off" maxlength="12" aria-label="열람 코드">' +
+    return '<form class="bd-form bd-token" data-form="token"><p class="bd-form-h">게시판 글쓰기 코드를 한 번만 입력해 주세요 — 대표님이 알려 드린 코드</p>' +
+      '<p class="bd-hint">대시보드를 열 때 넣는 4자리 열람 코드와는 다른 코드입니다. 이 기기에서 기억하니 다음부터는 묻지 않아요.</p>' +
+      '<div class="bd-token-row"><input class="bd-in" id="bd-token-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="64" aria-label="게시판 글쓰기 코드" value="' + esc(S.tokenDraft) + '">' +
       '<button type="submit" class="bd-btn primary">확인</button><button type="button" class="bd-btn quiet" data-act="token-cancel">취소</button></div>' +
       '<p class="bd-err" role="alert">' + esc(S.needToken.err || '') + '</p></form>';
   }
@@ -3998,7 +4074,8 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     h += syncHtml() + '<button type="button" class="bd-btn quiet" data-act="refresh">새로고침</button></div>';
     if (S.composing && S.me) h += postForm('new', draft('new'));
     if (!S.loaded) {
-      if (S.error) return h + '<div class="bd-empty"><b>연결이 안 돼요. 잠시 후 다시 시도해 주세요.</b><span>' + esc(errText(S.error)) + '</span>' +
+      if (S.error) return h + '<div class="bd-empty"><b>연결이 안 돼요. 잠시 후 다시 시도해 주세요.</b>' +
+        (errText(S.error) !== '연결이 안 돼요. 잠시 후 다시 시도해 주세요.' ? '<span>' + esc(errText(S.error)) + '</span>' : '') +
         '<button type="button" class="bd-btn primary" data-act="refresh">' + ICON.redo + '다시 시도</button></div>';
       return h + '<div aria-busy="true"><p class="bd-sr">불러오는 중…</p><div class="bd-list"><div class="bd-skel"></div><div class="bd-skel"></div></div></div>';
     }
@@ -4106,7 +4183,13 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
       case 'del-comment': if (p && window.confirm('이 댓글을 지울까요?')) deleteComment(p.id, id); break;
       case 'retry': if (S.msg && S.msg.retry) { var f = S.msg.retry; S.msg = null; f(); } break;
       case 'dismiss': S.msg = null; render(); break;
-      case 'token-cancel': S.needToken = null; S.queue = []; rebuild(); render(); break;
+      case 'token-cancel':
+        // 보내지 못한 것은 되돌리되, 쓴 글·댓글은 입력 칸에 그대로 돌려놓는다
+        var dropped = S.queue; S.queue = []; S.needToken = null; S.tokenDraft = '';
+        dropped.forEach(function (it) { if (it.opts && it.opts.fail) it.opts.fail({ code: 'cancelled' }); });
+        rebuild();
+        if (dropped.length) S.msg = { ok: true, text: '보내지 않았어요. 쓴 내용은 입력 칸에 그대로 남아 있어요.' };
+        render(); break;
       case 'demo-reset':
         if (window.confirm('이 기기에 저장된 시험 글을 모두 지울까요?')) { mem = null; save(K.demo, null); S.confirmed = []; S.posts = []; goList(true); refresh(); }
         break;
@@ -4122,7 +4205,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     if (kind === 'token') {
       var v = val('#bd-token-in').trim();
       if (!v) { err('코드를 입력해 주세요.'); return; }
-      save(K.token, v); S.needToken = null; render(); pump(); return;
+      save(K.token, v); S.needToken = null; S.tokenDraft = ''; render(); pump(); return;
     }
     if (!S.me) return;
     if (kind === 'new' || kind === 'edit') {
@@ -4142,12 +4225,18 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   });
   root.addEventListener('input', function (e) {
     var t = e.target, k = t.getAttribute && t.getAttribute('data-draft');
+    if (t.id === 'bd-token-in') { S.tokenDraft = t.value; return; }
     if (!k) return;
     draft(k)[t.getAttribute('data-f')] = t.value;
     if (k === 'new') saveDraft();
     var er = t.form && t.form.querySelector('.bd-err'); if (er && er.textContent) er.textContent = '';
   });
+  // 한글 조합 중에는 자동 새로고침이 입력 칸을 다시 만들지 않도록(조합이 깨지고 글자가 사라지는 것 방지)
+  root.addEventListener('compositionstart', function () { S.composingIme = true; });
+  root.addEventListener('compositionend', function () { S.composingIme = false; setTimeout(flushDeferred, 0); });
+  root.addEventListener('focusout', function () { setTimeout(flushDeferred, 0); });
   root.addEventListener('keydown', function (e) {
+    if (e.isComposing || e.keyCode === 229) return;
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && e.target.tagName === 'TEXTAREA' && e.target.form) {
       e.preventDefault();
       var ev; try { ev = new Event('submit', { bubbles: true, cancelable: true }); } catch (x) { ev = document.createEvent('Event'); ev.initEvent('submit', true, true); }
