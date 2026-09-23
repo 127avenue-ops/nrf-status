@@ -1077,7 +1077,7 @@ textarea.bd-in.sm{min-height:76px}
 /* ═══════════════════════════════════════════════════════════════
    THEME C — 「화이트 · 블루 · 하늘색」 덮어쓰기 층 (2026-09-23 · 대표님 「애플 디자인, 깔끔하게」 · 「깔끔한 화이트, 블루, 하늘색 테마로」)
    기존 <style> 맨 끝에 붙는다. 마크업·id·class·글자는 그대로 두고 겉모습만 바꾼다.
-   · 첫 화면 = 큰 제목만 있는 전면 인트로(흰 바탕 · 화면 높이) → 내려가면 옅은 하늘색 바탕 위 흰 카드
+   · 첫 화면 = 흰 띠 머리말(큰 제목 · 보통 높이 · 대표님 09-23 「처음 스크롤은 없어도 될 것 같은데」로 전면 인트로 폐기) → 옅은 하늘색 바탕 위 흰 카드
    · 글꼴 = Pretendard Variable(웹폰트 · nrf2_theme가 <link>로 넣음) → 없으면 시스템 한글 글꼴
    · 흰 바탕 + 파랑(강조·선택 탭·단추) + 하늘색(옅은 면·표지·빛) · 섹션은 아래에서 떠오른다(theme_C.js가 html.c-motion을 달 때만)
    ═══════════════════════════════════════════════════════════════ */
@@ -1134,12 +1134,12 @@ a{color:var(--accent);text-decoration:none;text-underline-offset:3px}
 a:hover{text-decoration:underline}
 ::selection{background:#bfe0ff}
 
-/* ── 첫 화면: 전면 인트로 (흰 바탕 · 화면 높이 · 큰 제목만) ───────────
+/* ── 머리말: 흰 띠 (큰 제목 · 보통 높이 · 메뉴가 첫 화면에 바로 보인다) ───────────
    흰 띠는 box-shadow 100vmax + clip-path 로 좌우 끝까지 — 100vw 를 쓰지 않아 가로 넘침이 없다 */
 header{
-  position:relative;min-height:100svh;min-height:100vh;
+  position:relative;min-height:0;
   display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:0;
-  margin:0;padding:clamp(56px,9vh,96px) 0 clamp(88px,12vh,120px);
+  margin:0;padding:clamp(44px,7vw,84px) 0 clamp(32px,4.5vw,52px);
   background:#fff;box-shadow:0 0 0 100vmax #fff;clip-path:inset(0 -100vmax);isolation:isolate;
 }
 /* 제목 뒤 옅은 하늘색 빛(장식) */
@@ -1148,15 +1148,14 @@ header::before{
   background:radial-gradient(ellipse 60% 42% at 50% 44%,rgba(58,160,255,.17) 0%,rgba(58,160,255,.06) 55%,transparent 100%);
 }
 header > *{position:relative}
-@supports (min-height:100svh){header{min-height:100svh}}
 header .kicker{order:2;font-size:clamp(14px,1.6vw,16px);font-weight:600;color:var(--accent);margin-top:clamp(18px,2.6vh,28px);letter-spacing:0}
 h1{
-  order:1;font-size:clamp(54px,10.5vw,104px);font-weight:300;line-height:1.02;letter-spacing:-0.05em;
+  order:1;font-size:clamp(46px,8.4vw,84px);font-weight:300;line-height:1.02;letter-spacing:-0.05em;
   color:var(--ink);word-break:keep-all;text-wrap:balance;margin:0;
 }
 h1 .c-strong{font-weight:800;letter-spacing:-0.055em;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .headline{
-  order:3;max-width:36em;margin:clamp(40px,6vh,64px) auto 0;font-size:clamp(16px,1.9vw,18px);line-height:1.75;
+  order:3;max-width:36em;margin:clamp(24px,3.2vw,40px) auto 0;font-size:clamp(16px,1.9vw,18px);line-height:1.75;
   font-weight:400;color:var(--muted);text-wrap:pretty;
 }
 .headline b{
@@ -1170,14 +1169,7 @@ h1 .c-strong{font-weight:800;letter-spacing:-0.055em;background:linear-gradient(
   background:var(--accent-soft);color:#0b4f9e;font-size:14px;font-weight:500;line-height:1.6;
   font-family:var(--sans);text-wrap:balance;
 }
-/* 내려가라는 표시(장식 · 글자 없음) */
-header::after{
-  content:"";position:absolute;left:50%;bottom:clamp(28px,5vh,44px);width:14px;height:14px;
-  margin-left:-9px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
-  transform:rotate(45deg);opacity:.7;
-}
-html.c-motion header::after{animation:c-bob 2.2s var(--c-ease) 1.4s infinite}
-@keyframes c-bob{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(7px) rotate(45deg)}}
+header::after{display:none}
 
 /* ── 메뉴: 알약형 · 스크롤 시 상단 고정 · 선택 = 파랑 알약 ─────────── */
 .tabs{
@@ -1422,15 +1414,14 @@ html.c-motion header > .kicker{animation-delay:.28s}
 html.c-motion header > .headline{animation-delay:.42s}
 @keyframes c-hero{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  .view,html.c-motion header > *,html.c-motion header::after{animation:none}
+  .view,html.c-motion header > *{animation:none}
   html.c-motion .c-up,html.c-motion .c-up:not(.c-in){opacity:1;transform:none;transition:none}
   .tab{transition:none}
 }
 @media print{
   html.c-motion .c-up,html.c-motion .c-up:not(.c-in){opacity:1!important;transform:none!important;transition:none!important}
   .view,html.c-motion header > *{animation:none!important}
-  header{min-height:0;box-shadow:none;clip-path:none;padding:20px 0}
-  header::after{display:none}
+  header{box-shadow:none;clip-path:none;padding:20px 0}
   .tabs,nav.tabs{position:static!important;box-shadow:none!important;backdrop-filter:none!important}
   #gate{display:none!important}
 }
@@ -1439,10 +1430,10 @@ html.c-motion header > .headline{animation-delay:.42s}
 @media (max-width:560px){
   body{font-size:16px}
   :root{--c-radius:22px;--c-pad:22px}
-  header{padding:56px 0 96px}
-  h1{font-size:clamp(46px,14vw,60px)}
+  header{padding:40px 0 28px}
+  h1{font-size:clamp(42px,12vw,54px)}
   header .kicker{font-size:14px;margin-top:16px}
-  .headline{font-size:15.5px;margin-top:32px}
+  .headline{font-size:15.5px;margin-top:22px}
   .headline b{font-size:20px}
   .head-num{font-size:13.5px;padding:10px 16px;margin-top:20px}
   .g-lead{font-size:16px}
@@ -1474,10 +1465,6 @@ html.c-motion header > .headline{animation-delay:.42s}
 .page{padding-left:max(var(--c-gutter),env(safe-area-inset-left));padding-right:max(var(--c-gutter),env(safe-area-inset-right));
   padding-bottom:calc(120px + env(safe-area-inset-bottom))}
 @media (max-width:560px){
-  /* 첫 화면: 화면보다 조금 짧게 → 메뉴 알약이 아래에 살짝 보여 「내려가면 더 있다」를 알린다 */
-  header{min-height:0;min-height:min(100svh - 64px,760px);padding:44px 0 72px}
-  header::after{bottom:24px}
-  .headline{margin-top:26px}
   /* 입력 칸 16px 이상 → iOS가 포커스 때 화면을 확대하지 않는다 */
   input,textarea,select,#pin,.fx-search input,.bd-form input,.bd-form textarea{font-size:16px!important}
   /* 탭: 한 화면에 더 많이 · 선택 탭은 스크립트가 가운데로 */
