@@ -1558,7 +1558,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
    "role": "공동연구원"
   }
  ],
- "endpoint": "",
+ "endpoint": "https://script.google.com/macros/s/AKfycbyt8u17NV8jorN60cc_yPzGJ9VahYLDsz9wdmC5oQgGOMNeaL5q2uAXduIMOHN9byf1/exec",
  "limits": {
   "body": 5000,
   "comment": 2000,
@@ -2902,6 +2902,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
     var v = (pin.value || '').trim();
     if (hash('nrf2-gate|' + v) === EXPECT) {
       try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      try { localStorage.setItem('nrf2-board-code', v); } catch (e) {}   // 게시판 글쓰기 코드 = 열람 코드(board-tab)
       open();
     } else {
       msg.textContent = '코드가 맞지 않습니다.';
@@ -3895,7 +3896,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
       S.busy = false;
       if (err.code === 'bad_token' || err.code === 'locked') {
         save(K.token, null);
-        S.needToken = { err: err.code === 'locked' ? errText(err) : '게시판 코드가 맞지 않아요. 대표님이 알려 드린 코드를 다시 입력해 주세요.' };
+        S.needToken = { err: err.code === 'locked' ? errText(err) : '코드가 맞지 않아요. 사이트 열람 코드를 다시 입력해 주세요.' };
         render(); focusId('bd-token-in'); return;   // 줄은 그대로 두고, 코드를 받으면 다시 보낸다
       }
       S.queue.shift(); rebuild();
@@ -4032,7 +4033,7 @@ footer p{font-size:14px;color:var(--muted);line-height:1.7;word-break:keep-all}
   }
   function tokenHtml() {
     if (!S.needToken) return '';
-    return '<form class="bd-form bd-token" data-form="token"><p class="bd-form-h">게시판 글쓰기 코드를 한 번만 입력해 주세요 — 대표님이 알려 드린 코드</p>' +
+    return '<form class="bd-form bd-token" data-form="token"><p class="bd-form-h">글쓰기 코드를 한 번만 입력해 주세요 — 사이트에 들어올 때 넣은 열람 코드와 같아요</p>' +
       '<p class="bd-hint">대시보드를 열 때 넣는 4자리 열람 코드와는 다른 코드입니다. 이 기기에서 기억하니 다음부터는 묻지 않아요.</p>' +
       '<div class="bd-token-row"><input class="bd-in" id="bd-token-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="64" aria-label="게시판 글쓰기 코드" value="' + esc(S.tokenDraft) + '">' +
       '<button type="submit" class="bd-btn primary">확인</button><button type="button" class="bd-btn quiet" data-act="token-cancel">취소</button></div>' +
