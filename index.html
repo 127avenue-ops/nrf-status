@@ -7,10 +7,12 @@
 <meta name="description" content="간호인력 연구 2026 — 근무 규칙을 반영한 병동 간호인력 배수표 개발(국립중앙의료원 내부연구사업 신청 과제). AI 도구는 llms.txt 와 docs/*.md 텍스트판을 읽으세요.">
 <link rel="alternate" type="text/markdown" title="AI·도구용 안내" href="llms.txt">
 <title>간호인력 연구 2026</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root{--bg:#f3f8fd;--card:#fff;--ink:#0f172a;--mute:#5b6b82;--line:#dbe7f3;--blue:#1d5fd1;--blue2:#0b3f99;--sky:#e3f1fd;--sky2:#cfe6fb;--ok:#0f7a4a;--warn:#9a5b00}
 *{box-sizing:border-box}
+body{word-break:keep-all;overflow-wrap:break-word}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
 a{color:var(--blue)}
 .wrap{max-width:920px;margin:0 auto;padding:0 16px}
@@ -216,6 +218,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .decchip{border:1px solid #f0c24b;background:#fff4cc;color:#6b4700;font:inherit;font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;cursor:pointer}
 .decchip:hover{background:#ffeaa0}
 .tkintro{margin:0 0 4px;font-size:15px}
+.tkme{margin:8px 0 0;padding:9px 12px;border-radius:10px;background:#e3eeff;color:#1d3f8f;font-size:14px;font-weight:600;border-left:4px solid var(--blue)}
 .tklist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
 .tklist .empty{color:var(--mute);font-size:14px;padding:12px 14px;border:1px dashed var(--sky2);border-radius:12px;background:#fbfdff}
 .tklist .empty b{color:var(--ink)}
@@ -281,7 +284,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
     <ol class="steps">
       <li><span class="num" aria-hidden="true">1</span><div><b>이름</b> — <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
       <li><span class="num" aria-hidden="true">2</span><div><b>파일함에서 문서 열고 고치기</b> — 「새 문서」로 만들거나 문서를 눌러 「편집」 → 「저장」. 동시에 고치면 알려 드리고, 이전 내용은 자동 백업됩니다.</div></li>
-      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다. 「김대연 선생님 AI에게 ○○ 물어봐 줘」라고 하면 두 AI가 <a href="#talk">의견을 주고받습니다</a>.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다. 「김대연 선생님 AI에게 ○○ 물어봐 줘」라고 하면 <a href="#talk">의견 교환</a>에 질문이 남고, 상대 선생님이 AI를 부를 때 답이 옵니다.</div></li>
     </ol>
     <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다 — 10분마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
     <details class="faq">
@@ -335,7 +338,9 @@ footer .linkbtn{font-size:12px;font-weight:500}
 
   <section class="card" id="talk" hidden aria-labelledby="talkH">
     <h2 id="talkH">AI 의견 교환 <span class="note" style="font-weight:500" id="tkN"></span></h2>
-    <p class="tkintro">두 분의 AI가 여기서 의견을 주고받습니다. 두 분은 노란 표시(사람이 정할 것)만 확인하시면 됩니다.</p>
+    <p class="tkintro">두 분의 AI가 여기서 의견을 주고받습니다. 상대 AI는 상대 선생님이 AI를 부를 때 답하니, 두 분은 노란 표시(사람이 정할 것)만 확인하시면 됩니다.</p>
+    <p class="note" style="margin:0 0 4px">정하신 뒤에는 AI에게 「'주제' 결론은 ○○로 해 줘」라고 하거나, 아래 「직접 남기기」에서 「결론」을 고르면 「끝남」으로 바뀝니다.</p>
+    <p class="tkme" id="tkMe" hidden></p>
     <ul class="tklist" id="tkList"></ul>
     <details class="tkform">
       <summary>직접 남기기</summary>
@@ -536,8 +541,9 @@ footer .linkbtn{font-size:12px;font-weight:500}
 
   /* ── 파일함 목록 ── */
   var MIRROR="_볼트 노트(자동 사본)";
-  function roFolder(){return !!last&&(last.folder.readonly===true||last.path.some(function(x){return x.name===MIRROR}))}
-  function ro(f,isDir){return !!f&&(f.readonly===true||(isDir&&f.name===MIRROR)||roFolder())}
+  function roFolder(){if(!last)return false;if(typeof last.folder.readonly==="boolean")return last.folder.readonly;return !!last.path[1]&&last.path[1].name===MIRROR}
+  function ro(f,isDir){if(!f)return false;if(typeof f.readonly==="boolean")return f.readonly;
+    return (isDir&&f.name===MIRROR&&!!last&&last.path.length===1)||roFolder()}
   function roTools(){var r=roFolder();$("fbRo").hidden=!r;["fbUp","fbNew","fbMkdir"].forEach(function(id){$(id).style.display=r?"none":""})}
   function render(j){
     cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
@@ -742,13 +748,18 @@ footer .linkbtn{font-size:12px;font-weight:500}
       else if(talkOK===false&&Date.now()-talkTry>120000)loadTalks();
     }).catch(function(e){if(e.code==="bad_action")v4no();else fails++})
     .then(function(){pulsing=false;drawLive();schedule()})}
-  function schedule(){clearTimeout(pulseT);pulseT=null;if(document.hidden||!started)return;pulseT=setTimeout(pulse,v4===false?60000:15000)}
+  /* Apps Script 사용량 절약: 최근 3분 안에 움직임이 있을 때만 15초, 아니면 60초 */
+  var lastAct=Date.now(),ACTIVE=180000;
+  function active(){return Date.now()-lastAct<ACTIVE}
+  function touchAct(){var wasIdle=!active();lastAct=Date.now();if(wasIdle&&started&&!document.hidden&&v4===true){clearTimeout(pulseT);pulseT=setTimeout(pulse,500)}}
+  ["mousemove","pointerdown","keydown","touchstart","wheel","scroll"].forEach(function(t){window.addEventListener(t,touchAct,{passive:true,capture:true})});
+  function schedule(){clearTimeout(pulseT);pulseT=null;if(document.hidden||!started)return;pulseT=setTimeout(pulse,v4===false||!active()?60000:15000)}
   function pulseSoon(){if(v4!==true||!started)return;clearTimeout(psT);psT=setTimeout(pulse,400)}
   var tickN=0;
   function tick(){if(document.hidden)return;if(v4&&lastOk&&fails<2)$("fbLiveT").textContent="실시간 · "+ago(lastOk)+" 확인";
     if(++tickN%6===0){Array.prototype.forEach.call(document.querySelectorAll(".rclist [data-t]"),function(s){s.textContent=rel(s.getAttribute("data-t"))});
       if(rc.length)$("rcN").textContent="· 마지막 "+rel(rc[0].t);if(doc)dvMeta();
-      if(talks.length&&!$("tkList").contains(document.activeElement))drawTalks()}}
+      if(talks.length&&!talkBusyUser())drawTalks()}}
 
   /* ── AI 의견 교환 ── */
   var talkToasts=[],talks=[],talkOK=null,talkTry=0,talkLatest="",talkBusy=false,tkT=null,pulseDec=null;
@@ -756,16 +767,21 @@ footer .linkbtn{font-size:12px;font-weight:500}
   function ttype(v){v=String(v||"");return /결정|decide/i.test(v)?"결정필요":/결론|conclude/i.test(v)?"결론":/메모|note/i.test(v)?"메모":/답|reply/i.test(v)?"답":/질문|ask/i.test(v)?"질문":""}
   function tlabel(t){return t==="결정필요"?"사람이 정할 것":t}
   /* 기록 예: action 「의견 교환」 · target 「주제.md · 3번 결정필요」 — 누가 썼는지(AI/사람)는 talks의 last.from으로 */
-  function talkSentence(x,from){var tg=String(x.target||""),i=tg.indexOf(" · "),topic=(i>=0?tg.slice(0,i):tg).replace(/\.md$/i,""),
+  function talkSentence(x,from){var tg=String(x.target||""),i=tg.lastIndexOf(" · "),topic=(i>=0?tg.slice(0,i):tg).replace(/\.md$/i,""),
       t=ttype((i>=0?tg.slice(i+3):"")+" "+String(x.action||"").replace(/의견\s*교환/g,"")),w=x.who,q="「"+topic+"」",
       s=from?(/의 AI$/.test(from)?from+"가":from+" 님이"):(!w||/^\(/.test(w))?"AI가":/사람|person/i.test(x.action||"")?w+" 님이":w+"의 AI가";
     if(t==="결정필요")return s+" "+q+"에 사람이 정할 것을 올렸습니다";
     return s+" "+q+"에 "+(t?t+obj(t):"의견을")+" 남겼습니다"}
   function tstat(v){v=String(v||"");return /정할/.test(v)?"dec":/끝/.test(v)?"end":/답함/.test(v)?"ans":/대기/.test(v)?"wait":"etc"}
   function otherName(){return me()==="김대연"?"송지수":"김대연"}
+  var talkTouch=0;
+  function talkBusyUser(){var t=$("talk");return t.contains(document.activeElement)||Date.now()-talkTouch<60000}
+  function waitsForMe(x){var m=me();return !!m&&tstat(x.status)==="wait"&&String(x.status).indexOf("→ "+m)>=0}
+  function drawMine(){var m=me(),n=talks.filter(waitsForMe).length,p=$("tkMe");p.hidden=!n;
+    if(n)p.textContent=m+" 님 AI에게 답할 질문이 "+n+"개 있어요 — 내 AI에게 「의견 교환 확인해 줘」라고 말해 주세요."}
   function drawDec(){var n=pulseDec!=null?pulseDec:talks.filter(function(x){return tstat(x.status)==="dec"}).length;
     $("decChip").hidden=!(talkOK===true&&n>0);$("decN").textContent=n}
-  function drawTalks(){var ul=$("tkList");ul.innerHTML="";
+  function drawTalks(force){var ul=$("tkList");ul.innerHTML="";
     var items=talks.map(function(x,i){return[x,i]}).sort(function(a,b){return((tstat(b[0].status)==="dec")-(tstat(a[0].status)==="dec"))||a[1]-b[1]}).map(function(p){return p[0]});
     $("tkN").textContent=talks.length?talks.length+"개 주제":"";
     if(!items.length){var e=el("li","empty");e.appendChild(document.createTextNode("아직 주고받은 의견이 없습니다. 내 AI에게 이렇게 말해 보세요 — "));
@@ -776,14 +792,15 @@ footer .linkbtn{font-size:12px;font-weight:500}
       if(parts.length||L.preview)b.appendChild(el("span","tks",parts.join(" · ")+(L.preview?" — "+String(L.preview).replace(/\s+/g," "):"")));
       if(x.conclusion&&!/아직 없음/.test(x.conclusion))b.appendChild(el("span","tkc","결론: "+x.conclusion));
       li.appendChild(b);ul.appendChild(li)});
+    drawMine();if(!force&&talkBusyUser())return;
     var sel=$("tkTopic"),keep=sel.value;sel.innerHTML="";sel.appendChild(el("option",null,"새 주제…")).value="";
     talks.forEach(function(x){var o=el("option",null,x.topic);o.value=x.topic;sel.appendChild(o)});
     sel.value=keep;if(sel.value!==keep)sel.value="";$("tkNew").hidden=!!sel.value}
   function openTalk(x){viewer({id:x.id,name:(x.topic||"의견 교환")+".md",kind:"text",mime:"text/markdown",updated:x.updated},{talk:true})}
   function flushTalkToasts(){var q=talkToasts;talkToasts=[];q.forEach(function(x){var it=null;
       talks.forEach(function(y){if(y.id===x.id)it=y});toast(talkSentence(x,it&&it.last&&it.last.from))})}
-  function loadTalks(){if(talkBusy){talkSoon();return}talkBusy=true;talkTry=Date.now();
-    api("talks",{}).then(function(j){talkOK=true;talks=Array.isArray(j.items)?j.items:[];$("talk").hidden=false;drawTalks();drawDec()})
+  function loadTalks(force){if(talkBusy){talkSoon();return}talkBusy=true;talkTry=Date.now();
+    api("talks",{}).then(function(j){talkOK=true;talks=Array.isArray(j.items)?j.items:[];$("talk").hidden=false;drawTalks(force);drawDec()})
     .catch(function(e){if(e.code==="bad_action"){talkOK=false;$("talk").hidden=true;$("decChip").hidden=true}})
     .then(function(){talkBusy=false;flushTalkToasts()})}
   function talkSoon(){clearTimeout(tkT);tkT=setTimeout(loadTalks,800)}
@@ -791,10 +808,13 @@ footer .linkbtn{font-size:12px;font-weight:500}
     if(!topic){m.textContent="주제를 적어 주세요.";$("tkNew").focus();return}if(!text){m.textContent="내용을 적어 주세요.";$("tkText").focus();return}
     $("tkGo").disabled=true;m.textContent="남기는 중…";
     api("talk",{topic:topic,type:$("tkType").value,text:text,by:"person"},true).then(function(j){$("tkText").value="";$("tkNew").value="";
-      m.textContent="남겼습니다"+(j.n?" — "+j.n+"번":"")+(j.status?" · 상태: "+j.status:"");loadTalks();pulseSoon()})
+      m.textContent=j.dedup?"방금 같은 글이 있어 한 번만 남겼습니다":"남겼습니다"+(j.n?" — "+j.n+"번":"")+(j.status?" · 상태: "+j.status:"");talkTouch=0;loadTalks(true);pulseSoon()})
     .catch(function(e){m.textContent=e.code==="bad_action"?"아직 준비 중인 기능입니다.":e.message})
     .then(function(){$("tkGo").disabled=false})}
-  function bindTalk(){$("tkGo").onclick=postTalk;$("tkTopic").onchange=function(){$("tkNew").hidden=!!this.value};
+  function bindTalk(){$("tkGo").onclick=postTalk;
+    $("tkTopic").onchange=function(){var v=this.value,it=null;$("tkNew").hidden=!!v;talks.forEach(function(x){if(x.topic===v)it=x});
+      $("tkType").value=it&&waitsForMe(it)?"답":"질문"};
+    ["pointerdown","keydown","input","focusin"].forEach(function(t){$("talk").addEventListener(t,function(){talkTouch=Date.now()})});
     $("decChip").onclick=function(){$("talk").hidden=false;$("talk").scrollIntoView({behavior:"smooth",block:"start"})};
     loadTalks()}
 
@@ -844,7 +864,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
     if(!doc)lastFocus=document.activeElement;
     var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,talk:!!opt.talk,
-      readonly:f.readonly===true||(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
+      readonly:typeof f.readonly==="boolean"?f.readonly:(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
     $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
     $("dvName").textContent=f.name;$("dvMeta").textContent="";bar("");stat("");$("dvAppText").value="";
     var body=$("dvBody");body.textContent="";body.appendChild(el("p","note",opt.plain?"글자를 뽑는 중… (PDF·한글 파일은 30초쯤 걸릴 수 있습니다)":"불러오는 중…"));
@@ -930,8 +950,10 @@ footer .linkbtn{font-size:12px;font-weight:500}
   /* ── 누구세요? ── */
   var whoBack=null;
   function drawId(){var w=me();$("idChip").hidden=!w;$("idName").textContent=w;if($("intro"))introWho()}
+  function aiPromptDraw(){var c=code()||"(열람 코드)",w=who(false)||"송지수",k=w.charCodeAt(w.length-1)-44032,ya=(k>=0&&k<11172&&k%28)?"이야":"야";
+    $("aiPrompt").textContent="https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 "+c+"이야. 기록에 남길 내 이름은 "+w+ya+"."}
   function setWho(n){n=String(n||"").trim().slice(0,20);if(!n)return false;try{localStorage.setItem("nrf_who",n)}catch(e){}
-    closeWho();drawId();drawLive();drawRecent();
+    closeWho();drawId();drawLive();drawRecent();aiPromptDraw();
     if(started&&v4!==false){clearTimeout(psT);if(pulsing)psT=setTimeout(pulse,1500);else pulse()}
     return true}
   function openWho(canCancel){whoBack=document.activeElement;$("whoCancel").hidden=!canCancel||!me();$("whoPick").hidden=false;
@@ -969,17 +991,17 @@ footer .linkbtn{font-size:12px;font-weight:500}
     try{var sv=sessionStorage.getItem("nrf_visit_prev");
       if(sv!=null)prevVisit=+sv||0;else{prevVisit=+localStorage.getItem("nrf_prev_visit")||0;localStorage.setItem("nrf_prev_visit",String(Date.now()));sessionStorage.setItem("nrf_visit_prev",String(prevVisit))}}catch(e){}
     try{seen=JSON.parse(localStorage.getItem("nrf_seen")||"{}")||{}}catch(e){seen={}}
-    var c=code();if(c)$("aiPrompt").textContent="https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 "+c+"이야. 기록에 남길 내 이름은 송지수야.";
+    aiPromptDraw();
     $("aiCopy").onclick=function(){var b=this;copyText($("aiPrompt").textContent).then(function(ok){b.textContent=ok?"복사됨":"길게 눌러 복사해 주세요";setTimeout(function(){b.textContent="복사"},2500)})};
     try{$("rc").open=!window.matchMedia("(max-width:560px)").matches}catch(e){$("rc").open=true}
     drawRecent();bindViewer();initIntro();bindWho();bindTalk();
     load("");
     loadRecent(true);
     setInterval(tick,5000);
-    setInterval(function(){if(document.hidden||busy)return;if(!cur){if(Date.now()-lastListAt>=60000){lastListAt=Date.now();load("",true)}return}if(Date.now()-lastListAt>=60000)quiet()},10000);
+    setInterval(function(){if(document.hidden||busy)return;if(!cur){if(Date.now()-lastListAt>=60000){lastListAt=Date.now();load("",true)}return}if(Date.now()-lastListAt>=180000)quiet()},10000);
     document.addEventListener("visibilitychange",function(){
       if(document.hidden){clearTimeout(pulseT);pulseT=null;return}
-      pulse();if(cur&&Date.now()-lastListAt>=60000)quiet()});
+      lastAct=Date.now();pulse();if(cur&&Date.now()-lastListAt>=180000)quiet()});
   };
 })();
 </script>
