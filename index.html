@@ -213,6 +213,33 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .morefmt{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;padding:0 12px}
 .morefmt summary{cursor:pointer;font-weight:700;font-size:14px;padding:10px 2px;color:var(--mute)}
 .morefmt .docs{padding:0 0 12px}
+.decchip{border:1px solid #f0c24b;background:#fff4cc;color:#6b4700;font:inherit;font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;cursor:pointer}
+.decchip:hover{background:#ffeaa0}
+.tkintro{margin:0 0 4px;font-size:15px}
+.tklist{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.tklist .empty{color:var(--mute);font-size:14px;padding:12px 14px;border:1px dashed var(--sky2);border-radius:12px;background:#fbfdff}
+.tklist .empty b{color:var(--ink)}
+.tk{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;font:inherit;color:var(--ink);cursor:pointer}
+.tk:hover,.tk:focus-visible{background:#f7fbff}
+.tk.dec{border:2px solid #f0c24b;background:#fffbea}
+.tkt{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.tkt b{font-size:15px;overflow-wrap:anywhere}
+.tkb{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.tkb.wait{background:#e3eeff;color:#1d4fb8}
+.tkb.ans{background:#e2f5ea;color:#0f7a4a}
+.tkb.dec{background:#ffe08a;color:#5c3d00}
+.tkb.end{background:#eceff3;color:#5b6b82}
+.tkb.etc{background:var(--sky);color:var(--blue2)}
+.tks{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;color:var(--mute);margin-top:4px;overflow-wrap:anywhere}
+.tkc{display:block;font-size:13px;margin-top:4px;color:var(--ok);font-weight:600;overflow-wrap:anywhere}
+.tkform{margin:12px 0 0}
+.tkform summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--mute);padding:4px 0}
+.tkf{display:grid;gap:8px;margin-top:6px;max-width:560px}
+.tkf label{font-size:13px;font-weight:700;color:var(--mute);display:flex;gap:8px;align-items:center}
+.tkf select,.tkf input,.tkf textarea{font:inherit;font-size:15px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;min-width:0;color:var(--ink)}
+.tkf select{flex:1}
+.tkf textarea{min-height:70px;resize:vertical}
+.tkf .go{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .ronote{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:#eef3f9;color:#44546a;font-size:13px}
 @media (max-width:560px){
   .modal{padding:0}
@@ -243,7 +270,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
 
 <div id="app" hidden>
 <header><div class="wrap">
-  <div class="hdrtop"><div class="eyebrow">2026 제2차 내부연구사업 · 공공보건의료연구소</div><span class="hdrr"><span class="idchip" id="idChip" hidden><b id="idName"></b> 님으로 보는 중 <button type="button" class="linkbtn" id="idChange">바꾸기</button></span><button type="button" class="guide" id="introOpen">사용 안내</button></span></div>
+  <div class="hdrtop"><div class="eyebrow">2026 제2차 내부연구사업 · 공공보건의료연구소</div><span class="hdrr"><button type="button" class="decchip" id="decChip" hidden>사람이 정할 것 <b id="decN">0</b>건</button><span class="idchip" id="idChip" hidden><b id="idName"></b> 님으로 보는 중 <button type="button" class="linkbtn" id="idChange">바꾸기</button></span><button type="button" class="guide" id="introOpen">사용 안내</button></span></div>
   <h1>근무 규칙을 반영한 병동 간호인력 배수표 개발</h1>
   <p class="sub">가상근무표 시뮬레이션을 통한 추가 필요인력 산정</p>
 </div></header>
@@ -254,7 +281,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
     <ol class="steps">
       <li><span class="num" aria-hidden="true">1</span><div><b>이름</b> — <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
       <li><span class="num" aria-hidden="true">2</span><div><b>파일함에서 문서 열고 고치기</b> — 「새 문서」로 만들거나 문서를 눌러 「편집」 → 「저장」. 동시에 고치면 알려 드리고, 이전 내용은 자동 백업됩니다.</div></li>
-      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다. 「김대연 선생님 AI에게 ○○ 물어봐 줘」라고 하면 두 AI가 <a href="#talk">의견을 주고받습니다</a>.</div></li>
     </ol>
     <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다 — 10분마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
     <details class="faq">
@@ -306,6 +333,22 @@ footer .linkbtn{font-size:12px;font-weight:500}
     </details>
   </section>
 
+  <section class="card" id="talk" hidden aria-labelledby="talkH">
+    <h2 id="talkH">AI 의견 교환 <span class="note" style="font-weight:500" id="tkN"></span></h2>
+    <p class="tkintro">두 분의 AI가 여기서 의견을 주고받습니다. 두 분은 노란 표시(사람이 정할 것)만 확인하시면 됩니다.</p>
+    <ul class="tklist" id="tkList"></ul>
+    <details class="tkform">
+      <summary>직접 남기기</summary>
+      <div class="tkf">
+        <label>주제 <select id="tkTopic"><option value="">새 주제…</option></select></label>
+        <input id="tkNew" maxlength="60" placeholder="새 주제 이름 (예: 배수 1.6 검토)" aria-label="새 주제 이름">
+        <label>종류 <select id="tkType"><option value="질문">질문</option><option value="답">답</option><option value="결정필요">사람이 정할 것</option><option value="결론">결론</option><option value="메모">메모</option></select></label>
+        <textarea id="tkText" placeholder="남길 내용" aria-label="남길 내용"></textarea>
+        <div class="go"><button type="button" class="btn sm" id="tkGo">남기기</button><span class="note" id="tkMsg" role="status"></span></div>
+      </div>
+    </details>
+  </section>
+
   <section class="card" id="ai">
     <h2>AI와 함께 쓰기</h2>
     <p style="margin:0 0 8px">송지수 선생님 PC의 AI 프로그램(ChatGPT·Claude·Gemini 등)도 이 파일함을 함께 씁니다.</p>
@@ -322,6 +365,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
       <li>「제출본 폴더의 최신 PDF를 요약해 줘」</li>
       <li>「회의록 폴더에 오늘 회의록을 새로 만들어 줘」</li>
       <li>「'참고문헌 정리.md'에 이 논문을 덧붙여 줘」</li>
+      <li>「김대연 선생님 AI에게 '○○' 물어봐 줘」 <span class="note">— 주고받은 내용은 위 「AI 의견 교환」에 모입니다</span></li>
     </ul>
     <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「최근 변경」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
   </section>
@@ -443,7 +487,12 @@ footer .linkbtn{font-size:12px;font-weight:500}
   function who(ask){var w="";try{w=localStorage.getItem("nrf_who")||""}catch(e){}
     if(!w&&ask){w=(prompt("기록에 남길 이름을 적어 주세요 (예: 송지수)")||"").trim();try{if(w)localStorage.setItem("nrf_who",w)}catch(e){}}return w}
   function msg(t,bad){var m=$("fbMsg");m.textContent=t||"";m.style.color=bad?"#b42318":""}
+  // 구글이 30초를 넘기면 쓰기는 됐는데 응답만 깨진다(badjson). 서버가 같은 요청을 한 번만 처리하는 동작은 한 번 더 보내 결과를 받는다.
+  var SAFE_RETRY={talk:1,append:1,write:1,trash:1,restore:1,rename:1,list:1,text:1,stat:1,recent:1,talks:1,pulse:1};
   function api(action,data,ask){
+    return api1(action,data,ask).then(null,function(e){if(e.code!=="badjson"||!SAFE_RETRY[action])throw e;return api1(action,data,ask)})
+  }
+  function api1(action,data,ask){
     var body=Object.assign({action:action,code:code(),who:who(ask)},data||{});
     return fetch(API,{method:"POST",body:JSON.stringify(body)}).then(null,function(){
       var e=new Error("서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.");e.code="net";throw e
@@ -621,7 +670,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
   function obj(n){var c=String(n||"").trim().slice(-1),k=c.charCodeAt(0);
     if(k>=0xAC00&&k<=0xD7A3)return(k-0xAC00)%28?"을":"를";
     if(/[013678]/.test(c))return"을";if(/[lmnr]/i.test(c))return"을";return"를"}
-  function sentence(x){var t="「"+String(x.target||"파일").replace(/ \(폴더\)$/,"")+"」",a=actName(x.action),s=subj(x.who);
+  function sentence(x){if(isTalk(x))return talkSentence(x);var t="「"+String(x.target||"파일").replace(/ \(폴더\)$/,"")+"」",a=actName(x.action),s=subj(x.who);
     if(/덧붙/.test(a))return s+" "+t+"에 글을 덧붙였습니다";
     if(/새 문서|write/.test(a))return s+" "+t+" 문서를 새로 만들었습니다";
     if(/폴더/.test(a))return s+" "+t+" 폴더를 만들었습니다";
@@ -644,9 +693,9 @@ footer .linkbtn{font-size:12px;font-weight:500}
   function concerns(x){if(!last)return false;var p=last.path.map(function(y){return y.name}).join("/");
     if(x.where&&x.where===p)return true;
     return !!x.id&&last.folders.concat(last.files).some(function(f){return f.id===x.id})}
-  function onRemote(x){if(mine(x))return;
+  function onRemote(x){if(isTalk(x))talkSoon();if(mine(x))return;
     if(x.id&&!gone(x))liveNew[x.id]=true;
-    toast(sentence(x));
+    if(isTalk(x))talkToasts.push(x);else toast(sentence(x));
     if(concerns(x)){reloadSoon();if(!document.querySelector(".menu"))draw()}}
   function drawRecent(){var ol=$("rcList");ol.innerHTML="";
     $("rcN").textContent=rc.length?"· 마지막 "+rel(rc[0].t):"";if(rc.length)$("rcN").setAttribute("data-t",rc[0].t);
@@ -689,6 +738,8 @@ footer .linkbtn{font-size:12px;font-weight:500}
       merge(j.recent,primed);primed=true;
       viewersNow=j.viewers||[];
       if(j.file&&doc&&doc.id===fid&&(!j.file.id||j.file.id===fid))docRemote(j.file);
+      if(j.talk){pulseDec=+j.talk.decide||0;if(talkOK!==true)loadTalks();else if(j.talk.latest&&j.talk.latest!==talkLatest&&talkLatest)talkSoon();if(j.talk.latest)talkLatest=j.talk.latest;drawDec()}
+      else if(talkOK===false&&Date.now()-talkTry>120000)loadTalks();
     }).catch(function(e){if(e.code==="bad_action")v4no();else fails++})
     .then(function(){pulsing=false;drawLive();schedule()})}
   function schedule(){clearTimeout(pulseT);pulseT=null;if(document.hidden||!started)return;pulseT=setTimeout(pulse,v4===false?60000:15000)}
@@ -696,7 +747,56 @@ footer .linkbtn{font-size:12px;font-weight:500}
   var tickN=0;
   function tick(){if(document.hidden)return;if(v4&&lastOk&&fails<2)$("fbLiveT").textContent="실시간 · "+ago(lastOk)+" 확인";
     if(++tickN%6===0){Array.prototype.forEach.call(document.querySelectorAll(".rclist [data-t]"),function(s){s.textContent=rel(s.getAttribute("data-t"))});
-      if(rc.length)$("rcN").textContent="· 마지막 "+rel(rc[0].t);if(doc)dvMeta()}}
+      if(rc.length)$("rcN").textContent="· 마지막 "+rel(rc[0].t);if(doc)dvMeta();
+      if(talks.length&&!$("tkList").contains(document.activeElement))drawTalks()}}
+
+  /* ── AI 의견 교환 ── */
+  var talkToasts=[],talks=[],talkOK=null,talkTry=0,talkLatest="",talkBusy=false,tkT=null,pulseDec=null;
+  function isTalk(x){return /talk|의견/i.test(x.action||"")||/(^|\/)AI 의견 교환$/.test(x.where||"")}
+  function ttype(v){v=String(v||"");return /결정|decide/i.test(v)?"결정필요":/결론|conclude/i.test(v)?"결론":/메모|note/i.test(v)?"메모":/답|reply/i.test(v)?"답":/질문|ask/i.test(v)?"질문":""}
+  function tlabel(t){return t==="결정필요"?"사람이 정할 것":t}
+  /* 기록 예: action 「의견 교환」 · target 「주제.md · 3번 결정필요」 — 누가 썼는지(AI/사람)는 talks의 last.from으로 */
+  function talkSentence(x,from){var tg=String(x.target||""),i=tg.indexOf(" · "),topic=(i>=0?tg.slice(0,i):tg).replace(/\.md$/i,""),
+      t=ttype((i>=0?tg.slice(i+3):"")+" "+String(x.action||"").replace(/의견\s*교환/g,"")),w=x.who,q="「"+topic+"」",
+      s=from?(/의 AI$/.test(from)?from+"가":from+" 님이"):(!w||/^\(/.test(w))?"AI가":/사람|person/i.test(x.action||"")?w+" 님이":w+"의 AI가";
+    if(t==="결정필요")return s+" "+q+"에 사람이 정할 것을 올렸습니다";
+    return s+" "+q+"에 "+(t?t+obj(t):"의견을")+" 남겼습니다"}
+  function tstat(v){v=String(v||"");return /정할/.test(v)?"dec":/끝/.test(v)?"end":/답함/.test(v)?"ans":/대기/.test(v)?"wait":"etc"}
+  function otherName(){return me()==="김대연"?"송지수":"김대연"}
+  function drawDec(){var n=pulseDec!=null?pulseDec:talks.filter(function(x){return tstat(x.status)==="dec"}).length;
+    $("decChip").hidden=!(talkOK===true&&n>0);$("decN").textContent=n}
+  function drawTalks(){var ul=$("tkList");ul.innerHTML="";
+    var items=talks.map(function(x,i){return[x,i]}).sort(function(a,b){return((tstat(b[0].status)==="dec")-(tstat(a[0].status)==="dec"))||a[1]-b[1]}).map(function(p){return p[0]});
+    $("tkN").textContent=talks.length?talks.length+"개 주제":"";
+    if(!items.length){var e=el("li","empty");e.appendChild(document.createTextNode("아직 주고받은 의견이 없습니다. 내 AI에게 이렇게 말해 보세요 — "));
+      e.appendChild(el("b",null,"「"+otherName()+" 선생님 AI에게 '배수 1.6이면 충분한지' 물어봐 줘」"));ul.appendChild(e)}
+    items.forEach(function(x){var st=tstat(x.status),li=el("li"),b=el("button","tk "+st);b.type="button";b.title="대화 열기";b.onclick=function(){openTalk(x)};
+      var top=el("span","tkt");top.appendChild(el("span","tkb "+st,x.status||"상태 없음"));top.appendChild(el("b",null,x.topic||""));b.appendChild(top);
+      var L=x.last||{},parts=[];if(L.n!=null||L.type)parts.push((L.n!=null?L.n+"번 ":"")+tlabel(ttype(L.type)));if(L.from)parts.push(L.from);if(L.t)parts.push(rel(L.t));
+      if(parts.length||L.preview)b.appendChild(el("span","tks",parts.join(" · ")+(L.preview?" — "+String(L.preview).replace(/\s+/g," "):"")));
+      if(x.conclusion&&!/아직 없음/.test(x.conclusion))b.appendChild(el("span","tkc","결론: "+x.conclusion));
+      li.appendChild(b);ul.appendChild(li)});
+    var sel=$("tkTopic"),keep=sel.value;sel.innerHTML="";sel.appendChild(el("option",null,"새 주제…")).value="";
+    talks.forEach(function(x){var o=el("option",null,x.topic);o.value=x.topic;sel.appendChild(o)});
+    sel.value=keep;if(sel.value!==keep)sel.value="";$("tkNew").hidden=!!sel.value}
+  function openTalk(x){viewer({id:x.id,name:(x.topic||"의견 교환")+".md",kind:"text",mime:"text/markdown",updated:x.updated},{talk:true})}
+  function flushTalkToasts(){var q=talkToasts;talkToasts=[];q.forEach(function(x){var it=null;
+      talks.forEach(function(y){if(y.id===x.id)it=y});toast(talkSentence(x,it&&it.last&&it.last.from))})}
+  function loadTalks(){if(talkBusy){talkSoon();return}talkBusy=true;talkTry=Date.now();
+    api("talks",{}).then(function(j){talkOK=true;talks=Array.isArray(j.items)?j.items:[];$("talk").hidden=false;drawTalks();drawDec()})
+    .catch(function(e){if(e.code==="bad_action"){talkOK=false;$("talk").hidden=true;$("decChip").hidden=true}})
+    .then(function(){talkBusy=false;flushTalkToasts()})}
+  function talkSoon(){clearTimeout(tkT);tkT=setTimeout(loadTalks,800)}
+  function postTalk(){var sel=$("tkTopic").value,topic=(sel||$("tkNew").value).trim(),text=$("tkText").value.trim(),m=$("tkMsg");
+    if(!topic){m.textContent="주제를 적어 주세요.";$("tkNew").focus();return}if(!text){m.textContent="내용을 적어 주세요.";$("tkText").focus();return}
+    $("tkGo").disabled=true;m.textContent="남기는 중…";
+    api("talk",{topic:topic,type:$("tkType").value,text:text,by:"person"},true).then(function(j){$("tkText").value="";$("tkNew").value="";
+      m.textContent="남겼습니다"+(j.n?" — "+j.n+"번":"")+(j.status?" · 상태: "+j.status:"");loadTalks();pulseSoon()})
+    .catch(function(e){m.textContent=e.code==="bad_action"?"아직 준비 중인 기능입니다.":e.message})
+    .then(function(){$("tkGo").disabled=false})}
+  function bindTalk(){$("tkGo").onclick=postTalk;$("tkTopic").onchange=function(){$("tkNew").hidden=!!this.value};
+    $("decChip").onclick=function(){$("talk").hidden=false;$("talk").scrollIntoView({behavior:"smooth",block:"start"})};
+    loadTalks()}
 
   /* ── 문서 보기·편집 ── */
   var doc=null,lastFocus=null,hooked=false;
@@ -725,7 +825,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
     if(doc.kind==="plain")s+=(s?" · ":"")+"글자만 뽑아 보기(읽기 전용)";
     $("dvMeta").textContent=s}
   function dvSync(){var d=doc;if(!d)return;var ed=d.editing,gd=d.kind==="gdoc",ready=!d.loading&&!d.err;
-    show("dvEdit",!ed&&ready&&d.editable);
+    show("dvEdit",!ed&&ready&&d.editable);$("dvEdit").className=d.talk?"btn sm ghost":"btn sm";
     show("dvGdoc",gd);if(gd)$("dvGdoc").href="https://docs.google.com/document/d/"+encodeURIComponent(d.id)+"/edit";
     show("dvPrev",ed&&isMd());$("dvPrev").textContent=d.preview?"편집 화면":"미리보기";
     show("dvSave",ed);show("dvDone",ed);show("dvDl",!ed);
@@ -743,7 +843,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
   function viewer(f,opt){opt=opt||{};
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
     if(!doc)lastFocus=document.activeElement;
-    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,
+    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,talk:!!opt.talk,
       readonly:f.readonly===true||(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
     $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
     $("dvName").textContent=f.name;$("dvMeta").textContent="";bar("");stat("");$("dvAppText").value="";
@@ -872,7 +972,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
     var c=code();if(c)$("aiPrompt").textContent="https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 "+c+"이야. 기록에 남길 내 이름은 송지수야.";
     $("aiCopy").onclick=function(){var b=this;copyText($("aiPrompt").textContent).then(function(ok){b.textContent=ok?"복사됨":"길게 눌러 복사해 주세요";setTimeout(function(){b.textContent="복사"},2500)})};
     try{$("rc").open=!window.matchMedia("(max-width:560px)").matches}catch(e){$("rc").open=true}
-    drawRecent();bindViewer();initIntro();bindWho();
+    drawRecent();bindViewer();initIntro();bindWho();bindTalk();
     load("");
     loadRecent(true);
     setInterval(tick,5000);
