@@ -91,7 +91,99 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
 #gate input{width:100%;font:inherit;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:10px;margin:12px 0;text-align:center;letter-spacing:.2em}
 #gate button{width:100%;font:inherit;font-weight:700;font-size:16px;padding:12px;border:0;border-radius:10px;background:var(--blue);color:#fff;cursor:pointer}
 #gate .err{color:#b42318;font-size:13px;min-height:1.2em;margin:8px 0 0}
+/* ── 실시간 공동 문서 (v4) ── */
+[hidden]{display:none!important}
+body.v3only .v4{display:none!important}
+body.noscroll{overflow:hidden}
+a.btn{text-decoration:none}
+.btn.sm{font-size:13px;padding:6px 12px}
+.btn.ghost{background:#fff;color:var(--blue2);border:1px solid var(--line)}
+.btn:disabled{opacity:.55;cursor:default}
+.linkbtn{border:0;background:none;color:var(--blue);font:inherit;font-weight:600;padding:0;cursor:pointer;text-decoration:underline}
+.fbtop{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;margin:-4px 0 10px;font-size:13px;color:var(--mute)}
+.live{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ok)}
+.live .dot{width:8px;height:8px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.18);flex:none}
+.live.off{color:var(--mute)}
+.live.off .dot{background:#9aa6b6;box-shadow:none}
+.viewers{min-width:0;overflow-wrap:anywhere}
+.newb{display:inline-block;font-size:11px;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:var(--blue);color:#fff;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.tile .newb{position:absolute;top:6px;left:6px;margin:0;pointer-events:none}
+.recent{margin:12px 0 0;border:1px solid var(--line);border-radius:12px}
+.recent summary{cursor:pointer;padding:10px 14px;font-weight:700;font-size:14px;list-style:none;display:flex;gap:8px;align-items:center}
+.recent summary::-webkit-details-marker{display:none}
+.recent summary::after{content:"▾";margin-left:auto;color:var(--mute)}
+.recent[open] summary::after{content:"▴"}
+.recent summary .note{font-weight:500}
+.rclist{list-style:none;margin:0;padding:0 6px 6px;max-height:340px;overflow:auto}
+.rclist li{border-top:1px solid var(--line)}
+.rclist .it{display:block;width:100%;text-align:left;border:0;background:none;font:inherit;font-size:13px;padding:8px;color:var(--ink);border-radius:8px}
+.rclist button.it{cursor:pointer}
+.rclist button.it:hover,.rclist button.it:focus-visible{background:var(--sky)}
+.rclist .l1{display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}
+.rclist .ac{color:var(--blue2);font-weight:600}
+.rclist .tm{margin-left:auto;color:var(--mute);font-size:12px;white-space:nowrap}
+.rclist .tg{display:block;overflow-wrap:anywhere}
+.rclist .wh{color:var(--mute);font-size:12px}
+.rclist .empty{color:var(--mute);text-align:center;padding:14px;border:0}
+.toasts{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:80;display:flex;flex-direction:column;gap:8px;width:min(calc(100vw - 32px),440px);pointer-events:none}
+.toast{background:#0f2f66;color:#fff;border-radius:12px;padding:10px 14px;font-size:14px;box-shadow:0 8px 24px rgba(15,23,42,.25);transition:opacity .3s,transform .3s;overflow-wrap:anywhere}
+.toast.out{opacity:0;transform:translateY(6px)}
+body.noscroll .toasts{bottom:auto;top:12px}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.dlg{position:relative;background:#fff;border-radius:16px;width:100%;max-width:900px;height:min(90vh,960px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.3)}
+.dvhead{padding:14px 18px 12px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-start;justify-content:space-between;background:linear-gradient(135deg,#fff 0%,var(--sky) 100%)}
+.dvtitle{min-width:0;flex:1 1 260px}
+.dvtitle h3{margin:0;font-size:17px;line-height:1.4;overflow-wrap:anywhere}
+.dvmeta{font-size:13px;color:var(--mute)}
+.dvbtns{display:flex;flex-wrap:wrap;gap:6px}
+.dvbar{padding:8px 18px;font-size:13px;background:#fff6e0;color:var(--warn);border-bottom:1px solid #f1dcae;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dvbar.info{background:var(--sky);color:var(--blue2);border-color:var(--sky2)}
+.dvbody{flex:1;overflow:auto;padding:16px 22px;min-height:0;-webkit-overflow-scrolling:touch}
+.dvbody pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:ui-monospace,Consolas,"D2Coding",monospace;font-size:14px;line-height:1.6;margin:0}
+.dvbody pre.prose{font-family:inherit;font-size:15px;line-height:1.75}
+.dvbody .err{color:#b42318}
+.dvedit{flex:1;display:flex;flex-direction:column;min-height:0}
+.dvedit textarea{flex:1;width:100%;border:0;resize:none;padding:16px 22px;font:inherit;font-size:16px;line-height:1.75;color:var(--ink);outline:none;min-height:0;background:#fcfdff}
+.dvedit textarea:focus{box-shadow:inset 0 0 0 2px var(--sky2)}
+.dvapp{border-top:1px solid var(--line);padding:10px 18px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+.dvapp label{flex:1 1 100%;font-size:13px;font-weight:700;color:var(--mute)}
+.dvapp textarea{flex:1 1 240px;min-height:64px;max-height:30vh;font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;resize:vertical}
+.dvfoot{padding:8px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;justify-content:space-between}
+.dvfoot .ok{color:var(--ok);font-weight:600}
+.dvfoot .bad{color:#b42318;font-weight:600}
+.conf{position:absolute;inset:0;z-index:2;background:rgba(243,248,253,.94);display:flex;align-items:center;justify-content:center;padding:16px}
+.conf .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;max-width:440px;width:100%;box-shadow:0 10px 30px rgba(15,23,42,.15)}
+.conf h4{margin:0 0 6px;font-size:16px}
+.conf p{margin:0 0 12px;font-size:14px}
+.conf .row{display:flex;flex-direction:column;gap:8px}
+.md{font-size:15px;line-height:1.75;overflow-wrap:anywhere}
+.md h1{font-size:22px;margin:4px 0 12px;line-height:1.35}
+.md h2{font-size:18px;margin:20px 0 8px}
+.md h3{font-size:16px;margin:16px 0 6px}
+.md p,.md ul,.md ol{margin:0 0 10px}
+.md ul,.md ol{padding-left:22px}
+.md blockquote{margin:0 0 10px;padding:4px 12px;border-left:3px solid var(--sky2);color:var(--mute)}
+.md code{background:#eef4fb;padding:1px 5px;border-radius:5px;font-size:.92em;font-family:ui-monospace,Consolas,monospace}
+.md pre{background:#f3f7fc;padding:10px 12px;border-radius:10px;overflow:auto}
+.md pre code{background:none;padding:0}
+.md table{display:block;overflow-x:auto;border-collapse:collapse;margin:0 0 12px;font-size:14px}
+.md img{max-width:100%;height:auto}
+.md hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+@keyframes flash{0%{background:#fff3c4}100%{background:transparent}}
+.flash{animation:flash 2.4s ease-out}
+.aibox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--sky);border-radius:12px;padding:12px 14px}
+.aibox code{flex:1 1 260px;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+@media (max-width:560px){
+  .modal{padding:0}
+  .dlg{max-width:none;height:100%;border-radius:0}
+  .dvhead{padding:12px 14px 10px}
+  .dvbody{padding:12px 14px}
+  .dvedit textarea{padding:12px 14px}
+  .dvapp,.dvfoot,.dvbar{padding-left:14px;padding-right:14px}
+}
 </style>
+<script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- AI·자동화 도구 안내: 이 페이지는 사람용 열람 코드 화면입니다. 문서 목록·텍스트판·파일함 읽기 주소는 llms.txt 에 있습니다:
@@ -128,9 +220,11 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
 
   <section class="card" id="fb">
     <h2>파일함 <span class="note" style="font-weight:500">구글 드라이브 「Obsidian/60. Research」와 같은 폴더</span></h2>
+    <div class="fbtop v4" id="fbTop"><span class="live off" id="fbLive" title="15초마다 다른 분의 변경을 확인합니다"><span class="dot" aria-hidden="true"></span><span id="fbLiveT">연결하는 중…</span></span><span class="viewers" id="fbViewers"></span></div>
     <nav class="crumbs" id="fbPath" aria-label="폴더 경로"></nav>
     <div class="tools">
       <label class="btn">올리기<input type="file" id="fbFile" multiple hidden></label>
+      <button type="button" class="btn alt v4" id="fbNew">새 문서</button>
       <button type="button" class="btn alt" id="fbMkdir">새 폴더</button>
       <button type="button" class="btn alt" id="fbReload">새로고침</button>
       <span class="note" id="fbMsg" role="status"></span>
@@ -141,6 +235,29 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
       <ul id="fbList" class="fblist"></ul>
     </div>
     <p class="note">파일을 이 상자에 끌어다 놓아도 올라갑니다 · 삭제하면 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다 · 올리기·이름 바꾸기·삭제는 기록 시트에 남습니다.</p>
+    <details class="recent v4" id="rc">
+      <summary>최근 변경 <span class="note" id="rcN"></span></summary>
+      <ol class="rclist" id="rcList"></ol>
+    </details>
+  </section>
+
+  <section class="card" id="ai">
+    <h2>AI와 함께 쓰기</h2>
+    <p style="margin:0 0 8px">송지수 선생님 PC의 AI 프로그램(ChatGPT·Claude·Gemini 등)도 이 파일함을 함께 씁니다.</p>
+    <ul class="plain">
+      <li><b>읽기</b> — 파일함의 문서·PDF를 읽고 요약해 줍니다.</li>
+      <li><b>쓰기</b> — 새 문서를 만들고, 있는 문서에 덧붙이거나 고칩니다(고치기 전 내용은 자동 백업).</li>
+      <li><b>정리</b> — 폴더를 만들고, 이름을 바꾸고, 지웁니다. 지운 것은 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다.</li>
+    </ul>
+    <p style="margin:14px 0 6px;font-weight:700">처음 한 번, AI에게 이 문장을 그대로 붙여 넣어 주세요</p>
+    <div class="aibox"><code id="aiPrompt">https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 (열람 코드)이야. 기록에 남길 내 이름은 송지수야.</code><button type="button" class="btn sm" id="aiCopy">복사</button></div>
+    <p style="margin:14px 0 6px;font-weight:700">그다음엔 이렇게 부탁하면 됩니다</p>
+    <ul class="plain">
+      <li>「제출본 폴더의 최신 PDF를 요약해 줘」</li>
+      <li>「회의록 폴더에 오늘 회의록을 새로 만들어 줘」</li>
+      <li>「'참고문헌 정리.md'에 이 논문을 덧붙여 줘」</li>
+    </ul>
+    <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「최근 변경」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
   </section>
 
   <section class="card">
@@ -195,41 +312,113 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
   </section>
 </div></main>
 <footer>2026-09-29 갱신 · 검색 비노출 페이지</footer>
+
+<div class="modal" id="dv" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dvName">
+    <div class="dvhead">
+      <div class="dvtitle"><h3 id="dvName"></h3><div class="dvmeta" id="dvMeta"></div></div>
+      <div class="dvbtns">
+        <button type="button" class="btn sm" id="dvEdit">편집</button>
+        <a class="btn sm" id="dvGdoc" target="_blank" rel="noopener">구글 문서에서 열기</a>
+        <button type="button" class="btn sm alt" id="dvPrev">미리보기</button>
+        <button type="button" class="btn sm" id="dvSave">저장</button>
+        <button type="button" class="btn sm alt" id="dvDone">편집 끝내기</button>
+        <button type="button" class="btn sm alt" id="dvDl">내려받기</button>
+        <button type="button" class="btn sm ghost" id="dvClose">닫기</button>
+      </div>
+    </div>
+    <div class="dvbar" id="dvBar" hidden></div>
+    <div class="dvbody" id="dvBody"></div>
+    <div class="dvedit" id="dvEditBox" hidden><textarea id="dvText" aria-label="문서 내용" spellcheck="false"></textarea></div>
+    <div class="dvapp" id="dvApp" hidden><label for="dvAppText">이 문서 끝에 덧붙이기</label><textarea id="dvAppText" placeholder="덧붙일 내용을 적어 주세요"></textarea><button type="button" class="btn sm" id="dvAppGo">덧붙이기</button></div>
+    <div class="dvfoot" id="dvFoot" hidden><span id="dvStat" role="status" aria-live="polite"></span><span id="dvHint">Ctrl+S(맥은 ⌘+S)로도 저장됩니다</span></div>
+    <div class="conf" id="dvConf" hidden>
+      <div class="box" role="alertdialog" aria-labelledby="dvConfH" aria-describedby="dvConfMsg">
+        <h4 id="dvConfH">그 사이에 문서가 바뀌었습니다</h4>
+        <p id="dvConfMsg"></p>
+        <div class="row">
+          <button type="button" class="btn" id="dvConfLoad">상대 내용 불러오기 (내 글은 먼저 클립보드에 복사)</button>
+          <button type="button" class="btn alt" id="dvConfMine">내 것으로 덮어쓰기</button>
+          <button type="button" class="btn ghost" id="dvConfCancel">취소</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
 </div>
 
 <script>
 (function(){
   var API="https://script.google.com/macros/s/AKfycbx7vL6GpQXer5OVytWyg9nM8H3dbUfkSaXLgSbhPsUqrtg01Op6OW6RcGO6y-jrNLW9/exec";
-  var MAXB=33*1024*1024, cur=null, busy=false;
+  var MAXB=33*1024*1024, cur=null, busy=false, started=false;
   var $=function(id){return document.getElementById(id)};
+  document.body.classList.add("v3only");   // v4 기능은 서버가 응답해야 보인다
   function code(){try{return window.NRF_CODE||sessionStorage.getItem("nrf_code")||""}catch(e){return window.NRF_CODE||""}}
   function who(ask){var w="";try{w=localStorage.getItem("nrf_who")||""}catch(e){}
     if(!w&&ask){w=(prompt("기록에 남길 이름을 적어 주세요 (예: 송지수)")||"").trim();try{if(w)localStorage.setItem("nrf_who",w)}catch(e){}}return w}
   function msg(t,bad){var m=$("fbMsg");m.textContent=t||"";m.style.color=bad?"#b42318":""}
   function api(action,data,ask){
     var body=Object.assign({action:action,code:code(),who:who(ask)},data||{});
-    return fetch(API,{method:"POST",body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){
-      if(!j.ok)throw new Error(j.message||j.error||"오류");return j});
+    return fetch(API,{method:"POST",body:JSON.stringify(body)}).then(null,function(){
+      var e=new Error("서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.");e.code="net";throw e
+    }).then(function(r){return r.text()}).then(function(s){
+      var j;try{j=JSON.parse(s)}catch(x){var e0=new Error("서버가 잠깐 응답하지 못했습니다. 잠시 뒤 다시 해 주세요.");e0.code="badjson";throw e0}
+      if(!j||!j.ok){var e=new Error((j&&(j.message||j.error))||"오류");e.code=j&&j.error;e.data=j||{};throw e}
+      return j});
   }
   function size(n){if(n==null||n==="")return"";if(n<1024)return n+" B";if(n<1048576)return(n/1024).toFixed(0)+" KB";return(n/1048576).toFixed(1)+" MB"}
   function date(s){return s?s.slice(0,16).replace("T"," "):""}
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function pad(n){return(n<10?"0":"")+n}
+  function ms(s){if(!s)return NaN;var t=Date.parse(s);if(isNaN(t))t=Date.parse(String(s).replace(" ","T"));return t}
+  function rel(s){var t=ms(s);if(isNaN(t))return s||"";var d=(Date.now()-t)/1000;
+    if(d<45)return"방금";if(d<3600)return Math.max(1,Math.round(d/60))+"분 전";
+    var a=new Date(t),n=new Date(),hm=pad(a.getHours())+":"+pad(a.getMinutes()),day0=new Date(n.getFullYear(),n.getMonth(),n.getDate()).getTime();
+    if(t>=day0)return Math.floor(d/3600)+"시간 전";
+    if(t>=day0-864e5)return"어제 "+hm;
+    if(a.getFullYear()===n.getFullYear())return(a.getMonth()+1)+"월 "+a.getDate()+"일 "+hm;
+    return a.getFullYear()+"-"+pad(a.getMonth()+1)+"-"+pad(a.getDate())}
+  function ext(n){var m=/\.([^.\/]+)$/.exec(n||"");return m?m[1].toLowerCase():""}
+  function kindOf(f){if(f.kind)return f.kind;var e=ext(f.name),m=f.mime||"";
+    if(m==="application/vnd.google-apps.folder")return"folder";
+    if(m==="application/vnd.google-apps.document")return"gdoc";
+    if(m==="application/vnd.google-apps.spreadsheet")return"gsheet";
+    if(/^(md|txt|csv|json)$/.test(e)||/^text\//.test(m)||m==="application/json")return"text";
+    if(e==="pdf"||m==="application/pdf")return"pdf";
+    if(/^(doc|docx|xls|xlsx|ppt|pptx|rtf|odt)$/.test(e))return"office";
+    if(/^(hwp|hwpx)$/.test(e))return"hwp";
+    return"other"}
+  function copyText(t){
+    function fb(){try{var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.top="0";a.style.opacity="0";document.body.appendChild(a);a.select();var ok=document.execCommand("copy");a.remove();return !!ok}catch(e){return false}}
+    if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true},fb);
+    return Promise.resolve(fb())}
+
+  /* ── 「새로」 표시 ── */
+  var prevVisit=0,seen={},liveNew={};
+  function saveSeen(){try{var k=Object.keys(seen);if(k.length>600)k.slice(0,k.length-600).forEach(function(x){delete seen[x]});localStorage.setItem("nrf_seen",JSON.stringify(seen))}catch(e){}}
+  function isNew(f){if(!f||!f.updated)return false;var u=ms(f.updated);if(seen[f.id]&&ms(seen[f.id])>=u)return false;return !!liveNew[f.id]||(prevVisit>0&&u>prevVisit)}
+  function markSeen(f){if(!f||!f.id)return;var had=isNew(f)||liveNew[f.id];seen[f.id]=f.updated||new Date().toISOString();delete liveNew[f.id];saveSeen();if(had)draw()}
+
+  /* ── 파일함 목록 ── */
   function render(j){
     cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
     j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 "+x.name:x.name);b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
     last=j;draw();
   }
-  var last=null,view="grid";
+  var last=null,view="grid",drawnFolder=null;
   try{view=localStorage.getItem("nrf_view")||"grid"}catch(e){}
   function setView(v){view=v;try{localStorage.setItem("nrf_view",v)}catch(e){}draw()}
   function draw(){
-    var grid=view==="grid",ul=$("fbList");
+    var grid=view==="grid",ul=$("fbList"),st=ul.scrollTop,same=!!last&&last.folder.id===drawnFolder;
     $("vGrid").setAttribute("aria-pressed",grid);$("vList").setAttribute("aria-pressed",!grid);
     $("fbDrop").classList.toggle("grid",grid);ul.className=grid?"fbgrid":"fblist";ul.innerHTML="";
     if(!last)return;
+    drawnFolder=last.folder.id;
     if(!last.folders.length&&!last.files.length){ul.appendChild(el("li","empty","빈 폴더입니다"));return}
     last.folders.forEach(function(f){ul.appendChild(grid?tile(f,true):row(f,true))});
     last.files.forEach(function(f){ul.appendChild(grid?tile(f,false):row(f,false))});
+    ul.scrollTop=same?st:0;
   }
   var SVGNS="http://www.w3.org/2000/svg";
   function svg(markup){var t=document.createElement("template");t.innerHTML=markup.trim();return t.content.firstChild}
@@ -237,34 +426,59 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
   function fileSvg(name){var e=(name.split(".").pop()||"").toLowerCase().replace(/[^a-z0-9]/g,""),c={pdf:"#d93025",doc:"#2b5cd9",docx:"#2b5cd9",hwp:"#1a8fd6",hwpx:"#1a8fd6",xls:"#1e8e3e",xlsx:"#1e8e3e",csv:"#1e8e3e",ppt:"#d4581a",pptx:"#d4581a",png:"#8e44ad",jpg:"#8e44ad",jpeg:"#8e44ad",zip:"#6b7280",txt:"#6b7280",md:"#6b7280"}[e]||"#6b7280";
     var t=(e&&e.length<=4?e:"file").toUpperCase();
     return '<svg viewBox="0 0 64 56" aria-hidden="true"><path d="M16 2h22l12 12v38a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#c9d6e4" stroke-width="1.5"/><path d="M38 2v10a2 2 0 0 0 2 2h10" fill="#eef3f9" stroke="#c9d6e4" stroke-width="1.5"/><rect x="8" y="30" width="34" height="15" rx="3" fill="'+c+'"/><text x="25" y="41" text-anchor="middle" font-family="Pretendard,Arial,sans-serif" font-size="9" font-weight="700" fill="#fff">'+t+'</text></svg>'}
+  function viewable(k){return k==="text"||k==="gdoc"}
   function tile(f,isDir){
-    var li=el("li","tile"),b=el("button","open");b.type="button";b.title=f.name+(isDir?"":" · "+size(f.size))+" · "+date(f.updated);
+    var li=el("li","tile"),b=el("button","open"),nw=!isDir&&isNew(f);b.type="button";b.title=f.name+(isDir?"":" · "+size(f.size))+" · "+date(f.updated)+(nw?" · 새로 바뀜":"");
     b.appendChild(svg(isDir?FOLDER:fileSvg(f.name)));b.appendChild(el("span","lbl",f.name));
-    b.onclick=function(){isDir?load(f.id):get(f)};li.appendChild(b);
+    b.onclick=function(){isDir?load(f.id):openFile(f)};li.appendChild(b);
+    if(nw)li.appendChild(el("span","newb","새로"));
     var m=el("button","more","⋯");m.type="button";m.setAttribute("aria-label",f.name+" 메뉴");
     m.onclick=function(ev){ev.stopPropagation();openMenu(li,f,isDir)};li.appendChild(m);return li
   }
   function closeMenus(){Array.prototype.forEach.call(document.querySelectorAll(".menu"),function(x){x.parentNode.classList.remove("menu-open");x.remove()})}
   function openMenu(li,f,isDir){var had=li.classList.contains("menu-open");closeMenus();if(had)return;
-    var mn=el("div","menu");[[isDir?"열기":"열기·내려받기",function(){isDir?load(f.id):get(f)}],["이름 바꾸기",function(){rename(f)}],["삭제",function(){del(f,isDir)},"del"]].forEach(function(a){
+    var k=isDir?"folder":kindOf(f),items=[];
+    if(isDir)items.push(["열기",function(){load(f.id)}]);
+    else if(viewable(k)){items.push(["열기",function(){openFile(f)}]);items.push(["내려받기",function(){get(f)}])}
+    else items.push(["열기·내려받기",function(){get(f)}]);
+    if(k==="pdf"||k==="office"||k==="hwp")items.push(["글자로 보기",function(){viewer(f,{plain:true})},"v4"]);
+    items.push(["이름 바꾸기",function(){rename(f)}],["삭제",function(){del(f,isDir)},"del"]);
+    var mn=el("div","menu");items.forEach(function(a){
       var x=el("button",a[2]||null,a[0]);x.type="button";x.onclick=function(){closeMenus();a[1]()};mn.appendChild(x)});
     li.classList.add("menu-open");li.appendChild(mn)}
   document.addEventListener("click",closeMenus);
   function row(f,isDir){
-    var li=el("li");var nm=el("button","nm");nm.type="button";
+    var li=el("li");var nm=el("button","nm"),k=isDir?"folder":kindOf(f);nm.type="button";
     nm.appendChild(el("span","ic",isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(f.name));
-    nm.title=isDir?"폴더 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):get(f)};
+    if(!isDir&&isNew(f))nm.appendChild(el("span","newb","새로"));
+    nm.title=isDir?"폴더 열기":viewable(k)?"문서 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):openFile(f)};
     li.appendChild(nm);li.appendChild(el("span","c-size",isDir?"":size(f.size)));li.appendChild(el("span","c-date",date(f.updated)));
-    var a=el("span","acts");var rn=el("button",null,"이름");rn.type="button";rn.onclick=function(){rename(f)};
+    var a=el("span","acts");
+    if(viewable(k)){var dn=el("button",null,"받기");dn.type="button";dn.title="내려받기";dn.onclick=function(){get(f)};a.appendChild(dn)}
+    if(k==="pdf"||k==="office"||k==="hwp"){var tx=el("button","v4","글자");tx.type="button";tx.title="글자로 보기";tx.onclick=function(){viewer(f,{plain:true})};a.appendChild(tx)}
+    var rn=el("button",null,"이름");rn.type="button";rn.onclick=function(){rename(f)};
     var dl=el("button","del","삭제");dl.type="button";dl.onclick=function(){del(f,isDir)};a.appendChild(rn);a.appendChild(dl);li.appendChild(a);return li
   }
   function icon(n){var e=(n.split(".").pop()||"").toLowerCase();
     return {pdf:"📕",doc:"📘",docx:"📘",hwp:"📘",hwpx:"📘",xls:"📗",xlsx:"📗",csv:"📗",ppt:"📙",pptx:"📙",png:"🖼",jpg:"🖼",jpeg:"🖼",zip:"🗜"}[e]||"📄"}
-  function load(id){if(busy)return;busy=true;msg("불러오는 중…");
-    api("list",{folderId:id||""}).then(function(j){render(j);msg("")}).catch(function(e){msg(e.message,true)}).then(function(){busy=false})}
-  function get(f){
-    var isPdf=/\.pdf$/i.test(f.name)||f.mime==="application/pdf",w=isPdf?window.open("","_blank"):null;
-    msg("「"+f.name+"」 받는 중…");
+  var lastListAt=0;
+  function load(id,retried){if(busy)return;busy=true;msg(retried?"다시 불러오는 중…":"불러오는 중…");var again=false;
+    api("list",{folderId:id||""}).then(function(j){lastListAt=Date.now();render(j);msg("");pulseSoon()})
+    .catch(function(e){if(!retried&&(e.code==="badjson"||e.code==="net")){again=true;return}msg(e.message,true)})
+    .then(function(){busy=false;if(again)setTimeout(function(){load(id,true)},1500)})}
+  /* 조용히 다시 불러오기 — 바뀐 게 있을 때만 다시 그림(보기 방식·스크롤 유지) */
+  function sig(j){return j?j.folder.id+"|"+j.folders.concat(j.files).map(function(x){return x.id+"@"+x.updated+"@"+x.name}).join(","):""}
+  var quietBusy=false,rsT=null;
+  function quiet(){if(busy||quietBusy||!cur||document.hidden||document.querySelector(".menu"))return;
+    var want=cur;quietBusy=true;
+    api("list",{folderId:want}).then(function(j){lastListAt=Date.now();
+      if(busy||cur!==want||j.folder.id!==want||document.querySelector(".menu"))return;
+      if(sig(j)!==sig(last))render(j)}).catch(function(){}).then(function(){quietBusy=false})}
+  function reloadSoon(){clearTimeout(rsT);rsT=setTimeout(quiet,800)}
+  function openFile(f,w){if(viewable(kindOf(f))){if(w)w.close();viewer(f,{});return}get(f,w)}
+  function get(f,w0){
+    var isPdf=/\.pdf$/i.test(f.name)||f.mime==="application/pdf",w=w0||(isPdf?window.open("","_blank"):null);
+    msg("「"+f.name+"」 받는 중…");markSeen(f);
     api("download",{id:f.id}).then(function(j){
       var bin=atob(j.b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
       var url=URL.createObjectURL(new Blob([u],{type:j.mime||"application/octet-stream"}));
@@ -287,15 +501,256 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
         api("upload",{folderId:cur,name:f.name,mime:f.type||"application/octet-stream",b64:b64},true).then(function(){done++;next()}).catch(function(e){msg("「"+f.name+"」: "+e.message,true);setTimeout(next,1500)})};
       rd.readAsDataURL(f)})();
   }
+  function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+  function newDoc(){var n=prompt("새 문서 이름 (.md · .txt · .csv · .json)","회의록 "+today()+".md");if(!n)return;n=n.trim();if(!n)return;
+    if(!/\.(md|txt|csv|json)$/i.test(n))n+=".md";
+    var base=n.replace(/\.[^.]+$/,""),e=ext(n),text=e==="md"?"# "+base+"\n\n":e==="txt"?base+"\n\n":"";
+    msg("새 문서 만드는 중…");
+    api("write",{folderId:cur,name:n,text:text},true).then(function(j){msg("");
+      var f={id:j.id,name:j.name||n,updated:j.updated,kind:"text"};markSeen(f);load(cur);
+      viewer(f,{edit:true,preset:{text:text,updated:j.updated||"",editable:true}});
+    }).catch(function(x){
+      if(x.code==="exists"){var d=x.data||{},eid=d.id||d.existing||d.existingId||d.fileId;msg("");
+        if(eid){if(confirm("「"+n+"」 문서가 이미 있습니다. 그 문서를 열까요?"))viewer({id:eid,name:n,kind:"text"},{})}
+        else msg("같은 이름의 문서가 이미 있습니다.",true);return}
+      msg(x.code==="bad_action"?"새 문서 기능은 서버 준비가 끝나면 열립니다.":x.message,true)})}
+
+  /* ── 최근 변경 · 실시간 ── */
+  var rc=[],rcKeys={},since="",primed=false,rcLoaded=false,v4=null,fails=0,lastOk=0,pulseT=null,pulsing=false,psT=null,viewersNow=[];
+  var ACT={upload:"올리기",mkdir:"새 폴더",rename:"이름 바꾸기",trash:"삭제",restore:"되살리기",write:"새 문서",append:"덧붙이기",replace:"고쳐 쓰기"};
+  function actName(a){return ACT[a]||a||""}
+  function me(){return who(false)}
+  function mine(x){var m=me();return m?x.who===m:(!x.who||x.who==="(이름 없음)")}
+  function whoName(w){if(!w)return"이름 없음";if(w===me())return w+"(나)";if(/^\(/.test(w))return /AI/.test(w)?"AI 도구":"이름 없음";return w}
+  function subj(w){if(!w||/^\(/.test(w))return /AI/.test(w||"")?"AI 도구가":"누군가";return w+" 님이"}
+  function obj(n){var c=String(n||"").trim().slice(-1),k=c.charCodeAt(0);
+    if(k>=0xAC00&&k<=0xD7A3)return(k-0xAC00)%28?"을":"를";
+    if(/[013678]/.test(c))return"을";if(/[lmnr]/i.test(c))return"을";return"를"}
+  function sentence(x){var t="「"+String(x.target||"파일").replace(/ \(폴더\)$/,"")+"」",a=actName(x.action),s=subj(x.who);
+    if(/덧붙/.test(a))return s+" "+t+"에 글을 덧붙였습니다";
+    if(/새 문서|write/.test(a))return s+" "+t+" 문서를 새로 만들었습니다";
+    if(/폴더/.test(a))return s+" "+t+" 폴더를 만들었습니다";
+    if(/이름/.test(a))return s+" 이름을 바꿨습니다 — "+t;
+    if(/올리/.test(a))return s+" "+t+obj(x.target)+" 올렸습니다";
+    if(/삭제|휴지통/.test(a))return s+" "+t+obj(x.target)+" 삭제했습니다";
+    if(/되살/.test(a))return s+" "+t+obj(x.target)+" 되살렸습니다";
+    if(/고치|고쳐|고침|수정|바꾸|replace/.test(a))return s+" "+t+obj(x.target)+" 고쳤습니다";
+    return s+" "+t+" — "+a}
+  function toast(t){var box=$("toasts"),d=el("div","toast",t);box.appendChild(d);while(box.children.length>3)box.removeChild(box.firstChild);
+    setTimeout(function(){d.classList.add("out");setTimeout(function(){d.remove()},400)},6500)}
+  function rkey(x){return[x.t,x.who,x.action,x.target,x.id].join("|")}
+  function gone(x){return /삭제|휴지통|trash/.test(x.action||"")}
+  function merge(list,notify){var fresh=[];
+    (Array.isArray(list)?list:[]).forEach(function(x){if(!x||!x.t)return;var k=rkey(x);if(rcKeys[k])return;rcKeys[k]=1;rc.push(x);fresh.push(x)});
+    if(!fresh.length)return;
+    rc.sort(function(a,b){return(ms(b.t)||0)-(ms(a.t)||0)});if(rc.length>20)rc.length=20;
+    drawRecent();if(doc)dvMeta();
+    if(notify)fresh.sort(function(a,b){return(ms(a.t)||0)-(ms(b.t)||0)}).forEach(onRemote)}
+  function concerns(x){if(!last)return false;var p=last.path.map(function(y){return y.name}).join("/");
+    if(x.where&&x.where===p)return true;
+    return !!x.id&&last.folders.concat(last.files).some(function(f){return f.id===x.id})}
+  function onRemote(x){if(mine(x))return;
+    if(x.id&&!gone(x))liveNew[x.id]=true;
+    toast(sentence(x));
+    if(concerns(x)){reloadSoon();if(!document.querySelector(".menu"))draw()}}
+  function drawRecent(){var ol=$("rcList");ol.innerHTML="";
+    $("rcN").textContent=rc.length?"· 마지막 "+rel(rc[0].t):"";if(rc.length)$("rcN").setAttribute("data-t",rc[0].t);
+    if(!rc.length){ol.appendChild(el("li","empty","아직 기록이 없습니다"));return}
+    rc.forEach(function(x){var li=el("li"),ok=!!x.id&&!gone(x),b=el(ok?"button":"div","it");
+      if(ok){b.type="button";b.title="열기";b.onclick=function(){fromRecent(x)}}
+      var l1=el("span","l1");l1.appendChild(el("b",null,whoName(x.who)));l1.appendChild(el("span","ac",actName(x.action)));
+      var tm=el("span","tm",rel(x.t));tm.setAttribute("data-t",x.t);l1.appendChild(tm);b.appendChild(l1);
+      var tg=el("span","tg",x.target||"");if(x.where){tg.appendChild(el("span","wh"," · "+x.where))}b.appendChild(tg);
+      li.appendChild(b);ol.appendChild(li)})}
+  function fromRecent(x){var isPdf=/\.pdf$/i.test(x.target||""),w=isPdf?window.open("","_blank"):null;
+    if(/폴더|mkdir/.test(x.action||"")){if(w)w.close();load(x.id);return}
+    msg("여는 중…");
+    api("stat",{id:x.id}).then(function(s){msg("");
+      if(s.kind==="folder"||s.mime==="application/vnd.google-apps.folder"){if(w)w.close();load(s.id||x.id);return}
+      openFile({id:s.id||x.id,name:s.name||x.target,mime:s.mime,size:s.size,updated:s.updated,kind:s.kind},w)})
+    .catch(function(e){if(w)w.close();
+      if(e.code==="bad_action"){msg("아직 준비 중인 기능입니다.",true);return}
+      api("list",{folderId:x.id}).then(function(j){if(!busy){lastListAt=Date.now();render(j)}msg("")}).catch(function(){msg(e.message,true)})})}
+  function v4ok(){if(v4===true)return;v4=true;document.body.classList.remove("v3only");if(!rcLoaded)loadRecent(false)}
+  function v4no(){v4=false;document.body.classList.add("v3only")}
+  function loadRecent(then){
+    return api("recent",{n:20}).then(function(j){rcLoaded=true;v4ok();
+      merge(j.recent||j.items||j.entries||j.rows||j.list||[],false);drawRecent();primed=true})
+    .catch(function(e){if(e.code==="bad_action")v4no()})
+    .then(function(){if(then)pulse()})}
+  function ago(t){var s=Math.max(0,Math.round((Date.now()-t)/1000));return s<5?"방금":s<60?s+"초 전":Math.round(s/60)+"분 전"}
+  function drawLive(){var L=$("fbLive"),T=$("fbLiveT"),V=$("fbViewers"),off=!lastOk||fails>=2;
+    L.classList.toggle("off",off);T.textContent=off?(lastOk?"연결 끊김 · 다시 연결하는 중":"연결하는 중…"):"실시간 · "+ago(lastOk)+" 확인";
+    V.textContent="";var m=me(),vs=(viewersNow||[]).filter(function(v){return v&&v.who});
+    vs.sort(function(a,b){return(b.who===m)-(a.who===m)});
+    if(vs.length)V.appendChild(document.createTextNode("지금 보는 사람: "+vs.map(function(v){return(v.who===m?"나":whoName(v.who))+(v.fileName?"("+v.fileName+")":"")}).join(" · ")));
+    if(!m&&!off){if(vs.length)V.appendChild(document.createTextNode(" · "));
+      var b=el("button","linkbtn","내 이름 알리기");b.type="button";b.title="다른 분 화면에 내가 보고 있다고 표시됩니다";b.onclick=function(){if(who(true))pulse()};V.appendChild(b)}}
+  function pulse(){clearTimeout(pulseT);pulseT=null;if(!started||document.hidden||pulsing)return;pulsing=true;
+    var fid=doc?doc.id:"";
+    api("pulse",{fileId:fid,folderId:cur||"",since:since}).then(function(j){
+      v4ok();fails=0;lastOk=Date.now();
+      if(j.lastlog&&(!since||ms(j.lastlog)>=ms(since)))since=j.lastlog;
+      merge(j.recent,primed);primed=true;
+      viewersNow=j.viewers||[];
+      if(j.file&&doc&&doc.id===fid&&(!j.file.id||j.file.id===fid))docRemote(j.file);
+    }).catch(function(e){if(e.code==="bad_action")v4no();else fails++})
+    .then(function(){pulsing=false;drawLive();schedule()})}
+  function schedule(){clearTimeout(pulseT);pulseT=null;if(document.hidden||!started)return;pulseT=setTimeout(pulse,v4===false?60000:15000)}
+  function pulseSoon(){if(v4!==true||!started)return;clearTimeout(psT);psT=setTimeout(pulse,400)}
+  var tickN=0;
+  function tick(){if(document.hidden)return;if(v4&&lastOk&&fails<2)$("fbLiveT").textContent="실시간 · "+ago(lastOk)+" 확인";
+    if(++tickN%6===0){Array.prototype.forEach.call(document.querySelectorAll(".rclist [data-t]"),function(s){s.textContent=rel(s.getAttribute("data-t"))});
+      if(rc.length)$("rcN").textContent="· 마지막 "+rel(rc[0].t);if(doc)dvMeta()}}
+
+  /* ── 문서 보기·편집 ── */
+  var doc=null,lastFocus=null,hooked=false;
+  function isMd(){return !!doc&&/^(md|markdown)$/.test(ext(doc.name))}
+  function renderInto(box,text){box.textContent="";box.scrollTop=0;
+    if(!String(text).trim()){box.appendChild(el("p","note","빈 문서입니다."));return}
+    if(isMd()&&window.marked&&window.DOMPurify){try{
+      if(!hooked){DOMPurify.addHook("afterSanitizeAttributes",function(n){if(n.tagName==="A"){n.setAttribute("target","_blank");n.setAttribute("rel","noopener noreferrer")}});hooked=true}
+      var d=el("div","md");d.innerHTML=DOMPurify.sanitize(marked.parse(String(text),{gfm:true,breaks:true}));box.appendChild(d);return}catch(e){}}
+    box.appendChild(el("pre",/^(csv|json)$/.test(ext(doc&&doc.name))?null:"prose",text))}
+  function b64utf8(b){var bin=atob(b||""),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+    var s=window.TextDecoder?new TextDecoder("utf-8").decode(u):decodeURIComponent(escape(bin));return s.replace(/^﻿/,"")}
+  function fetchText(d){var id=d.id;
+    return api("text",{id:id}).then(function(j){return{text:String(j.text==null?"":j.text),updated:j.updated||"",name:j.name,
+        editable:j.editable===true||(j.editable==null&&d.kind==="text")}})
+    .catch(function(e){if(e.code==="bad_action"&&d.kind==="text")return api("download",{id:id}).then(function(j){return{text:b64utf8(j.b64),updated:d.f.updated||"",editable:false,legacy:true}});throw e})}
+  function show(id,on){$(id).hidden=!on}
+  function stat(t,cls){var s=$("dvStat");s.textContent=t||"";s.className=cls||"";$("dvFoot").hidden=!(doc&&doc.editing)&&!t}
+  function bar(t,type,acts){var b=$("dvBar");b.textContent="";b.className="dvbar"+(type==="info"?" info":"");if(!t){b.hidden=true;return}
+    b.appendChild(el("span",null,t));(acts||[]).forEach(function(a){var x=el("button","btn sm alt",a[0]);x.type="button";x.onclick=a[1];b.appendChild(x)});b.hidden=false}
+  function lastEdit(id){for(var i=0;i<rc.length;i++)if(rc[i].id===id&&!gone(rc[i]))return rc[i];return null}
+  function dvMeta(){if(!doc)return;var e=lastEdit(doc.id),t=doc.updated||(e&&e.t),s="";
+    if(t)s="마지막 수정 "+rel(t);
+    if(e&&(!doc.updated||Math.abs(ms(e.t)-ms(doc.updated))<180000))s+=(s?" · ":"")+whoName(e.who);
+    if(doc.kind==="plain")s+=(s?" · ":"")+"글자만 뽑아 보기(읽기 전용)";
+    $("dvMeta").textContent=s}
+  function dvSync(){var d=doc;if(!d)return;var ed=d.editing,gd=d.kind==="gdoc",ready=!d.loading&&!d.err;
+    show("dvEdit",!ed&&ready&&d.editable);
+    show("dvGdoc",gd);if(gd)$("dvGdoc").href="https://docs.google.com/document/d/"+encodeURIComponent(d.id)+"/edit";
+    show("dvPrev",ed&&isMd());$("dvPrev").textContent=d.preview?"편집 화면":"미리보기";
+    show("dvSave",ed);show("dvDone",ed);show("dvDl",!ed);
+    $("dvDl").textContent=kindOf(d.f)==="pdf"?"원본 보기":"내려받기";
+    show("dvBody",!ed||d.preview);show("dvEditBox",ed&&!d.preview);
+    show("dvApp",gd&&ready);
+    show("dvFoot",ed||!!$("dvStat").textContent);show("dvHint",ed)}
+  function apply(r){var d=doc;d.loading=false;d.err=false;d.text=r.text;d.updated=r.updated||"";d.legacy=!!r.legacy;
+    d.editable=!!r.editable&&!d.legacy&&d.kind==="text";
+    if(r.name){d.name=r.name;$("dvName").textContent=r.name}
+    markSeen({id:d.id,updated:d.updated||d.f.updated});
+    if(!d.editing)renderInto($("dvBody"),d.text);dvMeta();dvSync();
+    if(d.legacy)bar("지금은 읽기만 됩니다 — 고치기 기능은 서버 준비가 끝나면 열립니다.","info")}
+  function viewer(f,opt){opt=opt||{};
+    if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
+    if(!doc)lastFocus=document.activeElement;
+    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false};
+    $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
+    $("dvName").textContent=f.name;$("dvMeta").textContent="";bar("");stat("");$("dvAppText").value="";
+    var body=$("dvBody");body.textContent="";body.appendChild(el("p","note",opt.plain?"글자를 뽑는 중… (PDF·한글 파일은 30초쯤 걸릴 수 있습니다)":"불러오는 중…"));
+    dvSync();$("dvClose").focus();pulseSoon();
+    if(opt.preset){apply(opt.preset);if(opt.edit)startEdit();return}
+    fetchText(d).then(function(r){if(doc!==d)return;apply(r);if(opt.edit&&d.editable)startEdit()})
+    .catch(function(e){if(doc!==d)return;d.loading=false;d.err=true;body.textContent="";
+      body.appendChild(el("p","err",e.code==="bad_action"?"문서 보기 기능은 서버 준비가 끝나면 열립니다. 지금은 「내려받기」로 열어 주세요.":e.message));
+      if(d.kind==="gdoc")body.appendChild(el("p","note","위 「구글 문서에서 열기」로 바로 볼 수 있습니다."));
+      dvSync()})}
+  function startEdit(){var d=doc;if(!d||!d.editable)return;d.editing=true;d.preview=false;d.base=d.text;d.dirty=false;
+    $("dvText").value=d.text;bar("");stat("");dvSync();var ta=$("dvText");ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length)}catch(e){}}
+  function endEdit(){var d=doc;if(!d)return;if(d.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 편집을 끝낼까요?"))return;
+    d.editing=false;d.dirty=false;d.preview=false;renderInto($("dvBody"),d.text);bar("");stat("");dvSync();
+    if(d.remoteSeen&&ms(d.remoteSeen)>ms(d.updated))refreshDoc(d)}
+  function togglePreview(){var d=doc;if(!d||!d.editing)return;d.preview=!d.preview;if(d.preview)renderInto($("dvBody"),$("dvText").value);dvSync();
+    (d.preview?$("dvPrev"):$("dvText")).focus()}
+  function save(force){var d=doc;if(!d||!d.editing||d.saving)return;var text=$("dvText").value,data={id:d.id,text:text};if(!force)data.expect=d.updated;
+    d.saving=true;$("dvSave").disabled=true;stat("저장하는 중…");
+    function done(j){if(j.updated)d.updated=j.updated;d.text=text;d.base=text;d.remoteSeen=null;
+      if(doc!==d)return;d.dirty=$("dvText").value!==text;markSeen({id:d.id,updated:d.updated});
+      $("dvConf").hidden=true;bar("");dvMeta();stat("저장됨 · 이전 내용은 자동 백업","ok");reloadSoon();pulseSoon()}
+    // 구글 서버가 30초를 넘기면 저장은 됐는데 응답만 깨진다 → 내용을 다시 읽어 확인
+    api("replace",data,true).then(done,function(e){if(e.code!=="badjson")throw e;stat("응답이 늦어 저장됐는지 확인하는 중…");
+      return api("text",{id:d.id}).then(function(t){if(t.text===text)return done(t);throw e},function(){throw e})})
+    .catch(function(e){if(doc!==d)return;
+      if(e.code==="conflict"){conflict(e.data||{});stat("");return}
+      stat(e.code==="bad_action"?"저장 기능은 서버 준비가 끝나면 열립니다.":e.message,"bad")})
+    .then(function(){d.saving=false;$("dvSave").disabled=false})}
+  function conflict(x){var d=doc;if(!d)return;if(x.lastWho)d.lastWho=x.lastWho;
+    $("dvConfMsg").textContent="그 사이에 "+subj(x.lastWho||d.lastWho||"")+" 이 문서를 고쳤습니다"+(x.updated?"("+rel(x.updated)+")":"")+". 어떻게 할까요? 「불러오기」를 누르면 내가 쓴 글은 먼저 클립보드에 복사해 둡니다.";
+    $("dvConf").hidden=false;$("dvConfLoad").focus()}
+  function takeTheirs(){var d=doc;if(!d)return;$("dvConf").hidden=true;var mineT=$("dvText").value;
+    copyText(mineT).then(function(ok){
+      if(!ok&&d.dirty&&!confirm("내가 쓴 글을 클립보드에 복사하지 못했습니다. 그래도 상대 내용을 불러올까요? (내가 쓴 글은 사라집니다)"))return;
+      stat("상대 내용 불러오는 중…");
+      return fetchText(d).then(function(r){if(doc!==d)return;d.text=r.text;d.base=r.text;d.updated=r.updated||d.updated;d.dirty=false;d.remoteSeen=null;
+        $("dvText").value=r.text;if(d.preview)renderInto($("dvBody"),r.text);bar("");dvMeta();markSeen({id:d.id,updated:d.updated});
+        stat(ok?"상대 내용을 불러왔습니다 · 내가 쓴 글은 클립보드에 있으니 필요하면 붙여넣기(Ctrl+V) 하세요":"상대 내용을 불러왔습니다","ok")})
+    }).catch(function(e){stat(e.message,"bad")})}
+  function refreshDoc(d,w){return fetchText(d).then(function(r){if(doc!==d||d.editing)return;var changed=r.text!==d.text;apply(r);
+      if(changed){bar("방금 "+(w?w+" 님이":"다른 분이")+" 고쳤습니다 — 새 내용으로 바꿔 보여 드립니다.","info");
+        var b=$("dvBody");b.classList.remove("flash");void b.offsetWidth;b.classList.add("flash");
+        setTimeout(function(){if(doc===d&&!d.editing&&$("dvBar").className==="dvbar info")bar("")},8000)}}).catch(function(){})}
+  function remoteWho(id){for(var i=0;i<rc.length;i++){var x=rc[i];if(x.id===id&&!mine(x))return /^\(/.test(x.who||"")?"":x.who}return""}
+  function docRemote(fl){var d=doc;if(!d||d.loading||d.err||d.saving||!fl.updated||!d.updated)return;
+    var u=ms(fl.updated);if(!(u>ms(d.updated)))return;if(d.remoteSeen&&ms(d.remoteSeen)>=u)return;
+    d.remoteSeen=fl.updated;var w=remoteWho(d.id);
+    if(d.editing){bar((w?w+" 님이":"다른 분이")+" 방금 이 문서를 고쳤습니다. 이대로 저장하면 겹칠 수 있어요.","warn",[["상대 내용 불러오기",takeTheirs]]);return}
+    refreshDoc(d,w)}
+  function closeDoc(){if(!doc)return;if(doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 닫을까요?"))return;
+    doc=null;$("dv").hidden=true;$("dvConf").hidden=true;document.body.classList.remove("noscroll");
+    if(lastFocus&&lastFocus.focus&&document.body.contains(lastFocus))try{lastFocus.focus()}catch(e){}
+    lastFocus=null;pulseSoon()}
+  function doAppend(){var d=doc,t=$("dvAppText").value;if(!d||!t.trim())return;$("dvAppGo").disabled=true;stat("덧붙이는 중…");
+    api("append",{id:d.id,text:t},true).then(function(j){if(doc!==d)return;$("dvAppText").value="";
+      stat(j.dedup?"같은 내용을 방금 덧붙여서 한 번만 남겼습니다":"덧붙였습니다","ok");if(j.updated)d.remoteSeen=j.updated;
+      return fetchText(d).then(function(r){if(doc===d)apply(r)})})
+    .catch(function(e){stat(e.code==="bad_action"?"덧붙이기 기능은 서버 준비가 끝나면 열립니다.":e.message,"bad")})
+    .then(function(){$("dvAppGo").disabled=false})}
+  function trap(e){var root=$("dvConf").hidden?$("dv"):$("dvConf");
+    var f=Array.prototype.filter.call(root.querySelectorAll("button,a[href],textarea,input"),function(x){return !x.disabled&&x.getClientRects().length>0});
+    if(!f.length)return;var a=f[0],z=f[f.length-1],act=document.activeElement;
+    if(!root.contains(act)){e.preventDefault();a.focus();return}
+    if(e.shiftKey&&act===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&act===z){e.preventDefault();a.focus()}}
+  function bindViewer(){
+    $("dvClose").onclick=closeDoc;$("dvEdit").onclick=startEdit;$("dvDone").onclick=endEdit;$("dvPrev").onclick=togglePreview;
+    $("dvSave").onclick=function(){save(false)};$("dvDl").onclick=function(){if(doc)get(doc.f)};
+    $("dvConfLoad").onclick=takeTheirs;$("dvConfMine").onclick=function(){$("dvConf").hidden=true;save(true)};
+    $("dvConfCancel").onclick=function(){$("dvConf").hidden=true;$("dvSave").focus()};
+    $("dvAppGo").onclick=doAppend;
+    $("dvText").addEventListener("input",function(){var d=doc;if(!d||!d.editing)return;d.dirty=this.value!==d.base;
+      if(d.dirty)stat("저장하지 않은 변경이 있습니다");else stat("")});
+    $("dv").addEventListener("keydown",function(e){
+      if(e.key==="Escape"){e.preventDefault();if(!$("dvConf").hidden){$("dvConf").hidden=true;return}closeDoc();return}
+      if((e.ctrlKey||e.metaKey)&&(e.key==="s"||e.key==="S")){e.preventDefault();if(doc&&doc.editing)save(false);return}
+      if(e.key==="Tab")trap(e)});
+    $("dv").addEventListener("click",function(e){if(e.target===this&&doc&&!doc.editing)closeDoc()});
+    window.addEventListener("beforeunload",function(e){if(doc&&doc.dirty){e.preventDefault();e.returnValue="";return""}})}
+
   window.FB_START=function(){
-    $("fbReload").onclick=function(){load(cur)};$("fbMkdir").onclick=mkdir;
+    if(started)return;started=true;
+    $("fbReload").onclick=function(){load(cur)};$("fbMkdir").onclick=mkdir;$("fbNew").onclick=newDoc;
     $("vGrid").onclick=function(){setView("grid")};$("vList").onclick=function(){setView("list")};
     $("fbFile").onchange=function(){upload(this.files);this.value=""};
     var d=$("fbDrop");
     d.addEventListener("dragover",function(e){e.preventDefault();d.classList.add("over")});
     d.addEventListener("dragleave",function(){d.classList.remove("over")});
     d.addEventListener("drop",function(e){e.preventDefault();d.classList.remove("over");upload(e.dataTransfer.files)});
+    /* 지난 방문 시각: 탭(세션)마다 한 번만 넘김 — 새로고침해도 「새로」가 사라지지 않게 */
+    try{var sv=sessionStorage.getItem("nrf_visit_prev");
+      if(sv!=null)prevVisit=+sv||0;else{prevVisit=+localStorage.getItem("nrf_prev_visit")||0;localStorage.setItem("nrf_prev_visit",String(Date.now()));sessionStorage.setItem("nrf_visit_prev",String(prevVisit))}}catch(e){}
+    try{seen=JSON.parse(localStorage.getItem("nrf_seen")||"{}")||{}}catch(e){seen={}}
+    var c=code();if(c)$("aiPrompt").textContent="https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 "+c+"이야. 기록에 남길 내 이름은 송지수야.";
+    $("aiCopy").onclick=function(){var b=this;copyText($("aiPrompt").textContent).then(function(ok){b.textContent=ok?"복사됨":"길게 눌러 복사해 주세요";setTimeout(function(){b.textContent="복사"},2500)})};
+    try{$("rc").open=!window.matchMedia("(max-width:560px)").matches}catch(e){$("rc").open=true}
+    drawRecent();bindViewer();
     load("");
+    loadRecent(true);
+    setInterval(tick,5000);
+    setInterval(function(){if(document.hidden||busy)return;if(!cur){if(Date.now()-lastListAt>=60000){lastListAt=Date.now();load("",true)}return}if(Date.now()-lastListAt>=60000)quiet()},10000);
+    document.addEventListener("visibilitychange",function(){
+      if(document.hidden){clearTimeout(pulseT);pulseT=null;return}
+      pulse();if(cur&&Date.now()-lastListAt>=60000)quiet()});
   };
 })();
 </script>
