@@ -173,6 +173,47 @@ body.noscroll .toasts{bottom:auto;top:12px}
 .flash{animation:flash 2.4s ease-out}
 .aibox{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--sky);border-radius:12px;padding:12px 14px}
 .aibox code{flex:1 1 260px;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+/* ── 처음 안내 · 읽기 전용 사본 ── */
+.hdrtop{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.guide{border:1px solid var(--sky2);background:#fff;color:var(--blue2);font:inherit;font-size:13px;font-weight:700;padding:3px 12px;border-radius:999px;cursor:pointer}
+.guide:hover{background:var(--sky)}
+footer .linkbtn{font-size:12px;font-weight:500}
+.intro{border:2px solid var(--sky2);background:linear-gradient(180deg,#fff 0%,#f7fbff 100%)}
+.introhead{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.introhead h2{margin:0 0 10px}
+.introhead .x{border:0;background:none;font:inherit;font-size:13px;color:var(--mute);cursor:pointer;padding:4px 6px;border-radius:8px;white-space:nowrap}
+.introhead .x:hover{background:var(--sky)}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.steps .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.steps .btn{margin:4px 8px 0 0;vertical-align:middle}
+.whook{display:inline-block;margin-top:4px;color:var(--ok);font-weight:700;font-size:14px;vertical-align:middle}
+.intro .vault{margin:12px 0 0;padding:10px 12px;background:var(--sky);border-radius:10px;font-size:14px}
+.faq{margin:12px 0 0;border-top:1px solid var(--line);padding-top:8px}
+.faq summary{cursor:pointer;font-weight:700;font-size:14px;padding:4px 0}
+.faq dl{margin:6px 0 0;font-size:14px}
+.faq dt{font-weight:700;margin-top:8px}
+.faq dd{margin:2px 0 0 0}
+.robadge{display:inline-block;font-size:11px;font-weight:700;line-height:1;padding:3px 6px;border-radius:999px;background:#e8eef6;color:#44546a;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.tile .robadge{position:absolute;top:6px;left:6px;margin:0;pointer-events:none}
+.dvtitle .robadge{font-size:12px;padding:3px 8px;margin-left:8px}
+.hdrr{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.idchip{font-size:13px;color:var(--blue2);background:rgba(255,255,255,.75);border:1px solid var(--sky2);border-radius:999px;padding:2px 4px 2px 12px}
+.idchip b{font-weight:800}
+.idchip .linkbtn{font-size:13px;padding:2px 8px;border-radius:999px;text-decoration:none;background:var(--sky)}
+.whopick{position:fixed;inset:0;z-index:70;background:rgba(243,248,253,.97);display:flex;align-items:center;justify-content:center;padding:16px}
+.whopick .box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;width:100%;max-width:380px;text-align:center;box-shadow:0 10px 30px rgba(15,23,42,.10)}
+.whopick h2{font-size:22px;margin:6px 0 4px}
+.whopick .whobtns{display:grid;gap:10px;margin:16px 0 12px}
+.whopick .big{font-size:18px;padding:14px;border-radius:12px;width:100%}
+.whopick .linkbtn{font-size:14px}
+.whopick .cancel{display:block;margin:10px auto 0;color:var(--mute)}
+.doc.main{border:2px solid var(--blue);background:#f7fbff}
+.doc .must{display:inline-block;font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;background:var(--blue);color:#fff;margin-right:8px;vertical-align:1px}
+.morefmt{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;padding:0 12px}
+.morefmt summary{cursor:pointer;font-weight:700;font-size:14px;padding:10px 2px;color:var(--mute)}
+.morefmt .docs{padding:0 0 12px}
+.ronote{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:#eef3f9;color:#44546a;font-size:13px}
 @media (max-width:560px){
   .modal{padding:0}
   .dlg{max-width:none;height:100%;border-radius:0}
@@ -202,12 +243,35 @@ body.noscroll .toasts{bottom:auto;top:12px}
 
 <div id="app" hidden>
 <header><div class="wrap">
-  <div class="eyebrow">2026 제2차 내부연구사업 · 공공보건의료연구소</div>
+  <div class="hdrtop"><div class="eyebrow">2026 제2차 내부연구사업 · 공공보건의료연구소</div><span class="hdrr"><span class="idchip" id="idChip" hidden><b id="idName"></b> 님으로 보는 중 <button type="button" class="linkbtn" id="idChange">바꾸기</button></span><button type="button" class="guide" id="introOpen">사용 안내</button></span></div>
   <h1>근무 규칙을 반영한 병동 간호인력 배수표 개발</h1>
   <p class="sub">가상근무표 시뮬레이션을 통한 추가 필요인력 산정</p>
 </div></header>
 
 <main><div class="wrap">
+  <section class="card intro" id="intro" hidden aria-labelledby="introH">
+    <div class="introhead"><h2 id="introH">처음 오셨나요? <span class="note" style="font-weight:500">세 가지만 알면 됩니다</span></h2><button type="button" class="x" id="introClose">안내 닫기 ✕</button></div>
+    <ol class="steps">
+      <li><span class="num" aria-hidden="true">1</span><div><b>이름</b> — <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><b>파일함에서 문서 열고 고치기</b> — 「새 문서」로 만들거나 문서를 눌러 「편집」 → 「저장」. 동시에 고치면 알려 드리고, 이전 내용은 자동 백업됩니다.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다.</div></li>
+    </ol>
+    <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다 — 10분마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
+    <details class="faq">
+      <summary>자주 묻는 것</summary>
+      <dl>
+        <dt>고친 걸 되돌리고 싶어요</dt>
+        <dd>파일함 「_이전판(자동 백업)」 폴더에 고치기 전 내용이 「원래이름__날짜-시각__고친 사람」으로 남아 있습니다. 열어서 필요한 부분을 복사해 넣으세요.</dd>
+        <dt>지운 걸 살리고 싶어요</dt>
+        <dd>구글 드라이브 휴지통에서 30일 안에 되살릴 수 있습니다. AI에게 「방금 지운 ○○ 되살려 줘」라고 부탁해도 됩니다.</dd>
+        <dt>화면이 안 바뀌어요</dt>
+        <dd>파일함 위에 초록 점 「실시간」이 켜져 있는지 보세요. 회색 「연결 끊김」이면 「새로고침」 버튼이나 브라우저 새로고침(F5)을 눌러 주세요.</dd>
+        <dt>HWP는 AI가 못 읽어요</dt>
+        <dd>구글 드라이브가 HWP를 글자로 바꾸지 못합니다. HWP를 올릴 때 PDF도 함께 올려 주세요.</dd>
+      </dl>
+    </details>
+  </section>
+
   <section class="card">
     <h2>현황 <span class="pill">접수 대기 · 마감 9월 30일</span></h2>
     <div class="status">
@@ -222,8 +286,9 @@ body.noscroll .toasts{bottom:auto;top:12px}
     <h2>파일함 <span class="note" style="font-weight:500">구글 드라이브 「Obsidian/60. Research」와 같은 폴더</span></h2>
     <div class="fbtop v4" id="fbTop"><span class="live off" id="fbLive" title="15초마다 다른 분의 변경을 확인합니다"><span class="dot" aria-hidden="true"></span><span id="fbLiveT">연결하는 중…</span></span><span class="viewers" id="fbViewers"></span></div>
     <nav class="crumbs" id="fbPath" aria-label="폴더 경로"></nav>
+    <p class="ronote" id="fbRo" hidden>이 폴더는 김대연 선생님 연구 노트의 자동 사본이라 읽기만 됩니다(10분마다 새로 고쳐짐). 올리기·새 문서·새 폴더는 다른 폴더에서 해 주세요.</p>
     <div class="tools">
-      <label class="btn">올리기<input type="file" id="fbFile" multiple hidden></label>
+      <label class="btn" id="fbUp">올리기<input type="file" id="fbFile" multiple hidden></label>
       <button type="button" class="btn alt v4" id="fbNew">새 문서</button>
       <button type="button" class="btn alt" id="fbMkdir">새 폴더</button>
       <button type="button" class="btn alt" id="fbReload">새로고침</button>
@@ -248,6 +313,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
       <li><b>읽기</b> — 파일함의 문서·PDF를 읽고 요약해 줍니다.</li>
       <li><b>쓰기</b> — 새 문서를 만들고, 있는 문서에 덧붙이거나 고칩니다(고치기 전 내용은 자동 백업).</li>
       <li><b>정리</b> — 폴더를 만들고, 이름을 바꾸고, 지웁니다. 지운 것은 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다.</li>
+      <li><b>노트</b> — 김대연 선생님 연구 노트도 읽을 수 있어요(「_볼트 노트(자동 사본)」 폴더 · 읽기 전용).</li>
     </ul>
     <p style="margin:14px 0 6px;font-weight:700">처음 한 번, AI에게 이 문장을 그대로 붙여 넣어 주세요</p>
     <div class="aibox"><code id="aiPrompt">https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 (열람 코드)이야. 기록에 남길 내 이름은 송지수야.</code><button type="button" class="btn sm" id="aiCopy">복사</button></div>
@@ -274,17 +340,26 @@ body.noscroll .toasts{bottom:auto;top:12px}
   <section class="card">
     <h2>문서 <span class="note" style="font-weight:500">AI 도구용 텍스트판 = <a href="llms.txt">llms.txt</a></span></h2>
     <div class="docs">
-      <div class="doc"><div><div class="t">별첨1 · 신청서 및 연구계획서 (최신 · 9월 29일)</div><div class="d">송지수 선생님 정리본 · 1~7번(11쪽) · 연락처를 가린 공개본</div></div>
-        <div class="fmt"><a href="docs/proposal_20260929_public.pdf" target="_blank" rel="noopener">PDF</a></div></div>
-      <div class="doc"><div><div class="t">참고 · 연구계획서 v2.1 Word 원고</div><div class="d">최신본의 바탕이 된 전체 원고(21쪽 · 8번 이후 포함) · 공개본</div></div>
-        <div class="fmt"><a href="docs/proposal_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a><a class="alt" href="docs/proposal_v2.1_public.docx" download="연구계획서_v2.1_공개본.docx">DOCX</a><a class="alt" href="docs/proposal_v2.1_public.doc" download="연구계획서_v2.1_공개본.doc">DOC</a></div></div>
+      <div class="doc main"><div><div class="t"><span class="must">이걸 여세요</span>별첨1 · 신청서 및 연구계획서 (최신 · 9월 29일)</div><div class="d">송지수 선생님 정리본 · 1~7번(11쪽) · 연락처를 가린 공개본</div></div>
+        <div class="fmt"><a href="docs/proposal_20260929_public.pdf" target="_blank" rel="noopener">PDF 열기</a></div></div>
       <div class="doc"><div><div class="t">별첨2 · 개인정보 수집·이용·제3자 제공 동의서</div><div class="d">1쪽 · 공개본</div></div>
-        <div class="fmt"><a href="docs/consent_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a><a class="alt" href="docs/consent_v2.1_public.docx" download="별첨2_동의서_v2.1_공개본.docx">DOCX</a></div></div>
+        <div class="fmt"><a href="docs/consent_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a></div></div>
       <div class="doc"><div><div class="t">별첨3 · 연구비 산출내역서</div><div class="d">공식 서식 엑셀 · 합계 10,000,000원</div></div>
         <div class="fmt"><a href="docs/budget_v2.1.xlsx" download="별첨3_연구비_산출내역서_v2.1.xlsx">XLSX</a></div></div>
       <div class="doc"><div><div class="t">연구계획서 쉬운 설명</div><div class="d">5쪽 · 제출하지 않는 설명 자료</div></div>
-        <div class="fmt"><a href="docs/easy_v2.1.pdf" target="_blank" rel="noopener">PDF</a><a class="alt" href="docs/easy_v2.1.docx" download="연구계획서_쉬운설명_v2.1.docx">DOCX</a></div></div>
+        <div class="fmt"><a href="docs/easy_v2.1.pdf" target="_blank" rel="noopener">PDF</a></div></div>
     </div>
+    <details class="morefmt">
+      <summary>다른 형식·참고 원고</summary>
+      <div class="docs">
+        <div class="doc"><div><div class="t">참고 · 연구계획서 v2.1 Word 원고</div><div class="d">최신본의 바탕이 된 전체 원고(21쪽 · 8번 이후 포함) · 공개본</div></div>
+          <div class="fmt"><a class="alt" href="docs/proposal_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a><a class="alt" href="docs/proposal_v2.1_public.docx" download="연구계획서_v2.1_공개본.docx">DOCX</a><a class="alt" href="docs/proposal_v2.1_public.doc" download="연구계획서_v2.1_공개본.doc">DOC</a></div></div>
+        <div class="doc"><div><div class="t">별첨2 · 동의서 (Word)</div><div class="d">고쳐 쓸 때만</div></div>
+          <div class="fmt"><a class="alt" href="docs/consent_v2.1_public.docx" download="별첨2_동의서_v2.1_공개본.docx">DOCX</a></div></div>
+        <div class="doc"><div><div class="t">연구계획서 쉬운 설명 (Word)</div><div class="d">고쳐 쓸 때만</div></div>
+          <div class="fmt"><a class="alt" href="docs/easy_v2.1.docx" download="연구계획서_쉬운설명_v2.1.docx">DOCX</a></div></div>
+      </div>
+    </details>
     <p class="note">접수용 원본(연락처 포함)은 연구진이 따로 보관합니다.</p>
   </section>
 
@@ -311,12 +386,12 @@ body.noscroll .toasts{bottom:auto;top:12px}
     </ol>
   </section>
 </div></main>
-<footer>2026-09-29 갱신 · 검색 비노출 페이지</footer>
+<footer>2026-09-30 갱신 · 검색 비노출 페이지 · <button type="button" class="linkbtn" id="introOpen2">사용 안내</button></footer>
 
 <div class="modal" id="dv" hidden>
   <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dvName">
     <div class="dvhead">
-      <div class="dvtitle"><h3 id="dvName"></h3><div class="dvmeta" id="dvMeta"></div></div>
+      <div class="dvtitle"><h3><span id="dvName"></span><span class="robadge" id="dvRo" hidden>읽기 전용 · 볼트 사본</span></h3><div class="dvmeta" id="dvMeta"></div></div>
       <div class="dvbtns">
         <button type="button" class="btn sm" id="dvEdit">편집</button>
         <a class="btn sm" id="dvGdoc" target="_blank" rel="noopener">구글 문서에서 열기</a>
@@ -343,6 +418,16 @@ body.noscroll .toasts{bottom:auto;top:12px}
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="whopick" id="whoPick" hidden role="dialog" aria-modal="true" aria-labelledby="whoH">
+  <div class="box">
+    <div class="eyebrow">간호인력 연구 2026</div>
+    <h2 id="whoH">누구세요?</h2>
+    <p class="note" style="margin:0">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</p>
+    <div class="whobtns"><button type="button" class="btn big" data-who="송지수">송지수</button><button type="button" class="btn big" data-who="김대연">김대연</button></div>
+    <button type="button" class="linkbtn" id="whoOther">다른 이름</button>
+    <button type="button" class="linkbtn cancel" id="whoCancel" hidden>취소</button>
   </div>
 </div>
 <div class="toasts" id="toasts" aria-live="polite"></div>
@@ -401,10 +486,14 @@ body.noscroll .toasts{bottom:auto;top:12px}
   function markSeen(f){if(!f||!f.id)return;var had=isNew(f)||liveNew[f.id];seen[f.id]=f.updated||new Date().toISOString();delete liveNew[f.id];saveSeen();if(had)draw()}
 
   /* ── 파일함 목록 ── */
+  var MIRROR="_볼트 노트(자동 사본)";
+  function roFolder(){return !!last&&(last.folder.readonly===true||last.path.some(function(x){return x.name===MIRROR}))}
+  function ro(f,isDir){return !!f&&(f.readonly===true||(isDir&&f.name===MIRROR)||roFolder())}
+  function roTools(){var r=roFolder();$("fbRo").hidden=!r;["fbUp","fbNew","fbMkdir"].forEach(function(id){$(id).style.display=r?"none":""})}
   function render(j){
     cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
     j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 "+x.name:x.name);b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
-    last=j;draw();
+    last=j;roTools();draw();
   }
   var last=null,view="grid",drawnFolder=null;
   try{view=localStorage.getItem("nrf_view")||"grid"}catch(e){}
@@ -422,6 +511,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
   }
   var SVGNS="http://www.w3.org/2000/svg";
   function svg(markup){var t=document.createElement("template");t.innerHTML=markup.trim();return t.content.firstChild}
+  var FOLDER_RO='<svg viewBox="0 0 64 56" aria-hidden="true"><path d="M4 10a4 4 0 0 1 4-4h15l6 6h27a4 4 0 0 1 4 4v4H4z" fill="#7b93b3"/><rect x="4" y="16" width="56" height="36" rx="4" fill="#a9bdd6"/><rect x="4" y="16" width="56" height="5" fill="#c3d3e6"/><rect x="25" y="30" width="14" height="11" rx="2" fill="#44546a"/><path d="M28 30v-3a4 4 0 0 1 8 0v3" fill="none" stroke="#44546a" stroke-width="2.2"/></svg>';
   var FOLDER='<svg viewBox="0 0 64 56" aria-hidden="true"><path d="M4 10a4 4 0 0 1 4-4h15l6 6h27a4 4 0 0 1 4 4v4H4z" fill="#e6a817"/><rect x="4" y="16" width="56" height="36" rx="4" fill="#f8c33c"/><rect x="4" y="16" width="56" height="5" fill="#fbd462"/></svg>';
   function fileSvg(name){var e=(name.split(".").pop()||"").toLowerCase().replace(/[^a-z0-9]/g,""),c={pdf:"#d93025",doc:"#2b5cd9",docx:"#2b5cd9",hwp:"#1a8fd6",hwpx:"#1a8fd6",xls:"#1e8e3e",xlsx:"#1e8e3e",csv:"#1e8e3e",ppt:"#d4581a",pptx:"#d4581a",png:"#8e44ad",jpg:"#8e44ad",jpeg:"#8e44ad",zip:"#6b7280",txt:"#6b7280",md:"#6b7280"}[e]||"#6b7280";
     var t=(e&&e.length<=4?e:"file").toUpperCase();
@@ -429,9 +519,11 @@ body.noscroll .toasts{bottom:auto;top:12px}
   function viewable(k){return k==="text"||k==="gdoc"}
   function tile(f,isDir){
     var li=el("li","tile"),b=el("button","open"),nw=!isDir&&isNew(f);b.type="button";b.title=f.name+(isDir?"":" · "+size(f.size))+" · "+date(f.updated)+(nw?" · 새로 바뀜":"");
-    b.appendChild(svg(isDir?FOLDER:fileSvg(f.name)));b.appendChild(el("span","lbl",f.name));
+    var mir=isDir&&f.name===MIRROR;
+    b.appendChild(svg(mir?FOLDER_RO:isDir?FOLDER:fileSvg(f.name)));b.appendChild(el("span","lbl",f.name));
     b.onclick=function(){isDir?load(f.id):openFile(f)};li.appendChild(b);
-    if(nw)li.appendChild(el("span","newb","새로"));
+    if(mir){li.appendChild(el("span","robadge","🔒 사본"));b.title+=" · 읽기 전용 사본"}
+    else if(nw)li.appendChild(el("span","newb","새로"));
     var m=el("button","more","⋯");m.type="button";m.setAttribute("aria-label",f.name+" 메뉴");
     m.onclick=function(ev){ev.stopPropagation();openMenu(li,f,isDir)};li.appendChild(m);return li
   }
@@ -442,22 +534,25 @@ body.noscroll .toasts{bottom:auto;top:12px}
     else if(viewable(k)){items.push(["열기",function(){openFile(f)}]);items.push(["내려받기",function(){get(f)}])}
     else items.push(["열기·내려받기",function(){get(f)}]);
     if(k==="pdf"||k==="office"||k==="hwp")items.push(["글자로 보기",function(){viewer(f,{plain:true})},"v4"]);
-    items.push(["이름 바꾸기",function(){rename(f)}],["삭제",function(){del(f,isDir)},"del"]);
+    if(!ro(f,isDir))items.push(["이름 바꾸기",function(){rename(f)}],["삭제",function(){del(f,isDir)},"del"]);
     var mn=el("div","menu");items.forEach(function(a){
       var x=el("button",a[2]||null,a[0]);x.type="button";x.onclick=function(){closeMenus();a[1]()};mn.appendChild(x)});
     li.classList.add("menu-open");li.appendChild(mn)}
   document.addEventListener("click",closeMenus);
   function row(f,isDir){
     var li=el("li");var nm=el("button","nm"),k=isDir?"folder":kindOf(f);nm.type="button";
-    nm.appendChild(el("span","ic",isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(f.name));
-    if(!isDir&&isNew(f))nm.appendChild(el("span","newb","새로"));
+    var mir=isDir&&f.name===MIRROR;
+    nm.appendChild(el("span","ic",mir?"🔒":isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(f.name));
+    if(mir)nm.appendChild(el("span","robadge","사본 · 읽기 전용"));
+    else if(!isDir&&isNew(f))nm.appendChild(el("span","newb","새로"));
     nm.title=isDir?"폴더 열기":viewable(k)?"문서 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):openFile(f)};
     li.appendChild(nm);li.appendChild(el("span","c-size",isDir?"":size(f.size)));li.appendChild(el("span","c-date",date(f.updated)));
     var a=el("span","acts");
     if(viewable(k)){var dn=el("button",null,"받기");dn.type="button";dn.title="내려받기";dn.onclick=function(){get(f)};a.appendChild(dn)}
     if(k==="pdf"||k==="office"||k==="hwp"){var tx=el("button","v4","글자");tx.type="button";tx.title="글자로 보기";tx.onclick=function(){viewer(f,{plain:true})};a.appendChild(tx)}
-    var rn=el("button",null,"이름");rn.type="button";rn.onclick=function(){rename(f)};
-    var dl=el("button","del","삭제");dl.type="button";dl.onclick=function(){del(f,isDir)};a.appendChild(rn);a.appendChild(dl);li.appendChild(a);return li
+    if(!ro(f,isDir)){var rn=el("button",null,"이름");rn.type="button";rn.onclick=function(){rename(f)};
+      var dl=el("button","del","삭제");dl.type="button";dl.onclick=function(){del(f,isDir)};a.appendChild(rn);a.appendChild(dl)}
+    li.appendChild(a);return li
   }
   function icon(n){var e=(n.split(".").pop()||"").toLowerCase();
     return {pdf:"📕",doc:"📘",docx:"📘",hwp:"📘",hwpx:"📘",xls:"📗",xlsx:"📗",csv:"📗",ppt:"📙",pptx:"📙",png:"🖼",jpg:"🖼",jpeg:"🖼",zip:"🗜"}[e]||"📄"}
@@ -490,9 +585,9 @@ body.noscroll .toasts{bottom:auto;top:12px}
     api("rename",{id:f.id,name:n},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
   function del(f,isDir){if(!confirm("「"+f.name+"」"+(isDir?" 폴더(안의 파일 포함)":"")+"를 삭제할까요?\n구글 드라이브 휴지통으로 가며 30일 안에 되살릴 수 있습니다."))return;
     msg("삭제하는 중…");api("trash",{id:f.id},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
-  function mkdir(){var n=prompt("새 폴더 이름");if(!n)return;msg("폴더 만드는 중…");
+  function mkdir(){if(roFolder())return;var n=prompt("새 폴더 이름");if(!n)return;msg("폴더 만드는 중…");
     api("mkdir",{folderId:cur,name:n},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
-  function upload(list){var files=Array.prototype.slice.call(list||[]);if(!files.length)return;if(!who(true)){msg("이름을 적어야 올릴 수 있습니다.",true);return}
+  function upload(list){var files=Array.prototype.slice.call(list||[]);if(!files.length)return;if(roFolder()){msg("이 폴더는 읽기 전용 사본이라 올릴 수 없습니다.",true);return}if(!who(true)){msg("이름을 적어야 올릴 수 있습니다.",true);return}
     var i=0,done=0;
     (function next(){if(i>=files.length){msg(done+"개 올림");load(cur);return}
       var f=files[i++];if(f.size>MAXB){msg("「"+f.name+"」은 33MB가 넘어 구글 드라이브에서 직접 올려 주세요.",true);next();return}
@@ -502,7 +597,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
       rd.readAsDataURL(f)})();
   }
   function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
-  function newDoc(){var n=prompt("새 문서 이름 (.md · .txt · .csv · .json)","회의록 "+today()+".md");if(!n)return;n=n.trim();if(!n)return;
+  function newDoc(){if(roFolder())return;var n=prompt("새 문서 이름 (.md · .txt · .csv · .json)","회의록 "+today()+".md");if(!n)return;n=n.trim();if(!n)return;
     if(!/\.(md|txt|csv|json)$/i.test(n))n+=".md";
     var base=n.replace(/\.[^.]+$/,""),e=ext(n),text=e==="md"?"# "+base+"\n\n":e==="txt"?base+"\n\n":"";
     msg("새 문서 만드는 중…");
@@ -567,7 +662,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
     msg("여는 중…");
     api("stat",{id:x.id}).then(function(s){msg("");
       if(s.kind==="folder"||s.mime==="application/vnd.google-apps.folder"){if(w)w.close();load(s.id||x.id);return}
-      openFile({id:s.id||x.id,name:s.name||x.target,mime:s.mime,size:s.size,updated:s.updated,kind:s.kind},w)})
+      openFile({id:s.id||x.id,name:s.name||x.target,mime:s.mime,size:s.size,updated:s.updated,kind:s.kind,editable:s.editable,readonly:s.readonly,appendable:s.appendable},w)})
     .catch(function(e){if(w)w.close();
       if(e.code==="bad_action"){msg("아직 준비 중인 기능입니다.",true);return}
       api("list",{folderId:x.id}).then(function(j){if(!busy){lastListAt=Date.now();render(j)}msg("")}).catch(function(){msg(e.message,true)})})}
@@ -585,7 +680,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
     vs.sort(function(a,b){return(b.who===m)-(a.who===m)});
     if(vs.length)V.appendChild(document.createTextNode("지금 보는 사람: "+vs.map(function(v){return(v.who===m?"나":whoName(v.who))+(v.fileName?"("+v.fileName+")":"")}).join(" · ")));
     if(!m&&!off){if(vs.length)V.appendChild(document.createTextNode(" · "));
-      var b=el("button","linkbtn","내 이름 알리기");b.type="button";b.title="다른 분 화면에 내가 보고 있다고 표시됩니다";b.onclick=function(){if(who(true))pulse()};V.appendChild(b)}}
+      var b=el("button","linkbtn","내 이름 알리기");b.type="button";b.title="다른 분 화면에 내가 보고 있다고 표시됩니다";b.onclick=function(){openWho(true)};V.appendChild(b)}}
   function pulse(){clearTimeout(pulseT);pulseT=null;if(!started||document.hidden||pulsing)return;pulsing=true;
     var fid=doc?doc.id:"";
     api("pulse",{fileId:fid,folderId:cur||"",since:since}).then(function(j){
@@ -615,8 +710,9 @@ body.noscroll .toasts{bottom:auto;top:12px}
   function b64utf8(b){var bin=atob(b||""),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
     var s=window.TextDecoder?new TextDecoder("utf-8").decode(u):decodeURIComponent(escape(bin));return s.replace(/^﻿/,"")}
   function fetchText(d){var id=d.id;
-    return api("text",{id:id}).then(function(j){return{text:String(j.text==null?"":j.text),updated:j.updated||"",name:j.name,
-        editable:j.editable===true||(j.editable==null&&d.kind==="text")}})
+    return api("text",{id:id}).then(function(j){var f=d.f;return{text:String(j.text==null?"":j.text),updated:j.updated||"",name:j.name,
+        editable:j.editable!=null?j.editable===true:f.editable!=null?f.editable===true:d.kind==="text",
+        readonly:j.readonly===true,appendable:j.appendable!=null?j.appendable!==false:f.appendable!==false}})
     .catch(function(e){if(e.code==="bad_action"&&d.kind==="text")return api("download",{id:id}).then(function(j){return{text:b64utf8(j.b64),updated:d.f.updated||"",editable:false,legacy:true}});throw e})}
   function show(id,on){$(id).hidden=!on}
   function stat(t,cls){var s=$("dvStat");s.textContent=t||"";s.className=cls||"";$("dvFoot").hidden=!(doc&&doc.editing)&&!t}
@@ -635,10 +731,11 @@ body.noscroll .toasts{bottom:auto;top:12px}
     show("dvSave",ed);show("dvDone",ed);show("dvDl",!ed);
     $("dvDl").textContent=kindOf(d.f)==="pdf"?"원본 보기":"내려받기";
     show("dvBody",!ed||d.preview);show("dvEditBox",ed&&!d.preview);
-    show("dvApp",gd&&ready);
+    show("dvApp",gd&&ready&&!d.readonly&&d.appendable!==false);show("dvRo",!!d.readonly);
     show("dvFoot",ed||!!$("dvStat").textContent);show("dvHint",ed)}
   function apply(r){var d=doc;d.loading=false;d.err=false;d.text=r.text;d.updated=r.updated||"";d.legacy=!!r.legacy;
-    d.editable=!!r.editable&&!d.legacy&&d.kind==="text";
+    if(r.readonly)d.readonly=true;if(r.appendable===false)d.appendable=false;
+    d.editable=!!r.editable&&!d.legacy&&!d.readonly&&d.kind==="text";
     if(r.name){d.name=r.name;$("dvName").textContent=r.name}
     markSeen({id:d.id,updated:d.updated||d.f.updated});
     if(!d.editing)renderInto($("dvBody"),d.text);dvMeta();dvSync();
@@ -646,7 +743,8 @@ body.noscroll .toasts{bottom:auto;top:12px}
   function viewer(f,opt){opt=opt||{};
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
     if(!doc)lastFocus=document.activeElement;
-    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false};
+    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,
+      readonly:f.readonly===true||(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
     $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
     $("dvName").textContent=f.name;$("dvMeta").textContent="";bar("");stat("");$("dvAppText").value="";
     var body=$("dvBody");body.textContent="";body.appendChild(el("p","note",opt.plain?"글자를 뽑는 중… (PDF·한글 파일은 30초쯤 걸릴 수 있습니다)":"불러오는 중…"));
@@ -727,6 +825,37 @@ body.noscroll .toasts{bottom:auto;top:12px}
     $("dv").addEventListener("click",function(e){if(e.target===this&&doc&&!doc.editing)closeDoc()});
     window.addEventListener("beforeunload",function(e){if(doc&&doc.dirty){e.preventDefault();e.returnValue="";return""}})}
 
+  /* ── 처음 안내 ── */
+  function introWho(){var w=me();$("introWhoOk").textContent=w?w+" 님으로 기록됩니다 ✓":"아직 이름을 고르지 않았습니다";$("introWho").textContent=w?"바꾸기":"고르기"}
+  /* ── 누구세요? ── */
+  var whoBack=null;
+  function drawId(){var w=me();$("idChip").hidden=!w;$("idName").textContent=w;if($("intro"))introWho()}
+  function setWho(n){n=String(n||"").trim().slice(0,20);if(!n)return false;try{localStorage.setItem("nrf_who",n)}catch(e){}
+    closeWho();drawId();drawLive();drawRecent();
+    if(started&&v4!==false){clearTimeout(psT);if(pulsing)psT=setTimeout(pulse,1500);else pulse()}
+    return true}
+  function openWho(canCancel){whoBack=document.activeElement;$("whoCancel").hidden=!canCancel||!me();$("whoPick").hidden=false;
+    var m=me(),bs=$("whoPick").querySelectorAll("[data-who]"),f=bs[0];
+    Array.prototype.forEach.call(bs,function(b){if(b.getAttribute("data-who")===m)f=b});f.focus()}
+  function closeWho(){$("whoPick").hidden=true;if(whoBack&&whoBack.focus&&document.body.contains(whoBack))try{whoBack.focus()}catch(e){}whoBack=null}
+  function bindWho(){
+    Array.prototype.forEach.call($("whoPick").querySelectorAll("[data-who]"),function(b){b.onclick=function(){setWho(b.getAttribute("data-who"))}});
+    $("whoOther").onclick=function(){var n=(prompt("기록에 남길 이름을 적어 주세요 (예: 송지수)",me())||"").trim();if(n)setWho(n)};
+    $("whoCancel").onclick=function(){if(me())closeWho()};
+    $("whoPick").addEventListener("keydown",function(e){
+      if(e.key==="Escape"&&me()){e.preventDefault();closeWho();return}
+      if(e.key==="Tab"){var f=Array.prototype.filter.call($("whoPick").querySelectorAll("button"),function(x){return x.getClientRects().length>0}),a=f[0],z=f[f.length-1];
+        if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+    $("idChange").onclick=function(){openWho(true)};
+    drawId();if(!me())openWho(false)}
+  function showIntro(scroll){$("intro").hidden=false;introWho();if(scroll)$("intro").scrollIntoView({behavior:"smooth",block:"start"})}
+  function initIntro(){
+    $("introWho").onclick=function(){openWho(true)};
+    $("introClose").onclick=function(){$("intro").hidden=true;try{localStorage.setItem("nrf_intro_done","1")}catch(e){}$("introOpen").focus()};
+    $("introOpen").onclick=function(){showIntro(true)};$("introOpen2").onclick=function(){showIntro(true)};
+    $("introAi").onclick=function(e){e.preventDefault();$("ai").scrollIntoView({behavior:"smooth",block:"start"})};
+    var done=false;try{done=localStorage.getItem("nrf_intro_done")==="1"}catch(e){}
+    if(!done)showIntro(false)}
   window.FB_START=function(){
     if(started)return;started=true;
     $("fbReload").onclick=function(){load(cur)};$("fbMkdir").onclick=mkdir;$("fbNew").onclick=newDoc;
@@ -743,7 +872,7 @@ body.noscroll .toasts{bottom:auto;top:12px}
     var c=code();if(c)$("aiPrompt").textContent="https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 "+c+"이야. 기록에 남길 내 이름은 송지수야.";
     $("aiCopy").onclick=function(){var b=this;copyText($("aiPrompt").textContent).then(function(ok){b.textContent=ok?"복사됨":"길게 눌러 복사해 주세요";setTimeout(function(){b.textContent="복사"},2500)})};
     try{$("rc").open=!window.matchMedia("(max-width:560px)").matches}catch(e){$("rc").open=true}
-    drawRecent();bindViewer();
+    drawRecent();bindViewer();initIntro();bindWho();
     load("");
     loadRecent(true);
     setInterval(tick,5000);
