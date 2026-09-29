@@ -41,6 +41,29 @@ th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;verti
 th{background:var(--sky);font-weight:700}
 .note{font-size:13px;color:var(--mute)}
 footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
+.crumbs{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:0 0 10px;font-size:14px}
+.crumbs button{border:0;background:none;color:var(--blue);font:inherit;font-weight:600;padding:2px 4px;cursor:pointer;border-radius:6px}
+.crumbs button:hover{background:var(--sky)}
+.crumbs .sep{color:var(--mute)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-size:14px;font-weight:700;padding:8px 14px;border-radius:999px;background:var(--blue);color:#fff}
+.btn.alt{background:var(--sky);color:var(--blue2)}
+.drop{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.drop.over{outline:3px dashed var(--blue);outline-offset:-3px;background:var(--sky)}
+.fbhead,.fblist li{display:grid;grid-template-columns:1fr 84px 128px 96px;gap:8px;align-items:center;padding:8px 12px}
+.fbhead{background:var(--sky);font-size:13px;font-weight:700;color:var(--mute)}
+.fblist{list-style:none;margin:0;padding:0;max-height:520px;overflow:auto}
+.fblist li{border-top:1px solid var(--line);font-size:14px}
+.fblist li:hover{background:#f7fbff}
+.fblist .nm{border:0;background:none;font:inherit;text-align:left;color:var(--ink);cursor:pointer;padding:0;word-break:break-all}
+.fblist .nm:hover{color:var(--blue);text-decoration:underline}
+.fblist .ic{margin-right:6px}
+.fblist .c-size,.fblist .c-date,.fbhead .c-size,.fbhead .c-date{color:var(--mute);font-size:13px}
+.fblist .acts{display:flex;gap:4px;justify-content:flex-end}
+.fblist .acts button{border:1px solid var(--line);background:#fff;border-radius:8px;font:inherit;font-size:12px;padding:3px 7px;cursor:pointer;color:var(--blue2)}
+.fblist .acts button.del{color:#b42318}
+.fblist .empty{display:block;color:var(--mute);text-align:center;padding:18px}
+@media (max-width:560px){.fbhead{display:none}.fblist li{grid-template-columns:1fr auto}.fblist .c-size,.fblist .c-date{display:none}}
 #gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
 #gate form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;width:100%;max-width:360px;text-align:center}
 #gate input{width:100%;font:inherit;font-size:16px;padding:12px;border:1px solid var(--line);border-radius:10px;margin:12px 0;text-align:center;letter-spacing:.2em}
@@ -75,6 +98,22 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
       <div class="stat"><b>기간 · 연구비</b><span>12개월 · 1,000만 원</span></div>
       <div class="stat"><b>착수</b><span>협약일 (12월 1주 예정)</span></div>
     </div>
+  </section>
+
+  <section class="card" id="fb">
+    <h2>파일함 <span class="note" style="font-weight:500">구글 드라이브 「Obsidian/60. Research」와 같은 폴더</span></h2>
+    <nav class="crumbs" id="fbPath" aria-label="폴더 경로"></nav>
+    <div class="tools">
+      <label class="btn">올리기<input type="file" id="fbFile" multiple hidden></label>
+      <button type="button" class="btn alt" id="fbMkdir">새 폴더</button>
+      <button type="button" class="btn alt" id="fbReload">새로고침</button>
+      <span class="note" id="fbMsg" role="status"></span>
+    </div>
+    <div class="drop" id="fbDrop">
+      <div class="fbhead"><span>이름</span><span class="c-size">크기</span><span class="c-date">수정</span><span></span></div>
+      <ul id="fbList" class="fblist"></ul>
+    </div>
+    <p class="note">파일을 이 상자에 끌어다 놓아도 올라갑니다 · 삭제하면 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다 · 올리기·이름 바꾸기·삭제는 기록 시트에 남습니다.</p>
   </section>
 
   <section class="card">
@@ -133,15 +172,88 @@ footer{color:var(--mute);font-size:12px;text-align:center;padding:0 16px 32px}
 
 <script>
 (function(){
+  var API="https://script.google.com/macros/s/AKfycbx7vL6GpQXer5OVytWyg9nM8H3dbUfkSaXLgSbhPsUqrtg01Op6OW6RcGO6y-jrNLW9/exec";
+  var MAXB=33*1024*1024, cur=null, busy=false;
+  var $=function(id){return document.getElementById(id)};
+  function code(){try{return window.NRF_CODE||sessionStorage.getItem("nrf_code")||""}catch(e){return window.NRF_CODE||""}}
+  function who(ask){var w="";try{w=localStorage.getItem("nrf_who")||""}catch(e){}
+    if(!w&&ask){w=(prompt("기록에 남길 이름을 적어 주세요 (예: 송지수)")||"").trim();try{if(w)localStorage.setItem("nrf_who",w)}catch(e){}}return w}
+  function msg(t,bad){var m=$("fbMsg");m.textContent=t||"";m.style.color=bad?"#b42318":""}
+  function api(action,data,ask){
+    var body=Object.assign({action:action,code:code(),who:who(ask)},data||{});
+    return fetch(API,{method:"POST",body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){
+      if(!j.ok)throw new Error(j.message||j.error||"오류");return j});
+  }
+  function size(n){if(n==null||n==="")return"";if(n<1024)return n+" B";if(n<1048576)return(n/1024).toFixed(0)+" KB";return(n/1048576).toFixed(1)+" MB"}
+  function date(s){return s?s.slice(0,16).replace("T"," "):""}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function render(j){
+    cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
+    j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 "+x.name:x.name);b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
+    var ul=$("fbList");ul.innerHTML="";
+    if(!j.folders.length&&!j.files.length){ul.appendChild(el("li","empty","빈 폴더입니다"));return}
+    j.folders.forEach(function(f){ul.appendChild(row(f,true))});
+    j.files.forEach(function(f){ul.appendChild(row(f,false))});
+  }
+  function row(f,isDir){
+    var li=el("li");var nm=el("button","nm");nm.type="button";
+    nm.appendChild(el("span","ic",isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(f.name));
+    nm.title=isDir?"폴더 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):get(f)};
+    li.appendChild(nm);li.appendChild(el("span","c-size",isDir?"":size(f.size)));li.appendChild(el("span","c-date",date(f.updated)));
+    var a=el("span","acts");var rn=el("button",null,"이름");rn.type="button";rn.onclick=function(){rename(f)};
+    var dl=el("button","del","삭제");dl.type="button";dl.onclick=function(){del(f,isDir)};a.appendChild(rn);a.appendChild(dl);li.appendChild(a);return li
+  }
+  function icon(n){var e=(n.split(".").pop()||"").toLowerCase();
+    return {pdf:"📕",doc:"📘",docx:"📘",hwp:"📘",hwpx:"📘",xls:"📗",xlsx:"📗",csv:"📗",ppt:"📙",pptx:"📙",png:"🖼",jpg:"🖼",jpeg:"🖼",zip:"🗜"}[e]||"📄"}
+  function load(id){if(busy)return;busy=true;msg("불러오는 중…");
+    api("list",{folderId:id||""}).then(function(j){render(j);msg("")}).catch(function(e){msg(e.message,true)}).then(function(){busy=false})}
+  function get(f){
+    var isPdf=/\.pdf$/i.test(f.name)||f.mime==="application/pdf",w=isPdf?window.open("","_blank"):null;
+    msg("「"+f.name+"」 받는 중…");
+    api("download",{id:f.id}).then(function(j){
+      var bin=atob(j.b64),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
+      var url=URL.createObjectURL(new Blob([u],{type:j.mime||"application/octet-stream"}));
+      if(w&&!w.closed){w.location.href=url}else{var a=document.createElement("a");a.href=url;a.download=j.name||f.name;document.body.appendChild(a);a.click();a.remove()}
+      setTimeout(function(){URL.revokeObjectURL(url)},60000);msg("")
+    }).catch(function(e){if(w)w.close();msg(e.message,true)})
+  }
+  function rename(f){var n=prompt("새 이름",f.name);if(!n||n===f.name)return;msg("이름 바꾸는 중…");
+    api("rename",{id:f.id,name:n},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
+  function del(f,isDir){if(!confirm("「"+f.name+"」"+(isDir?" 폴더(안의 파일 포함)":"")+"를 삭제할까요?\n구글 드라이브 휴지통으로 가며 30일 안에 되살릴 수 있습니다."))return;
+    msg("삭제하는 중…");api("trash",{id:f.id},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
+  function mkdir(){var n=prompt("새 폴더 이름");if(!n)return;msg("폴더 만드는 중…");
+    api("mkdir",{folderId:cur,name:n},true).then(function(){load(cur)}).catch(function(e){msg(e.message,true)})}
+  function upload(list){var files=Array.prototype.slice.call(list||[]);if(!files.length)return;if(!who(true)){msg("이름을 적어야 올릴 수 있습니다.",true);return}
+    var i=0,done=0;
+    (function next(){if(i>=files.length){msg(done+"개 올림");load(cur);return}
+      var f=files[i++];if(f.size>MAXB){msg("「"+f.name+"」은 33MB가 넘어 구글 드라이브에서 직접 올려 주세요.",true);next();return}
+      msg("올리는 중 "+i+"/"+files.length+" — "+f.name);
+      var rd=new FileReader();rd.onload=function(){var b64=String(rd.result).split(",")[1]||"";
+        api("upload",{folderId:cur,name:f.name,mime:f.type||"application/octet-stream",b64:b64},true).then(function(){done++;next()}).catch(function(e){msg("「"+f.name+"」: "+e.message,true);setTimeout(next,1500)})};
+      rd.readAsDataURL(f)})();
+  }
+  window.FB_START=function(){
+    $("fbReload").onclick=function(){load(cur)};$("fbMkdir").onclick=mkdir;
+    $("fbFile").onchange=function(){upload(this.files);this.value=""};
+    var d=$("fbDrop");
+    d.addEventListener("dragover",function(e){e.preventDefault();d.classList.add("over")});
+    d.addEventListener("dragleave",function(){d.classList.remove("over")});
+    d.addEventListener("drop",function(e){e.preventDefault();d.classList.remove("over");upload(e.dataTransfer.files)});
+    load("");
+  };
+})();
+</script>
+<script>
+(function(){
   var H="de3d43caad2bd3c4f0622fc60deecd06b34a0f25a80e30b81fe051a3c54799bb";
-  function open(){document.getElementById("gate").hidden=true;document.getElementById("gate").style.display="none";document.getElementById("app").hidden=false;}
-  try{if(sessionStorage.getItem("nrf_ok")===H){open();}}catch(e){}
+  function open(){document.getElementById("gate").hidden=true;document.getElementById("gate").style.display="none";document.getElementById("app").hidden=false;if(window.FB_START)window.FB_START();}
+  try{if(sessionStorage.getItem("nrf_ok")===H&&sessionStorage.getItem("nrf_code")){open();}}catch(e){}
   function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return("0"+b.toString(16)).slice(-2)}).join("");}
   document.getElementById("gf").addEventListener("submit",function(ev){
     ev.preventDefault();
     var v=document.getElementById("code").value.trim();
     crypto.subtle.digest("SHA-256",new TextEncoder().encode(v)).then(function(d){
-      if(hex(d)===H){try{sessionStorage.setItem("nrf_ok",H)}catch(e){}open();}
+      if(hex(d)===H){try{sessionStorage.setItem("nrf_ok",H);sessionStorage.setItem("nrf_code",v)}catch(e){}window.NRF_CODE=v;open();}
       else{document.getElementById("err").textContent="코드가 맞지 않습니다.";}
     });
   });
