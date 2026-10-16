@@ -365,16 +365,16 @@ details.card[open]>summary{margin-bottom:12px}
   </section>
 
   <section class="card" id="week" aria-labelledby="weekH">
-    <h2 id="weekH">앞으로 2주 할 일 <span class="note" style="font-weight:500" id="wkRange"></span></h2>
+    <h2 id="weekH">앞으로 할 일 <span class="note" style="font-weight:500" id="wkRange"></span></h2>
     <ul class="wk" id="wkList"></ul>
-    <p class="note" style="margin:8px 0 0"><span class="who s">송지수</span>선생님이 하실 일 · <span class="who k">김대연·AI</span>계산 쪽 일 · <span class="who e">일정</span>정해진 행사. 전체 목록은 아래 「송지수 선생님이 하실 일」.</p>
+    <p class="note" style="margin:8px 0 0">함께 진행할 핵심 일정입니다. 세부 절차는 파일함의 실행 계획에서 확인합니다.</p>
   </section>
 
-  <section class="card" id="studies" aria-labelledby="stH">
-    <h2 id="stH">연구 1 · 2 · 3</h2>
+  <details class="card" id="studies" aria-labelledby="stH">
+    <summary id="stH">연구 1 · 2 · 3 자세히 보기</summary>
     <div class="rs" id="rsList"></div>
     <p class="note" style="margin:10px 0 0"><b>원칙</b> — 판정 기준과 분석 방법은 결과를 보기 전에 정해 잠그고(계산 직전 동결 · 시각은 공개 난수로 기록), 계산 결과는 정해진 열람일 전에는 이 페이지에도 올리지 않습니다. 결과는 모형 조건에 따른 범위로만 보고합니다(실제 병동 권고가 아님).</p>
-  </section>
+  </details>
 
   <section class="card" id="fb">
     <h2>파일함 <span class="note" style="font-weight:500">구글 드라이브 「Obsidian/60. Research」와 같은 폴더</span></h2>
@@ -444,15 +444,7 @@ details.card[open]>summary{margin-bottom:12px}
     <p class="note">접수용 원본(연락처 포함)은 연구진이 따로 보관합니다.</p>
   </section>
 
-  <section class="card" id="quality"><h2>논문 품질과 준비 상태</h2><div class="scroll"><table><thead><tr><th>항목</th><th>상태</th><th>확인 내용</th></tr></thead><tbody><tr><td>7개 AI 역할·재검토</td><td>완료</td><td>실제 전문가 자문과 구별</td></tr><tr><td>기존 코드 회귀</td><td>통과</td><td>684 통과·5 건너뜀; 새 설계 검증은 잔여</td></tr><tr><td>새 분석·연구 3 구현</td><td>미완료</td><td>연구별 실행 전에 검증·동결</td></tr><tr><td>실제 규정·OSF·PI 확인</td><td>미확인</td><td>완료 증거를 받아 기록</td></tr><tr><td>11월 전 범위 용량</td><td>조건부</td><td>현행 시험 계산 뒤 재판정</td></tr><tr><td>학술 심사</td><td>향후</td><td>11월 목표는 심사 가능한 초안; 게재 보장 없음</td></tr></tbody></table></div><p class="note">원고 A는 조건별 지도와 공정한 산정식 비교, 원고 B는 새 표본을 이용한 규칙 변경 비교가 핵심입니다. 실제 안전정원·환자 결과·현장 효과는 측정하지 않습니다.</p></section>
-<section class="card" id="schedule"><h2>전체 일정 <span class="note">마스터 플랜 v1.3 · 11월 완료 목표</span></h2><p class="note">7950X 한 대를 24시간 운영하는 계획입니다. 각 연구는 구현·검증·실제 확인·용량 관문을 통과한 뒤 시작합니다. 날짜가 지났다고 자동 착수하거나 결과를 개봉하지 않습니다. 용량 부족 시 사전 감축 순서를 적용하고 목표 위험을 알립니다.</p><div class="scroll"><table><thead><tr><th>기간</th><th>산출물·관문</th></tr></thead><tbody><tr><td>10월 17~19일</td><td>계획 확정·실제 규칙·계약·복구 관문</td></tr><tr><td>10월 20~23일</td><td>연구 1 계산·대조·반복·재검증·봉인</td></tr><tr><td>10월 21일</td><td>연구 2 결정표·규칙·비교자 확인</td></tr><tr><td>10월 28일</td><td>연구 2 구현·검증·실측 용량 GO · 연구 3 방법 고정</td></tr><tr><td>10월 29일~11월 13일</td><td>연구 2 계산·홀드아웃·감사</td></tr><tr><td>11월 6일</td><td>연구 3 규칙·파일럿·병동 문서값 확인</td></tr><tr><td>11월 13일</td><td>연구 3 계약·실측 용량 GO</td></tr><tr><td>11월 14~23일</td><td>연구 3 새 표본 계산 · 연구 2 분석·원고 A</td></tr><tr><td>11월 24~27일</td><td>연구 3 재검증·배수표·계산기·원고 B · PI 해석 확인</td></tr><tr><td>11월 28~30일</td><td>독립 반박검토·수정·재현 패키지·초안 완료 관문</td></tr><tr><td>2027년 별도</td><td>투고·발표·기관 보고: 품질 관문과 기관 일정에 따름</td></tr></tbody></table></div></section>
-
-  <section class="card" id="todo">
-    <h2>송지수 선생님이 하실 일</h2>
-    <p class="note" style="margin:0 0 8px">rERP 제출은 2026-09-30에 끝났습니다(지금 선정 대기 · 다시 올리지 않습니다). <b>초안·표·질문지는 모두 AI가 준비합니다.</b> 선생님은 실제 규정·기관 연락·OSF 등록·결과 해석을 확인해 주세요. 최신 결정에 따라 착수 전 확인과 사전등록 절차를 유지하며, 아직 완료 증거가 없는 항목은 미확인입니다. 파일함의 50 문서 0부에 체크팩이 있습니다. 날짜가 어려우시면 말씀만 주세요(「기준 잠금 → 계산 → 정해진 날 열람」 순서는 그대로입니다).</p>
-    <ul class="plain todo" id="todoList"><li class="note">일정을 불러오는 중…</li></ul>
-    <p class="note">자세한 계획 = 파일함 「_볼트 노트(자동 사본)」 → 「40. 실행 계획 v1.md」 · 선생님 준비물(점검표·질문지·발표 답변 초안) = 「50. PI 준비물 v1.md」</p>
-  </section>
+  <details class="card" id="quality"><summary>검토 결과 자세히 보기</summary><div class="scroll"><table><thead><tr><th>항목</th><th>상태</th><th>확인 내용</th></tr></thead><tbody><tr><td>7개 AI 역할·재검토</td><td>완료</td><td>실제 전문가 자문과 구별</td></tr><tr><td>기존 코드 회귀</td><td>통과</td><td>684 통과·5 건너뜀; 새 설계 검증은 잔여</td></tr><tr><td>새 분석·연구 3 구현</td><td>미완료</td><td>연구별 실행 전에 검증·동결</td></tr><tr><td>실제 규정·OSF·PI 확인</td><td>미확인</td><td>완료 증거를 받아 기록</td></tr><tr><td>11월 전 범위 용량</td><td>조건부</td><td>현행 시험 계산 뒤 재판정</td></tr><tr><td>학술 심사</td><td>향후</td><td>11월 목표는 심사 가능한 초안; 게재 보장 없음</td></tr></tbody></table></div><p class="note">원고 A는 조건별 지도와 공정한 산정식 비교, 원고 B는 새 표본을 이용한 규칙 변경 비교가 핵심입니다. 실제 안전정원·환자 결과·현장 효과는 측정하지 않습니다.</p></details>
   <details class="card" id="ai">
     <summary><h2>AI와 함께 쓰기</h2> <span class="note" style="font-weight:500">처음 연결할 때만 · 연결 문장 복사</span></summary>
     <p style="margin:0 0 8px">송지수 선생님 PC의 AI 프로그램(ChatGPT·Claude·Gemini 등)도 이 파일함을 함께 씁니다.</p>
@@ -1056,7 +1048,6 @@ details.card[open]>summary{margin-bottom:12px}
     if(t.start===t.end)return m+a.getDate()+"일("+WD[a.getDay()]+")";
     if(a.getMonth()===b.getMonth())return m+a.getDate()+"~"+b.getDate()+"일";
     return m+a.getDate()+"일~"+(b.getMonth()+1)+"월 "+b.getDate()+"일"}
-  var WHO={"송지수":"s","김대연·AI":"k","일정":"e"};
   function draw(P){
     var today=iso(new Date()),t2=new Date(),tm=new Date();t2.setDate(t2.getDate()+13);tm.setDate(tm.getDate()+1);var end2=iso(t2),tomorrow=iso(tm);
     if(P.badge)$("pgBadge").textContent=P.badge;
@@ -1069,19 +1060,16 @@ details.card[open]>summary{margin-bottom:12px}
       var dl=el("dl");[["계산",s.compute],["사람 확인",s.people]].forEach(function(r){dl.appendChild(el("dt",null,r[0]));dl.appendChild(el("dd",null,r[1]))});d.appendChild(dl);rs.appendChild(d)});
     var tasks=(P.tasks||[]).slice().sort(function(a,b){return a.start<b.start?-1:a.start>b.start?1:0});
     var wk=$("wkList");wk.textContent="";
-    $("wkRange").textContent=when({start:today,end:end2})+" · 오늘 기준 자동";
-    var n=0;tasks.forEach(function(t){if(t.end<today||t.start>end2)return;n++;
-      var on=t.start<=today&&today<=t.end,li=el("li",on&&t.who==="송지수"?"today":""),d=el("span","d",when(t));
+    $("wkRange").textContent="핵심 일정 5개";
+    var n=0;tasks.forEach(function(t){n++;
+      var on=t.start<=today&&today<=t.end,li=el("li",on?"today":""),d=el("span","d",when(t));
       var tag=t.start===today&&t.end===today?"오늘":(on?"진행 중":(t.start===tomorrow?"내일":""));if(tag)d.appendChild(el("em",null,tag));
-      var tx=el("span","t");tx.appendChild(el("span","who "+(WHO[t.who]||"k"),t.who));tx.appendChild(document.createTextNode(t.what));if(t.time)tx.appendChild(el("small",null,t.time));
+      var tx=el("span","t");tx.appendChild(document.createTextNode(t.what));if(t.time)tx.appendChild(el("small",null,t.time));
       li.appendChild(d);li.appendChild(tx);wk.appendChild(li)});
-    if(!n)wk.appendChild(el("li","empty","앞으로 2주 동안 잡힌 일이 없습니다."));
-    var td=$("todoList");td.textContent="";
-    tasks.forEach(function(t){if(t.who!=="송지수")return;var li=el("li",t.end<today?"past":(t.start<=end2?"soon":""));
-      li.appendChild(el("b",null,when(t)));li.appendChild(document.createTextNode(" — "+t.what+(t.time?" — "+t.time:"")));td.appendChild(li)});
+    if(!n)wk.appendChild(el("li","empty","등록된 일정이 없습니다."));
     if(P.updated)$("pgUpd").textContent=P.updated.replace(/-/g,". ").replace(/\. 0/g,". ")+". 갱신";
   }
-  function fail(){["wkList","todoList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
+  function fail(){["wkList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
   fetch("progress.json?t="+Math.floor(Date.now()/6e4),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(draw).catch(fail);
 })();
 </script>
