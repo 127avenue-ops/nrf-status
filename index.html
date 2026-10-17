@@ -377,10 +377,16 @@ details.card[open]>summary{margin-bottom:12px}
   </details>
 
   <section class="card" id="fb">
-    <h2>파일함 <span class="note" style="font-weight:500">구글 드라이브 「Obsidian/60. Research」와 같은 폴더</span></h2>
+    <h2>파일함 <span class="note" style="font-weight:500">최신 연구 문서</span></h2>
+    <div class="tools" id="currentDocs" aria-label="최신 문서 바로 열기">
+      <button type="button" class="btn" data-current="40. 실행 계획 v1.md" data-section="5-0. 마스터 플랜">실행 계획</button>
+      <button type="button" class="btn alt" data-current="50. PI 준비물 v1.md" data-section="0부. 현재 PI 체크팩">준비 체크리스트</button>
+      <button type="button" class="btn alt" data-current="00. OVERVIEW.md" data-section="일정">현재 상황</button>
+      <button type="button" class="btn ghost" id="fbAll">전체 파일</button>
+    </div>
     <div class="fbtop v4" id="fbTop"><span class="live off" id="fbLive" title="15초마다 다른 분의 변경을 확인합니다"><span class="dot" aria-hidden="true"></span><span id="fbLiveT">연결하는 중…</span></span><span class="viewers" id="fbViewers"></span></div>
     <nav class="crumbs" id="fbPath" aria-label="폴더 경로"></nav>
-    <p class="ronote" id="fbRo" hidden>이 폴더는 김대연 선생님 연구 노트의 자동 사본이라 읽기만 됩니다(1시간마다 새로 고쳐짐). 올리기·새 문서·새 폴더는 다른 폴더에서 해 주세요.</p>
+    <p class="ronote" id="fbRo" hidden>최신 계획이 동기화되는 읽기 전용 문서입니다. 자료를 올리려면 「전체 파일」을 여세요.</p>
     <div class="tools">
       <label class="btn" id="fbUp">올리기<input type="file" id="fbFile" multiple hidden></label>
       <button type="button" class="btn alt v4" id="fbNew">새 문서</button>
@@ -395,7 +401,7 @@ details.card[open]>summary{margin-bottom:12px}
     </div>
     <p class="note">파일을 이 상자에 끌어다 놓아도 올라갑니다 · 삭제하면 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다 · 올리기·이름 바꾸기·삭제는 기록 시트에 남습니다.</p>
     <details class="recent v4" id="rc">
-      <summary>최근 변경 <span class="note" id="rcN"></span></summary>
+      <summary>공동 편집 기록 <span class="note" id="rcN"></span></summary><p class="note" style="padding:0 14px">자동 동기화 시각은 각 파일의 수정일에서 확인합니다.</p>
       <ol class="rclist" id="rcList"></ol>
     </details>
   </section>
@@ -418,10 +424,10 @@ details.card[open]>summary{margin-bottom:12px}
     </details>
   </section>
 
-  <section class="card">
-    <h2>문서 <span class="note" style="font-weight:500">AI 도구용 텍스트판 = <a href="llms.txt">llms.txt</a></span></h2>
+  <details class="card" id="submissionArchive">
+    <summary>이전 제출 자료 · 2026년 9월</summary><p class="note">접수 당시 보존본입니다. 현재 계획은 위 파일함의 「실행 계획」을 확인하세요.</p>
     <div class="docs">
-      <div class="doc main"><div><div class="t"><span class="must">이걸 여세요</span>별첨1 · 신청서 및 연구계획서 (최신 · 9월 29일)</div><div class="d">송지수 선생님 정리본 · 1~7번(11쪽) · 연락처를 가린 공개본</div></div>
+      <div class="doc main"><div><div class="t">별첨1 · 신청서 및 연구계획서 (9월 29일 제출본)</div><div class="d">송지수 선생님 정리본 · 1~7번(11쪽) · 연락처를 가린 공개본</div></div>
         <div class="fmt"><a href="docs/proposal_20260929_public.pdf" target="_blank" rel="noopener">PDF 열기</a></div></div>
       <div class="doc"><div><div class="t">별첨2 · 개인정보 수집·이용·제3자 제공 동의서</div><div class="d">1쪽 · 공개본</div></div>
         <div class="fmt"><a href="docs/consent_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a></div></div>
@@ -433,7 +439,7 @@ details.card[open]>summary{margin-bottom:12px}
     <details class="morefmt">
       <summary>다른 형식·참고 원고</summary>
       <div class="docs">
-        <div class="doc"><div><div class="t">참고 · 연구계획서 v2.1 Word 원고</div><div class="d">최신본의 바탕이 된 전체 원고(21쪽 · 8번 이후 포함) · 공개본</div></div>
+        <div class="doc"><div><div class="t">참고 · 연구계획서 v2.1 Word 원고</div><div class="d">제출본의 바탕이 된 전체 원고(21쪽 · 8번 이후 포함) · 공개본</div></div>
           <div class="fmt"><a class="alt" href="docs/proposal_v2.1_public.pdf" target="_blank" rel="noopener">PDF</a><a class="alt" href="docs/proposal_v2.1_public.docx" download="연구계획서_v2.1_공개본.docx">DOCX</a><a class="alt" href="docs/proposal_v2.1_public.doc" download="연구계획서_v2.1_공개본.doc">DOC</a></div></div>
         <div class="doc"><div><div class="t">별첨2 · 동의서 (Word)</div><div class="d">고쳐 쓸 때만</div></div>
           <div class="fmt"><a class="alt" href="docs/consent_v2.1_public.docx" download="별첨2_동의서_v2.1_공개본.docx">DOCX</a></div></div>
@@ -442,7 +448,7 @@ details.card[open]>summary{margin-bottom:12px}
       </div>
     </details>
     <p class="note">접수용 원본(연락처 포함)은 연구진이 따로 보관합니다.</p>
-  </section>
+  </details>
 
   <details class="card" id="quality"><summary>검토 결과 자세히 보기</summary><div class="scroll"><table><thead><tr><th>항목</th><th>상태</th><th>확인 내용</th></tr></thead><tbody><tr><td>7개 AI 역할·재검토</td><td>완료</td><td>실제 전문가 자문과 구별</td></tr><tr><td>기존 코드 회귀</td><td>통과</td><td>684 통과·5 건너뜀; 새 설계 검증은 잔여</td></tr><tr><td>새 분석·연구 3 구현</td><td>미완료</td><td>연구별 실행 전에 검증·동결</td></tr><tr><td>실제 규정·OSF·PI 확인</td><td>미확인</td><td>완료 증거를 받아 기록</td></tr><tr><td>11월 전 범위 용량</td><td>조건부</td><td>현행 시험 계산 뒤 재판정</td></tr><tr><td>학술 심사</td><td>향후</td><td>11월 목표는 심사 가능한 초안; 게재 보장 없음</td></tr></tbody></table></div><p class="note">원고 A는 조건별 지도와 공정한 산정식 비교, 원고 B는 새 표본을 이용한 규칙 변경 비교가 핵심입니다. 실제 안전정원·환자 결과·현장 효과는 측정하지 않습니다.</p></details>
   <details class="card" id="ai">
@@ -463,7 +469,7 @@ details.card[open]>summary{margin-bottom:12px}
       <li>「'참고문헌 정리.md'에 이 논문을 덧붙여 줘」</li>
       <li>「김대연 선생님 AI에게 '○○' 물어봐 줘」 <span class="note">— 주고받은 내용은 위 「AI 의견 교환」에 모입니다</span></li>
     </ul>
-    <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「최근 변경」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
+    <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「공동 편집 기록」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
   </details>
 </div></main>
 <footer><span id="pgUpd">2026. 10. 17. 갱신</span>(마스터 플랜 v1.3) · 진행 데이터 = <a href="progress.json">progress.json</a> · 검색 비노출 페이지 · <button type="button" class="linkbtn" id="introOpen2">사용 안내</button></footer>
@@ -571,14 +577,25 @@ details.card[open]>summary{margin-bottom:12px}
   function markSeen(f){if(!f||!f.id)return;var had=isNew(f)||liveNew[f.id];seen[f.id]=f.updated||new Date().toISOString();delete liveNew[f.id];saveSeen();if(had)draw()}
 
   /* ── 파일함 목록 ── */
-  var MIRROR="_볼트 노트(자동 사본)";
+  var MIRROR="_볼트 노트(자동 사본)",CURRENT_FOLDER="1p3o9SCfEopz2hiYbdNrHLlqc-njT0Tn_";
+  var CURRENT_ORDER=["40. 실행 계획 v1.md","50. PI 준비물 v1.md","00. OVERVIEW.md","_RESUME.md"];
+  function currentLabel(n){return {"40. 실행 계획 v1.md":"실행 계획 · 최신","50. PI 준비물 v1.md":"준비 체크리스트 · 최신","00. OVERVIEW.md":"현재 상황","_RESUME.md":"다음 작업 안내","_볼트 노트(자동 사본)":"최신 연구 문서"}[n]||n}
+  function latestOpen(button){
+    var wanted=button.getAttribute("data-current"),section=button.getAttribute("data-section");
+    button.disabled=true;msg("최신 문서 불러오는 중…");
+    api("list",{folderId:CURRENT_FOLDER}).then(function(j){
+      var f=j.files.find(function(x){return x.name===wanted});
+      if(!f)throw new Error("최신 문서를 찾지 못했습니다. 새로고침해 주세요.");
+      viewer(f,{section:section});msg("");
+    }).catch(function(e){msg(e.message,true)}).then(function(){button.disabled=false})
+  }
   function roFolder(){if(!last)return false;if(typeof last.folder.readonly==="boolean")return last.folder.readonly;return !!last.path[1]&&last.path[1].name===MIRROR}
   function ro(f,isDir){if(!f)return false;if(typeof f.readonly==="boolean")return f.readonly;
     return (isDir&&f.name===MIRROR&&!!last&&last.path.length===1)||roFolder()}
   function roTools(){var r=roFolder();$("fbRo").hidden=!r;["fbUp","fbNew","fbMkdir"].forEach(function(id){$(id).style.display=r?"none":""})}
   function render(j){
     cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
-    j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 "+x.name:x.name);b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
+    j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 전체 파일":currentLabel(x.name));b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
     last=j;roTools();draw();
   }
   var last=null,view="grid",drawnFolder=null;
@@ -591,8 +608,15 @@ details.card[open]>summary{margin-bottom:12px}
     if(!last)return;
     drawnFolder=last.folder.id;
     if(!last.folders.length&&!last.files.length){ul.appendChild(el("li","empty","빈 폴더입니다"));return}
-    last.folders.forEach(function(f){ul.appendChild(grid?tile(f,true):row(f,true))});
-    last.files.forEach(function(f){ul.appendChild(grid?tile(f,false):row(f,false))});
+    if(cur!==CURRENT_FOLDER)last.folders.forEach(function(f){ul.appendChild(grid?tile(f,true):row(f,true))});
+    var files=last.files.slice();
+    files.sort(function(a,b){
+      if(cur===CURRENT_FOLDER){var ai=CURRENT_ORDER.indexOf(a.name),bi=CURRENT_ORDER.indexOf(b.name);
+        if(ai!==bi&&(ai>=0||bi>=0))return (ai<0?999:ai)-(bi<0?999:bi)}
+      return ms(b.updated)-ms(a.updated)||a.name.localeCompare(b.name,"ko");
+    });
+    files.forEach(function(f){ul.appendChild(grid?tile(f,false):row(f,false))});
+    if(cur===CURRENT_FOLDER)last.folders.forEach(function(f){ul.appendChild(grid?tile(f,true):row(f,true))});
     ul.scrollTop=same?st:0;
   }
   var SVGNS="http://www.w3.org/2000/svg";
@@ -606,9 +630,9 @@ details.card[open]>summary{margin-bottom:12px}
   function tile(f,isDir){
     var li=el("li","tile"),b=el("button","open"),nw=!isDir&&isNew(f);b.type="button";b.title=f.name+(isDir?"":" · "+size(f.size))+" · "+date(f.updated)+(nw?" · 새로 바뀜":"");
     var mir=isDir&&f.name===MIRROR;
-    b.appendChild(svg(mir?FOLDER_RO:isDir?FOLDER:fileSvg(f.name)));b.appendChild(el("span","lbl",f.name));
-    b.onclick=function(){isDir?load(f.id):openFile(f)};li.appendChild(b);
-    if(mir){li.appendChild(el("span","robadge","🔒 사본"));b.title+=" · 읽기 전용 사본"}
+    b.appendChild(svg(mir?FOLDER_RO:isDir?FOLDER:fileSvg(f.name)));b.appendChild(el("span","lbl",cur===CURRENT_FOLDER||f.name===MIRROR?currentLabel(f.name):f.name));
+    if(!isDir&&f.updated)b.appendChild(el("span","note",date(f.updated)));b.onclick=function(){isDir?load(f.id):openFile(f)};li.appendChild(b);
+    if(mir){li.appendChild(el("span","robadge","최신 문서"));b.title+=" · 읽기 전용 사본"}
     else if(nw)li.appendChild(el("span","newb","새로"));
     var m=el("button","more","⋯");m.type="button";m.setAttribute("aria-label",f.name+" 메뉴");
     m.onclick=function(ev){ev.stopPropagation();openMenu(li,f,isDir)};li.appendChild(m);return li
@@ -628,8 +652,8 @@ details.card[open]>summary{margin-bottom:12px}
   function row(f,isDir){
     var li=el("li");var nm=el("button","nm"),k=isDir?"folder":kindOf(f);nm.type="button";
     var mir=isDir&&f.name===MIRROR;
-    nm.appendChild(el("span","ic",mir?"🔒":isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(f.name));
-    if(mir)nm.appendChild(el("span","robadge","사본 · 읽기 전용"));
+    nm.appendChild(el("span","ic",mir?"🔒":isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(cur===CURRENT_FOLDER||f.name===MIRROR?currentLabel(f.name):f.name));
+    if(mir)nm.appendChild(el("span","robadge","최신 · 읽기 전용"));
     else if(!isDir&&isNew(f))nm.appendChild(el("span","newb","새로"));
     nm.title=isDir?"폴더 열기":viewable(k)?"문서 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):openFile(f)};
     li.appendChild(nm);li.appendChild(el("span","c-size",isDir?"":size(f.size)));li.appendChild(el("span","c-date",date(f.updated)));
@@ -890,11 +914,13 @@ details.card[open]>summary{margin-bottom:12px}
     if(r.name){d.name=r.name;$("dvName").textContent=r.name}
     markSeen({id:d.id,updated:d.updated||d.f.updated});
     if(!d.editing)renderInto($("dvBody"),d.text);dvMeta();dvSync();
+    if(d.section){var target=Array.prototype.find.call($("dvBody").querySelectorAll("h1,h2,h3,h4"),function(h){return h.textContent.indexOf(d.section)===0});
+      if(target){$("dvBody").scrollTop+=target.getBoundingClientRect().top-$("dvBody").getBoundingClientRect().top-12;}d.section=""}
     if(d.legacy)bar("지금은 읽기만 됩니다 — 고치기 기능은 서버 준비가 끝나면 열립니다.","info")}
   function viewer(f,opt){opt=opt||{};
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
     if(!doc)lastFocus=document.activeElement;
-    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,talk:!!opt.talk,
+    var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,talk:!!opt.talk,section:opt.section||"",
       readonly:typeof f.readonly==="boolean"?f.readonly:(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
     $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
     $("dvName").textContent=f.name;$("dvMeta").textContent="";bar("");stat("");$("dvAppText").value="";
@@ -1024,9 +1050,11 @@ details.card[open]>summary{margin-bottom:12px}
     try{seen=JSON.parse(localStorage.getItem("nrf_seen")||"{}")||{}}catch(e){seen={}}
     aiPromptDraw();
     $("aiCopy").onclick=function(){var b=this;copyText($("aiPrompt").textContent).then(function(ok){b.textContent=ok?"복사됨":"길게 눌러 복사해 주세요";setTimeout(function(){b.textContent="복사"},2500)})};
-    try{$("rc").open=!window.matchMedia("(max-width:560px)").matches}catch(e){$("rc").open=true}
+    $("rc").open=false
     drawRecent();bindViewer();initIntro();bindWho();bindTalk();
-    load("");
+    $("fbAll").onclick=function(){load("")};
+    Array.prototype.forEach.call(document.querySelectorAll("[data-current]"),function(b){b.onclick=function(){latestOpen(b)}});
+    load(CURRENT_FOLDER);
     loadRecent(true);
     setInterval(tick,5000);
     setInterval(function(){if(document.hidden||busy)return;if(!cur){if(Date.now()-lastListAt>=60000){lastListAt=Date.now();load("",true)}return}if(Date.now()-lastListAt>=180000)quiet()},10000);
