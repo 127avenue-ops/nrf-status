@@ -247,15 +247,20 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .ronote{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:#eef3f9;color:#44546a;font-size:13px}
 /* ── 연구 진행판 ── */
 .lead{margin:0 0 14px;font-size:15px}
-.track{list-style:none;margin:0 0 6px;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;counter-reset:st}
-.track li{position:relative;background:#f4f7fb;border-radius:12px;padding:10px 10px 9px;border:1px solid var(--line);min-width:0}
-.track li b{display:block;font-size:14px}
+.track{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.track li{flex:1;position:relative;background:#f4f7fb;border-radius:10px;padding:8px 10px;border:1px solid var(--line);min-width:0;text-align:center}
+.track li b{display:block;font-size:13px;white-space:nowrap}
 .track li span{display:block;font-size:12px;color:var(--mute);line-height:1.4}
 .track li.done{background:#eef7f1;border-color:#cfe9d9}
 .track li.done b::after{content:" ✓";color:var(--ok)}
 .track li.now{background:var(--blue);border-color:var(--blue);color:#fff}
 .track li.now span{color:#dce9ff}
-.track li.now::before{content:"지금";position:absolute;top:-9px;right:8px;font-size:11px;font-weight:800;background:#ffd84d;color:#4a3500;border-radius:999px;padding:1px 8px}
+.track .current{font-size:11px;font-weight:700;margin-right:4px;color:#fff}
+.overview{margin-top:12px;border-top:1px solid var(--line);padding-top:4px}
+.overview summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--mute);min-height:44px;display:flex;align-items:center;gap:6px}
+.overview summary::before{content:"＋"}
+.overview[open] summary::before{content:"−"}
+.overview summary::-webkit-details-marker{display:none}
 .nowline{margin:10px 0 14px;padding:10px 12px;border-radius:10px;background:var(--sky);font-size:14px}
 .wk{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 #prog .status{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
@@ -285,14 +290,15 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .todo li.past{opacity:.5}
 .todo li.past b::after{content:" · 지남";font-weight:500;font-size:12px}
 .todo li.soon{background:#f7fbff;border-radius:8px;margin-left:-6px;padding:2px 6px}
-details.card>summary{cursor:pointer;list-style:none}
+details.card>summary{cursor:pointer;list-style:none;font-weight:700;min-height:28px}
+@media(max-width:560px){details.card{padding:12px 20px}details.card>summary{min-height:44px;display:flex;align-items:center;justify-content:space-between}}
 details.card>summary::-webkit-details-marker{display:none}
 details.card>summary h2{display:inline;margin:0}
 details.card>summary::after{content:" ▾";color:var(--mute)}
 details.card[open]>summary::after{content:" ▴"}
 details.card[open]>summary{margin-bottom:12px}
-@media (max-width:720px){.rs{grid-template-columns:1fr}.track{grid-template-columns:1fr 1fr}.track li:last-child{grid-column:1/-1}}
-@media (max-width:420px){.wk li{grid-template-columns:1fr}}
+@media (max-width:720px){.rs{grid-template-columns:1fr}.track li{flex:0 1 auto;padding:7px 9px}.track li b{font-size:12px}}
+@media (max-width:560px){.wk li{grid-template-columns:1fr}.wk .d{white-space:normal}}
 @media (max-width:560px){
   .modal{padding:0}
   .dlg{max-width:none;height:100%;border-radius:0}
@@ -301,6 +307,11 @@ details.card[open]>summary{margin-bottom:12px}
   .dvedit textarea{padding:12px 14px}
   .dvapp,.dvfoot,.dvbar{padding-left:14px;padding-right:14px}
 }
+:where(button,a,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.fblist .mobile-date{display:none}
+.fblist .nm{min-width:0}
+.fblist .acts{flex-wrap:wrap}
+@media(max-width:560px){.btn,.btn.sm,.seg button,.crumbs button,.guide,.fblist .nm,.fblist .acts button,.menu button{min-height:44px}.fblist .acts button{min-width:44px}.tile .more{width:44px;height:44px;top:0;right:0}.menu{top:44px}.tile .open{padding-top:42px}.fblist .mobile-date{display:block;font-size:12px;color:var(--mute);font-weight:400;margin-top:2px}.fblist li{grid-template-columns:minmax(0,1fr) auto}.fblist .acts{max-width:96px}}
 </style>
 <script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js" integrity="sha384-/TQbtLCAerC3jgaim+N78RZSDYV7ryeoBCVqTuzRrFec2akfBkHS7ACQ3PQhvMVi" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js" integrity="sha384-+VfUPEb0PdtChMwmBcBmykRMDd+v6D/oFmB3rZM/puCMDYcIvF968OimRh4KQY9a" crossorigin="anonymous"></script>
@@ -314,9 +325,9 @@ details.card[open]>summary{margin-bottom:12px}
   <form id="gf" autocomplete="off">
     <div class="eyebrow">간호인력 연구 2026</div>
     <h2 style="margin:6px 0 0">열람 코드</h2>
-    <input id="code" inputmode="numeric" aria-label="열람 코드" placeholder="····">
+    <input id="code" inputmode="numeric" aria-label="열람 코드" aria-describedby="err" placeholder="····">
     <button type="submit">열기</button>
-    <p class="err" id="err"></p>
+    <p class="err" id="err" role="alert"></p>
   </form>
 </div>
 
@@ -332,8 +343,8 @@ details.card[open]>summary{margin-bottom:12px}
     <div class="introhead"><h2 id="introH">처음 오셨나요? <span class="note" style="font-weight:500">세 가지만 알면 됩니다</span></h2><button type="button" class="x" id="introClose">안내 닫기 ✕</button></div>
     <ol class="steps">
       <li><span class="num" aria-hidden="true">1</span><div><b>이름</b> — <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
-      <li><span class="num" aria-hidden="true">2</span><div><b>파일함에서 문서 열고 고치기</b> — 「새 문서」로 만들거나 문서를 눌러 「편집」 → 「저장」. 동시에 고치면 알려 드리고, 이전 내용은 자동 백업됩니다.</div></li>
-      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 문장을 AI에게 한 번 붙여 넣으면 읽기·쓰기·정리를 대신 해 줍니다. 「김대연 선생님 AI에게 ○○ 물어봐 줘」라고 하면 <a href="#talk">의견 교환</a>에 질문이 남고, 상대 선생님이 AI를 부를 때 답이 옵니다.</div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><b>최신 문서 열기</b> — 파일함의 「실행 계획」「준비 체크리스트」「현재 상황」을 누르세요. 최신 사본은 읽기 전용입니다. 자료 작성·업로드는 「전체 파일」에서 합니다.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 안내를 AI에게 전달하세요. 최신 계획을 읽고 필요한 작업을 이어갈 수 있습니다.</div></li>
     </ol>
     <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다 — 1시간마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
     <details class="faq">
@@ -353,15 +364,17 @@ details.card[open]>summary{margin-bottom:12px}
 
   <section class="card" id="prog" aria-labelledby="progH">
     <h2 id="progH">연구 진행 <span class="pill" id="pgBadge">접수 완료 · 선정 대기</span></h2>
-    <p class="lead">같은 병동 인원 배수(하루 필요인원 × 1.6)가 근무규칙을 모두 지킨 한 달 근무표를 정말 짤 수 있게 해 주는지, 가상근무표 계산으로 확인하고 병동 조건별 배수표를 만듭니다.</p>
     <ol class="track" id="pgTrack"></ol>
     <p class="nowline" id="pgNow"></p>
+    <details class="overview" id="researchOverview">
+      <summary>연구 개요 · 참여자 · 연구비</summary>
+    <p class="lead">같은 병동 인원 배수(하루 필요인원 × 1.6)가 근무규칙을 모두 지킨 한 달 근무표를 정말 짤 수 있게 해 주는지, 가상근무표 계산으로 확인하고 병동 조건별 배수표를 만듭니다.</p>
     <div class="status">
       <div class="stat"><b>연구책임자</b><span>송지수 (80%)</span><small class="note" style="display:block">참여율은 협약 뒤부터</small></div>
       <div class="stat"><b>공동연구원</b><span>김대연 (20%)</span><small class="note" style="display:block">참여율은 협약 뒤부터</small></div>
       <div class="stat"><b>기간 · 연구비</b><span>12개월 · 1,000만 원</span></div>
-      <div class="stat"><b>목표</b><span>11월 30일 계산·분석·원고 초안 목표</span></div>
     </div>
+    </details>
   </section>
 
   <section class="card" id="week" aria-labelledby="weekH">
@@ -377,7 +390,7 @@ details.card[open]>summary{margin-bottom:12px}
   </details>
 
   <section class="card" id="fb">
-    <h2>파일함 <span class="note" style="font-weight:500">최신 연구 문서</span></h2>
+    <h2>파일함 <span class="note" style="font-weight:500" id="fbFolderLabel">최신 연구 문서</span></h2>
     <div class="tools" id="currentDocs" aria-label="최신 문서 바로 열기">
       <button type="button" class="btn" data-current="40. 실행 계획 v1.md" data-section="5-0. 마스터 플랜">실행 계획</button>
       <button type="button" class="btn alt" data-current="50. PI 준비물 v1.md" data-section="0부. 현재 PI 체크팩">준비 체크리스트</button>
@@ -388,7 +401,7 @@ details.card[open]>summary{margin-bottom:12px}
     <nav class="crumbs" id="fbPath" aria-label="폴더 경로"></nav>
     <p class="ronote" id="fbRo" hidden>최신 계획이 동기화되는 읽기 전용 문서입니다. 자료를 올리려면 「전체 파일」을 여세요.</p>
     <div class="tools">
-      <label class="btn" id="fbUp">올리기<input type="file" id="fbFile" multiple hidden></label>
+      <button type="button" class="btn" id="fbUp">올리기</button><input type="file" id="fbFile" multiple hidden>
       <button type="button" class="btn alt v4" id="fbNew">새 문서</button>
       <button type="button" class="btn alt" id="fbMkdir">새 폴더</button>
       <button type="button" class="btn alt" id="fbReload">새로고침</button>
@@ -399,7 +412,7 @@ details.card[open]>summary{margin-bottom:12px}
       <div class="fbhead"><span>이름</span><span class="c-size">크기</span><span class="c-date">수정</span><span></span></div>
       <ul id="fbList" class="fblist"></ul>
     </div>
-    <p class="note">파일을 이 상자에 끌어다 놓아도 올라갑니다 · 삭제하면 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다 · 올리기·이름 바꾸기·삭제는 기록 시트에 남습니다.</p>
+    <p class="note" id="fbWriteHelp" hidden>파일을 끌어다 놓아 올릴 수 있습니다. 변경은 기록에 남으며, 삭제한 파일은 드라이브 휴지통에서 30일 안에 복원할 수 있습니다.</p>
     <details class="recent v4" id="rc">
       <summary>공동 편집 기록 <span class="note" id="rcN"></span></summary><p class="note" style="padding:0 14px">자동 동기화 시각은 각 파일의 수정일에서 확인합니다.</p>
       <ol class="rclist" id="rcList"></ol>
@@ -586,23 +599,24 @@ details.card[open]>summary{margin-bottom:12px}
     api("list",{folderId:CURRENT_FOLDER}).then(function(j){
       var f=j.files.find(function(x){return x.name===wanted});
       if(!f)throw new Error("최신 문서를 찾지 못했습니다. 새로고침해 주세요.");
-      viewer(f,{section:section});msg("");
+      viewer(f,{section:section,returnFocus:button});msg("");
     }).catch(function(e){msg(e.message,true)}).then(function(){button.disabled=false})
   }
   function roFolder(){if(!last)return false;if(typeof last.folder.readonly==="boolean")return last.folder.readonly;return !!last.path[1]&&last.path[1].name===MIRROR}
   function ro(f,isDir){if(!f)return false;if(typeof f.readonly==="boolean")return f.readonly;
     return (isDir&&f.name===MIRROR&&!!last&&last.path.length===1)||roFolder()}
-  function roTools(){var r=roFolder();$("fbRo").hidden=!r;["fbUp","fbNew","fbMkdir"].forEach(function(id){$(id).style.display=r?"none":""})}
+  function roTools(){var r=roFolder();$("fbRo").hidden=!r;$("fbWriteHelp").hidden=r;["fbUp","fbNew","fbMkdir"].forEach(function(id){$(id).style.display=r?"none":""})}
   function render(j){
-    cur=j.folder.id;var p=$("fbPath");p.innerHTML="";
+    cur=j.folder.id;$("fbFolderLabel").textContent=cur===CURRENT_FOLDER?"최신 연구 문서":j.path.length===1?"전체 파일":currentLabel(j.folder.name);var p=$("fbPath");p.innerHTML="";
     j.path.forEach(function(x,i){if(i)p.appendChild(el("span","sep","›"));var b=el("button",null,i===0?"🏠 전체 파일":currentLabel(x.name));b.type="button";b.onclick=function(){load(x.id)};p.appendChild(b)});
     last=j;roTools();draw();
   }
-  var last=null,view="grid",drawnFolder=null;
-  try{view=localStorage.getItem("nrf_view")||"grid"}catch(e){}
-  function setView(v){view=v;try{localStorage.setItem("nrf_view",v)}catch(e){}draw()}
+  var last=null,view="grid",currentView="list",drawnFolder=null;
+  try{view=localStorage.getItem("nrf_view")==="list"?"list":"grid";currentView=localStorage.getItem("nrf_current_view")==="grid"?"grid":"list"}catch(e){}
+  function setView(v){var current=cur===CURRENT_FOLDER;if(current)currentView=v;else view=v;
+    try{localStorage.setItem(current?"nrf_current_view":"nrf_view",v)}catch(e){}draw()}
   function draw(){
-    var grid=view==="grid",ul=$("fbList"),st=ul.scrollTop,same=!!last&&last.folder.id===drawnFolder;
+    var grid=(cur===CURRENT_FOLDER?currentView:view)==="grid",ul=$("fbList"),st=ul.scrollTop,same=!!last&&last.folder.id===drawnFolder;
     $("vGrid").setAttribute("aria-pressed",grid);$("vList").setAttribute("aria-pressed",!grid);
     $("fbDrop").classList.toggle("grid",grid);ul.className=grid?"fbgrid":"fblist";ul.innerHTML="";
     if(!last)return;
@@ -634,10 +648,10 @@ details.card[open]>summary{margin-bottom:12px}
     if(!isDir&&f.updated)b.appendChild(el("span","note",date(f.updated)));b.onclick=function(){isDir?load(f.id):openFile(f)};li.appendChild(b);
     if(mir){li.appendChild(el("span","robadge","최신 문서"));b.title+=" · 읽기 전용 사본"}
     else if(nw)li.appendChild(el("span","newb","새로"));
-    var m=el("button","more","⋯");m.type="button";m.setAttribute("aria-label",f.name+" 메뉴");
+    var m=el("button","more","⋯");m.type="button";m.setAttribute("aria-label",f.name+" 메뉴");m.setAttribute("aria-expanded","false");
     m.onclick=function(ev){ev.stopPropagation();openMenu(li,f,isDir)};li.appendChild(m);return li
   }
-  function closeMenus(){Array.prototype.forEach.call(document.querySelectorAll(".menu"),function(x){x.parentNode.classList.remove("menu-open");x.remove()})}
+  function closeMenus(restore){Array.prototype.forEach.call(document.querySelectorAll(".menu"),function(x){var li=x.parentNode,b=li.querySelector(".more");li.classList.remove("menu-open");x.remove();if(b){b.setAttribute("aria-expanded","false");if(restore===true)b.focus()}})}
   function openMenu(li,f,isDir){var had=li.classList.contains("menu-open");closeMenus();if(had)return;
     var k=isDir?"folder":kindOf(f),items=[];
     if(isDir)items.push(["열기",function(){load(f.id)}]);
@@ -646,8 +660,9 @@ details.card[open]>summary{margin-bottom:12px}
     if(k==="pdf"||k==="office"||k==="hwp")items.push(["글자로 보기",function(){viewer(f,{plain:true})},"v4"]);
     if(!ro(f,isDir))items.push(["이름 바꾸기",function(){rename(f)}],["삭제",function(){del(f,isDir)},"del"]);
     var mn=el("div","menu");items.forEach(function(a){
-      var x=el("button",a[2]||null,a[0]);x.type="button";x.onclick=function(){closeMenus();a[1]()};mn.appendChild(x)});
-    li.classList.add("menu-open");li.appendChild(mn)}
+      var x=el("button",a[2]||null,a[0]);x.type="button";x.onclick=function(){closeMenus(true);a[1]()};mn.appendChild(x)});
+    li.classList.add("menu-open");li.querySelector(".more").setAttribute("aria-expanded","true");li.appendChild(mn);mn.querySelector("button").focus();
+    mn.addEventListener("keydown",function(e){if(e.key==="Escape"){e.preventDefault();e.stopPropagation();closeMenus(true)}})}
   document.addEventListener("click",closeMenus);
   function row(f,isDir){
     var li=el("li");var nm=el("button","nm"),k=isDir?"folder":kindOf(f);nm.type="button";
@@ -655,7 +670,8 @@ details.card[open]>summary{margin-bottom:12px}
     nm.appendChild(el("span","ic",mir?"🔒":isDir?"📁":icon(f.name)));nm.appendChild(document.createTextNode(cur===CURRENT_FOLDER||f.name===MIRROR?currentLabel(f.name):f.name));
     if(mir)nm.appendChild(el("span","robadge","최신 · 읽기 전용"));
     else if(!isDir&&isNew(f))nm.appendChild(el("span","newb","새로"));
-    nm.title=isDir?"폴더 열기":viewable(k)?"문서 열기":"열기·내려받기";nm.onclick=function(){isDir?load(f.id):openFile(f)};
+    if(!isDir&&f.updated)nm.appendChild(el("span","mobile-date","수정 "+date(f.updated).split(" ")[0]));
+    nm.title=f.name+" · "+(isDir?"폴더 열기":viewable(k)?"문서 열기":"열기·내려받기");nm.onclick=function(){isDir?load(f.id):openFile(f)};
     li.appendChild(nm);li.appendChild(el("span","c-size",isDir?"":size(f.size)));li.appendChild(el("span","c-date",date(f.updated)));
     var a=el("span","acts");
     if(viewable(k)){var dn=el("button",null,"받기");dn.type="button";dn.title="내려받기";dn.onclick=function(){get(f)};a.appendChild(dn)}
@@ -919,7 +935,7 @@ details.card[open]>summary{margin-bottom:12px}
     if(d.legacy)bar("지금은 읽기만 됩니다 — 고치기 기능은 서버 준비가 끝나면 열립니다.","info")}
   function viewer(f,opt){opt=opt||{};
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
-    if(!doc)lastFocus=document.activeElement;
+    if(!doc)lastFocus=opt.returnFocus||document.activeElement;
     var d=doc={id:f.id,f:f,name:f.name,kind:opt.plain?"plain":kindOf(f),text:"",updated:"",editable:false,editing:false,dirty:false,loading:true,preview:false,talk:!!opt.talk,section:opt.section||"",
       readonly:typeof f.readonly==="boolean"?f.readonly:(roFolder()&&last.files.some(function(x){return x.id===f.id})),appendable:f.appendable};
     $("dv").hidden=false;document.body.classList.add("noscroll");$("dvConf").hidden=true;
@@ -1033,15 +1049,15 @@ details.card[open]>summary{margin-bottom:12px}
     $("introClose").onclick=function(){$("intro").hidden=true;try{localStorage.setItem("nrf_intro_done","1")}catch(e){}$("introOpen").focus()};
     $("introOpen").onclick=function(){showIntro(true)};$("introOpen2").onclick=function(){showIntro(true)};
     $("introAi").onclick=function(e){e.preventDefault();$("ai").open=true;$("ai").scrollIntoView({behavior:"smooth",block:"start"})};
-    var done=false;try{done=localStorage.getItem("nrf_intro_done")==="1"}catch(e){}
-    if(!done)showIntro(false)}
+    $("intro").hidden=true}
   window.FB_START=function(){
     if(started)return;started=true;
     $("fbReload").onclick=function(){load(cur)};$("fbMkdir").onclick=mkdir;$("fbNew").onclick=newDoc;
     $("vGrid").onclick=function(){setView("grid")};$("vList").onclick=function(){setView("list")};
+    $("fbUp").onclick=function(){$("fbFile").click()};
     $("fbFile").onchange=function(){upload(this.files);this.value=""};
     var d=$("fbDrop");
-    d.addEventListener("dragover",function(e){e.preventDefault();d.classList.add("over")});
+    d.addEventListener("dragover",function(e){e.preventDefault();if(!roFolder())d.classList.add("over")});
     d.addEventListener("dragleave",function(){d.classList.remove("over")});
     d.addEventListener("drop",function(e){e.preventDefault();d.classList.remove("over");upload(e.dataTransfer.files)});
     /* 지난 방문 시각: 탭(세션)마다 한 번만 넘김 — 새로고침해도 「새로」가 사라지지 않게 */
@@ -1080,7 +1096,7 @@ details.card[open]>summary{margin-bottom:12px}
     var today=iso(new Date()),t2=new Date(),tm=new Date();t2.setDate(t2.getDate()+13);tm.setDate(tm.getDate()+1);var end2=iso(t2),tomorrow=iso(tm);
     if(P.badge)$("pgBadge").textContent=P.badge;
     var tr=$("pgTrack");tr.textContent="";
-    (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");li.appendChild(el("b",null,s.name));li.appendChild(el("span",null,s.when));tr.appendChild(li)});
+    (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");var b=el("b",null);if(s.state==="now"){li.setAttribute("aria-current","step");b.appendChild(el("small","current","현재"))}b.appendChild(document.createTextNode(s.name));li.appendChild(b);tr.appendChild(li)});
     var ud=P.updated?day(P.updated):null;$("pgNow").textContent=(ud?(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준 · ":"")+(P.now||"");
     var rs=$("rsList");rs.textContent="";
     (P.studies||[]).forEach(function(s){var d=el("div","r");d.appendChild(el("span","st "+(s.kind||"wait"),s.status));d.appendChild(el("h3",null,s.title));
