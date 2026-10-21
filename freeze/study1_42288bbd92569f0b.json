@@ -1,0 +1,71 @@
+{
+ "kind": "nrf-freeze-publication",
+ "label": "study1",
+ "freeze_digest": "42288bbd92569f0b02a2658cb9fe9ef213b2b62191556a2b4d4dc8d09789f72e",
+ "tree_commit": "2386e12de219fcf690fd91386c9e13a2f625b9a7",
+ "published_utc": "2026-10-21T00:07:12+00:00",
+ "statement": "This digest freezes the study-1 rules, code, solver parameters, gates and job-bank structure before any confirmatory computation. The first namespace issued from it is the primary analysis; any later attempt is reported alongside it.",
+ "supersedes": [],
+ "supersede_reason": null,
+ "body": {
+  "kind": "nrf-freeze-digest",
+  "base_protocol": "nrf-v4.0",
+  "git_commit": "2386e12de219fcf690fd91386c9e13a2f625b9a7",
+  "research_code_bundle_sha256": "f89af7f93ca7dc7a7c948566a439287e51f69abc6ace3a8900c8433a100c9eec",
+  "files": {
+   "spec/nrf_rule_contract_v1.0.json": "67da9d4003e8034fccb26ed05cdec0f4284414686a0fc63065354c3a5b161cf1",
+   "docs/contract/STUDY1_EXECUTION_CONTRACT_v1.md": "928fb1bd08af10d1a7056065d18e68d597436bf03e5eee63860899c49f06e825"
+  },
+  "solver_parameters": {
+   "num_search_workers": 2,
+   "interleave_search": false,
+   "random_seed": 350804,
+   "stop_after_first_solution": true,
+   "deterministic_time_ladder": [
+    1.0,
+    10.0,
+    100.0,
+    200.0,
+    400.0
+   ],
+   "wall_watchdog_seconds": [
+    120,
+    600,
+    1800,
+    3600,
+    7200
+   ],
+   "qualification_tail_hint_repair": false,
+   "qualification_tail_hint_conflict_limit": 10000,
+   "qualification_tail_pair_diversity_no_good": false,
+   "ortools_version": "9.12.4544"
+  },
+  "execution_policy": {
+   "backend": "local",
+   "hostname": "7950X",
+   "concurrency": 12,
+   "search_workers_per_child": 2,
+   "deviation": "proposal: three approved PCs with Ray; executed: 7950X only, no Ray, local executor"
+  },
+  "pilot_acceptance": {
+   "terminal_jobs": 297,
+   "independent_roots": 99,
+   "maximum_primary_cell_terminal_timeouts": 3,
+   "maximum_errors": 0,
+   "maximum_validator_disagreements": 0,
+   "node_memory_fraction": 0.7,
+   "minimum_memory_samples_per_node": 30,
+   "formal_projection_multiplier": 1.2,
+   "maximum_full_execution_projected_hours": 48.0,
+   "maximum_projected_formal_hours": 120.0
+  },
+  "bank_structure_sha256": {
+   "pilot": "3b012a1c2ccc0b1d7937c0d126ce1d734b549f45a48aafbd8a1edb91c94dff38",
+   "formal": "43d9bcf14f529cfa1c3c6cfda147e28b41704c8a70921c6a2b62ad19e1bef877"
+  },
+  "bank_counts": {
+   "pilot": 297,
+   "formal": 9150
+  }
+ }
+}
