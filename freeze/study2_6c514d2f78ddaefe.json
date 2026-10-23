@@ -1,0 +1,75 @@
+{
+ "kind": "nrf-freeze-publication",
+ "label": "study2",
+ "freeze_digest": "6c514d2f78ddaefe6e8d0276524cb64fefe67ec20f52222dd0499bfa3c0c3c5e",
+ "tree_commit": "1beca96a9875cadd0729ad25190e05a9355f5769",
+ "published_utc": "2026-10-23T13:35:31+00:00",
+ "statement": "This digest freezes the study-2 statistical analysis plan (SAP v1), rules, code and gates before the first Study 2 screen solve and before any Study 2 result is opened. Study 2 uses the namespace already issued for Study 1 (no new issuance); its pilot was run earlier and only its operating gates were read. The first screen run under this digest is the primary analysis; any later attempt is reported alongside it.",
+ "study2": {
+  "sap_document": "docs/contract/STUDY2_SAP_v1_draft.md",
+  "sap_sha256": "5dbf9ea016dce6a9a4f0f937b5ec05dad242fb373092e16186c24947a4a1d79e"
+ },
+ "supersedes": [],
+ "supersede_reason": null,
+ "body": {
+  "kind": "nrf-freeze-digest",
+  "base_protocol": "nrf-v4.0",
+  "git_commit": "1beca96a9875cadd0729ad25190e05a9355f5769",
+  "research_code_bundle_sha256": "752d0f18ee56529c4d4ded9e84fecf45869aa31a61342ea0cedfcd8c2280f78f",
+  "files": {
+   "spec/nrf_rule_contract_v1.0.json": "67da9d4003e8034fccb26ed05cdec0f4284414686a0fc63065354c3a5b161cf1",
+   "docs/contract/STUDY1_EXECUTION_CONTRACT_v1.md": "928fb1bd08af10d1a7056065d18e68d597436bf03e5eee63860899c49f06e825"
+  },
+  "solver_parameters": {
+   "num_search_workers": 2,
+   "interleave_search": false,
+   "random_seed": 350804,
+   "stop_after_first_solution": true,
+   "deterministic_time_ladder": [
+    1.0,
+    10.0,
+    100.0,
+    200.0,
+    400.0
+   ],
+   "wall_watchdog_seconds": [
+    120,
+    600,
+    1800,
+    3600,
+    7200
+   ],
+   "qualification_tail_hint_repair": false,
+   "qualification_tail_hint_conflict_limit": 10000,
+   "qualification_tail_pair_diversity_no_good": false,
+   "ortools_version": "9.12.4544"
+  },
+  "execution_policy": {
+   "backend": "local",
+   "hostname": "7950X",
+   "concurrency": 12,
+   "search_workers_per_child": 2,
+   "deviation": "proposal: three approved PCs with Ray; executed: 7950X only, no Ray, local executor"
+  },
+  "pilot_acceptance": {
+   "terminal_jobs": 297,
+   "independent_roots": 99,
+   "maximum_primary_cell_terminal_timeouts": 3,
+   "maximum_errors": 0,
+   "maximum_validator_disagreements": 0,
+   "node_memory_fraction": 0.7,
+   "minimum_memory_samples_per_node": 30,
+   "formal_projection_multiplier": 1.2,
+   "maximum_full_execution_projected_hours": 48.0,
+   "maximum_projected_formal_hours": 120.0
+  },
+  "bank_structure_sha256": {
+   "pilot": "3b012a1c2ccc0b1d7937c0d126ce1d734b549f45a48aafbd8a1edb91c94dff38",
+   "formal": "43d9bcf14f529cfa1c3c6cfda147e28b41704c8a70921c6a2b62ad19e1bef877"
+  },
+  "bank_counts": {
+   "pilot": 297,
+   "formal": 9150
+  }
+ }
+}
