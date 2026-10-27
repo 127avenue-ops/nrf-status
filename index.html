@@ -247,6 +247,35 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .ronote{margin:0 0 10px;padding:8px 12px;border-radius:10px;background:#eef3f9;color:#44546a;font-size:13px}
 /* ── 연구 진행판 ── */
 .lead{margin:0 0 14px;font-size:15px}
+.flow h2{margin-bottom:4px}
+.flowlegend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 12px;font-size:12px;color:var(--mute)}
+.flowlegend span{display:inline-flex;align-items:center;gap:5px}
+.flowlegend i{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line)}
+.flowlegend i.done{background:#eef7f1;border-color:#9fd3b6}.flowlegend i.now{background:var(--blue);border-color:var(--blue)}.flowlegend i.next{background:#fff;border-style:dashed;border-color:#9fb3c8}
+.lanes{display:grid;gap:10px}
+.lane{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:stretch;padding:10px;border-radius:12px;background:#f8fbfe;border:1px solid var(--line)}
+.lane.now{background:#eef5ff;border-color:#b9d3f7}
+.lane .ln{display:flex;flex-direction:column;justify-content:center;gap:2px}
+.lane .ln b{font-size:14px;color:var(--ink)}
+.lane .ln small{font-size:12px;color:var(--mute);line-height:1.35}
+.lane .ln .st{align-self:flex-start;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;margin-bottom:2px}
+.lane .ln .st.done{background:#e3f4ea;color:var(--ok)}.lane .ln .st.now{background:var(--blue);color:#fff}.lane .ln .st.next{background:#eef2f6;color:var(--mute)}
+.nodes{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:stretch;gap:6px 0}
+.nodes li{display:flex;align-items:stretch}
+.nodes li+li::before{content:"";align-self:center;width:18px;height:2px;background:#b7c6d6;margin:0 2px;flex:0 0 auto}
+.nodes li+li::after{content:"";align-self:center;width:0;height:0;border-left:6px solid #b7c6d6;border-top:5px solid transparent;border-bottom:5px solid transparent;margin-right:4px;flex:0 0 auto;order:0}
+.node{min-width:96px;max-width:170px;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:13px;line-height:1.35;order:1}
+.node b{display:block;font-weight:700;color:var(--ink)}
+.node span{display:block;font-size:12px;color:var(--mute)}
+.node.done{background:#eef7f1;border-color:#9fd3b6}
+.node.done b::after{content:" ✓";color:var(--ok)}
+.node.now{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 3px #cfe0fb}
+.node.now b,.node.now span{color:#fff}
+.node.next{border-style:dashed;border-color:#9fb3c8}
+.node .who{display:inline-block;margin-top:3px;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px}
+.node.now .who{background:#fff;color:var(--blue2)}
+.flownote{margin:10px 0 0;font-size:12px;color:var(--mute)}
+@media (max-width:720px){.lane{grid-template-columns:1fr}.node{max-width:none}}
 .track{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .track li{flex:1;position:relative;background:#f4f7fb;border-radius:10px;padding:8px 10px;border:1px solid var(--line);min-width:0;text-align:center}
 .track li b{display:block;font-size:13px;white-space:nowrap}
@@ -339,6 +368,13 @@ details.card[open]>summary{margin-bottom:12px}
 </div></header>
 
 <main><div class="wrap">
+  <section class="card flow" id="flow" aria-labelledby="flowH">
+    <h2 id="flowH">전체 작업 한눈에 <span class="note" style="font-weight:500" id="flowAsOf"></span></h2>
+    <div class="flowlegend" aria-hidden="true"><span><i class="done"></i>끝남</span><span><i class="now"></i>지금 하는 일</span><span><i class="next"></i>앞으로</span><span><em class="who" style="font-style:normal;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px">사람 확인</em>연구진이 직접 확인·결정</span></div>
+    <div class="lanes" id="flowLanes"></div>
+    <p class="flownote" id="flowNote"></p>
+  </section>
+
   <section class="card intro" id="intro" hidden aria-labelledby="introH">
     <div class="introhead"><h2 id="introH">처음 오셨나요? <span class="note" style="font-weight:500">세 가지만 알면 됩니다</span></h2><button type="button" class="x" id="introClose">안내 닫기 ✕</button></div>
     <ol class="steps">
@@ -1112,6 +1148,19 @@ details.card[open]>summary{margin-bottom:12px}
       li.appendChild(d);li.appendChild(tx);wk.appendChild(li)});
     if(!n)wk.appendChild(el("li","empty","등록된 일정이 없습니다."));
     if(P.updated)$("pgUpd").textContent=P.updated.replace(/-/g,". ").replace(/\. 0/g,". ")+". 갱신";
+    var F=P.flow,fl=$("flowLanes");fl.textContent="";
+    if(!F||!F.lanes){$("flow").hidden=true}else{
+      var SL={done:"끝남",now:"진행 중",next:"앞으로"};
+      if(ud)$("flowAsOf").textContent=(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준";
+      F.lanes.forEach(function(L){var lane=el("div","lane"+(L.state==="now"?" now":"")),ln=el("div","ln");
+        ln.appendChild(el("span","st "+(L.state||"next"),SL[L.state]||""));ln.appendChild(el("b",null,L.name));if(L.sub)ln.appendChild(el("small",null,L.sub));lane.appendChild(ln);
+        var ul=el("ol","nodes");ul.setAttribute("aria-label",L.name);
+        (L.nodes||[]).forEach(function(N){var li=el("li"),nd=el("div","node "+(N.s||"next"));if(N.s==="now")nd.setAttribute("aria-current","step");
+          nd.appendChild(el("b",null,N.t));if(N.d)nd.appendChild(el("span",null,N.d));if(N.who)nd.appendChild(el("span","who",N.who));
+          li.appendChild(nd);ul.appendChild(li)});
+        lane.appendChild(ul);fl.appendChild(lane)});
+      $("flowNote").textContent=F.note||"";
+    }
   }
   function fail(){["wkList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
   fetch("progress.json?t="+Math.floor(Date.now()/6e4),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(draw).catch(fail);
