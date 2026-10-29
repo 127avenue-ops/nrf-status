@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="description" content="간호인력 연구 2026 — 근무 규칙을 반영한 병동 간호인력 배수표 개발(국립중앙의료원 내부연구사업 신청 과제). AI 도구는 llms.txt(사용법·파일함)와 progress.json(진행 단계·날짜별 할 일)을 읽으세요.">
+<meta name="description" content="간호인력 연구 2026: 근무 규칙을 반영한 병동 간호인력 배수표 개발(국립중앙의료원 내부연구사업 신청 과제). AI 도구는 llms.txt(사용법·파일함)와 progress.json(진행 단계·날짜별 할 일)을 읽으세요.">
 <link rel="alternate" type="text/markdown" title="AI·도구용 안내" href="llms.txt">
 <link rel="alternate" type="application/json" title="연구 진행·일정 데이터" href="progress.json">
 <title>간호인력 연구 2026</title>
@@ -275,6 +275,27 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .node .who{display:inline-block;margin-top:3px;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px}
 .node.now .who{background:#fff;color:var(--blue2)}
 .flownote{margin:10px 0 0;font-size:12px;color:var(--mute)}
+.easy h2{margin-bottom:8px}
+.easynow{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#eef5ff;border:1px solid #b9d3f7;font-size:14px;font-weight:600}
+.easy .lead{margin:0 0 12px;font-size:14px}
+.esteps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:es}
+.esteps li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:4px 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.esteps li::before{counter-increment:es;content:counter(es);width:24px;height:24px;border-radius:50%;background:#eef2f6;color:var(--mute);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.esteps li.done::before{content:"\2713";background:#e3f4ea;color:var(--ok)}
+.esteps li.now{border:2px solid var(--blue);background:#f7fbff}
+.esteps li.now::before{background:var(--blue);color:#fff}
+.esteps b{font-size:15px;color:var(--ink)}
+.esteps .k{font-size:13px;color:var(--mute);margin-left:4px}
+.esteps .tag{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;background:#eef2f6;color:var(--mute);vertical-align:2px}
+.esteps .tag.done{background:#e3f4ea;color:var(--ok)}.esteps .tag.now{background:var(--blue);color:#fff}
+.esteps p{margin:4px 0 0;font-size:14px;line-height:1.55}
+.eterms{margin:8px 0 4px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;font-size:14px}
+.eterms dt{font-weight:700;white-space:nowrap}.eterms dd{margin:0}
+.logl{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:0}
+.logl li{display:grid;grid-template-columns:84px minmax(0,1fr);gap:8px;font-size:14px;padding:7px 4px;border-bottom:1px solid var(--line)}
+.logl li:last-child{border-bottom:0}
+.logl .d{font-weight:700;color:var(--blue2);white-space:nowrap}
+@media (max-width:640px){.eterms{grid-template-columns:1fr;gap:2px}.eterms dd{margin-bottom:8px}.logl li{grid-template-columns:1fr;gap:2px}}
 @media (max-width:720px){.lane{grid-template-columns:1fr}.node{max-width:none}}
 .track{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .track li{flex:1;position:relative;background:#f4f7fb;border-radius:10px;padding:8px 10px;border:1px solid var(--line);min-width:0;text-align:center}
@@ -375,14 +396,22 @@ details.card[open]>summary{margin-bottom:12px}
     <p class="flownote" id="flowNote"></p>
   </section>
 
+  <section class="card easy" id="easy" hidden aria-labelledby="easyH">
+    <h2 id="easyH">쉬운 설명 <span class="note" style="font-weight:500">연구 2는 지금 어디쯤인가요?</span></h2>
+    <p class="easynow" id="easyNow"></p>
+    <p class="lead" id="easyLead"></p>
+    <ol class="esteps" id="easySteps" aria-label="연구 2 단계"></ol>
+    <details class="overview" id="easyTermsBox"><summary>자주 나오는 말 풀이</summary><dl class="eterms" id="easyTerms"></dl></details>
+  </section>
+
   <section class="card intro" id="intro" hidden aria-labelledby="introH">
     <div class="introhead"><h2 id="introH">처음 오셨나요? <span class="note" style="font-weight:500">세 가지만 알면 됩니다</span></h2><button type="button" class="x" id="introClose">안내 닫기 ✕</button></div>
     <ol class="steps">
-      <li><span class="num" aria-hidden="true">1</span><div><b>이름</b> — <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
-      <li><span class="num" aria-hidden="true">2</span><div><b>최신 문서 열기</b> — 파일함의 「실행 계획」「준비 체크리스트」「현재 상황」을 누르세요. 최신 사본은 읽기 전용입니다. 자료 작성·업로드는 「전체 파일」에서 합니다.</div></li>
-      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b> — <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 안내를 AI에게 전달하세요. 최신 계획을 읽고 필요한 작업을 이어갈 수 있습니다.</div></li>
+      <li><span class="num" aria-hidden="true">1</span><div><b>이름</b>: <span class="whook" id="introWhoOk" role="status"></span> <button type="button" class="linkbtn" id="introWho">바꾸기</button><br><span class="note">고친 사람이 기록에 남고, 같이 보는 분 화면에 표시됩니다.</span></div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><b>최신 문서 열기</b>: 파일함의 「실행 계획」「준비 체크리스트」「현재 상황」을 누르세요. 최신 사본은 읽기 전용입니다. 자료 작성·업로드는 「전체 파일」에서 합니다.</div></li>
+      <li><span class="num" aria-hidden="true">3</span><div><b>AI에게 맡기기</b>: <a href="#ai" id="introAi">「AI와 함께 쓰기」</a>의 안내를 AI에게 전달하세요. 최신 계획을 읽고 필요한 작업을 이어갈 수 있습니다.</div></li>
     </ol>
-    <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다 — 1시간마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
+    <p class="vault">김대연 선생님의 연구 노트(옵시디언)는 파일함 「_볼트 노트(자동 사본)」 폴더에서 읽을 수 있습니다. 1시간마다 자동으로 새로 고쳐지고, 읽기 전용입니다.</p>
     <details class="faq">
       <summary>자주 묻는 것</summary>
       <dl>
@@ -402,6 +431,7 @@ details.card[open]>summary{margin-bottom:12px}
     <h2 id="progH">연구 진행 <span class="pill" id="pgBadge">접수 완료 · 선정 대기</span></h2>
     <ol class="track" id="pgTrack"></ol>
     <p class="nowline" id="pgNow"></p>
+    <details class="overview" id="logBox" hidden><summary>지금까지 한 일 (날짜순 · 최근 것이 위)</summary><ol class="logl" id="logList"></ol></details>
     <details class="overview" id="researchOverview">
       <summary>연구 개요 · 참여자 · 연구비</summary>
     <p class="lead">같은 병동 인원 배수(하루 필요인원 × 1.6)가 근무규칙을 모두 지킨 한 달 근무표를 정말 짤 수 있게 해 주는지, 가상근무표 계산으로 확인하고 병동 조건별 배수표를 만듭니다.</p>
@@ -422,7 +452,7 @@ details.card[open]>summary{margin-bottom:12px}
   <details class="card" id="studies" aria-labelledby="stH">
     <summary id="stH">연구 1 · 2 · 3 자세히 보기</summary>
     <div class="rs" id="rsList"></div>
-    <p class="note" style="margin:10px 0 0"><b>원칙</b> — 판정 기준과 분석 방법은 결과를 보기 전에 정해 잠그고(계산 직전 동결 · 시각은 공개 난수로 기록), 계산 결과는 정해진 열람일 전에는 이 페이지에도 올리지 않습니다. 결과는 모형 조건에 따른 범위로만 보고합니다(실제 병동 권고가 아님).</p>
+    <p class="note" style="margin:10px 0 0"><b>원칙</b>: 판정 기준과 분석 방법은 결과를 보기 전에 정해 잠그고(계산 직전 동결 · 시각은 공개 난수로 기록), 계산 결과는 정해진 열람일 전에는 이 페이지에도 올리지 않습니다. 결과는 모형 조건에 따른 범위로만 보고합니다(실제 병동 권고가 아님).</p>
   </details>
 
   <section class="card" id="fb">
@@ -499,15 +529,15 @@ details.card[open]>summary{margin-bottom:12px}
     <p class="note">접수용 원본(연락처 포함)은 연구진이 따로 보관합니다.</p>
   </details>
 
-  <details class="card" id="quality"><summary>검토 결과 자세히 보기</summary><div class="scroll"><table><thead><tr><th>항목</th><th>상태</th><th>확인 내용</th></tr></thead><tbody><tr><td>7개 AI 역할·재검토</td><td>완료</td><td>실제 전문가 자문과 구별</td></tr><tr><td>기존 코드 회귀</td><td>통과</td><td>704 통과·5 건너뜀(10/21); 연구 2·3 새 설계 검증은 잔여</td></tr><tr><td>새 분석·연구 3 구현</td><td>미완료</td><td>연구별 실행 전에 검증·동결</td></tr><tr><td>연구 1 현장 확인·착수 동의</td><td>확인</td><td>연구책임자 확인 · OSF 등록 안 함(10/21 결정)</td></tr><tr><td>11월 전 범위 용량</td><td>조건부</td><td>현행 시험 계산 뒤 재판정</td></tr><tr><td>학술 심사</td><td>향후</td><td>11월 목표는 심사 가능한 초안; 게재 보장 없음</td></tr></tbody></table></div><p class="note">원고 A는 조건별 지도와 공정한 산정식 비교, 원고 B는 새 표본을 이용한 규칙 변경 비교가 핵심입니다. 실제 안전정원·환자 결과·현장 효과는 측정하지 않습니다.</p></details>
+  <details class="card" id="quality"><summary>검토 결과 자세히 보기</summary><div class="scroll"><table><thead><tr><th>항목</th><th>상태</th><th>확인 내용</th></tr></thead><tbody id="qBody"></tbody></table></div><p class="note">원고 A는 조건별 지도와 공정한 산정식 비교, 원고 B는 새 표본을 이용한 규칙 변경 비교가 핵심입니다. 실제 안전정원·환자 결과·현장 효과는 측정하지 않습니다.</p></details>
   <details class="card" id="ai">
     <summary><h2>AI와 함께 쓰기</h2> <span class="note" style="font-weight:500">처음 연결할 때만 · 연결 문장 복사</span></summary>
     <p style="margin:0 0 8px">송지수 선생님 PC의 AI 프로그램(ChatGPT·Claude·Gemini 등)도 이 파일함을 함께 씁니다.</p>
     <ul class="plain">
-      <li><b>읽기</b> — 파일함의 문서·PDF를 읽고 요약해 줍니다.</li>
-      <li><b>쓰기</b> — 새 문서를 만들고, 있는 문서에 덧붙이거나 고칩니다(고치기 전 내용은 자동 백업).</li>
-      <li><b>정리</b> — 폴더를 만들고, 이름을 바꾸고, 지웁니다. 지운 것은 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다.</li>
-      <li><b>노트</b> — 김대연 선생님 연구 노트도 읽을 수 있어요(「_볼트 노트(자동 사본)」 폴더 · 읽기 전용).</li>
+      <li><b>읽기</b>: 파일함의 문서·PDF를 읽고 요약해 줍니다.</li>
+      <li><b>쓰기</b>: 새 문서를 만들고, 있는 문서에 덧붙이거나 고칩니다(고치기 전 내용은 자동 백업).</li>
+      <li><b>정리</b>: 폴더를 만들고, 이름을 바꾸고, 지웁니다. 지운 것은 구글 드라이브 휴지통으로 가서 30일 안에 되살릴 수 있습니다.</li>
+      <li><b>노트</b>: 김대연 선생님 연구 노트도 읽을 수 있어요(「_볼트 노트(자동 사본)」 폴더 · 읽기 전용).</li>
     </ul>
     <p style="margin:14px 0 6px;font-weight:700">처음 한 번, AI에게 이 문장을 그대로 붙여 넣어 주세요</p>
     <div class="aibox"><code id="aiPrompt">https://127avenue-ops.github.io/nrf-status/llms.txt 를 읽고 시작해. 파일함 코드는 (열람 코드)이야. 기록에 남길 내 이름은 송지수야.</code><button type="button" class="btn sm" id="aiCopy">복사</button></div>
@@ -516,7 +546,7 @@ details.card[open]>summary{margin-bottom:12px}
       <li>「제출본 폴더의 최신 PDF를 요약해 줘」</li>
       <li>「회의록 폴더에 오늘 회의록을 새로 만들어 줘」</li>
       <li>「'참고문헌 정리.md'에 이 논문을 덧붙여 줘」</li>
-      <li>「김대연 선생님 AI에게 '○○' 물어봐 줘」 <span class="note">— 주고받은 내용은 위 「AI 의견 교환」에 모입니다</span></li>
+      <li>「김대연 선생님 AI에게 '○○' 물어봐 줘」 <span class="note">(주고받은 내용은 위 「AI 의견 교환」에 모입니다)</span></li>
     </ul>
     <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「공동 편집 기록」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
   </details>
@@ -723,7 +753,7 @@ details.card[open]>summary{margin-bottom:12px}
     api("list",{folderId:id||""}).then(function(j){lastListAt=Date.now();render(j);msg("");pulseSoon()})
     .catch(function(e){if(!retried&&(e.code==="badjson"||e.code==="net")){again=true;return}msg(e.message,true)})
     .then(function(){busy=false;if(again)setTimeout(function(){load(id,true)},1500)})}
-  /* 조용히 다시 불러오기 — 바뀐 게 있을 때만 다시 그림(보기 방식·스크롤 유지) */
+  /* 조용히 다시 불러오기: 바뀐 게 있을 때만 다시 그림(보기 방식·스크롤 유지) */
   function sig(j){return j?j.folder.id+"|"+j.folders.concat(j.files).map(function(x){return x.id+"@"+x.updated+"@"+x.name}).join(","):""}
   var quietBusy=false,rsT=null;
   function quiet(){if(busy||quietBusy||!cur||document.hidden||document.querySelector(".menu"))return;
@@ -753,7 +783,7 @@ details.card[open]>summary{margin-bottom:12px}
     var i=0,done=0;
     (function next(){if(i>=files.length){msg(done+"개 올림");load(cur);return}
       var f=files[i++];if(f.size>MAXB){msg("「"+f.name+"」은 33MB가 넘어 구글 드라이브에서 직접 올려 주세요.",true);next();return}
-      msg("올리는 중 "+i+"/"+files.length+" — "+f.name);
+      msg("올리는 중 "+i+"/"+files.length+": "+f.name);
       var rd=new FileReader();rd.onload=function(){var b64=String(rd.result).split(",")[1]||"";
         api("upload",{folderId:cur,name:f.name,mime:f.type||"application/octet-stream",b64:b64},true).then(function(){done++;next()}).catch(function(e){msg("「"+f.name+"」: "+e.message,true);setTimeout(next,1500)})};
       rd.readAsDataURL(f)})();
@@ -787,12 +817,12 @@ details.card[open]>summary{margin-bottom:12px}
     if(/덧붙/.test(a))return s+" "+t+"에 글을 덧붙였습니다";
     if(/새 문서|write/.test(a))return s+" "+t+" 문서를 새로 만들었습니다";
     if(/폴더/.test(a))return s+" "+t+" 폴더를 만들었습니다";
-    if(/이름/.test(a))return s+" 이름을 바꿨습니다 — "+t;
+    if(/이름/.test(a))return s+" 이름을 바꿨습니다: "+t;
     if(/올리/.test(a))return s+" "+t+obj(x.target)+" 올렸습니다";
     if(/삭제|휴지통/.test(a))return s+" "+t+obj(x.target)+" 삭제했습니다";
     if(/되살/.test(a))return s+" "+t+obj(x.target)+" 되살렸습니다";
     if(/고치|고쳐|고침|수정|바꾸|replace/.test(a))return s+" "+t+obj(x.target)+" 고쳤습니다";
-    return s+" "+t+" — "+a}
+    return s+" "+t+": "+a}
   function toast(t){var box=$("toasts"),d=el("div","toast",t);box.appendChild(d);while(box.children.length>3)box.removeChild(box.firstChild);
     setTimeout(function(){d.classList.add("out");setTimeout(function(){d.remove()},400)},6500)}
   function rkey(x){return[x.t,x.who,x.action,x.target,x.id].join("|")}
@@ -873,7 +903,7 @@ details.card[open]>summary{margin-bottom:12px}
   function isTalk(x){return /talk|의견/i.test(x.action||"")||/(^|\/)AI 의견 교환$/.test(x.where||"")}
   function ttype(v){v=String(v||"");return /결정|decide/i.test(v)?"결정필요":/결론|conclude/i.test(v)?"결론":/메모|note/i.test(v)?"메모":/답|reply/i.test(v)?"답":/질문|ask/i.test(v)?"질문":""}
   function tlabel(t){return t==="결정필요"?"사람이 정할 것":t}
-  /* 기록 예: action 「의견 교환」 · target 「주제.md · 3번 결정필요」 — 누가 썼는지(AI/사람)는 talks의 last.from으로 */
+  /* 기록 예: action 「의견 교환」 · target 「주제.md · 3번 결정필요」: 누가 썼는지(AI/사람)는 talks의 last.from으로 */
   function talkSentence(x,from){var tg=String(x.target||""),i=tg.lastIndexOf(" · "),topic=(i>=0?tg.slice(0,i):tg).replace(/\.md$/i,""),
       t=ttype((i>=0?tg.slice(i+3):"")+" "+String(x.action||"").replace(/의견\s*교환/g,"")),w=x.who,q="「"+topic+"」",
       s=from?(/의 AI$/.test(from)?from+"가":from+" 님이"):(!w||/^\(/.test(w))?"AI가":/사람|person/i.test(x.action||"")?w+" 님이":w+"의 AI가";
@@ -885,18 +915,18 @@ details.card[open]>summary{margin-bottom:12px}
   function talkBusyUser(){var t=$("talk");return t.contains(document.activeElement)||Date.now()-talkTouch<60000}
   function waitsForMe(x){var m=me();return !!m&&tstat(x.status)==="wait"&&String(x.status).indexOf("→ "+m)>=0}
   function drawMine(){var m=me(),n=talks.filter(waitsForMe).length,p=$("tkMe");p.hidden=!n;
-    if(n)p.textContent=m+" 님 AI에게 답할 질문이 "+n+"개 있어요 — 내 AI에게 「의견 교환 확인해 줘」라고 말해 주세요."}
+    if(n)p.textContent=m+" 님 AI에게 답할 질문이 "+n+"개 있어요. 내 AI에게 「의견 교환 확인해 줘」라고 말해 주세요."}
   function drawDec(){var n=pulseDec!=null?pulseDec:talks.filter(function(x){return tstat(x.status)==="dec"}).length;
     $("decChip").hidden=!(talkOK===true&&n>0);$("decN").textContent=n}
   function drawTalks(force){var ul=$("tkList");ul.innerHTML="";
     var items=talks.map(function(x,i){return[x,i]}).sort(function(a,b){return((tstat(b[0].status)==="dec")-(tstat(a[0].status)==="dec"))||a[1]-b[1]}).map(function(p){return p[0]});
     $("tkN").textContent=talks.length?talks.length+"개 주제":"";
-    if(!items.length){var e=el("li","empty");e.appendChild(document.createTextNode("아직 주고받은 의견이 없습니다. 내 AI에게 이렇게 말해 보세요 — "));
+    if(!items.length){var e=el("li","empty");e.appendChild(document.createTextNode("아직 주고받은 의견이 없습니다. 내 AI에게 이렇게 말해 보세요: "));
       e.appendChild(el("b",null,"「"+otherName()+" 선생님 AI에게 '배수 1.6이면 충분한지' 물어봐 줘」"));ul.appendChild(e)}
     items.forEach(function(x){var st=tstat(x.status),li=el("li"),b=el("button","tk "+st);b.type="button";b.title="대화 열기";b.onclick=function(){openTalk(x)};
       var top=el("span","tkt");top.appendChild(el("span","tkb "+st,x.status||"상태 없음"));top.appendChild(el("b",null,x.topic||""));b.appendChild(top);
       var L=x.last||{},parts=[];if(L.n!=null||L.type)parts.push((L.n!=null?L.n+"번 ":"")+tlabel(ttype(L.type)));if(L.from)parts.push(L.from);if(L.t)parts.push(rel(L.t));
-      if(parts.length||L.preview)b.appendChild(el("span","tks",parts.join(" · ")+(L.preview?" — "+String(L.preview).replace(/\s+/g," "):"")));
+      if(parts.length||L.preview)b.appendChild(el("span","tks",parts.join(" · ")+(L.preview?": "+String(L.preview).replace(/\s+/g," "):"")));
       if(x.conclusion&&!/아직 없음/.test(x.conclusion))b.appendChild(el("span","tkc","결론: "+x.conclusion));
       li.appendChild(b);ul.appendChild(li)});
     drawMine();if(!force&&talkBusyUser())return;
@@ -915,7 +945,7 @@ details.card[open]>summary{margin-bottom:12px}
     if(!topic){m.textContent="주제를 적어 주세요.";$("tkNew").focus();return}if(!text){m.textContent="내용을 적어 주세요.";$("tkText").focus();return}
     $("tkGo").disabled=true;m.textContent="남기는 중…";
     api("talk",{topic:topic,type:$("tkType").value,text:text,by:"person"},true).then(function(j){$("tkText").value="";$("tkNew").value="";
-      m.textContent=j.dedup?"방금 같은 글이 있어 한 번만 남겼습니다":"남겼습니다"+(j.n?" — "+j.n+"번":"")+(j.status?" · 상태: "+j.status:"");talkTouch=0;loadTalks(true);pulseSoon()})
+      m.textContent=j.dedup?"방금 같은 글이 있어 한 번만 남겼습니다":"남겼습니다"+(j.n?": "+j.n+"번":"")+(j.status?" · 상태: "+j.status:"");talkTouch=0;loadTalks(true);pulseSoon()})
     .catch(function(e){m.textContent=e.code==="bad_action"?"아직 준비 중인 기능입니다.":e.message})
     .then(function(){$("tkGo").disabled=false})}
   function bindTalk(){$("tkGo").onclick=postTalk;
@@ -968,7 +998,7 @@ details.card[open]>summary{margin-bottom:12px}
     if(!d.editing)renderInto($("dvBody"),d.text);dvMeta();dvSync();
     if(d.section){var target=Array.prototype.find.call($("dvBody").querySelectorAll("h1,h2,h3,h4"),function(h){return h.textContent.indexOf(d.section)===0});
       if(target){$("dvBody").scrollTop+=target.getBoundingClientRect().top-$("dvBody").getBoundingClientRect().top-12;}d.section=""}
-    if(d.legacy)bar("지금은 읽기만 됩니다 — 고치기 기능은 서버 준비가 끝나면 열립니다.","info")}
+    if(d.legacy)bar("지금은 읽기만 됩니다. 고치기 기능은 서버 준비가 끝나면 열립니다.","info")}
   function viewer(f,opt){opt=opt||{};
     if(doc&&doc.dirty&&!confirm("저장하지 않은 내용이 있습니다. 버리고 다른 문서를 열까요?"))return;
     if(!doc)lastFocus=opt.returnFocus||document.activeElement;
@@ -1015,7 +1045,7 @@ details.card[open]>summary{margin-bottom:12px}
         stat(ok?"상대 내용을 불러왔습니다 · 내가 쓴 글은 클립보드에 있으니 필요하면 붙여넣기(Ctrl+V) 하세요":"상대 내용을 불러왔습니다","ok")})
     }).catch(function(e){stat(e.message,"bad")})}
   function refreshDoc(d,w){return fetchText(d).then(function(r){if(doc!==d||d.editing)return;var changed=r.text!==d.text;apply(r);
-      if(changed){bar("방금 "+(w?w+" 님이":"다른 분이")+" 고쳤습니다 — 새 내용으로 바꿔 보여 드립니다.","info");
+      if(changed){bar("방금 "+(w?w+" 님이":"다른 분이")+" 고쳤습니다. 새 내용으로 바꿔 보여 드립니다.","info");
         var b=$("dvBody");b.classList.remove("flash");void b.offsetWidth;b.classList.add("flash");
         setTimeout(function(){if(doc===d&&!d.editing&&$("dvBar").className==="dvbar info")bar("")},8000)}}).catch(function(){})}
   function remoteWho(id){for(var i=0;i<rc.length;i++){var x=rc[i];if(x.id===id&&!mine(x))return /^\(/.test(x.who||"")?"":x.who}return""}
@@ -1096,7 +1126,7 @@ details.card[open]>summary{margin-bottom:12px}
     d.addEventListener("dragover",function(e){e.preventDefault();if(!roFolder())d.classList.add("over")});
     d.addEventListener("dragleave",function(){d.classList.remove("over")});
     d.addEventListener("drop",function(e){e.preventDefault();d.classList.remove("over");upload(e.dataTransfer.files)});
-    /* 지난 방문 시각: 탭(세션)마다 한 번만 넘김 — 새로고침해도 「새로」가 사라지지 않게 */
+    /* 지난 방문 시각: 탭(세션)마다 한 번만 넘김: 새로고침해도 「새로」가 사라지지 않게 */
     try{var sv=sessionStorage.getItem("nrf_visit_prev");
       if(sv!=null)prevVisit=+sv||0;else{prevVisit=+localStorage.getItem("nrf_prev_visit")||0;localStorage.setItem("nrf_prev_visit",String(Date.now()));sessionStorage.setItem("nrf_visit_prev",String(prevVisit))}}catch(e){}
     try{seen=JSON.parse(localStorage.getItem("nrf_seen")||"{}")||{}}catch(e){seen={}}
@@ -1140,7 +1170,7 @@ details.card[open]>summary{margin-bottom:12px}
       var dl=el("dl");[["계산",s.compute],["사람 확인",s.people]].forEach(function(r){dl.appendChild(el("dt",null,r[0]));dl.appendChild(el("dd",null,r[1]))});d.appendChild(dl);rs.appendChild(d)});
     var tasks=(P.tasks||[]).slice().sort(function(a,b){return a.start<b.start?-1:a.start>b.start?1:0});
     var wk=$("wkList");wk.textContent="";
-    $("wkRange").textContent="핵심 일정 5개";
+    $("wkRange").textContent="핵심 일정 "+tasks.length+"개";
     var n=0;tasks.forEach(function(t){n++;
       var on=t.start<=today&&today<=t.end,li=el("li",on?"today":""),d=el("span","d",when(t));
       var tag=t.start===today&&t.end===today?"오늘":(on?"진행 중":(t.start===tomorrow?"내일":""));if(tag)d.appendChild(el("em",null,tag));
@@ -1160,6 +1190,22 @@ details.card[open]>summary{margin-bottom:12px}
           li.appendChild(nd);ul.appendChild(li)});
         lane.appendChild(ul);fl.appendChild(lane)});
       $("flowNote").textContent=F.note||"";
+    }
+    var LG=P.log||[],ll=$("logList");ll.textContent="";
+    LG.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0}).forEach(function(x){var li=el("li"),dd=day(x.date);li.appendChild(el("span","d",(dd.getMonth()+1)+"월 "+dd.getDate()+"일"));li.appendChild(el("span",null,x.t));ll.appendChild(li)});
+    $("logBox").hidden=!LG.length;
+    var QB=$("qBody");if(P.quality&&P.quality.length){QB.textContent="";P.quality.forEach(function(q){var tr2=el("tr");[q.name,q.state,q.detail].forEach(function(v){tr2.appendChild(el("td",null,v))});QB.appendChild(tr2)})}
+    var E=P.easy,eb=$("easy");
+    if(E&&E.steps){eb.hidden=false;
+      var SN={done:"끝남",now:"진행 중",next:"앞으로"},nowN=[];
+      ((F&&F.lanes)||[]).forEach(function(L){(L.nodes||[]).forEach(function(N){if(N.s==="now")nowN.push(L.name+"의 「"+N.t+"」")})});
+      $("easyNow").textContent=(ud?(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준 · ":"")+"지금 하는 일: "+(nowN.join(", ")||"없음")+(E.nowNote?" · "+E.nowNote:"");
+      $("easyLead").textContent=E.lead||"";
+      var es=$("easySteps");es.textContent="";
+      E.steps.forEach(function(S){var li=el("li",S.s||"next"),dv=el("div");if(S.s==="now")li.setAttribute("aria-current","step");
+        dv.appendChild(el("b",null,S.t));if(S.k)dv.appendChild(el("span","k",S.k));dv.appendChild(el("span","tag "+(S.s||"next"),(SN[S.s]||"")+(S.d?" · "+S.d:"")));
+        dv.appendChild(el("p",null,S.e));li.appendChild(dv);es.appendChild(li)});
+      var dl2=$("easyTerms");dl2.textContent="";(E.terms||[]).forEach(function(T){dl2.appendChild(el("dt",null,T.t));dl2.appendChild(el("dd",null,T.d))});
     }
   }
   function fail(){["wkList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
