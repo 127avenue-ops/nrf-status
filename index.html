@@ -275,6 +275,16 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .node .who{display:inline-block;margin-top:3px;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px}
 .node.now .who{background:#fff;color:var(--blue2)}
 .flownote{margin:10px 0 0;font-size:12px;color:var(--mute)}
+#value h3{font-size:15px;margin:16px 0 6px;color:var(--ink)}
+#value .vsum{margin:10px 0 4px;padding:10px 12px;border-radius:10px;background:#f7fbff;border:1px solid #b9d3f7;font-size:14px}
+#value ul.vl{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px;line-height:1.55}
+#value ul.vl b{color:var(--ink)}
+#value sup a{font-size:11px;text-decoration:none;margin-left:1px}
+#value ol.vref{margin:4px 0 0;padding-left:22px;font-size:13px;display:grid;gap:3px;word-break:break-word}
+#value ul.vtodo{margin:0;padding-left:18px;font-size:14px;display:grid;gap:4px}
+#value td{font-size:13px}
+#value table{min-width:760px}
+
 .easy h2{margin-bottom:8px}
 .easynow{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#eef5ff;border:1px solid #b9d3f7;font-size:14px;font-weight:600}
 .easy .lead{margin:0 0 12px;font-size:14px}
@@ -448,6 +458,12 @@ details.card[open]>summary{margin-bottom:12px}
     <ul class="wk" id="wkList"></ul>
     <p class="note" style="margin:8px 0 0">함께 진행할 핵심 일정입니다. 세부 절차는 파일함의 실행 계획에서 확인합니다.</p>
   </section>
+
+  <details class="card" id="value" hidden>
+    <summary>이 연구의 가치와 투고 준비 <span class="note" style="font-weight:500" id="valueAsof"></span></summary>
+    <p class="vsum" id="valueSum"></p>
+    <div id="valueBody"></div>
+  </details>
 
   <details class="card" id="studies" aria-labelledby="stH">
     <summary id="stH">연구 1 · 2 · 3 자세히 보기</summary>
@@ -1206,6 +1222,18 @@ details.card[open]>summary{margin-bottom:12px}
         dv.appendChild(el("b",null,S.t));if(S.k)dv.appendChild(el("span","k",S.k));dv.appendChild(el("span","tag "+(S.s||"next"),(SN[S.s]||"")+(S.d?" · "+S.d:"")));
         dv.appendChild(el("p",null,S.e));li.appendChild(dv);es.appendChild(li)});
       var dl2=$("easyTerms");dl2.textContent="";(E.terms||[]).forEach(function(T){dl2.appendChild(el("dt",null,T.t));dl2.appendChild(el("dd",null,T.d))});
+    }
+    var V=P.value,vb=$("valueBody");
+    if(V&&V.sections){$("value").hidden=false;vb.textContent="";
+      if(V.asof){var vd=day(V.asof);$("valueAsof").textContent="결과 열람 전 조사 · "+(vd.getMonth()+1)+"월 "+vd.getDate()+"일"}
+      $("valueSum").textContent=V.summary||"";
+      var cite=function(par,src){if(!src||!src.length)return;var sp=el("sup");src.forEach(function(n,i){var a=el("a",null,"["+n+"]");a.href="#vref"+n;sp.appendChild(a)});par.appendChild(sp)};
+      V.sections.forEach(function(S){vb.appendChild(el("h3",null,S.h));var ul=el("ul","vl");S.items.forEach(function(I){var li=el("li");li.appendChild(el("b",null,I.t+": "));li.appendChild(document.createTextNode(I.d));cite(li,I.src);ul.appendChild(li)});vb.appendChild(ul)});
+      if(V.journals&&V.journals.length){vb.appendChild(el("h3",null,"투고 학술지 후보"));var wr=el("div","scroll"),tb=el("table"),th=el("thead"),hr=el("tr");["학술지","역할","색인·지표","맞는 점","비용·형식"].forEach(function(x){hr.appendChild(el("th",null,x))});th.appendChild(hr);tb.appendChild(th);var bd=el("tbody");
+        V.journals.forEach(function(J){var tr=el("tr"),c0=el("td");c0.appendChild(el("b",null,J.name));cite(c0,J.src);tr.appendChild(c0);[J.role,J.idx,J.fit,J.cost].forEach(function(v){tr.appendChild(el("td",null,v))});bd.appendChild(tr)});
+        tb.appendChild(bd);wr.appendChild(tb);vb.appendChild(wr);if(V.journalNote)vb.appendChild(el("p","note",V.journalNote))}
+      if(V.todo&&V.todo.length){vb.appendChild(el("h3",null,"결과 열람 전에 할 일"));var tu=el("ul","vtodo");V.todo.forEach(function(x){tu.appendChild(el("li",null,x))});vb.appendChild(tu)}
+      if(V.refs&&V.refs.length){vb.appendChild(el("h3",null,"출처"));var ro=el("ol","vref");V.refs.forEach(function(R){var li=el("li");li.id="vref"+R.n;li.value=R.n;var a=el("a",null,R.t);a.href=R.url;a.target="_blank";a.rel="noopener noreferrer";li.appendChild(a);ro.appendChild(li)});vb.appendChild(ro)}
     }
   }
   function fail(){["wkList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
