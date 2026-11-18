@@ -407,10 +407,10 @@ details.card[open]>summary{margin-bottom:12px}
   </section>
 
   <section class="card easy" id="easy" hidden aria-labelledby="easyH">
-    <h2 id="easyH">쉬운 설명 <span class="note" style="font-weight:500">연구 2는 지금 어디쯤인가요?</span></h2>
+    <h2 id="easyH">쉬운 설명 <span class="note" id="easyQ" style="font-weight:500">연구 3은 지금 어디쯤인가요?</span></h2>
     <p class="easynow" id="easyNow"></p>
     <p class="lead" id="easyLead"></p>
-    <ol class="esteps" id="easySteps" aria-label="연구 2 단계"></ol>
+    <ol class="esteps" id="easySteps" aria-label="연구 3 단계"></ol>
     <details class="overview" id="easyTermsBox"><summary>자주 나오는 말 풀이</summary><dl class="eterms" id="easyTerms"></dl></details>
   </section>
 
@@ -1216,6 +1216,7 @@ details.card[open]>summary{margin-bottom:12px}
       var SN={done:"끝남",now:"진행 중",next:"앞으로"},nowN=[];
       ((F&&F.lanes)||[]).forEach(function(L){(L.nodes||[]).forEach(function(N){if(N.s==="now")nowN.push(L.name+"의 「"+N.t+"」")})});
       $("easyNow").textContent=(ud?(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준 · ":"")+"지금 하는 일: "+(nowN.join(", ")||"없음")+(E.nowNote?" · "+E.nowNote:"");
+      if(E.q){$("easyQ").textContent=E.q;$("easySteps").setAttribute("aria-label",E.q.replace(/[은는] 지금 어디쯤인가요\?$/,"")+" 단계")}
       $("easyLead").textContent=E.lead||"";
       var es=$("easySteps");es.textContent="";
       E.steps.forEach(function(S){var li=el("li",S.s||"next"),dv=el("div");if(S.s==="now")li.setAttribute("aria-current","step");
