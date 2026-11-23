@@ -286,6 +286,21 @@ footer .linkbtn{font-size:12px;font-weight:500}
 #value table{min-width:760px}
 
 .easy h2{margin-bottom:8px}
+.gains h3{font-size:16px;margin:16px 0 8px}
+.gains .lead{margin:0 0 4px;font-size:14px}
+.gcall{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#fff4e0;border:1px solid #f1dcae;color:#6b4200;font-size:14px;font-weight:600}
+.gtiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.gtile{position:relative;background:var(--sky);border:1px solid var(--sky2);border-radius:12px;padding:12px 14px 12px 46px}
+.gtile .gnum{position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:999px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.gtile b{display:block;font-size:15px;color:var(--blue2)}
+.gtile .gq{margin:4px 0 0;font-size:14px}
+.gtile .gw{margin:6px 0 0;font-size:12.5px;color:var(--mute)}
+.guses{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.guse{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.guse b{display:block;font-size:15px;margin-bottom:4px}
+.guse ul{margin:0;padding-left:18px;font-size:14px}
+.guse li{margin:3px 0}
+.gains .note{margin:8px 0 0}
 .easynow{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#eef5ff;border:1px solid #b9d3f7;font-size:14px;font-weight:600}
 .easy .lead{margin:0 0 12px;font-size:14px}
 .esteps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:es}
@@ -404,6 +419,18 @@ details.card[open]>summary{margin-bottom:12px}
     <div class="flowlegend" aria-hidden="true"><span><i class="done"></i>끝남</span><span><i class="now"></i>지금 하는 일</span><span><i class="next"></i>앞으로</span><span><em class="who" style="font-style:normal;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px">사람 확인</em>연구진이 직접 확인·결정</span></div>
     <div class="lanes" id="flowLanes"></div>
     <p class="flownote" id="flowNote"></p>
+  </section>
+
+  <section class="card gains" id="gains" hidden aria-labelledby="gainsH">
+    <h2 id="gainsH">이 연구로 알 수 있는 것</h2>
+    <p class="lead" id="gainsLead"></p>
+    <h3 id="gainsAh"></h3>
+    <p class="gcall" id="gainsCall"></p>
+    <ul class="gtiles" id="gainsAxes"></ul>
+    <p class="note" id="gainsAnote"></p>
+    <h3 id="gainsBh"></h3>
+    <div class="guses" id="gainsUses"></div>
+    <p class="note" id="gainsNote"></p>
   </section>
 
   <section class="card easy" id="easy" hidden aria-labelledby="easyH">
@@ -1223,6 +1250,17 @@ details.card[open]>summary{margin-bottom:12px}
         dv.appendChild(el("b",null,S.t));if(S.k)dv.appendChild(el("span","k",S.k));dv.appendChild(el("span","tag "+(S.s||"next"),(SN[S.s]||"")+(S.d?" · "+S.d:"")));
         dv.appendChild(el("p",null,S.e));li.appendChild(dv);es.appendChild(li)});
       var dl2=$("easyTerms");dl2.textContent="";(E.terms||[]).forEach(function(T){dl2.appendChild(el("dt",null,T.t));dl2.appendChild(el("dd",null,T.d))});
+    }
+    var G=P.gains;
+    if(G&&G.axes){$("gains").hidden=false;
+      $("gainsLead").textContent=G.lead||"";$("gainsAh").textContent=G.axesTitle||"";$("gainsCall").textContent=G.call||"";$("gainsCall").hidden=!G.call;
+      var ga=$("gainsAxes");ga.textContent="";
+      G.axes.forEach(function(A){var li=el("li","gtile");li.appendChild(el("span","gnum",A.n));li.appendChild(el("b",null,A.t));li.appendChild(el("p","gq",A.q));if(A.why)li.appendChild(el("p","gw",A.why));ga.appendChild(li)});
+      $("gainsAnote").textContent=G.axesNote||"";
+      $("gainsBh").textContent=G.usesTitle||"";
+      var gu=$("gainsUses");gu.textContent="";
+      (G.uses||[]).forEach(function(U){var bx=el("div","guse");bx.appendChild(el("b",null,U.who));var ul=el("ul");U.items.forEach(function(x){ul.appendChild(el("li",null,x))});bx.appendChild(ul);gu.appendChild(bx)});
+      $("gainsNote").textContent=G.note||"";
     }
     var V=P.value,vb=$("valueBody");
     if(V&&V.sections){$("value").hidden=false;vb.textContent="";
