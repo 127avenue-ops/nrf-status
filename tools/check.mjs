@@ -14,7 +14,7 @@
 //
 // When the Study 3 run ends (run.state "done"), update together (checklist, not enforced):
 //  run.state/at/done · badge if needed · stages s3/pub · studies[s3].compute/status · tasks (re-date;
-//  mark finished rows "done": true) · flow node "새 표본 계산" and easy step "본 계산" (s: "done") ·
+//  mark finished rows "done": true) · flow node "본 계산" (연구 3) and easy step "본 계산" (s: "done") ·
 //  now (3 lines) · easy.nowNote · gains.axesNote · quality "연구 3 계산 용량" · llms.txt 최신 공지 ·
 //  a log line. Do not publish a skip count or a final percentage below 100 %: write "계산 끝남".
 import { readFileSync } from "node:fs";
@@ -118,9 +118,9 @@ if (okInt(R.done) && okInt(R.total) && R.total > 0) {
     }
   }
 }
-const flowNode = (P.flow?.lanes || []).flatMap((l) => l?.nodes || []).find((n) => n?.t === "새 표본 계산");
+const flowNode = ((P.flow?.lanes || []).find((l) => l?.name === "연구 3")?.nodes || []).find((n) => n?.t === "본 계산" || n?.t === "새 표본 계산");
 const easyStep = (P.easy?.steps || []).find((s) => s?.t === "본 계산");
-if (flowNode && easyStep && flowNode.s !== easyStep.s) err(`flow "새 표본 계산" is ${flowNode.s} but easy "본 계산" is ${easyStep.s}`);
+if (flowNode && easyStep && flowNode.s !== easyStep.s) err(`flow "본 계산" is ${flowNode.s} but easy "본 계산" is ${easyStep.s}`);
 if (R.state === "running" && flowNode && flowNode.s !== "now") err("run is running but the flow node is not now");
 const nd = llms.match(/## 최신 공지 \((\d{4}-\d{2}-\d{2})/);
 if (!nd) warn("llms.txt has no 최신 공지 heading");

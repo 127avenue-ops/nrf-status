@@ -286,6 +286,21 @@ footer .linkbtn{font-size:12px;font-weight:500}
 #value table{min-width:760px}
 
 .easy h2{margin-bottom:8px}
+.runband h2{margin-bottom:6px}
+.rbtop{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.rbpct{font-size:30px;line-height:1.1;color:var(--blue2)}
+.rbsub{font-size:14px;color:var(--mute)}
+.rbbar{height:12px;border-radius:999px;background:#e6eef7;overflow:hidden;margin:10px 0 8px}
+.rbbar i{display:block;height:100%;width:0;background:var(--blue);border-radius:999px}
+.rbeta{margin:0;font-size:14px;font-weight:600}
+.lane.fold{display:block;padding:0}
+.lane.fold>summary{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:4px 10px;padding:10px;cursor:pointer;list-style:none}
+.lane.fold>summary::-webkit-details-marker{display:none}
+.lane.fold>summary::after{content:"펼치기";margin-left:auto;font-size:12px;color:var(--blue);font-weight:600}
+.lane.fold[open]>summary::after{content:"접기"}
+.lane.fold>summary b{font-size:14px}.lane.fold>summary small{font-size:12px;color:var(--mute)}
+.lane.fold .st{font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;background:#e3f4ea;color:var(--ok)}
+.lane.fold>.nodes{padding:0 10px 10px}
 .gains h3{font-size:16px;margin:16px 0 8px}
 .gains .lead{margin:0 0 4px;font-size:14px}
 .gcall{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#fff4e0;border:1px solid #f1dcae;color:#6b4200;font-size:14px;font-weight:600}
@@ -420,6 +435,13 @@ details.card[open]>summary{margin-bottom:12px}
 </div></header>
 
 <main><div class="wrap">
+  <section class="card runband" id="runband" hidden aria-labelledby="runH">
+    <h2 id="runH">연구 3 본 계산 <span class="note" style="font-weight:500" id="runAt"></span></h2>
+    <div class="rbtop"><b class="rbpct" id="runPct"></b><span class="rbsub" id="runSub"></span></div>
+    <div class="rbbar" id="runBar" role="progressbar" aria-labelledby="runH" aria-valuemin="0" aria-valuemax="100"><i id="runFill"></i></div>
+    <p class="rbeta" id="runEta"></p>
+  </section>
+
   <section class="card flow" id="flow" aria-labelledby="flowH">
     <h2 id="flowH">전체 작업 한눈에 <span class="note" style="font-weight:500" id="flowAsOf"></span></h2>
     <div class="flowlegend" aria-hidden="true"><span><i class="done"></i>끝남</span><span><i class="now"></i>지금 하는 일</span><span><i class="next"></i>앞으로</span><span><em class="who" style="font-style:normal;font-size:11px;font-weight:700;color:var(--warn);background:#fff4e0;border-radius:999px;padding:0 7px">사람 확인</em>연구진이 직접 확인·결정</span></div>
@@ -1219,6 +1241,15 @@ details.card[open]>summary{margin-bottom:12px}
     var ud=day(P.updated),F=P.flow;
     safe("단계",function(){var tr=$("pgTrack");tr.textContent="";
     (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");var b=el("b",null);if(s.state==="now"){li.setAttribute("aria-current","step");b.appendChild(el("small","current","현재"))}b.appendChild(document.createTextNode(s.name));li.appendChild(b);tr.appendChild(li)})});
+    safe("진행 띠",function(){var R=P.run,b=$("runband");if(!R||typeof R!=="object"||!(R.total>0)||typeof R.done!=="number"){b.hidden=true;return}
+      var p10=Math.floor(R.done*1000/R.total),fin=R.state==="done",pct=fin?100:p10/10,at=typeof R.at==="string"?Date.parse(R.at):NaN;
+      var mdI=function(s){var d=day(s);return d?md(d):""};
+      $("runPct").textContent=fin?"계산 끝남":"약 "+(p10/10).toFixed(1)+" %";
+      $("runSub").textContent=fin?"":R.done.toLocaleString("ko-KR")+" / "+R.total.toLocaleString("ko-KR")+"건 · 오류 "+(R.errors||0)+"건";
+      $("runFill").style.width=pct+"%";$("runBar").setAttribute("aria-valuenow",String(pct));$("runBar").setAttribute("aria-valuetext",fin?"계산 끝남":"약 "+pct+" %");
+      $("runEta").textContent=fin?"끝난 뒤 점검·재검증을 거쳐 결과를 엽니다.":[R.eta?"예상 완료 "+mdI(R.eta)+"쯤":"",R.etaLate?"늦어지면 "+mdI(R.etaLate)+" 전후":"",R.deadline?"마감 "+mdI(R.deadline)+" 0시":""].filter(Boolean).join(" · ");
+      if(!isNaN(at)){var ad=new Date(at+9*36e5),hh=ad.getUTCHours();$("runAt").textContent=(ad.getUTCMonth()+1)+"월 "+ad.getUTCDate()+"일 "+(hh<12?"오전 ":"오후 ")+((hh%12)||12)+"시 점검 기준"}
+      b.hidden=false});
     safe("현재 상황",function(){var pn=$("pgNow");pn.textContent="";if(ud)pn.appendChild(el("span","nowdate",md(ud)+" 기준"));
       var at=P.run&&typeof P.run.at==="string"?Date.parse(P.run.at):NaN;if(P.run&&P.run.state==="running"&&!isNaN(at)&&Date.now()-at>72*36e5){var ad=new Date(at+9*36e5),gd=Math.floor((Date.now()-at)/864e5);pn.appendChild(el("div","stale","진행 숫자는 "+(ad.getUTCMonth()+1)+"월 "+ad.getUTCDate()+"일 점검 기준입니다("+gd+"일 전). 최신이 아닐 수 있습니다."))}String(P.now||"").split("\n").forEach(function(line){var div=el("div"),m=line.match(/^([^:]{1,12}):\s*/);if(m){div.appendChild(el("b",null,m[1]+": "));div.appendChild(document.createTextNode(line.slice(m[0].length)))}else div.textContent=line;pn.appendChild(div)});
     });
@@ -1241,8 +1272,10 @@ details.card[open]>summary{margin-bottom:12px}
     if(!F||!F.lanes){$("flow").hidden=true}else{
       var SL={done:"끝남",now:"진행 중",next:"앞으로"};
       if(ud)$("flowAsOf").textContent=md(ud)+" 기준";
-      F.lanes.forEach(function(L){var lane=el("div","lane"+(L.state==="now"?" now":"")),ln=el("div","ln");
-        ln.appendChild(el("span","st "+(L.state||"next"),SL[L.state]||""));ln.appendChild(el("b",null,L.name));if(L.sub)ln.appendChild(el("small",null,L.sub));lane.appendChild(ln);
+      F.lanes.forEach(function(L){var fold=L.state==="done",lane=el(fold?"details":"div","lane"+(L.state==="now"?" now":"")+(fold?" fold":"")),ln=el(fold?"summary":"div","ln");
+        var NN=L.nodes||[],last=NN.length?NN[NN.length-1]:null;
+        ln.appendChild(el("span","st "+(L.state||"next"),SL[L.state]||""));ln.appendChild(el("b",null,L.name));if(L.sub)ln.appendChild(el("small",null,L.sub));
+        if(fold)ln.appendChild(el("small",null,"단계 "+NN.length+"개 모두 끝남"+(last&&last.d?" · 마지막 "+String(last.d).split(" · ")[0]:"")));lane.appendChild(ln);
         var ul=el("ol","nodes");ul.setAttribute("aria-label",L.name);
         (L.nodes||[]).forEach(function(N){var li=el("li"),nd=el("div","node "+(N.s||"next"));if(N.s==="now")nd.setAttribute("aria-current","step");
           nd.appendChild(el("b",null,N.t));if(N.d)nd.appendChild(el("span",null,N.d));if(N.who)nd.appendChild(el("span","who",N.who));
