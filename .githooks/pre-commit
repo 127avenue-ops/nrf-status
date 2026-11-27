@@ -1,3 +1,3 @@
 #!/bin/sh
-# Dashboard check before every commit (tools/check.mjs). Skip only for an emergency: git commit --no-verify
-exec node tools/check.mjs
+# Dashboard check of the staged files (tools/check.mjs). Emergency skip only: git commit --no-verify
+exec node tools/check.mjs --staged
