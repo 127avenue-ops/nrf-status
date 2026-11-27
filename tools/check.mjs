@@ -132,6 +132,7 @@ const FREEZE_PINNED = {
   "freeze/study2_6c514d2f78ddaefe.json": "e5efe3faa31db8034298c7ee3019179f78fb3807",
   "freeze/study3_0d104041e50cee1d.json": "37d7afe7200c8327c4f871c4f9183734710761c7",
   "freeze/study3_amend5_816e39e3aa8acae5.json": "60c5798a0489cfab0b0bbdfa26a252c0ababb12f",
+  "freeze/study3_erratum1_note_role.json": "26af5206f069ea8696643a22616d662af403102e", // published 2026-11-27
 };
 try {
   const listing = STAGED ? git("ls-files", "-s", "--", "freeze") : git("ls-files", "-s", "--", "freeze");
