@@ -259,7 +259,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .lane .ln b{font-size:14px;color:var(--ink)}
 .lane .ln small{font-size:12px;color:var(--mute);line-height:1.35}
 .lane .ln .st{align-self:flex-start;font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;margin-bottom:2px}
-.lane .ln .st.done{background:#e3f4ea;color:var(--ok)}.lane .ln .st.now{background:var(--blue);color:#fff}.lane .ln .st.next{background:#eef2f6;color:var(--mute)}
+.lane .ln .st.done{background:#e3f4ea;color:var(--ok)}.lane .ln .st.now{background:var(--blue);color:#fff}.lane .ln .st.next{background:#eef2f6;color:var(--mute)}.lane .ln .st.part{background:#e3f4ea;color:var(--ok)}
 .nodes{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:stretch;gap:6px 0}
 .nodes li{display:flex;align-items:stretch}
 .nodes li+li::before{content:"";align-self:center;width:18px;height:2px;background:#b7c6d6;margin:0 2px;flex:0 0 auto}
@@ -286,6 +286,8 @@ footer .linkbtn{font-size:12px;font-weight:500}
 #value table{min-width:760px}
 
 .easy h2{margin-bottom:8px}
+.intro1{margin:6px 0 0;font-size:14px;color:var(--ink);max-width:720px}
+.intro1:empty{display:none}
 .runband h2{margin-bottom:6px}
 .rbtop{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
 .rbpct{font-size:30px;line-height:1.1;color:var(--blue2)}
@@ -293,11 +295,12 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .rbbar{height:12px;border-radius:999px;background:#e6eef7;overflow:hidden;margin:10px 0 8px}
 .rbbar i{display:block;height:100%;width:0;background:var(--blue);border-radius:999px}
 .rbeta{margin:0;font-size:14px;font-weight:600}
+.rbnext{margin:6px 0 0;font-size:14px;color:var(--ink)}
 .lane.fold{display:block;padding:0}
 .lane.fold>summary{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:4px 10px;padding:10px;cursor:pointer;list-style:none}
 .lane.fold>summary::-webkit-details-marker{display:none}
-.lane.fold>summary::after{content:"펼치기";margin-left:auto;font-size:12px;color:var(--blue);font-weight:600}
-.lane.fold[open]>summary::after{content:"접기"}
+.lane.fold>summary::after{content:"펼치기" / "";margin-left:auto;font-size:12px;color:var(--blue);font-weight:600}
+.lane.fold[open]>summary::after{content:"접기" / ""}
 .lane.fold>summary b{font-size:14px}.lane.fold>summary small{font-size:12px;color:var(--mute)}
 .lane.fold .st{font-size:11px;font-weight:700;border-radius:999px;padding:1px 8px;background:#e3f4ea;color:var(--ok)}
 .lane.fold>.nodes{padding:0 10px 10px}
@@ -305,6 +308,7 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .gains .lead{margin:0 0 4px;font-size:14px}
 .gcall{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:#fff4e0;border:1px solid #f1dcae;color:#6b4200;font-size:14px;font-weight:600}
 .gtiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+@media (min-width:980px){.gtiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .gtile{position:relative;background:var(--sky);border:1px solid var(--sky2);border-radius:12px;padding:12px 14px 12px 46px}
 .gtile .gnum{position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:999px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .gtile b{display:block;font-size:15px;color:var(--blue2)}
@@ -432,6 +436,7 @@ details.card[open]>summary{margin-bottom:12px}
   <div class="hdrtop"><div class="eyebrow">2026 제2차 내부연구사업 · 공공보건의료연구소</div><span class="hdrr"><button type="button" class="decchip" id="decChip" hidden>사람이 정할 것 <b id="decN">0</b>건</button><span class="idchip" id="idChip" hidden><b id="idName"></b> 님으로 보는 중 <button type="button" class="linkbtn" id="idChange">바꾸기</button></span><button type="button" class="guide" id="introOpen">사용 안내</button></span></div>
   <h1>근무 규칙을 반영한 병동 간호인력 배수표 개발</h1>
   <p class="sub">가상근무표 시뮬레이션을 통한 추가 필요인력 산정</p>
+  <p class="intro1" id="pgIntro"></p>
 </div></header>
 
 <main><div class="wrap">
@@ -440,6 +445,7 @@ details.card[open]>summary{margin-bottom:12px}
     <div class="rbtop"><b class="rbpct" id="runPct"></b><span class="rbsub" id="runSub"></span></div>
     <div class="rbbar" id="runBar" role="progressbar" aria-labelledby="runH" aria-valuemin="0" aria-valuemax="100"><i id="runFill"></i></div>
     <p class="rbeta" id="runEta"></p>
+    <p class="rbnext" id="runNext" hidden></p>
   </section>
 
   <section class="card flow" id="flow" aria-labelledby="flowH">
@@ -493,7 +499,7 @@ details.card[open]>summary{margin-bottom:12px}
   </section>
 
   <section class="card" id="prog" aria-labelledby="progH">
-    <h2 id="progH">연구 진행 <span class="pill" id="pgBadge">접수 완료 · 선정 대기</span></h2>
+    <h2 id="progH">연구 진행 <span class="pill" id="pgBadge">선정평가 발표 마침 · 선정 결과 대기</span></h2>
     <ol class="track" id="pgTrack"></ol>
     <p class="nowline" id="pgNow"></p>
     <details class="overview" id="logBox" hidden><summary>지금까지 한 일 (날짜순 · 최근 것이 위)</summary><ol class="logl" id="logList"></ol></details>
@@ -1238,17 +1244,22 @@ details.card[open]>summary{margin-bottom:12px}
     if(!P||typeof P!=="object"||Array.isArray(P))return fail();
     var today=kst(0),tomorrow=kst(1);
     if(typeof P.badge==="string")$("pgBadge").textContent=P.badge;
+    if(typeof P.intro==="string")$("pgIntro").textContent=P.intro;
     var ud=day(P.updated),F=P.flow;
     safe("단계",function(){var tr=$("pgTrack");tr.textContent="";
     (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");var b=el("b",null);if(s.state==="now"){li.setAttribute("aria-current","step");b.appendChild(el("small","current","현재"))}b.appendChild(document.createTextNode(s.name));li.appendChild(b);tr.appendChild(li)})});
-    safe("진행 띠",function(){var R=P.run,b=$("runband");if(!R||typeof R!=="object"||!(R.total>0)||typeof R.done!=="number"){b.hidden=true;return}
-      var p10=Math.floor(R.done*1000/R.total),fin=R.state==="done",pct=fin?100:p10/10,at=typeof R.at==="string"?Date.parse(R.at):NaN;
-      var mdI=function(s){var d=day(s);return d?md(d):""};
-      $("runPct").textContent=fin?"계산 끝남":"약 "+(p10/10).toFixed(1)+" %";
-      $("runSub").textContent=fin?"":R.done.toLocaleString("ko-KR")+" / "+R.total.toLocaleString("ko-KR")+"건 · 오류 "+(R.errors||0)+"건";
-      $("runFill").style.width=pct+"%";$("runBar").setAttribute("aria-valuenow",String(pct));$("runBar").setAttribute("aria-valuetext",fin?"계산 끝남":"약 "+pct+" %");
-      $("runEta").textContent=fin?"끝난 뒤 점검·재검증을 거쳐 결과를 엽니다.":[R.eta?"예상 완료 "+mdI(R.eta)+"쯤":"",R.etaLate?"늦어지면 "+mdI(R.etaLate)+" 전후":"",R.deadline?"마감 "+mdI(R.deadline)+" 0시":""].filter(Boolean).join(" · ");
-      if(!isNaN(at)){var ad=new Date(at+9*36e5),hh=ad.getUTCHours();$("runAt").textContent=(ad.getUTCMonth()+1)+"월 "+ad.getUTCDate()+"일 "+(hh<12?"오전 ":"오후 ")+((hh%12)||12)+"시 점검 기준"}
+    safe("진행 띠",function(){var R=P.run,b=$("runband"),okI=function(v){return typeof v==="number"&&isFinite(v)&&Math.floor(v)===v&&v>=0};
+      if(!R||typeof R!=="object"||!okI(R.done)||!okI(R.total)||!(R.total>0)||R.done>R.total){b.hidden=true;return}
+      var real=function(s){var d=day(s);return d&&iso(d)===String(s).slice(0,10)?d:null};
+      var kt=function(s){var t=typeof s==="string"?Date.parse(s):NaN;if(isNaN(t))return null;var a=new Date(t+9*36e5),hh=a.getUTCHours(),mi=a.getUTCMinutes();return{d:(a.getUTCMonth()+1)+"월 "+a.getUTCDate()+"일",h:hh===0&&mi===0?"0시":hh===0?"0시 "+mi+"분":hh<12?"오전 "+hh+"시":"오후 "+((hh%12)||12)+"시"}};
+      var p10=Math.floor(R.done*1000/R.total),fin=R.state==="done",pau=R.state==="paused",pct=fin?100:p10/10;
+      $("runPct").textContent=fin?"계산 끝남":"약 "+(p10/10).toFixed(1)+" %"+(pau?" · 일시 정지":"");
+      $("runSub").textContent=fin?"":R.done.toLocaleString("ko-KR")+" / "+R.total.toLocaleString("ko-KR")+"건"+(okI(R.errors)?" · 오류 "+R.errors+"건":"");
+      $("runFill").style.width=pct+"%";$("runBar").setAttribute("aria-valuenow",String(pct));$("runBar").setAttribute("aria-valuetext",fin?"계산 끝남":"약 "+pct+" %"+(pau?", 일시 정지":""));
+      var e=real(R.eta),l=real(R.etaLate),dl=kt(R.deadline);
+      $("runEta").textContent=fin?"끝난 뒤 점검·재검증을 거쳐 결과를 엽니다.":pau?"일시 정지 중입니다. 다시 시작하면 예상일을 새로 확인합니다.":[e?"예상 완료 "+md(e)+"쯤":"",l?"늦어지면 "+md(l)+" 전후":"",dl?"마감 "+dl.d+" "+dl.h:""].filter(Boolean).join(" · ");
+      $("runNext").textContent=typeof R.next==="string"?R.next:"";$("runNext").hidden=!R.next;
+      var at=kt(R.at);$("runAt").textContent=at?at.d+" "+at.h+" 점검 기준":"";
       b.hidden=false});
     safe("현재 상황",function(){var pn=$("pgNow");pn.textContent="";if(ud)pn.appendChild(el("span","nowdate",md(ud)+" 기준"));
       var at=P.run&&typeof P.run.at==="string"?Date.parse(P.run.at):NaN;if(P.run&&P.run.state==="running"&&!isNaN(at)&&Date.now()-at>72*36e5){var ad=new Date(at+9*36e5),gd=Math.floor((Date.now()-at)/864e5);pn.appendChild(el("div","stale","진행 숫자는 "+(ad.getUTCMonth()+1)+"월 "+ad.getUTCDate()+"일 점검 기준입니다("+gd+"일 전). 최신이 아닐 수 있습니다."))}String(P.now||"").split("\n").forEach(function(line){var div=el("div"),m=line.match(/^([^:]{1,12}):\s*/);if(m){div.appendChild(el("b",null,m[1]+": "));div.appendChild(document.createTextNode(line.slice(m[0].length)))}else div.textContent=line;pn.appendChild(div)});
@@ -1270,7 +1281,7 @@ details.card[open]>summary{margin-bottom:12px}
     if(typeof P.plan==="string"&&$("pgPlan"))$("pgPlan").textContent=" ("+P.plan.split(" (")[0]+")"});
     safe("전체 작업 한눈에",function(){var fl=$("flowLanes");fl.textContent="";
     if(!F||!F.lanes){$("flow").hidden=true}else{
-      var SL={done:"끝남",now:"진행 중",next:"앞으로"};
+      var SL={done:"끝남",now:"진행 중",next:"앞으로",part:"일부 끝남"};
       if(ud)$("flowAsOf").textContent=md(ud)+" 기준";
       F.lanes.forEach(function(L){var fold=L.state==="done",lane=el(fold?"details":"div","lane"+(L.state==="now"?" now":"")+(fold?" fold":"")),ln=el(fold?"summary":"div","ln");
         var NN=L.nodes||[],last=NN.length?NN[NN.length-1]:null;
