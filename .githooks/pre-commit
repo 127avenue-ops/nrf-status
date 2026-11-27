@@ -1,0 +1,3 @@
+#!/bin/sh
+# Dashboard check before every commit (tools/check.mjs). Skip only for an emergency: git commit --no-verify
+exec node tools/check.mjs
