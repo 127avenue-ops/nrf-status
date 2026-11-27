@@ -336,12 +336,12 @@ footer .linkbtn{font-size:12px;font-weight:500}
 .overview summary::before{content:"＋"}
 .overview[open] summary::before{content:"−"}
 .overview summary::-webkit-details-marker{display:none}
-.nowline{margin:10px 0 14px;padding:10px 12px;border-radius:10px;background:var(--sky);font-size:14px}
+.nowline{white-space:pre-line;margin:10px 0 14px;padding:10px 12px;border-radius:10px;background:var(--sky);font-size:14px}
 .wk{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 #prog .status{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
-.wk li{display:grid;grid-template-columns:168px 1fr;gap:4px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}
+.wk li{display:grid;grid-template-columns:200px 1fr;gap:4px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}
 .wk li.today{border:2px solid var(--blue);background:#f7fbff}
-.wk .d{font-weight:700;font-size:13px;color:var(--blue2);white-space:nowrap}
+.wk .d{font-weight:700;font-size:13px;color:var(--blue2);white-space:nowrap;min-width:0}
 .wk .d em{font-style:normal;display:inline-block;margin-left:4px;font-size:11px;font-weight:800;padding:1px 7px;border-radius:999px;background:var(--blue);color:#fff}
 .wk .t{font-size:14px;min-width:0}
 .wk .t small{color:var(--mute);font-size:12px;margin-left:4px}
@@ -1264,14 +1264,14 @@ details.card[open]>summary{margin-bottom:12px}
     }
     var V=P.value,vb=$("valueBody");
     if(V&&V.sections){$("value").hidden=false;vb.textContent="";
-      if(V.asof){var vd=day(V.asof);$("valueAsof").textContent="결과 열람 전 조사 · "+(vd.getMonth()+1)+"월 "+vd.getDate()+"일"}
+      if(V.asof){var vd=day(V.asof);$("valueAsof").textContent="공개 자료 조사 · "+(vd.getMonth()+1)+"월 "+vd.getDate()+"일"}
       $("valueSum").textContent=V.summary||"";
       var cite=function(par,src){if(!src||!src.length)return;var sp=el("sup");src.forEach(function(n,i){var a=el("a",null,"["+n+"]");a.href="#vref"+n;sp.appendChild(a)});par.appendChild(sp)};
       V.sections.forEach(function(S){vb.appendChild(el("h3",null,S.h));var ul=el("ul","vl");S.items.forEach(function(I){var li=el("li");li.appendChild(el("b",null,I.t+": "));li.appendChild(document.createTextNode(I.d));cite(li,I.src);ul.appendChild(li)});vb.appendChild(ul)});
       if(V.journals&&V.journals.length){vb.appendChild(el("h3",null,"투고 학술지 후보"));var wr=el("div","scroll"),tb=el("table"),th=el("thead"),hr=el("tr");["학술지","역할","색인·지표","맞는 점","비용·형식"].forEach(function(x){hr.appendChild(el("th",null,x))});th.appendChild(hr);tb.appendChild(th);var bd=el("tbody");
         V.journals.forEach(function(J){var tr=el("tr"),c0=el("td");c0.appendChild(el("b",null,J.name));cite(c0,J.src);tr.appendChild(c0);[J.role,J.idx,J.fit,J.cost].forEach(function(v){tr.appendChild(el("td",null,v))});bd.appendChild(tr)});
         tb.appendChild(bd);wr.appendChild(tb);vb.appendChild(wr);if(V.journalNote)vb.appendChild(el("p","note",V.journalNote))}
-      if(V.todo&&V.todo.length){vb.appendChild(el("h3",null,"결과 열람 전에 할 일"));var tu=el("ul","vtodo");V.todo.forEach(function(x){tu.appendChild(el("li",null,x))});vb.appendChild(tu)}
+      if(V.todo&&V.todo.length){vb.appendChild(el("h3",null,"투고 준비로 할 일"));var tu=el("ul","vtodo");V.todo.forEach(function(x){tu.appendChild(el("li",null,x))});vb.appendChild(tu)}
       if(V.refs&&V.refs.length){vb.appendChild(el("h3",null,"출처"));var ro=el("ol","vref");V.refs.forEach(function(R){var li=el("li");li.id="vref"+R.n;li.value=R.n;var a=el("a",null,R.t);a.href=R.url;a.target="_blank";a.rel="noopener noreferrer";li.appendChild(a);ro.appendChild(li)});vb.appendChild(ro)}
     }
   }
