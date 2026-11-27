@@ -343,6 +343,9 @@ footer .linkbtn{font-size:12px;font-weight:500}
 #prog .status{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
 .wk li{display:grid;grid-template-columns:200px 1fr;gap:4px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}
 .wk li.today{border:2px solid var(--blue);background:#f7fbff}
+.wk li.late{border:2px solid #d99a2b;background:#fffaf0}
+.wk li.late .d em{background:#9a5b00}
+.nowline .stale{margin-top:6px;color:var(--warn);font-weight:700}
 .wk .d{font-weight:700;font-size:13px;color:var(--blue2);white-space:nowrap;min-width:0}
 .wk .d em{font-style:normal;display:inline-block;margin-left:4px;font-size:11px;font-weight:800;padding:1px 7px;border-radius:999px;background:var(--blue);color:#fff}
 .wk .t{font-size:14px;min-width:0}
@@ -382,6 +385,7 @@ details.card[open]>summary{margin-bottom:12px}
   .dvhead{padding:12px 14px 10px}
   .dvbody{padding:12px 14px}
   .dvedit textarea{padding:12px 14px}
+.dvedit textarea:focus-visible{box-shadow:inset 0 0 0 2px var(--blue)}
   .dvapp,.dvfoot,.dvbar{padding-left:14px;padding-right:14px}
 }
 :where(button,a,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid var(--blue);outline-offset:3px}
@@ -596,7 +600,7 @@ details.card[open]>summary{margin-bottom:12px}
     <p class="note" style="margin:10px 0 0">AI가 한 일도 위 「공동 편집 기록」에 이름과 함께 남고, 이 화면을 보고 있는 분께 바로 알림이 뜹니다.</p>
   </details>
 </div></main>
-<footer><span id="pgUpd">2026. 10. 20. 갱신</span>(마스터 플랜 v1.3) · 진행 데이터 = <a href="progress.json">progress.json</a> · 검색 비노출 페이지 · <button type="button" class="linkbtn" id="introOpen2">사용 안내</button></footer>
+<footer><span id="pgUpd">2026. 10. 20. 갱신</span><span id="pgPlan">(마스터 플랜 v1.3)</span> · 진행 데이터 = <a href="progress.json">progress.json</a> · 검색 비노출 페이지 · <button type="button" class="linkbtn" id="introOpen2">사용 안내</button></footer>
 
 <div class="modal" id="dv" hidden>
   <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dvName">
@@ -1197,36 +1201,44 @@ details.card[open]>summary{margin-bottom:12px}
   var $=function(id){return document.getElementById(id)};
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
   function iso(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
-  function day(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2])}
+  /* 한국 시간(KST) 날짜 · 보는 사람의 시간대와 무관 */
+  function kst(off){return new Date(Date.now()+9*36e5+(off||0)*864e5).toISOString().slice(0,10)}
+  function day(s){if(typeof s!=="string"||!/^\d{4}-\d{2}-\d{2}/.test(s))return null;var p=s.slice(0,10).split("-");return new Date(+p[0],+p[1]-1,+p[2])}
+  function md(d){return d?(d.getMonth()+1)+"월 "+d.getDate()+"일":""}
+  /* 카드 하나가 깨져도 나머지는 그린다 */
+  function safe(name,fn){try{fn()}catch(e){if(window.console)console.error("진행판 「"+name+"」 그리기 오류",e)}}
   var WD="일월화수목금토";
-  function when(t){if(t.label)return t.label;var a=day(t.start),b=day(t.end),m=(a.getMonth()+1)+"월 ";
+  function when(t){if(t.label)return t.label;var a=day(t.start),b=day(t.end);if(!a||!b)return "";var m=(a.getMonth()+1)+"월 ";
     if(t.start===t.end)return m+a.getDate()+"일("+WD[a.getDay()]+")";
     if(a.getMonth()===b.getMonth())return m+a.getDate()+"~"+b.getDate()+"일";
     return m+a.getDate()+"일~"+(b.getMonth()+1)+"월 "+b.getDate()+"일"}
   function draw(P){
-    var today=iso(new Date()),t2=new Date(),tm=new Date();t2.setDate(t2.getDate()+13);tm.setDate(tm.getDate()+1);var end2=iso(t2),tomorrow=iso(tm);
+    var today=kst(0),tomorrow=kst(1);
     if(P.badge)$("pgBadge").textContent=P.badge;
-    var tr=$("pgTrack");tr.textContent="";
-    (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");var b=el("b",null);if(s.state==="now"){li.setAttribute("aria-current","step");b.appendChild(el("small","current","현재"))}b.appendChild(document.createTextNode(s.name));li.appendChild(b);tr.appendChild(li)});
-    var ud=P.updated?day(P.updated):null,pn=$("pgNow");pn.textContent="";if(ud)pn.appendChild(el("span","nowdate",(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준"));String(P.now||"").split("\n").forEach(function(line){var div=el("div"),m=line.match(/^([^:]{1,12}):\s*/);if(m){div.appendChild(el("b",null,m[1]+": "));div.appendChild(document.createTextNode(line.slice(m[0].length)))}else div.textContent=line;pn.appendChild(div)});
-    var rs=$("rsList");rs.textContent="";
+    var ud=day(P.updated),F=P.flow;
+    safe("단계",function(){var tr=$("pgTrack");tr.textContent="";
+    (P.stages||[]).forEach(function(s){var li=el("li",s.state==="now"?"now":s.state==="done"?"done":"");var b=el("b",null);if(s.state==="now"){li.setAttribute("aria-current","step");b.appendChild(el("small","current","현재"))}b.appendChild(document.createTextNode(s.name));li.appendChild(b);tr.appendChild(li)})});
+    safe("현재 상황",function(){var pn=$("pgNow");pn.textContent="";if(ud)pn.appendChild(el("span","nowdate",md(ud)+" 기준"));String(P.now||"").split("\n").forEach(function(line){var div=el("div"),m=line.match(/^([^:]{1,12}):\s*/);if(m){div.appendChild(el("b",null,m[1]+": "));div.appendChild(document.createTextNode(line.slice(m[0].length)))}else div.textContent=line;pn.appendChild(div)});
+      var last=day((P.run&&P.run.at)||P.updated);if(last&&P.run&&P.run.state==="running"){var gap=Math.round((day(today)-last)/864e5);if(gap>3)pn.appendChild(el("div","stale","마지막 점검이 "+gap+"일 전입니다. 숫자가 최신이 아닐 수 있습니다."))}});
+    safe("연구 1·2·3",function(){var rs=$("rsList");rs.textContent="";
     (P.studies||[]).forEach(function(s){var d=el("div","r");d.appendChild(el("span","st "+(s.kind||"wait"),s.status));d.appendChild(el("h3",null,s.title));
       d.appendChild(el("p","q",s.question));d.appendChild(el("p",null,s.summary));
-      var dl=el("dl");[["계산",s.compute],["사람 확인",s.people]].forEach(function(r){dl.appendChild(el("dt",null,r[0]));dl.appendChild(el("dd",null,r[1]))});d.appendChild(dl);rs.appendChild(d)});
-    var tasks=(P.tasks||[]).slice().sort(function(a,b){return a.start<b.start?-1:a.start>b.start?1:0});
+      var dl=el("dl");[["계산",s.compute],["사람 확인",s.people]].forEach(function(r){dl.appendChild(el("dt",null,r[0]));dl.appendChild(el("dd",null,r[1]))});d.appendChild(dl);rs.appendChild(d)})});
+    safe("앞으로 할 일",function(){var tasks=(P.tasks||[]).filter(function(t){return t&&t.start&&t.end}).slice().sort(function(a,b){return a.start<b.start?-1:a.start>b.start?1:0});
     var wk=$("wkList");wk.textContent="";
     $("wkRange").textContent="핵심 일정 "+tasks.length+"개";
     var n=0;tasks.forEach(function(t){n++;
       var on=t.start<=today&&today<=t.end,li=el("li",on?"today":""),d=el("span","d",when(t));
-      var tag=t.start===today&&t.end===today?"오늘":(on?"진행 중":(t.start===tomorrow?"내일":""));if(tag)d.appendChild(el("em",null,tag));
+      var past=t.end<today&&!t.done,tag=t.done?"끝남":past?"예상일 지남":t.start===today&&t.end===today?"오늘":(on?"진행 중":(t.start===tomorrow?"내일":""));if(past)li.className="late";if(tag)d.appendChild(el("em",null,tag));
       var tx=el("span","t");tx.appendChild(document.createTextNode(t.what));if(t.time)tx.appendChild(el("small",null,t.time));
       li.appendChild(d);li.appendChild(tx);wk.appendChild(li)});
-    if(!n)wk.appendChild(el("li","empty","등록된 일정이 없습니다."));
+    if(!n)wk.appendChild(el("li","empty","등록된 일정이 없습니다."))});
     if(P.updated)$("pgUpd").textContent=P.updated.replace(/-/g,". ").replace(/\. 0/g,". ")+". 갱신";
-    var F=P.flow,fl=$("flowLanes");fl.textContent="";
+    if(P.plan&&$("pgPlan"))$("pgPlan").textContent="("+String(P.plan).split(" (")[0]+")";
+    safe("전체 작업 한눈에",function(){var fl=$("flowLanes");fl.textContent="";
     if(!F||!F.lanes){$("flow").hidden=true}else{
       var SL={done:"끝남",now:"진행 중",next:"앞으로"};
-      if(ud)$("flowAsOf").textContent=(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준";
+      if(ud)$("flowAsOf").textContent=md(ud)+" 기준";
       F.lanes.forEach(function(L){var lane=el("div","lane"+(L.state==="now"?" now":"")),ln=el("div","ln");
         ln.appendChild(el("span","st "+(L.state||"next"),SL[L.state]||""));ln.appendChild(el("b",null,L.name));if(L.sub)ln.appendChild(el("small",null,L.sub));lane.appendChild(ln);
         var ul=el("ol","nodes");ul.setAttribute("aria-label",L.name);
@@ -1235,16 +1247,16 @@ details.card[open]>summary{margin-bottom:12px}
           li.appendChild(nd);ul.appendChild(li)});
         lane.appendChild(ul);fl.appendChild(lane)});
       $("flowNote").textContent=F.note||"";
-    }
-    var LG=P.log||[],ll=$("logList");ll.textContent="";
-    LG.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0}).forEach(function(x){var li=el("li"),dd=day(x.date);li.appendChild(el("span","d",(dd.getMonth()+1)+"월 "+dd.getDate()+"일"));li.appendChild(el("span",null,x.t));ll.appendChild(li)});
-    $("logBox").hidden=!LG.length;
-    var QB=$("qBody");if(P.quality&&P.quality.length){QB.textContent="";P.quality.forEach(function(q){var tr2=el("tr");[q.name,q.state,q.detail].forEach(function(v){tr2.appendChild(el("td",null,v))});QB.appendChild(tr2)})}
-    var E=P.easy,eb=$("easy");
+    }});
+    safe("지금까지 한 일",function(){var LG=(P.log||[]).filter(function(x){return x&&day(x.date)}),ll=$("logList");ll.textContent="";
+    LG.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0}).forEach(function(x){var li=el("li"),dd=day(x.date);li.appendChild(el("span","d",md(dd)));li.appendChild(el("span",null,x.t));ll.appendChild(li)});
+    $("logBox").hidden=!LG.length});
+    safe("검토 결과",function(){var QB=$("qBody");if(P.quality&&P.quality.length){QB.textContent="";P.quality.forEach(function(q){var tr2=el("tr");[q.name,q.state,q.detail].forEach(function(v){tr2.appendChild(el("td",null,v))});QB.appendChild(tr2)})}});
+    safe("쉬운 설명",function(){var E=P.easy,eb=$("easy");
     if(E&&E.steps){eb.hidden=false;
       var SN={done:"끝남",now:"진행 중",next:"앞으로"},nowN=[];
       ((F&&F.lanes)||[]).forEach(function(L){(L.nodes||[]).forEach(function(N){if(N.s==="now")nowN.push(L.name+"의 「"+N.t+"」")})});
-      $("easyNow").textContent=(ud?(ud.getMonth()+1)+"월 "+ud.getDate()+"일 기준 · ":"")+"지금 하는 일: "+(nowN.join(", ")||"없음")+(E.nowNote?" · "+E.nowNote:"");
+      $("easyNow").textContent=(ud?md(ud)+" 기준 · ":"")+"지금 하는 일: "+(nowN.join(", ")||"없음")+(E.nowNote?" · "+E.nowNote:"");
       if(E.q){$("easyQ").textContent=E.q;$("easySteps").setAttribute("aria-label",E.q.replace(/[은는] 지금 어디쯤인가요\?$/,"")+" 단계")}
       $("easyLead").textContent=E.lead||"";
       var es=$("easySteps");es.textContent="";
@@ -1252,33 +1264,33 @@ details.card[open]>summary{margin-bottom:12px}
         dv.appendChild(el("b",null,S.t));if(S.k)dv.appendChild(el("span","k",S.k));dv.appendChild(el("span","tag "+(S.s||"next"),(SN[S.s]||"")+(S.d?" · "+S.d:"")));
         dv.appendChild(el("p",null,S.e));li.appendChild(dv);es.appendChild(li)});
       var dl2=$("easyTerms");dl2.textContent="";(E.terms||[]).forEach(function(T){dl2.appendChild(el("dt",null,T.t));dl2.appendChild(el("dd",null,T.d))});
-    }
-    var G=P.gains;
+    }});
+    safe("이 연구로 알 수 있는 것",function(){var G=P.gains;
     if(G&&G.axes){$("gains").hidden=false;
-      $("gainsLead").textContent=G.lead||"";$("gainsAh").textContent=G.axesTitle||"";$("gainsCall").textContent=G.call||"";$("gainsCall").hidden=!G.call;
+      $("gainsLead").textContent=G.lead||"";$("gainsAh").textContent=G.axesTitle||"";$("gainsAh").hidden=!G.axesTitle;$("gainsCall").textContent=G.call||"";$("gainsCall").hidden=!G.call;
       var ga=$("gainsAxes");ga.textContent="";
       G.axes.forEach(function(A){var li=el("li","gtile");li.appendChild(el("span","gnum",A.n));li.appendChild(el("b",null,A.t));li.appendChild(el("p","gq",A.q));if(A.why)li.appendChild(el("p","gw",A.why));ga.appendChild(li)});
       $("gainsAnote").textContent=G.axesNote||"";
-      $("gainsBh").textContent=G.usesTitle||"";
+      $("gainsBh").textContent=G.usesTitle||"";$("gainsBh").hidden=!G.usesTitle;
       var gu=$("gainsUses");gu.textContent="";
-      (G.uses||[]).forEach(function(U){var bx=el("div","guse");bx.appendChild(el("b",null,U.who));var ul=el("ul");U.items.forEach(function(x){ul.appendChild(el("li",null,x))});bx.appendChild(ul);gu.appendChild(bx)});
+      (G.uses||[]).forEach(function(U){var bx=el("div","guse");bx.appendChild(el("b",null,U.who));var ul=el("ul");(U.items||[]).forEach(function(x){ul.appendChild(el("li",null,x))});bx.appendChild(ul);gu.appendChild(bx)});
       $("gainsNote").textContent=G.note||"";
-    }
-    var V=P.value,vb=$("valueBody");
+    }});
+    safe("이 연구의 가치",function(){var V=P.value,vb=$("valueBody");
     if(V&&V.sections){$("value").hidden=false;vb.textContent="";
-      if(V.asof){var vd=day(V.asof);$("valueAsof").textContent="공개 자료 조사 · "+(vd.getMonth()+1)+"월 "+vd.getDate()+"일"}
+      var vd=day(V.asof);if(vd)$("valueAsof").textContent="공개 자료 조사 · "+md(vd);
       $("valueSum").textContent=V.summary||"";
       var cite=function(par,src){if(!src||!src.length)return;var sp=el("sup");src.forEach(function(n,i){var a=el("a",null,"["+n+"]");a.href="#vref"+n;sp.appendChild(a)});par.appendChild(sp)};
-      V.sections.forEach(function(S){vb.appendChild(el("h3",null,S.h));var ul=el("ul","vl");S.items.forEach(function(I){var li=el("li");li.appendChild(el("b",null,I.t+": "));li.appendChild(document.createTextNode(I.d));cite(li,I.src);ul.appendChild(li)});vb.appendChild(ul)});
+      V.sections.forEach(function(S){vb.appendChild(el("h3",null,S.h));var ul=el("ul","vl");(S.items||[]).forEach(function(I){var li=el("li");li.appendChild(el("b",null,I.t+": "));li.appendChild(document.createTextNode(I.d));cite(li,I.src);ul.appendChild(li)});vb.appendChild(ul)});
       if(V.journals&&V.journals.length){vb.appendChild(el("h3",null,"투고 학술지 후보"));var wr=el("div","scroll"),tb=el("table"),th=el("thead"),hr=el("tr");["학술지","역할","색인·지표","맞는 점","비용·형식"].forEach(function(x){hr.appendChild(el("th",null,x))});th.appendChild(hr);tb.appendChild(th);var bd=el("tbody");
         V.journals.forEach(function(J){var tr=el("tr"),c0=el("td");c0.appendChild(el("b",null,J.name));cite(c0,J.src);tr.appendChild(c0);[J.role,J.idx,J.fit,J.cost].forEach(function(v){tr.appendChild(el("td",null,v))});bd.appendChild(tr)});
         tb.appendChild(bd);wr.appendChild(tb);vb.appendChild(wr);if(V.journalNote)vb.appendChild(el("p","note",V.journalNote))}
       if(V.todo&&V.todo.length){vb.appendChild(el("h3",null,"투고 준비로 할 일"));var tu=el("ul","vtodo");V.todo.forEach(function(x){tu.appendChild(el("li",null,x))});vb.appendChild(tu)}
-      if(V.refs&&V.refs.length){vb.appendChild(el("h3",null,"출처"));var ro=el("ol","vref");V.refs.forEach(function(R){var li=el("li");li.id="vref"+R.n;li.value=R.n;var a=el("a",null,R.t);a.href=R.url;a.target="_blank";a.rel="noopener noreferrer";li.appendChild(a);ro.appendChild(li)});vb.appendChild(ro)}
-    }
+      if(V.refs&&V.refs.length){vb.appendChild(el("h3",null,"출처"));var ro=el("ol","vref");V.refs.forEach(function(R){var li=el("li");li.id="vref"+R.n;li.value=R.n;var a=el("a",null,R.t);if(/^https?:\/\//i.test(R.url||""))a.href=R.url;a.target="_blank";a.rel="noopener noreferrer";li.appendChild(a);ro.appendChild(li)});vb.appendChild(ro)}
+    }});
   }
   function fail(){["wkList"].forEach(function(id){var x=$(id);x.textContent="";x.appendChild(el("li","note","일정을 불러오지 못했습니다. 새로고침(F5)해 주세요."))})}
-  fetch("progress.json?t="+Math.floor(Date.now()/6e4),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(draw).catch(fail);
+  fetch("progress.json?t="+Math.floor(Date.now()/6e4),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(draw,function(e){if(window.console)console.error("progress.json 불러오기 실패",e);fail()});
 })();
 </script>
 <script>
